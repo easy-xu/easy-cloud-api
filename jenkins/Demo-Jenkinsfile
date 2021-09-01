@@ -9,8 +9,8 @@ pipeline {
     }
     stage('发布到 maven 制品库') {
       steps {
-          mvn clean install
-          mvn deploy -s ./maven/settings.xml
+          sh 'mvn clean install'
+          sh 'mvn deploy -s ./maven/settings.xml'
       }
     }
   }
