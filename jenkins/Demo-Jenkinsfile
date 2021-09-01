@@ -1,17 +1,23 @@
 pipeline {
   agent any
-  stages  {
-    stage("检出") {
-        steps {
-            checkout([
-              $class: 'GitSCM',
-              branches: [[name: env.GIT_BUILD_REF]],
-              userRemoteConfigs: [[
-                url: env.GIT_REPO_URL,
-                credentialsId: env.CREDENTIALS_ID
-            ]]])
-            echo "检查成功，分支："[[name: env.GIT_BUILD_REF]]
-        }
+  stages {
+    stage('检出') {
+      steps {
+        checkout([$class: 'GitSCM', branches: [[name: env.GIT_BUILD_REF]],
+            userRemoteConfigs: [[url: env.GIT_REPO_URL, credentialsId: env.CREDENTIALS_ID]]])
+      }
+    }
+    stage('发布到 maven 制品库') {
+      steps {
+        withCredentials([
+          usernamePassword(
+              // CODING 持续集成的环境变量中内置了一个用于上传到当前项目制品库的凭证
+              credentialsId: env.CODING_ARTIFACTS_CREDENTIALS_ID
+          )]) {
+                sh 'mvn clean install'
+                sh 'mvn deploy -s ./maven/settings.xml'
+          }
+      }
     }
   }
 }
