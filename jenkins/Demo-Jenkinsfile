@@ -15,7 +15,7 @@ pipeline {
     stage("单元测试") {
 
     }
-    stage("单元测试") {
+    stage("构建") {
 
     }
   }
