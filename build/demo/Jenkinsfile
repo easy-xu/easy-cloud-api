@@ -25,11 +25,8 @@ pipeline {
                         sh 'mvn deploy -s ./maven/settings.xml'
                     }
                 }
-            }
-            steps {
                 sh 'cp ${WORKSPACE_PATH}/cloud-application/demo-application/target/demo-application-1.0.jar ${WORKSPACE_PATH}/build/demo/application.jar'
             }
-
         }
         stage('构建 Docker 镜像') {
             steps {
