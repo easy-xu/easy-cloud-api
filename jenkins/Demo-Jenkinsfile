@@ -9,15 +9,14 @@ pipeline {
               userRemoteConfigs: [[
                 url: env.GIT_REPO_URL,
                 credentialsId: env.CREDENTIALS_ID
-              ]]])
-            }
+            ]]])
         }
     }
     stage("单元测试") {
 
     }
     stage("单元测试") {
-    
+
     }
   }
 }
