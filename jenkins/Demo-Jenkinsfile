@@ -15,7 +15,7 @@ pipeline {
               credentialsId: env.CODING_ARTIFACTS_CREDENTIALS_ID
           )]) {
                 sh 'mvn clean install'
-                sh 'mvn deploy -s ./maven/settings.xml'
+                sh 'mvn deploy -s ../maven/settings.xml'
           }
       }
     }
