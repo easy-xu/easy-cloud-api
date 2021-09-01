@@ -25,11 +25,13 @@ pipeline {
                         sh 'mvn deploy -s ./maven/settings.xml'
                     }
                 }
-                sh 'cp ${WORKSPACE_PATH}/cloud-application/demo-application/target/demo-application-1.0.jar ${WORKSPACE_PATH}/build/demo/application.jar'
             }
         }
         stage('构建 Docker 镜像') {
             steps {
+                //准备文件
+                sh 'cp ${WORKSPACE_PATH}/cloud-application/demo-application/target/demo-application ${WORKSPACE_PATH}/build/demo/application.jar'
+                //构建镜像
                 dir('./build/demo/'){
                     script {
                         if (env.TAG_NAME ==~ /.*/) {
