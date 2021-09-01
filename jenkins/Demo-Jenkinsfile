@@ -10,7 +10,7 @@ pipeline {
                 url: env.GIT_REPO_URL,
                 credentialsId: env.CREDENTIALS_ID
             ]]])
-            echo "检查成功，分支：[[name: env.GIT_BUILD_REF]]"
+            echo "检查成功，分支："[[name: env.GIT_BUILD_REF]]
         }
     }
   }
