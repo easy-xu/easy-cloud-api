@@ -146,4 +146,14 @@
             <artifactId>lombok</artifactId>
         </dependency>
     </dependencies>
+
+    <!-- omitted xml -->
+    <distributionManagement>
+        <repository>
+            <!--必须与 settings.xml 的 id 一致-->
+            <id>simplecloud-dev-ops-maven-default</id>
+            <name>maven-default</name>
+            <url>https://simplecloud-maven.pkg.coding.net/repository/dev-ops/maven-default/</url>
+        </repository>
+    </distributionManagement>
 </project>
