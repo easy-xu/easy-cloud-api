@@ -22,7 +22,7 @@ pipeline {
                             "CODING_ARTIFACTS_PASSWORD=${CODING_ARTIFACTS_PASSWORD}"
                     ]) {
                         sh 'mvn clean install'
-                        sh 'mvn deploy -s ./settings.xml'
+                        sh 'mvn deploy -s ./maven/settings.xml'
                     }
                 }
             }
