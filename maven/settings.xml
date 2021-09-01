@@ -3,8 +3,8 @@
     <servers>
         <server>
             <id>simplecloud-dev-ops-maven-default</id>
-            <username>maven-default-1630464148102</username>
-            <password>aa80bdbfb751dc2a3a7b08bfe621e2bde336a7cf</password>
+            <username>${env.CODING_ARTIFACTS_USERNAME}</username>
+            <password>${env.CODING_ARTIFACTS_PASSWORD}</password>
         </server>
     </servers>
 </settings>

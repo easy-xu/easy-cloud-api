@@ -10,8 +10,21 @@ pipeline {
         }
         stage('发布到 maven 制品库') {
             steps {
-                sh 'mvn clean install'
-                sh 'mvn deploy -s ./maven/settings.xml'
+                withCredentials([
+                        usernamePassword(
+                                // CODING 持续集成的环境变量中内置了一个用于上传到当前项目制品库的凭证
+                                credentialsId: env.CODING_ARTIFACTS_CREDENTIALS_ID,
+                                usernameVariable: 'CODING_ARTIFACTS_USERNAME',
+                                passwordVariable: 'CODING_ARTIFACTS_PASSWORD'
+                        )]) {
+                    withEnv([
+                            "CODING_ARTIFACTS_USERNAME=${CODING_ARTIFACTS_USERNAME}",
+                            "CODING_ARTIFACTS_PASSWORD=${CODING_ARTIFACTS_PASSWORD}"
+                    ]) {
+                        sh 'mvn clean install'
+                        sh 'mvn deploy -s ./settings.xml'
+                    }
+                }
             }
         }
         stage('构建 Docker 镜像') {
