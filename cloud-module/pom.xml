@@ -8,14 +8,22 @@
         <version>1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
-    <groupId>pro.simplecloud.base</groupId>
-    <artifactId>cloud-base</artifactId>
     <packaging>pom</packaging>
-
     <modules>
-        <module>base-core</module>
+        <module>module-datasource</module>
+        <module>module-id-generator</module>
+        <module>module-token</module>
+        <module>module-web</module>
     </modules>
 
+    <groupId>pro.simplecloud.model</groupId>
+    <artifactId>cloud-module</artifactId>
 
+
+    <dependencies>
+        <dependency>
+            <groupId>pro.simplecloud.base</groupId>
+            <artifactId>base-core</artifactId>
+        </dependency>
+    </dependencies>
 </project>

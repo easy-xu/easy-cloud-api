@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %highlight(%level) [%X{requestId}] [%X{user}] %cyan(%-36logger{36}) - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+    <!-- 1. 输出SQL 到控制台和文件-->
+    <logger name="org.hibernate.SQL" additivity="false">
+        <!--<level value="DEBUG"/>-->
+        <level value="Info"/>
+        <appender-ref ref="console"/>
+    </logger>
+
+    <!-- 2. 输出SQL 的参数到控制台和文件-->
+    <logger name="org.hibernate.type.descriptor.sql.BasicBinder" additivity="false" level="TRACE">
+        <!--<level value="TRACE"/>-->
+        <level value="Info"/>
+        <appender-ref ref="console"/>
+    </logger>
+    <root level="Info">
+        <appender-ref ref="console"/>
+    </root>
+</configuration>

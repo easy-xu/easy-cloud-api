@@ -1,0 +1,9 @@
+# Spring
+spring:
+  application:
+    # 应用名称
+    name: user-service
+  profiles:
+    # 环境配置
+    active: dev
+    include: base,datasouce-${spring.profiles.active}

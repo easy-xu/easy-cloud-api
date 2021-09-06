@@ -3,19 +3,12 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>pro.simplecloud</groupId>
-        <artifactId>simple-cloud</artifactId>
+        <artifactId>cloud-module</artifactId>
+        <groupId>pro.simplecloud.model</groupId>
         <version>1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>pro.simplecloud.base</groupId>
-    <artifactId>cloud-base</artifactId>
-    <packaging>pom</packaging>
-
-    <modules>
-        <module>base-core</module>
-    </modules>
-
+    <artifactId>module-id-generator</artifactId>
 
 </project>
