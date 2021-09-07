@@ -4,7 +4,7 @@ import pro.simplecloud.exception.code.BusinessExceptionEnum;
 
 /**
  * Title: BusinessException
- * Description:
+ * Description: 需要特殊处理逻辑的业务异常
  *
  * @author Xu Honglin
  * @version 1.0

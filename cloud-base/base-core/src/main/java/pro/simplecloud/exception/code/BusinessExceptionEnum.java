@@ -17,7 +17,7 @@ public enum BusinessExceptionEnum {
      */
     BUSINESS_ERROR(5000, "business error"),
 
-    NOT_LOGIN(5001, "not login"),
+    ALREADY_SIGN_IN(5001, "用户名已注册"),
 
     ERROR_LOGIN(5002, "username or password error");
 

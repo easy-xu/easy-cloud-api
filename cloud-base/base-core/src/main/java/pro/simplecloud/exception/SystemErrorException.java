@@ -2,7 +2,7 @@ package pro.simplecloud.exception;
 
 /**
  * Title: SystemErrorException
- * Description:
+ * Description: 系统内部异常
  *
  * @author Xu Honglin
  * @version 1.0
