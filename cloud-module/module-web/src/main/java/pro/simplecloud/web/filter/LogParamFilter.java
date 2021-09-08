@@ -2,7 +2,7 @@ package pro.simplecloud.web.filter;
 
 
 import org.slf4j.MDC;
-import pro.simplecloud.web.api.ApiHeader;
+import pro.simplecloud.web.entity.ApiHeader;
 import pro.simplecloud.web.device.ApiHeaderHelper;
 
 import javax.servlet.*;

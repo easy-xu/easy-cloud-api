@@ -1,8 +1,9 @@
 package pro.simplecloud.web.filter;
 
+import org.springframework.util.StringUtils;
 import pro.simplecloud.utils.IpAddressUtils;
 import pro.simplecloud.utils.UserTokenUtils;
-import pro.simplecloud.web.api.ApiHeader;
+import pro.simplecloud.web.entity.ApiHeader;
 import pro.simplecloud.web.constant.ApiHeaderTag;
 import pro.simplecloud.web.device.ApiHeaderHelper;
 
@@ -28,10 +29,10 @@ public class ApiHeaderFilter implements Filter {
         try {
             HttpServletRequest request = (HttpServletRequest) servletRequest;
             HttpServletResponse response = (HttpServletResponse) servletResponse;
-            String requestId = request.getHeader(ApiHeaderTag.REQUEST_ID.name());
-            String signature = request.getHeader(ApiHeaderTag.SIGNATURE.name());
-            String token = request.getHeader(ApiHeaderTag.TOKEN.name());
-            String timestamp = request.getHeader(ApiHeaderTag.TIMESTAMP.name());
+            String requestId = request.getHeader(ApiHeaderTag.REQUEST_ID.getName());
+            String signature = request.getHeader(ApiHeaderTag.SIGNATURE.getName());
+            String token = request.getHeader(ApiHeaderTag.TOKEN.getName());
+            String timestamp = request.getHeader(ApiHeaderTag.TIMESTAMP.getName());
             String ip = IpAddressUtils.getIpAddr(request);
             //自定义Header对象赋值
             ApiHeader header = new ApiHeader();
@@ -41,7 +42,7 @@ public class ApiHeaderFilter implements Filter {
             header.setIp(ip);
             header.setMethodPath(request.getServletPath());
             header.setMethod(request.getMethod());
-            header.setUsername(token == null ? null : UserTokenUtils.decodeToken(token));
+            header.setUsername(StringUtils.hasLength(token) ? UserTokenUtils.decodeToken(token) : null);
             header.setTimestamp(timestamp);
             ApiHeaderHelper.set(header);
             chain.doFilter(request, response);

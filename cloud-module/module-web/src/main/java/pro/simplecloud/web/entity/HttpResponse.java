@@ -1,4 +1,4 @@
-package pro.simplecloud.web.api;
+package pro.simplecloud.web.entity;
 
 import lombok.Data;
 import org.springframework.http.HttpStatus;
@@ -16,7 +16,7 @@ public class HttpResponse implements ApiResponse {
     /**
      * 请求状态码
      */
-    private int status;
+    private int code;
     /**
      * 提示信息
      */
@@ -24,8 +24,8 @@ public class HttpResponse implements ApiResponse {
 
     private Object data;
 
-    public HttpResponse(int status, String message) {
-        this.status = status;
+    public HttpResponse(int code, String message) {
+        this.code = code;
         this.message = message;
     }
 
@@ -37,5 +37,13 @@ public class HttpResponse implements ApiResponse {
         HttpResponse response = new HttpResponse(HttpStatus.OK.value(), "success");
         response.setData(data);
         return response;
+    }
+
+    public static HttpResponse error(String message) {
+        return new HttpResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), message);
+    }
+
+    public static HttpResponse error(int code, String message) {
+        return new HttpResponse(code, message);
     }
 }

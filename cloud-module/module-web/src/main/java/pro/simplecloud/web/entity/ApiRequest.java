@@ -1,4 +1,4 @@
-package pro.simplecloud.web.api;
+package pro.simplecloud.web.entity;
 
 /**
  * Title: ApiRequest

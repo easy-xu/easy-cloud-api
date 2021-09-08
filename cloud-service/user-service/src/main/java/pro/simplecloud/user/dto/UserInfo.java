@@ -1,6 +1,7 @@
 package pro.simplecloud.user.dto;
 
 import lombok.Data;
+import pro.simplecloud.web.entity.ApiRequest;
 
 /**
  * Title: UserInfo
@@ -10,7 +11,7 @@ import lombok.Data;
  * @version 1.0
  */
 @Data
-public class UserInfo {
+public class UserInfo implements ApiRequest {
     private String username;
     private String password;
     private String token;

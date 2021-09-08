@@ -1,7 +1,7 @@
 package pro.simplecloud.web.device;
 
 
-import pro.simplecloud.web.api.ApiHeader;
+import pro.simplecloud.web.entity.ApiHeader;
 
 /**
  * Title: ApiHeaderHelper
