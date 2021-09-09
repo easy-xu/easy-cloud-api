@@ -15,4 +15,11 @@ public interface UserService {
      * @param userInfo 用户信息
      */
     void signIn(UserInfo userInfo);
+
+    /**
+     * 用户登录
+     * @param userInfo 用户信息
+     * @return userInfo 用户信息
+     */
+    UserInfo login(UserInfo userInfo);
 }

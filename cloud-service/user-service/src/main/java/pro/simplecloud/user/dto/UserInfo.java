@@ -13,6 +13,7 @@ import pro.simplecloud.web.entity.ApiRequest;
 @Data
 public class UserInfo implements ApiRequest {
     private String username;
+    private String nickname;
     private String password;
     private String token;
 }

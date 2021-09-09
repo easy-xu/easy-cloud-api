@@ -27,8 +27,7 @@ public class UserController {
     @AroundLog
     @PostMapping("/login")
     public ApiResponse login(@RequestBody UserInfo userInfo){
-        String token = UserTokenUtils.generateToken(userInfo.getUsername());
-        userInfo.setToken(token);
+        userInfo = userService.login(userInfo);
         return HttpResponse.ok(userInfo);
     }
 
