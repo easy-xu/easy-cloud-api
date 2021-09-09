@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import pro.simplecloud.constant.Messages;
 import pro.simplecloud.exception.RequestException;
 import pro.simplecloud.exception.SystemErrorException;
 import pro.simplecloud.user.dto.UserInfo;
@@ -33,14 +34,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void signIn(UserInfo userInfo) {
-        if (userInfo == null || !StringUtils.hasLength(userInfo.getUsername())) {
-            throw new RequestException("用户名不能为为空");
-        }
         //是否重复注册
         QueryWrapper<UserMaster> queryWrapper = new QueryWrapper<UserMaster>().eq("username", userInfo.getUsername());
         int count = userMasterService.count(queryWrapper);
         if (count >= 1) {
-            throw new RequestException("用户名已注册");
+            throw new RequestException(Messages.USERNAME_EXIST);
         }
         //新增注册数据
         UserMaster userMaster = new UserMaster();
@@ -53,18 +51,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserInfo login(UserInfo userInfo) {
 
-        if (userInfo == null || !StringUtils.hasLength(userInfo.getUsername())) {
-            throw new RequestException("用户名不能为为空");
-        }
         //查询用户
         LambdaQueryWrapper<UserMaster> queryWrapper = Wrappers.lambdaQuery();
         queryWrapper.eq(UserMaster::getUsername, userInfo.getUsername())
                 .eq(UserMaster::getPassword, PasswordUtils.encrypt(userInfo.getPassword()));
         List<UserMaster> userMasters = userMasterService.list(queryWrapper);
         if (userMasters.isEmpty()) {
-            throw new RequestException("用户名或密码错误");
+            throw new RequestException(Messages.LOGIN_ERROR);
         } else if (userMasters.size() > 1) {
-            throw new SystemErrorException("数据错误");
+            throw new SystemErrorException(Messages.DB_DATA_ERROR);
         }
         UserMaster userMaster = userMasters.get(0);
         userInfo.setNickname(userMaster.getNickname());

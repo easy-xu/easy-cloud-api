@@ -1,11 +1,12 @@
-package pro.simplecloud.demo;
+package pro.simplecloud.quna;
 
 import lombok.extern.slf4j.Slf4j;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * Title: Application
+ * Title: QuestionnaireApplication
  * Description:
  *
  * @author Xu Honglin
@@ -15,10 +16,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @Slf4j
 @SpringBootApplication
-public class Application {
+@MapperScan("pro.simplecloud.*.mapper")
+public class QuestionnaireApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
-        log.info("示例服务启动成功！！！");
+        SpringApplication.run(QuestionnaireApplication.class, args);
+        log.info("问卷服务启动成功！！！");
     }
 }

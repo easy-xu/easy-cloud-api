@@ -1,7 +1,7 @@
 package pro.simplecloud.user.dto;
 
 import lombok.Data;
-import pro.simplecloud.web.entity.ApiRequest;
+import pro.simplecloud.entity.ApiRequest;
 
 /**
  * Title: UserInfo

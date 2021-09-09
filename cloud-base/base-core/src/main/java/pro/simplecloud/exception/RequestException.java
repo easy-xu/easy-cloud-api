@@ -1,5 +1,7 @@
 package pro.simplecloud.exception;
 
+import pro.simplecloud.constant.Messages;
+
 /**
  * Title: RequestException
  * Description: 客户端错误，只提示异常信息
@@ -10,5 +12,9 @@ package pro.simplecloud.exception;
 public class RequestException extends BaseException{
     public RequestException(String message) {
         super(400, message);
+    }
+
+    public RequestException(Messages messages) {
+        super(messages);
     }
 }

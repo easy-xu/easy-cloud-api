@@ -1,4 +1,4 @@
-package pro.simplecloud.web.entity;
+package pro.simplecloud.entity;
 
 import lombok.Data;
 

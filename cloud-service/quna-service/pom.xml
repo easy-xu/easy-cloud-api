@@ -9,23 +9,18 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>demo-service</artifactId>
+    <artifactId>quna-service</artifactId>
 
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>pro.simplecloud.model</groupId>
+            <artifactId>module-web</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
+            <groupId>pro.simplecloud.model</groupId>
+            <artifactId>module-datasource</artifactId>
         </dependency>
     </dependencies>
 

@@ -15,8 +15,8 @@ import pro.simplecloud.system.entity.SysApiLog;
 import pro.simplecloud.system.service.ISysApiLogService;
 import pro.simplecloud.utils.BeanUtils;
 import pro.simplecloud.web.device.ApiHeaderHelper;
-import pro.simplecloud.web.entity.ApiHeader;
-import pro.simplecloud.web.entity.HttpResponse;
+import pro.simplecloud.entity.ApiHeader;
+import pro.simplecloud.entity.HttpResponse;
 
 import javax.annotation.Resource;
 
@@ -85,7 +85,7 @@ public class SysApiLogAspect {
         //注解校验参数异常
         if (ex instanceof IllegalArgumentException) {
             log.error(ex.getMessage());
-            return HttpResponse.error(400, ex.getMessage());
+            return HttpResponse.reject(ex.getMessage());
         }
         //自定义异常
         else if (ex instanceof BaseException) {
@@ -93,7 +93,7 @@ public class SysApiLogAspect {
             return HttpResponse.error(((BaseException) ex).getCode(), ex.getMessage());
         }
         log.error(ex.getMessage(), ex);
-        return HttpResponse.error(ex.getMessage());
+        return HttpResponse.error(500, ex.getMessage());
     }
 
 }

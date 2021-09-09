@@ -1,5 +1,7 @@
 package pro.simplecloud.exception;
 
+import pro.simplecloud.constant.Messages;
+
 /**
  * Title: SystemErrorException
  * Description: 系统内部异常
@@ -17,5 +19,13 @@ public class SystemErrorException extends BaseException {
 
     public SystemErrorException(String message) {
         super(500, message);
+    }
+
+    public SystemErrorException(Messages messages, Throwable cause) {
+        super(messages, cause);
+    }
+
+    public SystemErrorException(Messages messages) {
+        super(messages);
     }
 }

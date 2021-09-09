@@ -11,8 +11,8 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
+import pro.simplecloud.utils.Timer;
 import pro.simplecloud.web.annotation.AroundLog;
-import pro.simplecloud.web.entity.ApiResponse;
 
 import java.lang.reflect.Method;
 
@@ -33,21 +33,27 @@ public class AroundLogAspect {
 
     @Around("@annotation(pro.simplecloud.web.annotation.AroundLog)")
     public Object controllerAround(ProceedingJoinPoint joinPoint) throws Throwable {
+
+        Timer timer = new Timer();
+        timer.start();
         AroundLog aroundLog = getAnnotationLog(joinPoint);
         String apiName = aroundLog.apiName();
         if (!StringUtils.hasLength(apiName)) {
             apiName = joinPoint.getSignature().getName();
         }
         log.info("---- {} start ----", apiName);
+        Object[] args = joinPoint.getArgs();
+        for (Object arg : args) {
+            log.info("{} input: {}", apiName, arg);
+        }
         Object response = null;
         try {
-            response = joinPoint.proceed(joinPoint.getArgs());
-            if (response instanceof ApiResponse) {
-                log.info("{} response code: {}", apiName, ((ApiResponse) response).getCode());
-                log.info("{} response message: {}", apiName, ((ApiResponse) response).getMessage());
-            }
+            response = joinPoint.proceed(args);
+            log.info("{} output: {}", apiName, response);
+
         } finally {
-            log.info("---- {} end ----", apiName);
+            int useTime = timer.end();
+            log.info("---- {} end, user time {}----", apiName, useTime);
         }
         return response;
     }

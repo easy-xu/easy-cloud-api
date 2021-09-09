@@ -1,6 +1,6 @@
 package pro.simplecloud.exception;
 
-import pro.simplecloud.exception.code.BusinessExceptionEnum;
+import pro.simplecloud.constant.Messages;
 
 /**
  * Title: BusinessException
@@ -13,11 +13,11 @@ import pro.simplecloud.exception.code.BusinessExceptionEnum;
  */
 public class BusinessException extends BaseException {
 
-    public BusinessException(BusinessExceptionEnum exceptionEnum) {
-        super(exceptionEnum.code, exceptionEnum.message);
+    public BusinessException(Messages messages) {
+        super(messages.getCode(), messages.getMessage());
     }
 
-    public BusinessException(BusinessExceptionEnum exceptionEnum, String message) {
-        super(exceptionEnum.code, message);
+    public BusinessException(Messages messagesEnum, String message) {
+        super(messagesEnum.getCode(), message);
     }
 }

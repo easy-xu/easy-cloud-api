@@ -1,0 +1,10 @@
+# Spring
+spring:
+  application:
+    # 应用名称
+    name: quna-service
+  profiles:
+    # 环境配置
+    active:
+      - base
+      - datasource-dev
