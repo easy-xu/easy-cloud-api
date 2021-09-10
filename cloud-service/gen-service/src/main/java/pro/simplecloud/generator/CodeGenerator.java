@@ -1,51 +1,31 @@
 package pro.simplecloud.generator;
 
 
-import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
-import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
-import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.po.TableFill;
-import com.baomidou.mybatisplus.generator.config.po.TableInfo;
-import com.baomidou.mybatisplus.generator.config.rules.FileType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.cloud.client.circuitbreaker.ConfigBuilder;
+import pro.simplecloud.entity.BaseEntity;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
-import static com.baomidou.mybatisplus.annotation.FieldFill.*;
+import static com.baomidou.mybatisplus.annotation.FieldFill.INSERT;
+import static com.baomidou.mybatisplus.annotation.FieldFill.INSERT_UPDATE;
 
 /**
  * MyBatisPlus 官方示例修改
  */
 public class CodeGenerator {
 
-    /**
-     * <p>
-     * 读取控制台内容
-     * </p>
-     */
-    public static String scanner(String tip) {
-        Scanner scanner = new Scanner(System.in);
-        StringBuilder help = new StringBuilder();
-        help.append("请输入" + tip + "：");
-        System.out.println(help.toString());
-        if (scanner.hasNext()) {
-            String ipt = scanner.next();
-            if (StringUtils.isNotBlank(ipt)) {
-                return ipt;
-            }
-        }
-        throw new MybatisPlusException("请输入正确的" + tip + "！");
-    }
 
     public static void main(String[] args) {
+        generate("system", "sys_api_log");
+        generate("user", "user_master");
+        generate("quna", "quna_config_questionnaire","quna_config_question","quna_config_option","quna_answer_questionnaire","quna_answer_question");
+    }
+
+    private static void generate(String module, String... table) {
         // 代码生成器
         AutoGenerator mpg = new AutoGenerator();
 
@@ -68,7 +48,7 @@ public class CodeGenerator {
 
         // 包配置
         PackageConfig pc = new PackageConfig();
-        pc.setModuleName(scanner("模块名"));
+        pc.setModuleName(module);
         pc.setParent("pro.simplecloud");
         mpg.setPackageInfo(pc);
 
@@ -87,10 +67,13 @@ public class CodeGenerator {
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
         strategy.setEntityLombokModel(true);
         strategy.setRestControllerStyle(true);
-        strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
+        strategy.setInclude(table);
         strategy.setControllerMappingHyphenStyle(true);
+        //设置父类
+        strategy.setSuperEntityClass(BaseEntity.class);
+        strategy.setSuperEntityColumns("deleted", "create_by", "create_time", "update_by", "update_time");
         //逻辑删除
-        strategy.setLogicDeleteFieldName("delFlag");
+        strategy.setLogicDeleteFieldName("deleted");
         //自动充填
         ArrayList<TableFill> tableFills = new ArrayList<>();
         tableFills.add(new TableFill("createTime", INSERT));

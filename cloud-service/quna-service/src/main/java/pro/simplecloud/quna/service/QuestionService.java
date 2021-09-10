@@ -12,8 +12,9 @@ import pro.simplecloud.quna.dto.QuestionDto;
 public interface QuestionService {
     /**
      * 查询问题详情
+     *
      * @param questionId 问题ID
      * @return QuestionDto
      */
-    QuestionDto getQuestionDetail(String questionId);
+    QuestionDto getDetail(String questionId);
 }

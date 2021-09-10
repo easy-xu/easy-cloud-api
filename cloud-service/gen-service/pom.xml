@@ -17,6 +17,10 @@
             <artifactId>base-core</artifactId>
         </dependency>
         <dependency>
+            <groupId>pro.simplecloud.model</groupId>
+            <artifactId>module-datasource</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-generator</artifactId>
         </dependency>

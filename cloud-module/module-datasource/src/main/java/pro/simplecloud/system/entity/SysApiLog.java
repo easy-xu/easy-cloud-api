@@ -1,9 +1,8 @@
 package pro.simplecloud.system.entity;
 
+import pro.simplecloud.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
-import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -13,11 +12,11 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author Generator
- * @since 2021-09-08
+ * @since 2021-09-10
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-public class SysApiLog implements Serializable {
+@EqualsAndHashCode(callSuper = true)
+public class SysApiLog extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -68,24 +67,9 @@ public class SysApiLog implements Serializable {
     private String responseMessage;
 
     /**
-     * 创建者
+     * 删除标志（0正常 1停用）
      */
-    private String createBy;
-
-    /**
-     * 创建时间
-     */
-    private LocalDateTime createTime;
-
-    /**
-     * 更新时间
-     */
-    private LocalDateTime updateTime;
-
-    /**
-     * 更新者
-     */
-    private String updateBy;
+    private String status;
 
 
 }

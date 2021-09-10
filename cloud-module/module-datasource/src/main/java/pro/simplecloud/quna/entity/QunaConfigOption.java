@@ -1,9 +1,8 @@
 package pro.simplecloud.quna.entity;
 
+import pro.simplecloud.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
-import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -16,8 +15,8 @@ import lombok.EqualsAndHashCode;
  * @since 2021-09-10
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-public class QunaConfigOption implements Serializable {
+@EqualsAndHashCode(callSuper = true)
+public class QunaConfigOption extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -38,34 +37,9 @@ public class QunaConfigOption implements Serializable {
     private String text;
 
     /**
-     * 选项状态（0正常 1停用）
+     * 选项值
      */
-    private String status;
-
-    /**
-     * 删除标志（0代表存在 1代表删除）
-     */
-    private String delFlag;
-
-    /**
-     * 创建者
-     */
-    private String createBy;
-
-    /**
-     * 创建时间
-     */
-    private LocalDateTime createTime;
-
-    /**
-     * 更新者
-     */
-    private String updateBy;
-
-    /**
-     * 更新时间
-     */
-    private LocalDateTime updateTime;
+    private String value;
 
 
 }

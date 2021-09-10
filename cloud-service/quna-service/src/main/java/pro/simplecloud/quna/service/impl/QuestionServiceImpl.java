@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springframework.stereotype.Service;
 import pro.simplecloud.constant.Messages;
-import pro.simplecloud.constant.Status;
 import pro.simplecloud.exception.RequestException;
 import pro.simplecloud.quna.dto.OptionDto;
 import pro.simplecloud.quna.dto.QuestionDto;
@@ -42,19 +41,18 @@ public class QuestionServiceImpl implements QuestionService {
     private IQunaConfigOptionService optionService;
 
     @Override
-    public QuestionDto getQuestionDetail(String questionId) {
+    public QuestionDto getDetail(String questionId) {
         //查询问题
         QunaConfigQuestion question = questionService.getById(questionId);
         if (question == null) {
             throw new RequestException(Messages.NOT_FOUND);
         }
         //查询主配置
-        Long configId = question.getQunaId();
-        QunaConfigQuestionnaire questionnaire = questionnaireService.getById(configId);
+        Long questionnaireId = question.getQuestionnaireId();
+        QunaConfigQuestionnaire questionnaire = questionnaireService.getById(questionnaireId);
         //查询问题配置
         LambdaQueryWrapper<QunaConfigOption> queryWrapper = Wrappers.lambdaQuery();
-        queryWrapper.eq(QunaConfigOption::getQuestionId, questionId)
-                .eq(QunaConfigOption::getStatus, Status.ACTIVE.getCode());
+        queryWrapper.eq(QunaConfigOption::getQuestionId, questionId);
         List<QunaConfigOption> options = optionService.list(queryWrapper);
         //数据封装 QuestionnaireDto
         QuestionnaireDto questionnaireDto = new QuestionnaireDto();

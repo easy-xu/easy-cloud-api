@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author Generator
- * @since 2021-09-08
+ * @since 2021-09-10
  */
 public interface SysApiLogMapper extends BaseMapper<SysApiLog> {
 

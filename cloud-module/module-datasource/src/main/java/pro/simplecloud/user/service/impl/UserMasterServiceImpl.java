@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author Generator
- * @since 2021-09-07
+ * @since 2021-09-10
  */
 @Service
 public class UserMasterServiceImpl extends ServiceImpl<UserMasterMapper, UserMaster> implements IUserMasterService {

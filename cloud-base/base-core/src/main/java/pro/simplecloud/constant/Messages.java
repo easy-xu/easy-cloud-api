@@ -22,7 +22,10 @@ public enum Messages {
     LOGIN_ERROR(400, "用户名或密码错误"),
     ID_EMPTY(400, "ID不能为空"),
 
+    ALREADY_DONE(400, "请勿重复操作"),
     NOT_FOUND(400, "数据不存在"),
+    NOT_READABLE(400, "数据已停用"),
+
     /**
      * 服务端错误
      */

@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pro.simplecloud.constant.Messages;
 import pro.simplecloud.entity.ApiResponse;
+import pro.simplecloud.entity.HttpResponse;
 import pro.simplecloud.quna.dto.QuestionDto;
 import pro.simplecloud.quna.service.QuestionService;
-import pro.simplecloud.entity.HttpResponse;
 
 import javax.annotation.Resource;
 
@@ -28,11 +28,11 @@ public class QuestionController {
     private QuestionService questionService;
 
     @GetMapping("/get/{questionId}")
-    public ApiResponse getQuestion(@PathVariable String questionId){
-        if (!StringUtils.hasLength(questionId)){
+    public ApiResponse getQuestion(@PathVariable String questionId) {
+        if (!StringUtils.hasLength(questionId)) {
             return HttpResponse.reject(Messages.ID_EMPTY);
         }
-        QuestionDto questionDto = questionService.getQuestionDetail(questionId);
+        QuestionDto questionDto = questionService.getDetail(questionId);
         return HttpResponse.ok(questionDto);
     }
 }

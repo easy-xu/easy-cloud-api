@@ -18,4 +18,5 @@ public class QuestionDto implements ApiRequest {
     private QuestionnaireDto questionnaire;
     private String question;
     private List<OptionDto> options;
+
 }
