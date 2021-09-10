@@ -15,7 +15,7 @@ import java.util.List;
 @Data
 public class QuestionDto implements ApiRequest {
 
-    private String title;
+    private QuestionnaireDto questionnaire;
     private String question;
     private List<OptionDto> options;
 }

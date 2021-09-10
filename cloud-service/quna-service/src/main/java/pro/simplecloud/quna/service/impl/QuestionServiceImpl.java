@@ -8,13 +8,15 @@ import pro.simplecloud.constant.Status;
 import pro.simplecloud.exception.RequestException;
 import pro.simplecloud.quna.dto.OptionDto;
 import pro.simplecloud.quna.dto.QuestionDto;
-import pro.simplecloud.quna.entity.QunaConfig;
+import pro.simplecloud.quna.dto.QuestionnaireDto;
 import pro.simplecloud.quna.entity.QunaConfigOption;
 import pro.simplecloud.quna.entity.QunaConfigQuestion;
+import pro.simplecloud.quna.entity.QunaConfigQuestionnaire;
 import pro.simplecloud.quna.service.IQunaConfigOptionService;
 import pro.simplecloud.quna.service.IQunaConfigQuestionService;
-import pro.simplecloud.quna.service.IQunaConfigService;
+import pro.simplecloud.quna.service.IQunaConfigQuestionnaireService;
 import pro.simplecloud.quna.service.QuestionService;
+import pro.simplecloud.utils.BeanUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -31,38 +33,42 @@ import java.util.stream.Collectors;
 public class QuestionServiceImpl implements QuestionService {
 
     @Resource
-    private IQunaConfigQuestionService configQuestionService;
+    private IQunaConfigQuestionService questionService;
 
     @Resource
-    private IQunaConfigService configService;
+    private IQunaConfigQuestionnaireService questionnaireService;
 
     @Resource
-    private IQunaConfigOptionService configOptionService;
+    private IQunaConfigOptionService optionService;
 
     @Override
     public QuestionDto getQuestionDetail(String questionId) {
         //查询问题
-        QunaConfigQuestion configQuestion = configQuestionService.getById(questionId);
-        if (configQuestion == null) {
+        QunaConfigQuestion question = questionService.getById(questionId);
+        if (question == null) {
             throw new RequestException(Messages.NOT_FOUND);
         }
         //查询主配置
-        Long configId = configQuestion.getQunaId();
-        QunaConfig config = configService.getById(configId);
+        Long configId = question.getQunaId();
+        QunaConfigQuestionnaire questionnaire = questionnaireService.getById(configId);
         //查询问题配置
         LambdaQueryWrapper<QunaConfigOption> queryWrapper = Wrappers.lambdaQuery();
         queryWrapper.eq(QunaConfigOption::getQuestionId, questionId)
-                .eq(QunaConfigOption::getStatus, Status.ACTIVE);
-        List<QunaConfigOption> configOptions = configOptionService.list(queryWrapper);
-        //数据封装
-        List<OptionDto> optionDtos = configOptions.stream().map(option -> {
+                .eq(QunaConfigOption::getStatus, Status.ACTIVE.getCode());
+        List<QunaConfigOption> options = optionService.list(queryWrapper);
+        //数据封装 QuestionnaireDto
+        QuestionnaireDto questionnaireDto = new QuestionnaireDto();
+        BeanUtils.copy(questionnaire, questionnaireDto);
+        //数据封装 OptionDto
+        List<OptionDto> optionDtos = options.stream().map(option -> {
             OptionDto optionDto = new OptionDto();
-            optionDto.setText(option.getTxt());
+            BeanUtils.copy(option, optionDto);
             return optionDto;
         }).collect(Collectors.toList());
+        //数据封装 QuestionDto
         QuestionDto questionDto = new QuestionDto();
-        questionDto.setTitle(config.getTitle());
-        questionDto.setQuestion(configQuestion.getTitle());
+        BeanUtils.copy(question, questionDto);
+        questionDto.setQuestionnaire(questionnaireDto);
         questionDto.setOptions(optionDtos);
         return questionDto;
     }
