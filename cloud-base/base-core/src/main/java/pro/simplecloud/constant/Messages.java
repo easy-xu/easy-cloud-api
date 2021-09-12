@@ -23,6 +23,7 @@ public enum Messages {
     ID_EMPTY(400, "ID不能为空"),
 
     NOT_STANDARD(400, "请求不规范"),
+    TOKEN_EXPIRED(400, "认证过期"),
     TOKEN_ERROR(400, "认证错误"),
     ALREADY_DONE(400, "请勿重复操作"),
     NOT_FOUND(400, "数据不存在"),

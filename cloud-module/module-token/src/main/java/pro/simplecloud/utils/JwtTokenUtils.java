@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import lombok.extern.slf4j.Slf4j;
@@ -31,16 +32,26 @@ public class JwtTokenUtils {
         map.put("typ", "JWT");
         JWTCreator.Builder builder = JWT.create().withHeader(map);
         claimMap.forEach(builder::withClaim);
-        return builder
-                .withIssuedAt(new Date())
-                .withExpiresAt(expiresAt)
-                .sign(Algorithm.HMAC256(SECRET));
+        if (expiresAt == null){
+            return builder
+                    .withIssuedAt(new Date())
+                    .sign(Algorithm.HMAC256(SECRET));
+        } else {
+            return builder
+                    .withIssuedAt(new Date())
+                    .withExpiresAt(expiresAt)
+                    .sign(Algorithm.HMAC256(SECRET));
+        }
     }
+
 
     public static void verifyToken(String token) {
         try {
             JWTVerifier verifier = JWT.require(Algorithm.HMAC256(SECRET)).build();
             verifier.verify(token);
+        } catch (TokenExpiredException e){
+            log.error("verify token expired: {}", e.getMessage());
+            throw new TokenErrorException(Messages.TOKEN_EXPIRED);
         } catch (Exception e) {
             log.error("verify token error: {}", e.getMessage());
             throw new TokenErrorException(Messages.TOKEN_ERROR);

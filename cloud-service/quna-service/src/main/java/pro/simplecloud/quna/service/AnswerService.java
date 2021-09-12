@@ -21,4 +21,10 @@ public interface AnswerService {
      */
     AnswerDto init(Long questionnaireId);
 
+    /**
+     * 获取回答情况
+     * @param answerId 回答id
+     * @return AnswerDto
+     */
+    AnswerDto getDetail(Long answerId);
 }

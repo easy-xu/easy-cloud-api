@@ -3,6 +3,7 @@ package pro.simplecloud.quna.service.impl;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springframework.stereotype.Service;
 import pro.simplecloud.constant.Messages;
+import pro.simplecloud.device.ApiHeaderHelper;
 import pro.simplecloud.exception.RequestException;
 import pro.simplecloud.exception.SystemErrorException;
 import pro.simplecloud.quna.constant.AnswerFlow;
@@ -51,6 +52,7 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
         //查询是否正在进行
         QunaAnswerQuestionnaire answerQuestionnaire = new QunaAnswerQuestionnaire();
         answerQuestionnaire.setQuestionnaireId(questionnaireId);
+        answerQuestionnaire.setCreateBy(ApiHeaderHelper.get().getUsername());
         List<QunaAnswerQuestionnaire> answerQuestionnaires = answerQuestionnaireService.list(Wrappers.query(answerQuestionnaire));
         if (answerQuestionnaires.size() > 1) {
             //只能有一个问题正在进行

@@ -2,6 +2,8 @@ package pro.simplecloud.quna.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springframework.stereotype.Service;
+import pro.simplecloud.constant.Messages;
+import pro.simplecloud.exception.RequestException;
 import pro.simplecloud.quna.constant.AnswerFlow;
 import pro.simplecloud.quna.dto.AnswerDto;
 import pro.simplecloud.quna.entity.QunaAnswerQuestionnaire;
@@ -40,6 +42,17 @@ public class AnswerServiceImpl implements AnswerService {
         answerQuestionnaireService.save(answerQuestionnaire);
         AnswerDto answerDto = new AnswerDto();
         BeanUtils.copy(answerQuestionnaire, answerDto);
+        return answerDto;
+    }
+
+    @Override
+    public AnswerDto getDetail(Long answerId) {
+        QunaAnswerQuestionnaire answer = answerQuestionnaireService.getById(answerId);
+        if (answer == null) {
+            throw new RequestException(Messages.NOT_FOUND);
+        }
+        AnswerDto answerDto = new AnswerDto();
+        BeanUtils.copy(answer, answerDto);
         return answerDto;
     }
 

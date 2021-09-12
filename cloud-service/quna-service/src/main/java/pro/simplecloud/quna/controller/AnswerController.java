@@ -36,4 +36,12 @@ public class AnswerController {
         return HttpResponse.ok(answerDto);
     }
 
+    @GetMapping("/get/{answerId}")
+    public ApiResponse getAnswer(@PathVariable Long answerId) {
+        if (answerId == null) {
+            return HttpResponse.reject(Messages.ID_EMPTY);
+        }
+        AnswerDto answerDto = answerService.getDetail(answerId);
+        return HttpResponse.ok(answerDto);
+    }
 }

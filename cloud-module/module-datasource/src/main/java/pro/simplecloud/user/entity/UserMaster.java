@@ -52,6 +52,11 @@ public class UserMaster extends BaseEntity {
     private String type;
 
     /**
+     * 认证
+     */
+    private String token;
+
+    /**
      * 用户邮箱
      */
     private String email;

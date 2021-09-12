@@ -15,11 +15,17 @@ public class UserTokenUtils {
     private UserTokenUtils() {
     }
 
-    public static String generateToken(String user) {
-        HashMap<String, String> claimMap = new HashMap<>();
+    public static String generateTokenWithExpire(String user) {
+        HashMap<String, String> claimMap = new HashMap<>(1);
         claimMap.put("user", user);
         Date expiresAt = new Date(System.currentTimeMillis() + 2 * 60 * 60 * 1000);
         return JwtTokenUtils.generateToken(claimMap, expiresAt);
+    }
+
+    public static String generateToken(String user) {
+        HashMap<String, String> claimMap = new HashMap<>(1);
+        claimMap.put("user", user);
+        return JwtTokenUtils.generateToken(claimMap, null);
     }
 
     public static void verifyToken(String token) {

@@ -10,6 +10,7 @@ create table user_master
     password     varchar(100) comment '密码',
     nickname     varchar(30) comment '用户昵称',
     type         varchar(2) default '00' comment '用户类型（00访客）',
+    token        varchar(300) comment '认证',
     email        varchar(50) comment '用户邮箱',
     phone_number varchar(11) comment '手机号码',
     sex          char(1)    default '2' comment '用户性别（0男 1女 2未知）',

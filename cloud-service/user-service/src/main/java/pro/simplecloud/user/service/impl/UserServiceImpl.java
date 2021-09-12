@@ -5,6 +5,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springframework.stereotype.Service;
 import pro.simplecloud.constant.Messages;
+import pro.simplecloud.constant.UserType;
+import pro.simplecloud.device.ApiHeaderHelper;
+import pro.simplecloud.entity.ApiHeader;
 import pro.simplecloud.exception.RequestException;
 import pro.simplecloud.exception.SystemErrorException;
 import pro.simplecloud.idgenerator.IDGeneratorInstance;
@@ -40,12 +43,25 @@ public class UserServiceImpl implements UserService {
         if (count >= 1) {
             throw new RequestException(Messages.USERNAME_EXIST);
         }
-        //新增注册数据
+        //更新游客信息为注册用户
+        ApiHeader apiHeader = ApiHeaderHelper.get();
+        String username = apiHeader.getUsername();
+        String token = apiHeader.getToken();
         UserMaster userMaster = new UserMaster();
-        BeanUtils.copy(userDto, userMaster);
+        userMaster.setUserNo(username);
+        userMaster.setToken(token);
+        List<UserMaster> userMasters = userMasterService.list(Wrappers.query(userMaster));
+        if (userMasters.isEmpty()) {
+            throw new RequestException(Messages.NOT_FOUND);
+        }
+        if (userMasters.size() > 1) {
+            throw new SystemErrorException(Messages.DB_DATA_ERROR);
+        }
+        userMaster = userMasters.get(0);
+        userMaster.setType(UserType.USER.code);
         //密码加密
         userMaster.setPassword(PasswordUtils.encrypt(userMaster.getPassword()));
-        userMasterService.save(userMaster);
+        userMasterService.saveOrUpdate(userMaster);
     }
 
     @Override
@@ -61,23 +77,25 @@ public class UserServiceImpl implements UserService {
             throw new SystemErrorException(Messages.DB_DATA_ERROR);
         }
         UserMaster userMaster = userMasters.get(0);
-        userDto.setNickname(userMaster.getNickname());
+        //更新token
         String token = UserTokenUtils.generateToken(userDto.getUsername());
-        userDto.setToken(token);
+        userMaster.setToken(token);
+        userMasterService.saveOrUpdate(userMaster);
+        BeanUtils.copy(userMaster, userDto);
         return userDto;
     }
 
     @Override
     public UserDto initUser() {
         String userNo = IDGeneratorInstance.USER_NO.generate();
+        String token = UserTokenUtils.generateToken(userNo);
         UserMaster userMaster = new UserMaster();
         userMaster.setUsername(userNo);
         userMaster.setUserNo(userNo);
+        userMaster.setToken(token);
         userMasterService.save(userMaster);
-        String token = UserTokenUtils.generateToken(userNo);
         UserDto userDto = new UserDto();
         BeanUtils.copy(userMaster, userDto);
-        userDto.setToken(token);
         return userDto;
     }
 }
