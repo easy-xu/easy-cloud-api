@@ -12,7 +12,7 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author Generator
- * @since 2021-09-10
+ * @since 2021-09-12
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -30,6 +30,11 @@ public class UserMaster extends BaseEntity {
      * 用户账号
      */
     private String username;
+
+    /**
+     * 用户编号
+     */
+    private String userNo;
 
     /**
      * 密码
@@ -65,11 +70,6 @@ public class UserMaster extends BaseEntity {
      * 头像地址
      */
     private String avatar;
-
-    /**
-     * 删除标志（0正常 1停用）
-     */
-    private String status;
 
 
 }

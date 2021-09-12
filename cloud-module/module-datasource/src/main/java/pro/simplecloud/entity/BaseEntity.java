@@ -2,6 +2,7 @@ package pro.simplecloud.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -19,6 +20,7 @@ public class BaseEntity {
     /**
      * 删除标志（0正常 1停用）
      */
+    @TableLogic
     private String deleted;
 
     /**

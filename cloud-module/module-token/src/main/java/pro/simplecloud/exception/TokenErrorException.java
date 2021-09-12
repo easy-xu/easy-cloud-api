@@ -1,5 +1,7 @@
 package pro.simplecloud.exception;
 
+import pro.simplecloud.constant.Messages;
+
 /**
  * Title: TokenErrorException
  * Description:
@@ -10,11 +12,7 @@ package pro.simplecloud.exception;
  * @date 2021/7/2 18:11 最后修改
  */
 public class TokenErrorException extends BaseException {
-    public TokenErrorException(String message) {
-        super(401, message);
-    }
-
-    public TokenErrorException(String message, Throwable e) {
-        super(401, message, e);
+    public TokenErrorException(Messages message) {
+        super(message.getCode(), message.getMessage());
     }
 }

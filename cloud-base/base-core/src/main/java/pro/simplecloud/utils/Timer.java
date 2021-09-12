@@ -15,8 +15,8 @@ public class Timer {
         start = System.currentTimeMillis();
     }
 
-    public int end() {
+    public long end() {
         long end = System.currentTimeMillis();
-        return (int) (end - start);
+        return end - start;
     }
 }

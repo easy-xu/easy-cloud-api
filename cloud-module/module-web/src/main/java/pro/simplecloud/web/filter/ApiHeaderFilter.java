@@ -5,7 +5,7 @@ import pro.simplecloud.utils.IpAddressUtils;
 import pro.simplecloud.utils.UserTokenUtils;
 import pro.simplecloud.entity.ApiHeader;
 import pro.simplecloud.web.constant.ApiHeaderTag;
-import pro.simplecloud.web.device.ApiHeaderHelper;
+import pro.simplecloud.device.ApiHeaderHelper;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -40,7 +40,7 @@ public class ApiHeaderFilter implements Filter {
             header.setSignature(signature);
             header.setToken(token);
             header.setIp(ip);
-            header.setMethodPath(request.getServletPath());
+            header.setPath(request.getServletPath());
             header.setMethod(request.getMethod());
             header.setUsername(StringUtils.hasLength(token) ? UserTokenUtils.decodeToken(token) : null);
             header.setTimestamp(timestamp);

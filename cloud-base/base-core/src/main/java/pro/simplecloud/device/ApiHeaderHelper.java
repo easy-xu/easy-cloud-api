@@ -1,4 +1,4 @@
-package pro.simplecloud.web.device;
+package pro.simplecloud.device;
 
 
 import pro.simplecloud.entity.ApiHeader;

@@ -35,7 +35,7 @@ public class ApiHeader {
 
     private String ip;
 
-    private String methodPath;
+    private String path;
 
     private String method;
 }

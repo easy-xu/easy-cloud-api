@@ -7,6 +7,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import lombok.extern.slf4j.Slf4j;
+import pro.simplecloud.constant.Messages;
 import pro.simplecloud.exception.TokenErrorException;
 
 import java.util.Date;
@@ -41,7 +42,8 @@ public class JwtTokenUtils {
             JWTVerifier verifier = JWT.require(Algorithm.HMAC256(SECRET)).build();
             verifier.verify(token);
         } catch (Exception e) {
-            throw new TokenErrorException("verify token error", e);
+            log.error("verify token error: {}", e.getMessage());
+            throw new TokenErrorException(Messages.TOKEN_ERROR);
         }
     }
 
@@ -53,7 +55,8 @@ public class JwtTokenUtils {
             claims.forEach((key, claim) -> map.put(key, claim.asString()));
             return map;
         } catch (Exception e) {
-            throw new TokenErrorException("decode token error", e);
+            log.error("decode token error: {}", e.getMessage());
+            throw new TokenErrorException(Messages.TOKEN_ERROR);
         }
     }
 

@@ -155,16 +155,15 @@ public class DbSequenceEngine {
             } else {
                 //不存在则新增
                 int noStep = maxNoCache.getNoStep();
-                statement = connection.prepareStatement("insert into sys_max_no (`no_type`, `no_limit`, `max_no`, `no_step`, `remark`, `create_by`, `create_time`, `update_by`, `update_time`) values (?,?,?,?,?,?,?,?,?)");
+                statement = connection.prepareStatement("insert into sys_max_no (`no_type`, `no_limit`, `max_no`, `no_step`, `create_by`, `create_time`, `update_by`, `update_time`) values (?,?,?,?,?,?,?,?)");
                 statement.setString(1, noType);
                 statement.setString(2, noLimit);
                 statement.setLong(3, noStep);
                 statement.setInt(4, noStep);
-                statement.setString(5, "");
-                statement.setString(6, DEFAULT_OPERATOR);
-                statement.setDate(7, dateTime);
-                statement.setString(8, DEFAULT_OPERATOR);
-                statement.setDate(9, dateTime);
+                statement.setString(5, DEFAULT_OPERATOR);
+                statement.setDate(6, dateTime);
+                statement.setString(7, DEFAULT_OPERATOR);
+                statement.setDate(8, dateTime);
                 if (statement.executeUpdate() != 1) {
                     throw new SQLException("insert no record");
                 } else {

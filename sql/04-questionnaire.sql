@@ -10,9 +10,9 @@ create table quna_config_questionnaire
     participant_num bigint(20) comment '参与人数',
     like_num        bigint(20) comment '喜欢个数',
     deleted         char(1) default '0' comment '删除标志（0正常 1停用）',
-    create_by       varchar(64) comment '创建者',
+    create_by       varchar(60) comment '创建者',
     create_time     datetime comment '创建时间',
-    update_by       varchar(64) comment '更新者',
+    update_by       varchar(60) comment '更新者',
     update_time     datetime comment '更新时间',
     primary key (id)
 ) engine = innodb
@@ -27,11 +27,11 @@ create table quna_config_question
     id               bigint(20) not null auto_increment comment '问题ID',
     questionnaire_id bigint(20) not null comment '问卷ID',
     title            varchar(500) comment '问题标题',
-    order_num        bigint(20) comment '问题标题',
+    order_num        bigint(20) comment '问题排序',
     deleted          char(1) default '0' comment '删除标志（0正常 1停用）',
-    create_by        varchar(64) comment '创建者',
+    create_by        varchar(60) comment '创建者',
     create_time      datetime comment '创建时间',
-    update_by        varchar(64) comment '更新者',
+    update_by        varchar(60) comment '更新者',
     update_time      datetime comment '更新时间',
     primary key (id)
 ) engine = innodb
@@ -48,9 +48,9 @@ create table quna_config_option
     text        varchar(200) comment '选项文本',
     value       varchar(60) comment '选项值',
     deleted     char(1) default '0' comment '删除标志（0正常 1停用）',
-    create_by   varchar(64) comment '创建者',
+    create_by   varchar(60) comment '创建者',
     create_time datetime comment '创建时间',
-    update_by   varchar(64) comment '更新者',
+    update_by   varchar(60) comment '更新者',
     update_time datetime comment '更新时间',
     primary key (id)
 ) engine = innodb
@@ -67,9 +67,9 @@ create table quna_answer_questionnaire
     question_index   bigint(20) comment '当前问题编号',
     flow             bigint(20) comment '问卷回答流程（0初始化 1回答中 2回答完毕 3生成结果）',
     deleted          char(1) default '0' comment '删除标志（0正常 1停用）',
-    create_by        varchar(64) comment '创建者',
+    create_by        varchar(60) comment '创建者',
     create_time      datetime comment '创建时间',
-    update_by        varchar(64) comment '更新者',
+    update_by        varchar(60) comment '更新者',
     update_time      datetime comment '更新时间',
     primary key (id)
 ) engine = innodb
@@ -87,9 +87,9 @@ create table quna_answer_question
     option_id    bigint(20) comment '问题选择选项ID',
     option_value varchar(60) comment '问题选择选项值',
     deleted      char(1) default '0' comment '删除标志（0正常 1停用）',
-    create_by    varchar(64) comment '创建者',
+    create_by    varchar(60) comment '创建者',
     create_time  datetime comment '创建时间',
-    update_by    varchar(64) comment '更新者',
+    update_by    varchar(60) comment '更新者',
     update_time  datetime comment '更新时间',
     primary key (id)
 ) engine = innodb

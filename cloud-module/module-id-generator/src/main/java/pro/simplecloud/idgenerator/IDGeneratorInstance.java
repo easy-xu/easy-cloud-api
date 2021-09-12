@@ -21,12 +21,11 @@ public enum IDGeneratorInstance implements IDGenerator {
             .append(new RandomNumGenerator(6))),
 
     /**
-     * 保单号
+     * 用户唯一编号
      */
-    POLICY_NO(new IDGeneratorBuilder().append(new ConstantStringGenerator("BE"))
+    USER_NO(new IDGeneratorBuilder().append(new ConstantStringGenerator("U"))
             .append(new DateTimeGenerator("yyyyMMdd"))
-            .append(new ConstantStringGenerator("9"))
-            .append(new FixedStringPlusGenerator(new SequenceNumPlusGenerator("policy_no", new DateTimeGenerator("yyyyMMdd"), 100), 6, "0"))),
+            .append(new FixedStringPlusGenerator(new SequenceNumPlusGenerator("user_no", new DateTimeGenerator("yyyyMMdd"), 100), 6, "0"))),
     ;
 
 

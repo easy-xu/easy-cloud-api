@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author Generator
- * @since 2021-09-10
+ * @since 2021-09-12
  */
 public interface QunaAnswerQuestionMapper extends BaseMapper<QunaAnswerQuestion> {
 

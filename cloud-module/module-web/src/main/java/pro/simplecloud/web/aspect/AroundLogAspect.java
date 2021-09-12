@@ -31,13 +31,18 @@ import java.lang.reflect.Method;
 @Component
 public class AroundLogAspect {
 
-    @Around("@annotation(pro.simplecloud.web.annotation.AroundLog)")
+    @Around("@annotation(pro.simplecloud.web.annotation.AroundLog) || execution(* pro.simplecloud..*.controller.*.*(..))")
     public Object controllerAround(ProceedingJoinPoint joinPoint) throws Throwable {
 
         Timer timer = new Timer();
         timer.start();
+        String apiName;
         AroundLog aroundLog = getAnnotationLog(joinPoint);
-        String apiName = aroundLog.apiName();
+        if (aroundLog != null) {
+            apiName = aroundLog.apiName();
+        } else {
+            apiName = joinPoint.getSignature().getName();
+        }
         if (!StringUtils.hasLength(apiName)) {
             apiName = joinPoint.getSignature().getName();
         }
@@ -52,7 +57,7 @@ public class AroundLogAspect {
             log.info("{} output: {}", apiName, response);
 
         } finally {
-            int useTime = timer.end();
+            long useTime = timer.end();
             log.info("---- {} end, user time {}----", apiName, useTime);
         }
         return response;

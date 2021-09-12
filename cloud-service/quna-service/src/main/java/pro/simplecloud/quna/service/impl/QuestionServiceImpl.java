@@ -7,10 +7,8 @@ import pro.simplecloud.constant.Messages;
 import pro.simplecloud.exception.RequestException;
 import pro.simplecloud.quna.dto.OptionDto;
 import pro.simplecloud.quna.dto.QuestionDto;
-import pro.simplecloud.quna.dto.QuestionnaireDto;
 import pro.simplecloud.quna.entity.QunaConfigOption;
 import pro.simplecloud.quna.entity.QunaConfigQuestion;
-import pro.simplecloud.quna.entity.QunaConfigQuestionnaire;
 import pro.simplecloud.quna.service.IQunaConfigOptionService;
 import pro.simplecloud.quna.service.IQunaConfigQuestionService;
 import pro.simplecloud.quna.service.IQunaConfigQuestionnaireService;
@@ -47,27 +45,48 @@ public class QuestionServiceImpl implements QuestionService {
         if (question == null) {
             throw new RequestException(Messages.NOT_FOUND);
         }
-        //查询主配置
-        Long questionnaireId = question.getQuestionnaireId();
-        QunaConfigQuestionnaire questionnaire = questionnaireService.getById(questionnaireId);
-        //查询问题配置
+        //查询问题选项
+        List<OptionDto> optionDtos = getOptionDtos(question.getId());
+        //数据封装 QuestionDto
+        QuestionDto questionDto = new QuestionDto();
+        BeanUtils.copy(question, questionDto);
+        questionDto.setOptions(optionDtos);
+        return questionDto;
+    }
+
+    @Override
+    public QuestionDto getDetailByIndex(Long questionnaireId, Long questionIndex) {
+        //查询问题
+        QunaConfigQuestion question = new QunaConfigQuestion();
+        question.setQuestionnaireId(questionnaireId);
+        question.setOrderNum(questionIndex);
+        //查询问题
+        List<QunaConfigQuestion> questions = questionService.list(Wrappers.query(question));
+        if (questions.isEmpty()) {
+            throw new RequestException(Messages.NOT_FOUND);
+        }
+        if (questions.size() > 1) {
+            throw new RequestException(Messages.DB_DATA_ERROR);
+        }
+        question = questions.get(0);
+        List<OptionDto> optionDtos = getOptionDtos(question.getId());
+        //数据封装 QuestionDto
+        QuestionDto questionDto = new QuestionDto();
+        BeanUtils.copy(question, questionDto);
+        questionDto.setOptions(optionDtos);
+        return questionDto;
+    }
+
+    private List<OptionDto> getOptionDtos(Long questionId) {
+        //查询问题选项
         LambdaQueryWrapper<QunaConfigOption> queryWrapper = Wrappers.lambdaQuery();
         queryWrapper.eq(QunaConfigOption::getQuestionId, questionId);
         List<QunaConfigOption> options = optionService.list(queryWrapper);
-        //数据封装 QuestionnaireDto
-        QuestionnaireDto questionnaireDto = new QuestionnaireDto();
-        BeanUtils.copy(questionnaire, questionnaireDto);
         //数据封装 OptionDto
-        List<OptionDto> optionDtos = options.stream().map(option -> {
+        return options.stream().map(option -> {
             OptionDto optionDto = new OptionDto();
             BeanUtils.copy(option, optionDto);
             return optionDto;
         }).collect(Collectors.toList());
-        //数据封装 QuestionDto
-        QuestionDto questionDto = new QuestionDto();
-        BeanUtils.copy(question, questionDto);
-        questionDto.setQuestionnaire(questionnaireDto);
-        questionDto.setOptions(optionDtos);
-        return questionDto;
     }
 }

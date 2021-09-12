@@ -35,13 +35,4 @@ public class QuestionnaireController {
         return HttpResponse.ok(questionnaireDto);
     }
 
-
-    @GetMapping("/init/{questionnaireId}")
-    public ApiResponse initQuestionnaire(@PathVariable Long questionnaireId) {
-        if (questionnaireId == null) {
-            return HttpResponse.reject(Messages.ID_EMPTY);
-        }
-        QuestionnaireDto questionnaireDto = questionnaireService.init(questionnaireId);
-        return HttpResponse.ok(questionnaireDto);
-    }
 }

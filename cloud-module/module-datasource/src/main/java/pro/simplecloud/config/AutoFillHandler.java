@@ -4,6 +4,10 @@ import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
+import pro.simplecloud.device.ApiHeaderHelper;
+import pro.simplecloud.entity.ApiHeader;
+
 import java.time.LocalDateTime;
 
 /**
@@ -19,14 +23,21 @@ public class AutoFillHandler implements MetaObjectHandler {
 
     @Override
     public void insertFill(MetaObject metaObject) {
-        log.info("start insert fill ....");
         this.strictInsertFill(metaObject, "createTime", LocalDateTime.class, LocalDateTime.now());
+        this.strictInsertFill(metaObject, "updateTime", LocalDateTime.class, LocalDateTime.now());
+        ApiHeader apiHeader = ApiHeaderHelper.get();
+        if (apiHeader != null && StringUtils.hasLength(apiHeader.getUsername())) {
+            this.strictInsertFill(metaObject, "createBy", String.class, apiHeader.getUsername());
+            this.strictInsertFill(metaObject, "updateBy", String.class, apiHeader.getUsername());
+        }
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
-        log.info("start update fill ....");
         this.strictUpdateFill(metaObject, "updateTime", LocalDateTime.class, LocalDateTime.now());
-
+        ApiHeader apiHeader = ApiHeaderHelper.get();
+        if (apiHeader != null && StringUtils.hasLength(apiHeader.getUsername())) {
+            this.strictUpdateFill(metaObject, "updateBy", String.class, apiHeader.getUsername());
+        }
     }
 }

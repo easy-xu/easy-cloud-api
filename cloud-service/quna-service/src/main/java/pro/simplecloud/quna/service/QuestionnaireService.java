@@ -1,6 +1,9 @@
 package pro.simplecloud.quna.service;
 
+import pro.simplecloud.quna.dto.QuestionDto;
 import pro.simplecloud.quna.dto.QuestionnaireDto;
+
+import java.util.List;
 
 /**
  * Title: QuestionnaireService
@@ -19,18 +22,10 @@ public interface QuestionnaireService {
     QuestionnaireDto getDetail(Long questionnaireId);
 
     /**
-     * 初始化问卷
-     *
-     * @param questionnaireId 问卷id
-     * @return AnswerDto
-     */
-    QuestionnaireDto init(Long questionnaireId);
-
-    /**
      * 查询问题
      *
      * @param questionnaireId 问卷id
-     * @return QuestionnaireDto
+     * @return List<QuestionDto>
      */
-    QuestionnaireDto getQuestions(Long questionnaireId);
+    List<QuestionDto> getQuestions(Long questionnaireId);
 }

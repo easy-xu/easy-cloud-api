@@ -1,7 +1,7 @@
 package pro.simplecloud.web.aspect;
 
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -9,14 +9,17 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
+import pro.simplecloud.constant.Messages;
+import pro.simplecloud.entity.ApiHeader;
+import pro.simplecloud.entity.HttpResponse;
 import pro.simplecloud.exception.BaseException;
 import pro.simplecloud.exception.RequestException;
 import pro.simplecloud.system.entity.SysApiLog;
 import pro.simplecloud.system.service.ISysApiLogService;
 import pro.simplecloud.utils.BeanUtils;
-import pro.simplecloud.web.device.ApiHeaderHelper;
-import pro.simplecloud.entity.ApiHeader;
-import pro.simplecloud.entity.HttpResponse;
+import pro.simplecloud.utils.Timer;
+import pro.simplecloud.utils.UserTokenUtils;
+import pro.simplecloud.device.ApiHeaderHelper;
 
 import javax.annotation.Resource;
 
@@ -33,8 +36,7 @@ import javax.annotation.Resource;
 @Order(100)
 @Aspect
 @Component
-public class SysApiLogAspect {
-
+public class AccessAspect {
 
     @Resource
     private ISysApiLogService logService;
@@ -44,38 +46,47 @@ public class SysApiLogAspect {
         //未初始化BaseInfo直接放行
         ApiHeader apiHeader = ApiHeaderHelper.get();
         if (apiHeader == null) {
-            return joinPoint.proceed(joinPoint.getArgs());
+            return HttpResponse.reject(Messages.NOT_STANDARD);
         }
         //插入交易记录表
         Object result = null;
         String requestId = apiHeader.getRequestId();
-
+        //记录起止日期
+        Timer timer = new Timer();
+        timer.start();
+        //保存初始日志
         SysApiLog sysApiLog = new SysApiLog();
-        long start = System.currentTimeMillis();
+        BeanUtils.copy(apiHeader, sysApiLog);
+        logService.save(sysApiLog);
         try {
+            //校验流水号
             if (!StringUtils.hasLength(requestId)) {
                 throw new RequestException("交易流水号不能为空");
             }
-            QueryWrapper<SysApiLog> queryWrapper = new QueryWrapper<>();
-            queryWrapper.eq("request_id", requestId);
-            int count = logService.count(queryWrapper);
-            if (count > 0) {
+            sysApiLog = new SysApiLog();
+            sysApiLog.setRequestId(requestId);
+            int count = logService.count(Wrappers.query(sysApiLog));
+            if (count > 1) {
                 throw new RequestException("交易流水号重复：" + requestId);
             }
-            BeanUtils.copy(apiHeader, sysApiLog);
-            logService.save(sysApiLog);
+            String path = apiHeader.getPath();
+            if(!path.startsWith("/api/open")){
+                //校验Token
+                String token = apiHeader.getToken();
+                UserTokenUtils.verifyToken(token);
+            }
             result = joinPoint.proceed(joinPoint.getArgs());
         } catch (Throwable ex) {
             result = handelException(ex);
         } finally {
-            long end = System.currentTimeMillis();
+            //更新日志
             if (result instanceof HttpResponse) {
                 HttpResponse responseDto = (HttpResponse) result;
                 int code = responseDto.getCode();
                 sysApiLog.setResponseCode((long) code);
                 sysApiLog.setResponseMessage(responseDto.getMessage());
             }
-            sysApiLog.setUsedTime(end - start);
+            sysApiLog.setUsedTime(timer.end());
             logService.saveOrUpdate(sysApiLog);
         }
         return result;

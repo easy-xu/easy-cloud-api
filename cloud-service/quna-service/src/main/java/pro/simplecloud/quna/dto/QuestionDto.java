@@ -15,8 +15,23 @@ import java.util.List;
 @Data
 public class QuestionDto implements ApiRequest {
 
-    private QuestionnaireDto questionnaire;
-    private String question;
+    private Long id;
+    /**
+     * 问卷ID
+     */
+    private Long questionnaireId;
+
+    /**
+     * 问题标题
+     */
+    private String title;
+
+    /**
+     * 问题排序
+     */
+    private Long orderNum;
+
+
     private List<OptionDto> options;
 
 }

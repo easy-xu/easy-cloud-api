@@ -72,8 +72,6 @@ public class CodeGenerator {
         //设置父类
         strategy.setSuperEntityClass(BaseEntity.class);
         strategy.setSuperEntityColumns("deleted", "create_by", "create_time", "update_by", "update_time");
-        //逻辑删除
-        strategy.setLogicDeleteFieldName("deleted");
         //自动充填
         ArrayList<TableFill> tableFills = new ArrayList<>();
         tableFills.add(new TableFill("createTime", INSERT));

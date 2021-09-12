@@ -12,7 +12,7 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author Generator
- * @since 2021-09-10
+ * @since 2021-09-12
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -65,11 +65,6 @@ public class SysApiLog extends BaseEntity {
      * 结果描述
      */
     private String responseMessage;
-
-    /**
-     * 删除标志（0正常 1停用）
-     */
-    private String status;
 
 
 }

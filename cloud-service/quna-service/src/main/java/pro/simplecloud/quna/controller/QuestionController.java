@@ -28,11 +28,19 @@ public class QuestionController {
     private QuestionService questionService;
 
     @GetMapping("/get/{questionId}")
-    public ApiResponse getQuestion(@PathVariable String questionId) {
+    public ApiResponse getQuestionById(@PathVariable String questionId) {
         if (!StringUtils.hasLength(questionId)) {
             return HttpResponse.reject(Messages.ID_EMPTY);
         }
         QuestionDto questionDto = questionService.getDetail(questionId);
+        return HttpResponse.ok(questionDto);
+    }
+    @GetMapping("/index/{questionnaireId}/{questionIndex}")
+    public ApiResponse getQuestionByIndex(@PathVariable Long questionnaireId,@PathVariable Long questionIndex) {
+        if (questionIndex ==null || questionnaireId==null ) {
+            return HttpResponse.reject(Messages.ID_EMPTY);
+        }
+        QuestionDto questionDto = questionService.getDetailByIndex(questionnaireId, questionIndex);
         return HttpResponse.ok(questionDto);
     }
 }

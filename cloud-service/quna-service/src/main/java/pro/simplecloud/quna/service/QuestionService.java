@@ -17,4 +17,13 @@ public interface QuestionService {
      * @return QuestionDto
      */
     QuestionDto getDetail(String questionId);
+
+    /**
+     * 根据问题编号查询问题
+     *
+     * @param questionnaireId 问卷Id
+     * @param questionIndex 问题index
+     * @return QuestionDto
+     */
+    QuestionDto getDetailByIndex(Long questionnaireId, Long questionIndex);
 }

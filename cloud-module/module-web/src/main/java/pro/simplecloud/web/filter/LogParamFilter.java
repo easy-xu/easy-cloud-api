@@ -3,7 +3,7 @@ package pro.simplecloud.web.filter;
 
 import org.slf4j.MDC;
 import pro.simplecloud.entity.ApiHeader;
-import pro.simplecloud.web.device.ApiHeaderHelper;
+import pro.simplecloud.device.ApiHeaderHelper;
 
 import javax.servlet.*;
 import java.io.IOException;

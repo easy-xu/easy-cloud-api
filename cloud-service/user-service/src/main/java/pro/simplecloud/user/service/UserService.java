@@ -1,6 +1,6 @@
 package pro.simplecloud.user.service;
 
-import pro.simplecloud.user.dto.UserInfo;
+import pro.simplecloud.user.dto.UserDto;
 
 /**
  * Title: UserService
@@ -12,14 +12,21 @@ import pro.simplecloud.user.dto.UserInfo;
 public interface UserService {
     /**
      * 用户注册
-     * @param userInfo 用户信息
+     * @param userDto 用户信息
      */
-    void signIn(UserInfo userInfo);
+    void signIn(UserDto userDto);
 
     /**
      * 用户登录
-     * @param userInfo 用户信息
-     * @return userInfo 用户信息
+     * @param userDto 用户信息
+     * @return userDto 用户信息
      */
-    UserInfo login(UserInfo userInfo);
+    UserDto login(UserDto userDto);
+
+    /**
+     * 初始化用户
+     * @return UserDto
+     */
+    UserDto initUser();
+
 }

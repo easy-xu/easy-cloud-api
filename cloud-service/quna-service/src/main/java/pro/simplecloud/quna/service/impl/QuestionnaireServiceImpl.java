@@ -12,10 +12,7 @@ import pro.simplecloud.quna.dto.QuestionnaireDto;
 import pro.simplecloud.quna.entity.QunaAnswerQuestionnaire;
 import pro.simplecloud.quna.entity.QunaConfigQuestion;
 import pro.simplecloud.quna.entity.QunaConfigQuestionnaire;
-import pro.simplecloud.quna.service.IQunaAnswerQuestionnaireService;
-import pro.simplecloud.quna.service.IQunaConfigQuestionService;
-import pro.simplecloud.quna.service.IQunaConfigQuestionnaireService;
-import pro.simplecloud.quna.service.QuestionnaireService;
+import pro.simplecloud.quna.service.*;
 import pro.simplecloud.utils.BeanUtils;
 
 import javax.annotation.Resource;
@@ -36,7 +33,7 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
     private IQunaConfigQuestionnaireService questionnaireService;
 
     @Resource
-    private IQunaConfigQuestionService questionService;
+    private IQunaConfigQuestionService configQuestionService;
 
     @Resource
     private IQunaAnswerQuestionnaireService answerQuestionnaireService;
@@ -54,7 +51,6 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
         //查询是否正在进行
         QunaAnswerQuestionnaire answerQuestionnaire = new QunaAnswerQuestionnaire();
         answerQuestionnaire.setQuestionnaireId(questionnaireId);
-        //answerQuestionnaire.setFlow(AnswerFlow.ANSWER.value);
         List<QunaAnswerQuestionnaire> answerQuestionnaires = answerQuestionnaireService.list(Wrappers.query(answerQuestionnaire));
         if (answerQuestionnaires.size() > 1) {
             //只能有一个问题正在进行
@@ -70,29 +66,10 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
     }
 
 
-    @Override
-    public QuestionnaireDto init(Long questionnaireId) {
-        //检验是否已存在问卷
-        QunaAnswerQuestionnaire answerQuestionnaire = new QunaAnswerQuestionnaire();
-        answerQuestionnaire.setQuestionnaireId(questionnaireId);
-        List<QunaAnswerQuestionnaire> answerQuestionnaires = answerQuestionnaireService.list(Wrappers.query(answerQuestionnaire));
-        if (!answerQuestionnaires.isEmpty()) {
-            throw new RequestException(Messages.ALREADY_DONE);
-        }
-        //获取问题配置
-        QuestionnaireDto questionnaireDto = this.getQuestions(questionnaireId);
-        //初始化回答
-        answerQuestionnaire.setFlow(AnswerFlow.INIT.value);
-        answerQuestionnaire.setQuestionIndex(1L);
-        answerQuestionnaireService.save(answerQuestionnaire);
-        AnswerDto answerDto = new AnswerDto();
-        BeanUtils.copy(answerQuestionnaire, answerDto);
-        questionnaireDto.setAnswer(answerDto);
-        return questionnaireDto;
-    }
+
 
     @Override
-    public QuestionnaireDto getQuestions(Long questionnaireId) {
+    public List<QuestionDto> getQuestions(Long questionnaireId) {
         //查询文件配置
         QunaConfigQuestionnaire questionnaire = questionnaireService.getById(questionnaireId);
         if (questionnaire == null) {
@@ -104,17 +81,15 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
         //查询问题
         QunaConfigQuestion question = new QunaConfigQuestion();
         question.setQuestionnaireId(questionnaireId);
-        List<QunaConfigQuestion> questions = questionService.list(Wrappers.query(question).orderByAsc("order_num"));
+        List<QunaConfigQuestion> questions = configQuestionService.list(Wrappers.query(question).orderByAsc("order_num"));
         if (questions.isEmpty()) {
             throw new SystemErrorException(Messages.DB_DATA_ERROR);
         }
         //封装数据
-        List<QuestionDto> questionDtos = questions.stream().map(item -> {
+        return questions.stream().map(item -> {
             QuestionDto questionDto = new QuestionDto();
             BeanUtils.copy(item, questionDto);
             return questionDto;
         }).collect(Collectors.toList());
-        questionnaireDto.setQuestions(questionDtos);
-        return questionnaireDto;
     }
 }
