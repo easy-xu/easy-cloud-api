@@ -1,7 +1,7 @@
 package pro.simplecloud.quna.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pro.simplecloud.constant.Messages;
@@ -26,12 +26,16 @@ public class QuestionnaireController {
     @Resource
     private QuestionnaireService questionnaireService;
 
-    @GetMapping("/get/{questionnaireId}")
-    public ApiResponse getQuestionnaire(@PathVariable Long questionnaireId) {
+    @PostMapping("/get")
+    public ApiResponse getQuestionnaire(@RequestBody QuestionnaireDto questionnaireDto) {
+        if (questionnaireDto == null) {
+            return HttpResponse.reject(Messages.REQUEST_EMPTY);
+        }
+        Long questionnaireId = questionnaireDto.getId();
         if (questionnaireId == null) {
             return HttpResponse.reject(Messages.ID_EMPTY);
         }
-        QuestionnaireDto questionnaireDto = questionnaireService.getDetail(questionnaireId);
+        questionnaireDto = questionnaireService.getDetail(questionnaireId);
         return HttpResponse.ok(questionnaireDto);
     }
 

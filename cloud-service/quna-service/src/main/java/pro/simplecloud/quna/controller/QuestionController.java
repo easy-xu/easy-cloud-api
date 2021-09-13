@@ -1,13 +1,13 @@
 package pro.simplecloud.quna.controller;
 
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pro.simplecloud.constant.Messages;
 import pro.simplecloud.entity.ApiResponse;
 import pro.simplecloud.entity.HttpResponse;
+import pro.simplecloud.quna.dto.AnswerDto;
 import pro.simplecloud.quna.dto.QuestionDto;
 import pro.simplecloud.quna.service.QuestionService;
 
@@ -27,17 +27,27 @@ public class QuestionController {
     @Resource
     private QuestionService questionService;
 
-    @GetMapping("/get/{questionId}")
-    public ApiResponse getQuestionById(@PathVariable String questionId) {
-        if (!StringUtils.hasLength(questionId)) {
+    @PostMapping("/get")
+    public ApiResponse getQuestionById(@RequestBody QuestionDto questionDto) {
+        if (questionDto == null) {
+            return HttpResponse.reject(Messages.REQUEST_EMPTY);
+        }
+        Long questionId = questionDto.getId();
+        if (questionId == null) {
             return HttpResponse.reject(Messages.ID_EMPTY);
         }
-        QuestionDto questionDto = questionService.getDetail(questionId);
+        questionDto = questionService.getDetail(questionId);
         return HttpResponse.ok(questionDto);
     }
-    @GetMapping("/index/{questionnaireId}/{questionIndex}")
-    public ApiResponse getQuestionByIndex(@PathVariable Long questionnaireId,@PathVariable Long questionIndex) {
-        if (questionIndex ==null || questionnaireId==null ) {
+
+    @PostMapping("/index")
+    public ApiResponse getQuestionByIndex(@RequestBody AnswerDto answerDto) {
+        if (answerDto == null) {
+            return HttpResponse.reject(Messages.REQUEST_EMPTY);
+        }
+        Long questionIndex = answerDto.getQuestionIndex();
+        Long questionnaireId = answerDto.getQuestionnaireId();
+        if (questionIndex == null || questionnaireId == null) {
             return HttpResponse.reject(Messages.ID_EMPTY);
         }
         QuestionDto questionDto = questionService.getDetailByIndex(questionnaireId, questionIndex);

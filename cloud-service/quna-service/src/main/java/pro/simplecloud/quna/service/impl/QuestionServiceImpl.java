@@ -39,7 +39,7 @@ public class QuestionServiceImpl implements QuestionService {
     private IQunaConfigOptionService optionService;
 
     @Override
-    public QuestionDto getDetail(String questionId) {
+    public QuestionDto getDetail(Long questionId) {
         //查询问题
         QunaConfigQuestion question = questionService.getById(questionId);
         if (question == null) {

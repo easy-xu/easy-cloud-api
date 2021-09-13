@@ -21,6 +21,8 @@ public enum Messages {
     USERNAME_EXIST(400, "用户名已注册"),
     LOGIN_ERROR(400, "用户名或密码错误"),
     ID_EMPTY(400, "ID不能为空"),
+    REQUEST_EMPTY(400, "参数不能为空"),
+
 
     NOT_STANDARD(400, "请求不规范"),
     TOKEN_EXPIRED(400, "认证过期"),

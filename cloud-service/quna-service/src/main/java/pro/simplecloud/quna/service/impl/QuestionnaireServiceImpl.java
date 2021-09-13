@@ -6,14 +6,16 @@ import pro.simplecloud.constant.Messages;
 import pro.simplecloud.device.ApiHeaderHelper;
 import pro.simplecloud.exception.RequestException;
 import pro.simplecloud.exception.SystemErrorException;
-import pro.simplecloud.quna.constant.AnswerFlow;
 import pro.simplecloud.quna.dto.AnswerDto;
 import pro.simplecloud.quna.dto.QuestionDto;
 import pro.simplecloud.quna.dto.QuestionnaireDto;
 import pro.simplecloud.quna.entity.QunaAnswerQuestionnaire;
 import pro.simplecloud.quna.entity.QunaConfigQuestion;
 import pro.simplecloud.quna.entity.QunaConfigQuestionnaire;
-import pro.simplecloud.quna.service.*;
+import pro.simplecloud.quna.service.IQunaAnswerQuestionnaireService;
+import pro.simplecloud.quna.service.IQunaConfigQuestionService;
+import pro.simplecloud.quna.service.IQunaConfigQuestionnaireService;
+import pro.simplecloud.quna.service.QuestionnaireService;
 import pro.simplecloud.utils.BeanUtils;
 
 import javax.annotation.Resource;
@@ -66,8 +68,6 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
         }
         return questionnaireDto;
     }
-
-
 
 
     @Override
