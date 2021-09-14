@@ -21,6 +21,14 @@ public interface AnswerService {
      */
     AnswerDto init(Long questionnaireId);
 
+
+    /**
+     * 查看问题状态
+     * @param answerId 回答id
+     * @return AnswerDto
+     */
+    AnswerDto status(Long answerId);
+
     /**
      * 获取回答情况
      *
@@ -28,6 +36,14 @@ public interface AnswerService {
      * @return AnswerDto
      */
     AnswerDto getDetail(Long answerId);
+
+    /**
+     * 获取回答情况
+     *
+     * @param questionnaireId 问卷id
+     * @return AnswerDto
+     */
+    AnswerDto getDetailByQuestionnaireId(Long questionnaireId);
 
     /**
      * 保存问题答案
@@ -45,4 +61,5 @@ public interface AnswerService {
      * @return AnswerQuestionDto
      */
     AnswerQuestionDto getAnswerQuestion(Long answerId, Long questionId);
+
 }

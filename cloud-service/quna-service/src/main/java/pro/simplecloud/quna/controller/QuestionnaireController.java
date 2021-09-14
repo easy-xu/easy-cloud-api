@@ -26,8 +26,8 @@ public class QuestionnaireController {
     @Resource
     private QuestionnaireService questionnaireService;
 
-    @PostMapping("/get")
-    public ApiResponse getQuestionnaire(@RequestBody QuestionnaireDto questionnaireDto) {
+    @PostMapping("/query")
+    public ApiResponse queryQuestionnaire(@RequestBody QuestionnaireDto questionnaireDto) {
         if (questionnaireDto == null) {
             return HttpResponse.reject(Messages.REQUEST_EMPTY);
         }

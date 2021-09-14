@@ -8,7 +8,7 @@ import lombok.EqualsAndHashCode;
 
 /**
  * <p>
- * 测试问卷主表
+ * 测试问卷结果配置表
  * </p>
  *
  * @author Generator
@@ -16,35 +16,25 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class QunaConfigQuestionnaire extends BaseEntity {
+public class QunaConfigResult extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 问卷ID
+     * 结果ID
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**
-     * 问卷标题
+     * 问卷ID
      */
-    private String title;
+    private Long questionnaireId;
 
     /**
-     * 问题个数
+     * 结果描述文本
      */
-    private Long questionNum;
-
-    /**
-     * 参与人数
-     */
-    private Long participantNum;
-
-    /**
-     * 喜欢个数
-     */
-    private Long likeNum;
+    private String text;
 
 
 }

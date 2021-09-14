@@ -1,9 +1,6 @@
 package pro.simplecloud.quna.controller;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pro.simplecloud.constant.Messages;
 import pro.simplecloud.entity.ApiResponse;
 import pro.simplecloud.entity.HttpResponse;
@@ -14,7 +11,7 @@ import pro.simplecloud.quna.service.AnswerService;
 import javax.annotation.Resource;
 
 /**
- * Title: QuestionnaireController
+ * Title: AnswerController
  * Description:
  *
  * @author Xu Honglin
@@ -40,8 +37,9 @@ public class AnswerController {
         return HttpResponse.ok(answerDto);
     }
 
-    @PostMapping("/get")
-    public ApiResponse getAnswer(@RequestBody AnswerDto answerDto) {
+
+    @GetMapping("/status")
+    public ApiResponse status(@RequestBody AnswerDto answerDto) {
         if (answerDto == null) {
             return HttpResponse.reject(Messages.REQUEST_EMPTY);
         }
@@ -49,9 +47,29 @@ public class AnswerController {
         if (answerId == null) {
             return HttpResponse.reject(Messages.ID_EMPTY);
         }
-        answerDto = answerService.getDetail(answerId);
+        answerDto = answerService.status(answerId);
         return HttpResponse.ok(answerDto);
     }
+
+    @PostMapping("/query")
+    public ApiResponse queryAnswer(@RequestBody AnswerDto answerDto) {
+        if (answerDto == null) {
+            return HttpResponse.reject(Messages.REQUEST_EMPTY);
+        }
+        Long answerId = answerDto.getId();
+        Long questionnaireId = answerDto.getQuestionnaireId();
+        if (answerId != null) {
+            answerDto = answerService.getDetail(answerId);
+            return HttpResponse.ok(answerDto);
+
+        }
+        if (questionnaireId != null) {
+            answerDto = answerService.getDetailByQuestionnaireId(questionnaireId);
+            return HttpResponse.ok(answerDto);
+        }
+        return HttpResponse.reject(Messages.ID_EMPTY);
+    }
+
 
     @PostMapping("/question/save")
     public ApiResponse saveAnswerQuestion(@RequestBody AnswerQuestionDto answerQuestionDto) {
@@ -62,8 +80,8 @@ public class AnswerController {
         return HttpResponse.ok(answerQuestionDto);
     }
 
-    @PostMapping("/question/get")
-    public ApiResponse getAnswerQuestion(@RequestBody AnswerQuestionDto answerQuestionDto) {
+    @PostMapping("/question/query")
+    public ApiResponse queryAnswerQuestion(@RequestBody AnswerQuestionDto answerQuestionDto) {
         if (answerQuestionDto == null) {
             return HttpResponse.reject(Messages.REQUEST_EMPTY);
         }

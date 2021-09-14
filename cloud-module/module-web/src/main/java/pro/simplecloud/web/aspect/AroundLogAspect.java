@@ -46,19 +46,19 @@ public class AroundLogAspect {
         if (!StringUtils.hasLength(apiName)) {
             apiName = joinPoint.getSignature().getName();
         }
-        log.info("---- {} start ----", apiName);
+        log.info("[{}] 开始...", apiName);
         Object[] args = joinPoint.getArgs();
         for (Object arg : args) {
-            log.info("{} input: {}", apiName, arg);
+            log.info("[{}] 入参: {}", apiName, arg);
         }
         Object response = null;
         try {
             response = joinPoint.proceed(args);
-            log.info("{} output: {}", apiName, response);
+            log.info("[{}] 出参: {}", apiName, response);
 
         } finally {
             long useTime = timer.end();
-            log.info("---- {} end, user time {}----", apiName, useTime);
+            log.info("[{}] 结束, 耗时 {}...", apiName, useTime);
         }
         return response;
     }

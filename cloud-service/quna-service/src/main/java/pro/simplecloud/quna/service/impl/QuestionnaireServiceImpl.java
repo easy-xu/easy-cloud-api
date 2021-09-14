@@ -38,9 +38,6 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
     @Resource
     private IQunaConfigQuestionService configQuestionService;
 
-    @Resource
-    private IQunaAnswerQuestionnaireService answerQuestionnaireService;
-
     @Override
     public QuestionnaireDto getDetail(Long questionnaireId) {
         //查询文件配置
@@ -51,21 +48,6 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
         //封装数据
         QuestionnaireDto questionnaireDto = new QuestionnaireDto();
         BeanUtils.copy(questionnaire, questionnaireDto);
-        //查询是否正在进行
-        QunaAnswerQuestionnaire answerQuestionnaire = new QunaAnswerQuestionnaire();
-        answerQuestionnaire.setQuestionnaireId(questionnaireId);
-        answerQuestionnaire.setCreateBy(ApiHeaderHelper.get().getUsername());
-        List<QunaAnswerQuestionnaire> answerQuestionnaires = answerQuestionnaireService.list(Wrappers.query(answerQuestionnaire));
-        if (answerQuestionnaires.size() > 1) {
-            //只能有一个问题正在进行
-            throw new SystemErrorException(Messages.DB_DATA_ERROR);
-        }
-        if (answerQuestionnaires.size() == 1) {
-            answerQuestionnaire = answerQuestionnaires.get(0);
-            AnswerDto answerDto = new AnswerDto();
-            BeanUtils.copy(answerQuestionnaire, answerDto);
-            questionnaireDto.setAnswer(answerDto);
-        }
         return questionnaireDto;
     }
 

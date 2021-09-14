@@ -27,8 +27,8 @@ public class QuestionController {
     @Resource
     private QuestionService questionService;
 
-    @PostMapping("/get")
-    public ApiResponse getQuestionById(@RequestBody QuestionDto questionDto) {
+    @PostMapping("/query")
+    public ApiResponse queryQuestionById(@RequestBody QuestionDto questionDto) {
         if (questionDto == null) {
             return HttpResponse.reject(Messages.REQUEST_EMPTY);
         }
@@ -41,7 +41,7 @@ public class QuestionController {
     }
 
     @PostMapping("/index")
-    public ApiResponse getQuestionByIndex(@RequestBody AnswerDto answerDto) {
+    public ApiResponse queryQuestionByIndex(@RequestBody AnswerDto answerDto) {
         if (answerDto == null) {
             return HttpResponse.reject(Messages.REQUEST_EMPTY);
         }

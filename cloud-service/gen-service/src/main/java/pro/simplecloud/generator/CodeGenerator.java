@@ -22,7 +22,7 @@ public class CodeGenerator {
     public static void main(String[] args) {
         generate("system", "sys_api_log");
         generate("user", "user_master");
-        generate("quna", "quna_config_questionnaire","quna_config_question","quna_config_option","quna_answer_questionnaire","quna_answer_question");
+        generate("quna", "quna_config_questionnaire","quna_config_question","quna_config_option","quna_answer_questionnaire","quna_answer_question","quna_config_result","quna_config_result_score", "quna_answer_result");
     }
 
     private static void generate(String module, String... table) {

@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springframework.stereotype.Service;
 import pro.simplecloud.constant.Messages;
 import pro.simplecloud.device.ApiHeaderHelper;
-import pro.simplecloud.entity.ApiHeader;
 import pro.simplecloud.exception.RequestException;
 import pro.simplecloud.exception.SystemErrorException;
 import pro.simplecloud.quna.constant.AnswerFlow;
@@ -14,10 +13,7 @@ import pro.simplecloud.quna.dto.AnswerQuestionDto;
 import pro.simplecloud.quna.entity.QunaAnswerQuestion;
 import pro.simplecloud.quna.entity.QunaAnswerQuestionnaire;
 import pro.simplecloud.quna.entity.QunaConfigQuestionnaire;
-import pro.simplecloud.quna.service.AnswerService;
-import pro.simplecloud.quna.service.IQunaAnswerQuestionService;
-import pro.simplecloud.quna.service.IQunaAnswerQuestionnaireService;
-import pro.simplecloud.quna.service.IQunaConfigQuestionnaireService;
+import pro.simplecloud.quna.service.*;
 import pro.simplecloud.utils.BeanUtils;
 
 import javax.annotation.Resource;
@@ -42,6 +38,9 @@ public class AnswerServiceImpl implements AnswerService {
     @Resource
     private IQunaConfigQuestionnaireService questionnaireService;
 
+    @Resource
+    private ResultService resultService;
+
     @Override
     public AnswerDto init(Long questionnaireId) {
         //检验是否已存在问卷
@@ -64,8 +63,38 @@ public class AnswerServiceImpl implements AnswerService {
         LambdaQueryWrapper<QunaAnswerQuestionnaire> queryWrapper = Wrappers.lambdaQuery();
         queryWrapper.eq(QunaAnswerQuestionnaire::getQuestionnaireId, questionnaireId);
         int count = answerQuestionnaireService.count(queryWrapper);
-        questionnaire.setParticipantNum((long)count);
+        questionnaire.setParticipantNum((long) count);
         questionnaireService.updateById(questionnaire);
+        return answerDto;
+    }
+
+    @Override
+    public AnswerDto status(Long answerId) {
+        QunaAnswerQuestionnaire answerQuestionnaire = answerQuestionnaireService.getById(answerId);
+
+        Long flow = answerQuestionnaire.getFlow();
+        if (AnswerFlow.INIT.value.equals(flow)) {
+            //查看是否回答结束
+            QunaAnswerQuestion answerQuestion = new QunaAnswerQuestion();
+            answerQuestion.setAnswerId(answerId);
+            int count = answerQuestionService.count(Wrappers.query(answerQuestion));
+            QunaConfigQuestionnaire questionnaire = questionnaireService.getById(answerQuestionnaire.getQuestionnaireId());
+            if (count < questionnaire.getQuestionNum()) {
+                answerQuestionnaire.setFlow(AnswerFlow.ANSWER.value);
+                answerQuestionnaireService.saveOrUpdate(answerQuestionnaire);
+            } else if (count == questionnaire.getQuestionNum()) {
+                answerQuestionnaire.setFlow(AnswerFlow.FINISH.value);
+                answerQuestionnaireService.saveOrUpdate(answerQuestionnaire);
+                //触发计算结果异步
+                new Thread(() -> {
+                    resultService.calculateScore(answerId);
+                });
+            } else {
+                throw new SystemErrorException(Messages.DB_DATA_ERROR);
+            }
+        }
+        AnswerDto answerDto = new AnswerDto();
+        BeanUtils.copy(answerQuestionnaire, answerDto);
         return answerDto;
     }
 
@@ -78,6 +107,26 @@ public class AnswerServiceImpl implements AnswerService {
         AnswerDto answerDto = new AnswerDto();
         BeanUtils.copy(answer, answerDto);
         return answerDto;
+    }
+
+    @Override
+    public AnswerDto getDetailByQuestionnaireId(Long questionnaireId) {
+        //查询是否正在进行
+        QunaAnswerQuestionnaire answerQuestionnaire = new QunaAnswerQuestionnaire();
+        answerQuestionnaire.setQuestionnaireId(questionnaireId);
+        answerQuestionnaire.setCreateBy(ApiHeaderHelper.get().getUsername());
+        List<QunaAnswerQuestionnaire> answerQuestionnaires = answerQuestionnaireService.list(Wrappers.query(answerQuestionnaire));
+        if (answerQuestionnaires.size() > 1) {
+            //只能有一个问题正在进行
+            throw new SystemErrorException(Messages.DB_DATA_ERROR);
+        }
+        if (answerQuestionnaires.size() == 1) {
+            answerQuestionnaire = answerQuestionnaires.get(0);
+            AnswerDto answerDto = new AnswerDto();
+            BeanUtils.copy(answerQuestionnaire, answerDto);
+            return answerDto;
+        }
+        return null;
     }
 
     @Override
@@ -100,6 +149,7 @@ public class AnswerServiceImpl implements AnswerService {
         BeanUtils.copy(answerQuestion, answerQuestionDto);
         return answerQuestionDto;
     }
+
 
     private QunaAnswerQuestion queryQunaAnswerQuestion(Long answerId, Long questionId) {
         QunaAnswerQuestion answerQuestion = new QunaAnswerQuestion();
