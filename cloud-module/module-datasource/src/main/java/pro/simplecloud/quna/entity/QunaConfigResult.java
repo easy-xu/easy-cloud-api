@@ -12,7 +12,7 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author Generator
- * @since 2021-09-14
+ * @since 2021-09-19
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -30,6 +30,11 @@ public class QunaConfigResult extends BaseEntity {
      * 问卷ID
      */
     private Long questionnaireId;
+
+    /**
+     * 标题
+     */
+    private String title;
 
     /**
      * 结果描述文本

@@ -32,4 +32,14 @@ public class ResultDto {
      * 分值
      */
     private Long score;
+
+    /**
+     * 标题
+     */
+    private String title;
+
+    /**
+     * 结果描述文本
+     */
+    private String text;
 }

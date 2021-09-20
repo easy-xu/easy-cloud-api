@@ -9,12 +9,13 @@ package pro.simplecloud.quna.constant;
  */
 public enum AnswerFlow {
     /**
-     * 0初始化 1回答中 2回答完毕 3生成结果
+     * 0初始化 1回答中 2回答完毕 3完成计算
      */
     INIT(0L),
     ANSWER(1L),
     SUBMIT(2L),
-    FINISH(3L);
+    CALCULATED(3L),
+    FINISH(4L);
 
     public final Long value;
 

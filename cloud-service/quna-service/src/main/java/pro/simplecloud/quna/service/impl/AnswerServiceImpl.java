@@ -71,7 +71,9 @@ public class AnswerServiceImpl implements AnswerService {
     @Override
     public AnswerDto status(Long answerId) {
         QunaAnswerQuestionnaire answerQuestionnaire = answerQuestionnaireService.getById(answerId);
-
+        if (answerQuestionnaire == null) {
+            throw new RequestException(Messages.NOT_FOUND);
+        }
         Long flow = answerQuestionnaire.getFlow();
         if (AnswerFlow.INIT.value.equals(flow)) {
             //查看是否回答结束
@@ -83,12 +85,12 @@ public class AnswerServiceImpl implements AnswerService {
                 answerQuestionnaire.setFlow(AnswerFlow.ANSWER.value);
                 answerQuestionnaireService.saveOrUpdate(answerQuestionnaire);
             } else if (count == questionnaire.getQuestionNum()) {
-                answerQuestionnaire.setFlow(AnswerFlow.FINISH.value);
+                answerQuestionnaire.setFlow(AnswerFlow.SUBMIT.value);
                 answerQuestionnaireService.saveOrUpdate(answerQuestionnaire);
                 //触发计算结果异步
                 new Thread(() -> {
                     resultService.calculateScore(answerId);
-                });
+                }).start();
             } else {
                 throw new SystemErrorException(Messages.DB_DATA_ERROR);
             }

@@ -25,7 +25,7 @@ public class BeanUtils {
     /**
      * @param source  源对象
      * @param target  目标对象
-     * @param mapping <filed <sourceValue, targetValue>>
+     * @param mapping <filed, <sourceValue, targetValue>>
      */
     public static void copy(Object source, Object target, Map<String, Map<String, String>> mapping) {
         BeanCopier beanCopier = BeanCopier.create(source.getClass(), target.getClass(), true);
@@ -68,7 +68,7 @@ public class BeanUtils {
             } else {
                 return value;
             }
-
         }
     }
+
 }

@@ -38,7 +38,7 @@ public class AnswerController {
     }
 
 
-    @GetMapping("/status")
+    @PostMapping("/status")
     public ApiResponse status(@RequestBody AnswerDto answerDto) {
         if (answerDto == null) {
             return HttpResponse.reject(Messages.REQUEST_EMPTY);
