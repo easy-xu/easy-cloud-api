@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 import pro.simplecloud.constant.Messages;
 import pro.simplecloud.entity.ApiResponse;
 import pro.simplecloud.entity.HttpResponse;
-import pro.simplecloud.quna.dto.AnswerDto;
 import pro.simplecloud.quna.dto.QuestionDto;
 import pro.simplecloud.quna.service.QuestionService;
 

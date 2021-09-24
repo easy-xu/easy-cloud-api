@@ -4,10 +4,7 @@ import org.springframework.web.bind.annotation.*;
 import pro.simplecloud.constant.Messages;
 import pro.simplecloud.entity.ApiResponse;
 import pro.simplecloud.entity.HttpResponse;
-import pro.simplecloud.quna.dto.AnswerDto;
-import pro.simplecloud.quna.dto.AnswerQuestionDto;
 import pro.simplecloud.quna.dto.ResultDto;
-import pro.simplecloud.quna.service.AnswerService;
 import pro.simplecloud.quna.service.ResultService;
 
 import javax.annotation.Resource;

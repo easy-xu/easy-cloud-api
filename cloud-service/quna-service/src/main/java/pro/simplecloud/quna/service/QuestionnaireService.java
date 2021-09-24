@@ -1,5 +1,7 @@
 package pro.simplecloud.quna.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import pro.simplecloud.quna.dto.PageDto;
 import pro.simplecloud.quna.dto.QuestionDto;
 import pro.simplecloud.quna.dto.QuestionnaireDto;
 
@@ -28,4 +30,11 @@ public interface QuestionnaireService {
      * @return List<QuestionDto>
      */
     List<QuestionDto> getQuestions(Long questionnaireId);
+
+    /**
+     * 分页查询
+     * @param pageDto 分页对象
+     * @return Page<QuestionnaireDto>
+     */
+    PageDto<QuestionnaireDto> pageList(PageDto<QuestionnaireDto> pageDto);
 }

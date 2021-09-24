@@ -1,18 +1,17 @@
 package pro.simplecloud.quna.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.stereotype.Service;
 import pro.simplecloud.constant.Messages;
-import pro.simplecloud.device.ApiHeaderHelper;
 import pro.simplecloud.exception.RequestException;
 import pro.simplecloud.exception.SystemErrorException;
-import pro.simplecloud.quna.dto.AnswerDto;
+import pro.simplecloud.quna.dto.PageDto;
 import pro.simplecloud.quna.dto.QuestionDto;
 import pro.simplecloud.quna.dto.QuestionnaireDto;
-import pro.simplecloud.quna.entity.QunaAnswerQuestionnaire;
 import pro.simplecloud.quna.entity.QunaConfigQuestion;
 import pro.simplecloud.quna.entity.QunaConfigQuestionnaire;
-import pro.simplecloud.quna.service.IQunaAnswerQuestionnaireService;
 import pro.simplecloud.quna.service.IQunaConfigQuestionService;
 import pro.simplecloud.quna.service.IQunaConfigQuestionnaireService;
 import pro.simplecloud.quna.service.QuestionnaireService;
@@ -36,7 +35,7 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
     private IQunaConfigQuestionnaireService questionnaireService;
 
     @Resource
-    private IQunaConfigQuestionService configQuestionService;
+    private IQunaConfigQuestionService questionService;
 
     @Override
     public QuestionnaireDto getDetail(Long questionnaireId) {
@@ -65,7 +64,7 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
         //查询问题
         QunaConfigQuestion question = new QunaConfigQuestion();
         question.setQuestionnaireId(questionnaireId);
-        List<QunaConfigQuestion> questions = configQuestionService.list(Wrappers.query(question).orderByAsc("order_num"));
+        List<QunaConfigQuestion> questions = questionService.list(Wrappers.query(question).orderByAsc("order_num"));
         if (questions.isEmpty()) {
             throw new SystemErrorException(Messages.DB_DATA_ERROR);
         }
@@ -75,5 +74,32 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
             BeanUtils.copy(item, questionDto);
             return questionDto;
         }).collect(Collectors.toList());
+    }
+
+    @Override
+    public PageDto<QuestionnaireDto> pageList(PageDto<QuestionnaireDto> pageDto) {
+        //分页
+        Page<QunaConfigQuestionnaire> page = new Page<>(pageDto.getCurrent(), pageDto.getSize());
+        //排序
+        page.setOrders(pageDto.getOrders());
+        //查询条件
+        QueryWrapper<QunaConfigQuestionnaire> queryWrapper;
+        if (pageDto.getQuery() != null) {
+            QunaConfigQuestionnaire questionnaire = new QunaConfigQuestionnaire();
+            BeanUtils.copy(pageDto.getQuery(), questionnaire);
+            queryWrapper = Wrappers.query(questionnaire);
+        } else {
+            queryWrapper = Wrappers.query();
+        }
+        page = questionnaireService.page(page, queryWrapper);
+        //数据封装
+        List<QunaConfigQuestionnaire> records = page.getRecords();
+        List<QuestionnaireDto> recordsDto = records.stream().map(item -> {
+            QuestionnaireDto dto = new QuestionnaireDto();
+            BeanUtils.copy(item, dto);
+            return dto;
+        }).collect(Collectors.toList());
+        pageDto.setRecords(recordsDto);
+        return pageDto;
     }
 }

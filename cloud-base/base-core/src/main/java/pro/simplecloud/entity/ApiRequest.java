@@ -1,5 +1,7 @@
 package pro.simplecloud.entity;
 
+import java.io.Serializable;
+
 /**
  * Title: ApiRequest
  * Description:
@@ -7,5 +9,5 @@ package pro.simplecloud.entity;
  * @author Xu Honglin
  * @version 1.0
  */
-public interface ApiRequest {
+public interface ApiRequest extends Serializable {
 }

@@ -1,8 +1,10 @@
 package pro.simplecloud.quna.dto;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.Data;
 import pro.simplecloud.entity.ApiRequest;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -22,6 +24,11 @@ public class QuestionnaireDto implements ApiRequest {
     private QuestionDto question;
 
     private AnswerDto answer;
+
+    /**
+     *
+     */
+    private Page<QuestionnaireDto> page;
 
     /**
      * 问卷标题
