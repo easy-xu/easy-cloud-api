@@ -1,8 +1,8 @@
 package pro.simplecloud.quna.dto;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import pro.simplecloud.quna.entity.QunaAnswerResult;
 
 /**
  * Title: ResultDto
@@ -12,26 +12,8 @@ import lombok.Data;
  * @version 1.0
  */
 @Data
-public class ResultDto {
-    /**
-     * 结果ID
-     */
-    private Long id;
-
-    /**
-     * 问卷回答ID
-     */
-    private Long answerId;
-
-    /**
-     * 结果ID
-     */
-    private Long resultId;
-
-    /**
-     * 分值
-     */
-    private Long score;
+@EqualsAndHashCode(callSuper = true)
+public class ResultDto extends QunaAnswerResult {
 
     /**
      * 标题

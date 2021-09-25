@@ -2,9 +2,11 @@ package pro.simplecloud.quna.dto;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import pro.simplecloud.entity.ApiRequest;
+import pro.simplecloud.quna.entity.QunaAnswerQuestionnaire;
+import pro.simplecloud.quna.entity.QunaConfigQuestionnaire;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -15,39 +17,13 @@ import java.util.List;
  * @version 1.0
  */
 @Data
-public class QuestionnaireDto implements ApiRequest {
-
-    private Long id;
+@EqualsAndHashCode(callSuper = true)
+public class QuestionnaireDto extends QunaConfigQuestionnaire implements ApiRequest {
 
     private List<QuestionDto> questions;
 
     private QuestionDto question;
 
-    private AnswerDto answer;
-
-    /**
-     *
-     */
-    private Page<QuestionnaireDto> page;
-
-    /**
-     * 问卷标题
-     */
-    private String title;
-
-    /**
-     * 问题个数
-     */
-    private Long questionNum;
-
-    /**
-     * 参与人数
-     */
-    private Long participantNum;
-
-    /**
-     * 喜欢个数
-     */
-    private Long likeNum;
+    private QunaAnswerQuestionnaire answer;
 
 }

@@ -1,4 +1,4 @@
-package pro.simplecloud.web.constant;
+package pro.simplecloud.constant;
 
 /**
  * Title: ApiHeaderTag

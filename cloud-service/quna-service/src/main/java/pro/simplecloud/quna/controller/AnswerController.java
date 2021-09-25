@@ -4,7 +4,8 @@ import org.springframework.web.bind.annotation.*;
 import pro.simplecloud.constant.Messages;
 import pro.simplecloud.entity.ApiResponse;
 import pro.simplecloud.entity.HttpResponse;
-import pro.simplecloud.quna.dto.AnswerQuestionDto;
+import pro.simplecloud.quna.entity.QunaAnswerQuestion;
+import pro.simplecloud.quna.entity.QunaAnswerQuestionnaire;
 import pro.simplecloud.quna.service.AnswerService;
 
 import javax.annotation.Resource;
@@ -24,72 +25,72 @@ public class AnswerController {
     private AnswerService answerService;
 
     @PostMapping("/init")
-    public ApiResponse initQuestionnaire(@RequestBody AnswerDto answerDto) {
-        if (answerDto == null) {
+    public ApiResponse initQuestionnaire(@RequestBody QunaAnswerQuestionnaire answerQuestionnaire) {
+        if (answerQuestionnaire == null) {
             return HttpResponse.reject(Messages.REQUEST_EMPTY);
         }
-        Long questionnaireId = answerDto.getQuestionnaireId();
+        Long questionnaireId = answerQuestionnaire.getQuestionnaireId();
         if (questionnaireId == null) {
             return HttpResponse.reject(Messages.ID_EMPTY);
         }
-        answerDto = answerService.init(questionnaireId);
-        return HttpResponse.ok(answerDto);
+        answerQuestionnaire = answerService.init(questionnaireId);
+        return HttpResponse.ok(answerQuestionnaire);
     }
 
 
     @PostMapping("/status")
-    public ApiResponse status(@RequestBody AnswerDto answerDto) {
-        if (answerDto == null) {
+    public ApiResponse status(@RequestBody QunaAnswerQuestionnaire answerQuestionnaire) {
+        if (answerQuestionnaire == null) {
             return HttpResponse.reject(Messages.REQUEST_EMPTY);
         }
-        Long answerId = answerDto.getId();
+        Long answerId = answerQuestionnaire.getId();
         if (answerId == null) {
             return HttpResponse.reject(Messages.ID_EMPTY);
         }
-        answerDto = answerService.status(answerId);
-        return HttpResponse.ok(answerDto);
+        answerQuestionnaire = answerService.status(answerId);
+        return HttpResponse.ok(answerQuestionnaire);
     }
 
     @PostMapping("/query")
-    public ApiResponse queryAnswer(@RequestBody AnswerDto answerDto) {
-        if (answerDto == null) {
+    public ApiResponse queryAnswer(@RequestBody QunaAnswerQuestionnaire answerQuestionnaire) {
+        if (answerQuestionnaire == null) {
             return HttpResponse.reject(Messages.REQUEST_EMPTY);
         }
-        Long answerId = answerDto.getId();
-        Long questionnaireId = answerDto.getQuestionnaireId();
+        Long answerId = answerQuestionnaire.getId();
+        Long questionnaireId = answerQuestionnaire.getQuestionnaireId();
         if (answerId != null) {
-            answerDto = answerService.getDetail(answerId);
-            return HttpResponse.ok(answerDto);
+            answerQuestionnaire = answerService.getDetail(answerId);
+            return HttpResponse.ok(answerQuestionnaire);
 
         }
         if (questionnaireId != null) {
-            answerDto = answerService.getDetailByQuestionnaireId(questionnaireId);
-            return HttpResponse.ok(answerDto);
+            answerQuestionnaire = answerService.getDetailByQuestionnaireId(questionnaireId);
+            return HttpResponse.ok(answerQuestionnaire);
         }
         return HttpResponse.reject(Messages.ID_EMPTY);
     }
 
 
     @PostMapping("/question/save")
-    public ApiResponse saveAnswerQuestion(@RequestBody AnswerQuestionDto answerQuestionDto) {
-        if (answerQuestionDto == null) {
+    public ApiResponse saveAnswerQuestion(@RequestBody QunaAnswerQuestion answerQuestion) {
+        if (answerQuestion == null) {
             return HttpResponse.reject(Messages.REQUEST_EMPTY);
         }
-        answerQuestionDto = answerService.saveAnswerQuestion(answerQuestionDto);
-        return HttpResponse.ok(answerQuestionDto);
+        answerQuestion = answerService.saveAnswerQuestion(answerQuestion);
+        return HttpResponse.ok(answerQuestion);
     }
 
     @PostMapping("/question/query")
-    public ApiResponse queryAnswerQuestion(@RequestBody AnswerQuestionDto answerQuestionDto) {
-        if (answerQuestionDto == null) {
+    public ApiResponse queryAnswerQuestion(@RequestBody QunaAnswerQuestion answerQuestion) {
+        if (answerQuestion == null) {
             return HttpResponse.reject(Messages.REQUEST_EMPTY);
         }
-        Long answerId = answerQuestionDto.getAnswerId();
-        Long questionId = answerQuestionDto.getQuestionId();
+        Long answerId = answerQuestion.getAnswerId();
+        Long questionId = answerQuestion.getQuestionId();
         if (answerId == null || questionId == null) {
             return HttpResponse.reject(Messages.ID_EMPTY);
         }
-        answerQuestionDto = answerService.getAnswerQuestion(answerId, questionId);
-        return HttpResponse.ok(answerQuestionDto);
+        answerQuestion = answerService.getAnswerQuestion(answerId, questionId);
+        return HttpResponse.ok(answerQuestion);
     }
 }

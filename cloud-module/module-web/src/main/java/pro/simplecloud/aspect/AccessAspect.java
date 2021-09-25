@@ -1,4 +1,4 @@
-package pro.simplecloud.web.aspect;
+package pro.simplecloud.aspect;
 
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;

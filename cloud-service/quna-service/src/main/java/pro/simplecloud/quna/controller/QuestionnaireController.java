@@ -1,19 +1,18 @@
 package pro.simplecloud.quna.controller;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pro.simplecloud.constant.Messages;
+import pro.simplecloud.dto.PageQueryDto;
 import pro.simplecloud.entity.ApiResponse;
 import pro.simplecloud.entity.HttpResponse;
-import pro.simplecloud.quna.dto.PageDto;
 import pro.simplecloud.quna.dto.QuestionnaireDto;
+import pro.simplecloud.quna.entity.QunaConfigQuestionnaire;
 import pro.simplecloud.quna.service.QuestionnaireService;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * Title: QuestionnaireController
@@ -42,13 +41,13 @@ public class QuestionnaireController {
         return HttpResponse.ok(questionnaireDto);
     }
 
-    @PostMapping("/list")
-    public ApiResponse listQuestionnaire(@RequestBody PageDto<QuestionnaireDto> pageDto) {
-        if (pageDto == null) {
+    @PostMapping("/pageList")
+    public ApiResponse pageListQuestionnaire(@RequestBody PageQueryDto<QunaConfigQuestionnaire> pageQueryDto) {
+        if (pageQueryDto == null) {
             return HttpResponse.reject(Messages.REQUEST_EMPTY);
         }
-        pageDto = questionnaireService.pageList(pageDto);
-        return HttpResponse.ok(pageDto);
+        pageQueryDto = questionnaireService.pageList(pageQueryDto);
+        return HttpResponse.ok(pageQueryDto);
     }
 
 }

@@ -1,10 +1,10 @@
-package pro.simplecloud.web.filter;
+package pro.simplecloud.filter;
 
 import org.springframework.util.StringUtils;
 import pro.simplecloud.utils.IpAddressUtils;
 import pro.simplecloud.utils.UserTokenUtils;
 import pro.simplecloud.entity.ApiHeader;
-import pro.simplecloud.web.constant.ApiHeaderTag;
+import pro.simplecloud.constant.ApiHeaderTag;
 import pro.simplecloud.device.ApiHeaderHelper;
 
 import javax.servlet.*;

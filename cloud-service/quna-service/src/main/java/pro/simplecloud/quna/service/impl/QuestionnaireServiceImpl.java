@@ -5,9 +5,9 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.stereotype.Service;
 import pro.simplecloud.constant.Messages;
+import pro.simplecloud.dto.PageQueryDto;
 import pro.simplecloud.exception.RequestException;
 import pro.simplecloud.exception.SystemErrorException;
-import pro.simplecloud.quna.dto.PageDto;
 import pro.simplecloud.quna.dto.QuestionDto;
 import pro.simplecloud.quna.dto.QuestionnaireDto;
 import pro.simplecloud.quna.entity.QunaConfigQuestion;
@@ -77,29 +77,18 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
     }
 
     @Override
-    public PageDto<QuestionnaireDto> pageList(PageDto<QuestionnaireDto> pageDto) {
+    public PageQueryDto<QunaConfigQuestionnaire> pageList(PageQueryDto<QunaConfigQuestionnaire> pageQueryDto) {
         //分页
-        Page<QunaConfigQuestionnaire> page = new Page<>(pageDto.getCurrent(), pageDto.getSize());
-        //排序
-        page.setOrders(pageDto.getOrders());
+        Page<QunaConfigQuestionnaire> page = pageQueryDto.getPage();
         //查询条件
         QueryWrapper<QunaConfigQuestionnaire> queryWrapper;
-        if (pageDto.getQuery() != null) {
-            QunaConfigQuestionnaire questionnaire = new QunaConfigQuestionnaire();
-            BeanUtils.copy(pageDto.getQuery(), questionnaire);
-            queryWrapper = Wrappers.query(questionnaire);
+        QunaConfigQuestionnaire query = pageQueryDto.getQuery();
+        if (query != null) {
+            queryWrapper = Wrappers.query(query);
         } else {
             queryWrapper = Wrappers.query();
         }
-        page = questionnaireService.page(page, queryWrapper);
-        //数据封装
-        List<QunaConfigQuestionnaire> records = page.getRecords();
-        List<QuestionnaireDto> recordsDto = records.stream().map(item -> {
-            QuestionnaireDto dto = new QuestionnaireDto();
-            BeanUtils.copy(item, dto);
-            return dto;
-        }).collect(Collectors.toList());
-        pageDto.setRecords(recordsDto);
-        return pageDto;
+        questionnaireService.page(page, queryWrapper);
+        return pageQueryDto;
     }
 }

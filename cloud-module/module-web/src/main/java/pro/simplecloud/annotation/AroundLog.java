@@ -1,4 +1,4 @@
-package pro.simplecloud.web.annotation;
+package pro.simplecloud.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

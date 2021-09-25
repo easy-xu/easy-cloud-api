@@ -1,7 +1,10 @@
 package pro.simplecloud.quna.dto;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import pro.simplecloud.entity.ApiRequest;
+import pro.simplecloud.quna.entity.QunaConfigOption;
+import pro.simplecloud.quna.entity.QunaConfigQuestion;
 
 import java.util.List;
 
@@ -13,25 +16,9 @@ import java.util.List;
  * @version 1.0
  */
 @Data
-public class QuestionDto implements ApiRequest {
+@EqualsAndHashCode(callSuper = true)
+public class QuestionDto extends QunaConfigQuestion implements ApiRequest {
 
-    private Long id;
-    /**
-     * 问卷ID
-     */
-    private Long questionnaireId;
-
-    /**
-     * 问题标题
-     */
-    private String title;
-
-    /**
-     * 问题排序
-     */
-    private Long orderNum;
-
-
-    private List<OptionDto> options;
+    private List<QunaConfigOption> options;
 
 }

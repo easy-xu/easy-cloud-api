@@ -1,4 +1,4 @@
-package pro.simplecloud.web.filter;
+package pro.simplecloud.filter;
 
 
 import javax.servlet.*;

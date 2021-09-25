@@ -1,4 +1,4 @@
-package pro.simplecloud.web.aspect;
+package pro.simplecloud.aspect;
 
 
 import lombok.extern.slf4j.Slf4j;
@@ -11,8 +11,8 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
+import pro.simplecloud.annotation.AroundLog;
 import pro.simplecloud.utils.Timer;
-import pro.simplecloud.web.annotation.AroundLog;
 
 import java.lang.reflect.Method;
 
@@ -31,7 +31,7 @@ import java.lang.reflect.Method;
 @Component
 public class AroundLogAspect {
 
-    @Around("@annotation(pro.simplecloud.web.annotation.AroundLog) || execution(* pro.simplecloud..*.controller.*.*(..))")
+    @Around("@annotation(pro.simplecloud.annotation.AroundLog) || execution(* pro.simplecloud..*.controller.*.*(..))")
     public Object controllerAround(ProceedingJoinPoint joinPoint) throws Throwable {
 
         Timer timer = new Timer();

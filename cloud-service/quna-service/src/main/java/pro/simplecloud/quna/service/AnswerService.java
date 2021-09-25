@@ -1,7 +1,7 @@
 package pro.simplecloud.quna.service;
 
-import pro.simplecloud.quna.dto.AnswerDto;
-import pro.simplecloud.quna.dto.AnswerQuestionDto;
+import pro.simplecloud.quna.entity.QunaAnswerQuestion;
+import pro.simplecloud.quna.entity.QunaAnswerQuestionnaire;
 
 /**
  * Title: AnswerService
@@ -19,7 +19,7 @@ public interface AnswerService {
      * @param questionnaireId 问卷id
      * @return AnswerDto
      */
-    AnswerDto init(Long questionnaireId);
+    QunaAnswerQuestionnaire init(Long questionnaireId);
 
 
     /**
@@ -27,7 +27,7 @@ public interface AnswerService {
      * @param answerId 回答id
      * @return AnswerDto
      */
-    AnswerDto status(Long answerId);
+    QunaAnswerQuestionnaire status(Long answerId);
 
     /**
      * 获取回答情况
@@ -35,7 +35,7 @@ public interface AnswerService {
      * @param answerId 回答id
      * @return AnswerDto
      */
-    AnswerDto getDetail(Long answerId);
+    QunaAnswerQuestionnaire getDetail(Long answerId);
 
     /**
      * 获取回答情况
@@ -43,23 +43,23 @@ public interface AnswerService {
      * @param questionnaireId 问卷id
      * @return AnswerDto
      */
-    AnswerDto getDetailByQuestionnaireId(Long questionnaireId);
+    QunaAnswerQuestionnaire getDetailByQuestionnaireId(Long questionnaireId);
 
     /**
      * 保存问题答案
      *
-     * @param answerQuestionDto 问题答案
-     * @return AnswerQuestionDto
+     * @param answerQuestion 问题答案
+     * @return QunaAnswerQuestion
      */
-    AnswerQuestionDto saveAnswerQuestion(AnswerQuestionDto answerQuestionDto);
+    QunaAnswerQuestion saveAnswerQuestion(QunaAnswerQuestion answerQuestion);
 
     /**
      * 查询问题答案
      *
      * @param answerId   回答id
      * @param questionId 问题id
-     * @return AnswerQuestionDto
+     * @return QunaAnswerQuestion
      */
-    AnswerQuestionDto getAnswerQuestion(Long answerId, Long questionId);
+    QunaAnswerQuestion getAnswerQuestion(Long answerId, Long questionId);
 
 }

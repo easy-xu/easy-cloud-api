@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springframework.stereotype.Service;
 import pro.simplecloud.constant.Messages;
 import pro.simplecloud.exception.RequestException;
-import pro.simplecloud.quna.dto.OptionDto;
 import pro.simplecloud.quna.dto.QuestionDto;
 import pro.simplecloud.quna.entity.QunaConfigOption;
 import pro.simplecloud.quna.entity.QunaConfigQuestion;
@@ -33,9 +32,6 @@ public class QuestionServiceImpl implements QuestionService {
     private IQunaConfigQuestionService questionService;
 
     @Resource
-    private IQunaConfigQuestionnaireService questionnaireService;
-
-    @Resource
     private IQunaConfigOptionService optionService;
 
     @Override
@@ -46,7 +42,7 @@ public class QuestionServiceImpl implements QuestionService {
             throw new RequestException(Messages.NOT_FOUND);
         }
         //查询问题选项
-        List<OptionDto> optionDtos = getOptionDtos(question.getId());
+        List<QunaConfigOption> optionDtos = getOptionDtos(question.getId());
         //数据封装 QuestionDto
         QuestionDto questionDto = new QuestionDto();
         BeanUtils.copy(question, questionDto);
@@ -69,7 +65,7 @@ public class QuestionServiceImpl implements QuestionService {
             throw new RequestException(Messages.DB_DATA_ERROR);
         }
         question = questions.get(0);
-        List<OptionDto> optionDtos = getOptionDtos(question.getId());
+        List<QunaConfigOption> optionDtos = getOptionDtos(question.getId());
         //数据封装 QuestionDto
         QuestionDto questionDto = new QuestionDto();
         BeanUtils.copy(question, questionDto);
@@ -77,16 +73,10 @@ public class QuestionServiceImpl implements QuestionService {
         return questionDto;
     }
 
-    private List<OptionDto> getOptionDtos(Long questionId) {
+    private List<QunaConfigOption> getOptionDtos(Long questionId) {
         //查询问题选项
         LambdaQueryWrapper<QunaConfigOption> queryWrapper = Wrappers.lambdaQuery();
         queryWrapper.eq(QunaConfigOption::getQuestionId, questionId);
-        List<QunaConfigOption> options = optionService.list(queryWrapper);
-        //数据封装 OptionDto
-        return options.stream().map(option -> {
-            OptionDto optionDto = new OptionDto();
-            BeanUtils.copy(option, optionDto);
-            return optionDto;
-        }).collect(Collectors.toList());
+        return optionService.list(queryWrapper);
     }
 }

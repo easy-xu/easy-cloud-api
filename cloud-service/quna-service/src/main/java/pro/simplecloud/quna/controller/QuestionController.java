@@ -8,6 +8,7 @@ import pro.simplecloud.constant.Messages;
 import pro.simplecloud.entity.ApiResponse;
 import pro.simplecloud.entity.HttpResponse;
 import pro.simplecloud.quna.dto.QuestionDto;
+import pro.simplecloud.quna.entity.QunaAnswerQuestionnaire;
 import pro.simplecloud.quna.service.QuestionService;
 
 import javax.annotation.Resource;
@@ -40,12 +41,12 @@ public class QuestionController {
     }
 
     @PostMapping("/index")
-    public ApiResponse queryQuestionByIndex(@RequestBody AnswerDto answerDto) {
-        if (answerDto == null) {
+    public ApiResponse queryQuestionByIndex(@RequestBody QunaAnswerQuestionnaire answerQuestionnaire) {
+        if (answerQuestionnaire == null) {
             return HttpResponse.reject(Messages.REQUEST_EMPTY);
         }
-        Long questionIndex = answerDto.getQuestionIndex();
-        Long questionnaireId = answerDto.getQuestionnaireId();
+        Long questionIndex = answerQuestionnaire.getQuestionIndex();
+        Long questionnaireId = answerQuestionnaire.getQuestionnaireId();
         if (questionIndex == null || questionnaireId == null) {
             return HttpResponse.reject(Messages.ID_EMPTY);
         }
