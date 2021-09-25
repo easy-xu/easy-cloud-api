@@ -76,8 +76,8 @@ public class AnswerController {
         if (answerQuestion == null) {
             return HttpResponse.reject(Messages.REQUEST_EMPTY);
         }
-        answerQuestion = answerService.saveAnswerQuestion(answerQuestion);
-        return HttpResponse.ok(answerQuestion);
+        answerService.saveAnswerQuestion(answerQuestion);
+        return HttpResponse.ok();
     }
 
     @PostMapping("/question/query")

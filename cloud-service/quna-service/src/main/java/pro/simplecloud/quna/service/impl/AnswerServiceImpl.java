@@ -12,7 +12,6 @@ import pro.simplecloud.quna.entity.QunaAnswerQuestion;
 import pro.simplecloud.quna.entity.QunaAnswerQuestionnaire;
 import pro.simplecloud.quna.entity.QunaConfigQuestionnaire;
 import pro.simplecloud.quna.service.*;
-import pro.simplecloud.utils.BeanUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -121,14 +120,8 @@ public class AnswerServiceImpl implements AnswerService {
     }
 
     @Override
-    public QunaAnswerQuestion saveAnswerQuestion(QunaAnswerQuestion answerQuestion) {
-        Long answerId = answerQuestion.getAnswerId();
-        Long questionId = answerQuestion.getQuestionId();
-        answerQuestion = getAnswerQuestion(answerId, questionId);
-        answerQuestion.setOptionId(answerQuestion.getOptionId());
-        answerQuestion.setOptionValue(answerQuestion.getOptionValue());
+    public void saveAnswerQuestion(QunaAnswerQuestion answerQuestion) {
         answerQuestionService.saveOrUpdate(answerQuestion);
-        return answerQuestion;
     }
 
 

@@ -1,8 +1,6 @@
 package pro.simplecloud.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
@@ -18,6 +16,13 @@ import java.time.LocalDateTime;
  */
 @Data
 public class BaseEntity implements Serializable {
+
+    /**
+     * 主键
+     */
+    @TableId(value = "id", type = IdType.AUTO)
+    private Long id;
+
 
     /**
      * 删除标志（0正常 1停用）

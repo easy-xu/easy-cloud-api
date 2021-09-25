@@ -1,8 +1,6 @@
 package pro.simplecloud.quna.entity;
 
 import pro.simplecloud.entity.BaseEntity;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -12,19 +10,13 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author Generator
- * @since 2021-09-19
+ * @since 2021-09-25
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class QunaAnswerQuestionnaire extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
-
-    /**
-     * 问卷回答ID
-     */
-    @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
 
     /**
      * 问卷ID

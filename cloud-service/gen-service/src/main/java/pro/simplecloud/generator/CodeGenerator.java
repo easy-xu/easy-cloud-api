@@ -71,7 +71,7 @@ public class CodeGenerator {
         strategy.setControllerMappingHyphenStyle(true);
         //设置父类
         strategy.setSuperEntityClass(BaseEntity.class);
-        strategy.setSuperEntityColumns("deleted", "create_by", "create_time", "update_by", "update_time");
+        strategy.setSuperEntityColumns("id", "deleted", "create_by", "create_time", "update_by", "update_time");
         //自动充填
         ArrayList<TableFill> tableFills = new ArrayList<>();
         tableFills.add(new TableFill("createTime", INSERT));

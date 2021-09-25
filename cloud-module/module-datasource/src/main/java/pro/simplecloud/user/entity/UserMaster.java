@@ -1,8 +1,6 @@
 package pro.simplecloud.user.entity;
 
 import pro.simplecloud.entity.BaseEntity;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -12,19 +10,13 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author Generator
- * @since 2021-09-19
+ * @since 2021-09-25
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class UserMaster extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
-
-    /**
-     * 用户ID
-     */
-    @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
 
     /**
      * 用户账号

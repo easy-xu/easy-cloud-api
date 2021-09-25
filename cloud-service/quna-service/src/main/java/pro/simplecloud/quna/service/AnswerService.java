@@ -51,7 +51,7 @@ public interface AnswerService {
      * @param answerQuestion 问题答案
      * @return QunaAnswerQuestion
      */
-    QunaAnswerQuestion saveAnswerQuestion(QunaAnswerQuestion answerQuestion);
+    void saveAnswerQuestion(QunaAnswerQuestion answerQuestion);
 
     /**
      * 查询问题答案

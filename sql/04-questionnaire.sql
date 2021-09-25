@@ -6,6 +6,7 @@ create table quna_config_questionnaire
 (
     id              bigint(20) not null auto_increment comment '问卷ID',
     title           varchar(30) comment '问卷标题',
+    short_desc      varchar(200) comment '简要描述',
     question_num    bigint(20) comment '问题个数',
     participant_num bigint(20) comment '参与人数',
     like_num        bigint(20) comment '喜欢个数',
@@ -154,8 +155,8 @@ create table quna_answer_result
   auto_increment = 1 comment = '测试问卷答案结果表';
 
 -- 乐嘉性格色彩测试
-INSERT INTO `simple-cloud`.`quna_config_questionnaire`(`title`, `question_num`)
-VALUES ('乐嘉性格色彩测试', 30);
+INSERT INTO `simple-cloud`.`quna_config_questionnaire`(`title`, `short_desc`,`question_num`)
+VALUES ('乐嘉性格色彩测试','用“红、蓝、黄、绿”四色代替人的性格类型', 30);
 
 INSERT INTO `simple-cloud`.`quna_config_question`(`questionnaire_id`, `title`, `order_num`)
 VALUES (1, ' 关于人生观，我的内心其实是：', '1');
