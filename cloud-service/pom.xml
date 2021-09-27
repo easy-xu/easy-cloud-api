@@ -15,6 +15,7 @@
         <module>user-service</module>
         <module>gen-service</module>
         <module>dev-service</module>
+        <module>file-service</module>
     </modules>
 
     <groupId>pro.simplecloud.application</groupId>

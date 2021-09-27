@@ -75,3 +75,45 @@ create table sys_max_no
   auto_increment = 1 comment = '自增序列配置表';
 ALTER TABLE `sys_max_no`
     ADD INDEX `index_no_query` (`no_type`, no_limit) USING BTREE;
+
+
+-- ----------------------------
+-- 系统文件主表
+-- ----------------------------
+drop table if exists file_master;
+create table file_master
+(
+    id            bigint(20)  not null auto_increment comment '主键',
+    original_name varchar(200) comment '原文件名',
+    server_name   varchar(200) comment '服务器文件名',
+    sha256        varchar(60) not null comment '文件摘要',
+    content_id    bigint(20) comment '文件内容Id',
+    status        bigint(20) comment '文件状态（0临时文件 1正常文件）',
+    deleted       char(1)     default '0' comment '删除标志（0正常 1停用）',
+    create_by     varchar(60) default '' comment '创建者',
+    create_time   datetime comment '创建时间',
+    update_by     varchar(60) default '' comment '更新者',
+    update_time   datetime comment '更新时间',
+    primary key (id)
+) engine = innodb
+  auto_increment = 1 comment = '文件主表';
+ALTER TABLE `file_master`
+    ADD INDEX `index_sha256` (`sha256`) USING BTREE;
+
+-- ----------------------------
+-- 系统文件内容表
+-- ----------------------------
+drop table if exists file_content;
+create table file_content
+(
+    id          bigint(20) not null auto_increment comment '主键',
+    content     text comment '文件内容',
+    deleted     char(1)     default '0' comment '删除标志（0正常 1停用）',
+    create_by   varchar(60) default '' comment '创建者',
+    create_time datetime comment '创建时间',
+    update_by   varchar(60) default '' comment '更新者',
+    update_time datetime comment '更新时间',
+    primary key (id)
+) engine = innodb
+  auto_increment = 1 comment = '文件内容表';
+

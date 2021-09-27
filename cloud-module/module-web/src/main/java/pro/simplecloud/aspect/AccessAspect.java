@@ -63,7 +63,6 @@ public class AccessAspect {
             if (!StringUtils.hasLength(requestId)) {
                 throw new RequestException("交易流水号不能为空");
             }
-            sysApiLog = new SysApiLog();
             sysApiLog.setRequestId(requestId);
             int count = logService.count(Wrappers.query(sysApiLog));
             if (count > 1) {

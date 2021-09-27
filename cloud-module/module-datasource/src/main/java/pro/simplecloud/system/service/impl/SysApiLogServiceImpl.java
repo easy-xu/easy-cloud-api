@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author Generator
- * @since 2021-09-25
+ * @since 2021-09-27
  */
 @Service
 public class SysApiLogServiceImpl extends ServiceImpl<SysApiLogMapper, SysApiLog> implements ISysApiLogService {
