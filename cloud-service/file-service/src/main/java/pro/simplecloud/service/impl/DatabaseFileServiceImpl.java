@@ -1,5 +1,6 @@
 package pro.simplecloud.service.impl;
 
+import pro.simplecloud.constant.FileStatus;
 import pro.simplecloud.service.FileService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -54,6 +55,7 @@ public class DatabaseFileServiceImpl implements FileService {
         fileMaster.setOriginalName(originalName);
         fileMaster.setContentId(fileContent.getId());
         fileMaster.setSha256(sha256);
+        fileMaster.setStatus(FileStatus.TEMP.code);
         fileMasterService.save(fileMaster);
         return fileMaster;
     }

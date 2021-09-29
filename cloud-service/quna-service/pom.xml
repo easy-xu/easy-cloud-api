@@ -22,6 +22,11 @@
             <groupId>pro.simplecloud.model</groupId>
             <artifactId>module-datasource</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

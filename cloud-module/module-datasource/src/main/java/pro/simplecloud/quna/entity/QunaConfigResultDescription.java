@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 
 /**
  * <p>
- * 测试问卷结果分值配置表
+ * 测试问卷结果配置表
  * </p>
  *
  * @author Generator
@@ -14,24 +14,9 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class QunaConfigResultScore extends BaseEntity {
+public class QunaConfigResultDescription extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
-
-    /**
-     * 问卷ID
-     */
-    private Long questionnaireId;
-
-    /**
-     * 问题ID
-     */
-    private Long questionId;
-
-    /**
-     * 选项ID
-     */
-    private Long optionId;
 
     /**
      * 结果ID
@@ -39,9 +24,24 @@ public class QunaConfigResultScore extends BaseEntity {
     private Long resultId;
 
     /**
-     * 分值
+     * 问卷ID
      */
-    private Long score;
+    private Long questionnaireId;
+
+    /**
+     * 名称
+     */
+    private String name;
+
+    /**
+     * 描述文本
+     */
+    private String value;
+
+    /**
+     * 问题排序
+     */
+    private Long orderNum;
 
 
 }

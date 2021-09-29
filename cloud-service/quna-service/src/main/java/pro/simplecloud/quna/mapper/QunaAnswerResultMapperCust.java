@@ -30,6 +30,6 @@ public interface QunaAnswerResultMapperCust {
      * @param answerId 回答id
      * @return List<ResultDto>
      */
-    @Select("SELECT r.*, cr.title, cr.text FROM quna_answer_result r LEFT JOIN quna_config_result cr ON r.result_id = cr.id WHERE r.answer_id = #{answerId} ORDER BY r.score DESC")
+    @Select("SELECT r.*, cr.title, cr.short_desc FROM quna_answer_result r LEFT JOIN quna_config_result cr ON r.result_id = cr.id WHERE r.answer_id = #{answerId} ORDER BY r.score DESC")
     List<ResultDto> listByAnswerId(Long answerId);
 }

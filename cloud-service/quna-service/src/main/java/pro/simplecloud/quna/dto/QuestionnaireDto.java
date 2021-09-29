@@ -26,4 +26,5 @@ public class QuestionnaireDto extends QunaConfigQuestionnaire implements ApiRequ
 
     private QunaAnswerQuestionnaire answer;
 
+    private Long fileId;
 }

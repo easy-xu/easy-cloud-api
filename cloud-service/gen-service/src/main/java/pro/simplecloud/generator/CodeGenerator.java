@@ -23,8 +23,8 @@ public class CodeGenerator {
         generate("system", "sys_api_log");
         generate("file", "file_master", "file_content");
 
-        //generate("user", "user_master");
-        //generate("quna", "quna_config_questionnaire","quna_config_question","quna_config_option","quna_answer_questionnaire","quna_answer_question","quna_config_result","quna_config_result_score", "quna_answer_result");
+        generate("user", "user_master");
+        generate("quna", "quna_config_questionnaire","quna_config_question","quna_config_option","quna_answer_questionnaire","quna_answer_question","quna_config_result","quna_config_result_score", "quna_config_result_description", "quna_answer_result");
     }
 
     private static void generate(String module, String... table) {

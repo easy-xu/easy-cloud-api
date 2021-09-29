@@ -107,7 +107,7 @@ drop table if exists file_content;
 create table file_content
 (
     id          bigint(20) not null auto_increment comment '主键',
-    content     text comment '文件内容',
+    content     MEDIUMTEXT comment '文件内容',
     deleted     char(1)     default '0' comment '删除标志（0正常 1停用）',
     create_by   varchar(60) default '' comment '创建者',
     create_time datetime comment '创建时间',

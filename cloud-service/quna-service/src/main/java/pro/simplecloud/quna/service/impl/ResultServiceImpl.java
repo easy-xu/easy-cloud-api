@@ -1,10 +1,13 @@
 package pro.simplecloud.quna.service.impl;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springframework.stereotype.Service;
 import pro.simplecloud.quna.dto.ResultDto;
 import pro.simplecloud.quna.entity.QunaAnswerResult;
+import pro.simplecloud.quna.entity.QunaConfigResultDescription;
 import pro.simplecloud.quna.mapper.QunaAnswerResultMapperCust;
 import pro.simplecloud.quna.service.IQunaAnswerResultService;
+import pro.simplecloud.quna.service.IQunaConfigResultDescriptionService;
 import pro.simplecloud.quna.service.IQunaConfigResultService;
 import pro.simplecloud.quna.service.ResultService;
 import pro.simplecloud.annotation.AroundLog;
@@ -27,6 +30,10 @@ public class ResultServiceImpl implements ResultService {
 
     @Resource
     private IQunaConfigResultService configResultService;
+
+    @Resource
+    private IQunaConfigResultDescriptionService configResultDescriptionService;
+
     @Resource
     private QunaAnswerResultMapperCust resultMapperCust;
 
@@ -39,6 +46,14 @@ public class ResultServiceImpl implements ResultService {
 
     @Override
     public List<ResultDto> listByAnswerId(Long answerId) {
-        return resultMapperCust.listByAnswerId(answerId);
+        List<ResultDto> resultDtos = resultMapperCust.listByAnswerId(answerId);
+        resultDtos.forEach(resultDto -> {
+            Long resultId = resultDto.getResultId();
+            QunaConfigResultDescription description = new QunaConfigResultDescription();
+            description.setResultId(resultId);
+            List<QunaConfigResultDescription> descriptions = configResultDescriptionService.list(Wrappers.query(description));
+            resultDto.setDescriptions(descriptions);
+        });
+        return resultDtos;
     }
 }

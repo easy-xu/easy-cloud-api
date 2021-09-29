@@ -122,6 +122,13 @@
                 <version>2.3.31</version>
             </dependency>
 
+            <!-- excel -->
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>3.17</version>
+            </dependency>
+
 
             <!-- 自建模块 -->
             <dependency>

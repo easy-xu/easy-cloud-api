@@ -21,7 +21,7 @@ public class Base64Utils {
     /**
      * 将报文中的base64字符串解析成字节码流
      */
-    public static byte[] getByte(String baseStr) throws IOException {
+    public static byte[] getByte(String baseStr) {
         return Base64.getDecoder().decode(baseStr);
     }
 

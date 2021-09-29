@@ -92,13 +92,8 @@ public class AccessAspect {
     }
 
     private HttpResponse handelException(Throwable ex) {
-        //注解校验参数异常
-        if (ex instanceof IllegalArgumentException) {
-            log.error(ex.getMessage());
-            return HttpResponse.reject(ex.getMessage());
-        }
         //自定义异常
-        else if (ex instanceof BaseException) {
+        if (ex instanceof BaseException) {
             log.error(ex.getMessage());
             return HttpResponse.error(((BaseException) ex).getCode(), ex.getMessage());
         }

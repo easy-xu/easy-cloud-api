@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author Generator
- * @since 2021-09-27
+ * @since 2021-09-29
  */
 public interface FileMasterMapper extends BaseMapper<FileMaster> {
 

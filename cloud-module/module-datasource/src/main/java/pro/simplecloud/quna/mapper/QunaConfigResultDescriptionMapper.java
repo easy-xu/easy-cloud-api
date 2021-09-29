@@ -1,6 +1,6 @@
 package pro.simplecloud.quna.mapper;
 
-import pro.simplecloud.quna.entity.QunaConfigResult;
+import pro.simplecloud.quna.entity.QunaConfigResultDescription;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author Generator
  * @since 2021-09-29
  */
-public interface QunaConfigResultMapper extends BaseMapper<QunaConfigResult> {
+public interface QunaConfigResultDescriptionMapper extends BaseMapper<QunaConfigResultDescription> {
 
 }

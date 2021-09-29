@@ -3,6 +3,7 @@ package pro.simplecloud.quna.service;
 import pro.simplecloud.dto.PageQueryDto;
 import pro.simplecloud.quna.dto.QuestionDto;
 import pro.simplecloud.quna.dto.QuestionnaireDto;
+import pro.simplecloud.quna.entity.QunaAnswerQuestionnaire;
 import pro.simplecloud.quna.entity.QunaConfigQuestionnaire;
 
 import java.util.List;
@@ -15,13 +16,6 @@ import java.util.List;
  * @version 1.0
  */
 public interface QuestionnaireService {
-    /**
-     * 获取问卷详情
-     *
-     * @param questionnaireId 问卷id
-     * @return QuestionnaireDto
-     */
-    QuestionnaireDto getDetail(Long questionnaireId);
 
     /**
      * 查询问题
@@ -32,9 +26,9 @@ public interface QuestionnaireService {
     List<QuestionDto> getQuestions(Long questionnaireId);
 
     /**
-     * 分页查询
-     * @param pageQueryDto 分页对象
-     * @return Page<QuestionnaireDto>
+     * 从已上传文件中导入问卷配置
+     * @param fileId 文件id
+     * @return QunaConfigQuestionnaire
      */
-    PageQueryDto<QunaConfigQuestionnaire> pageList(PageQueryDto<QunaConfigQuestionnaire> pageQueryDto);
+    QunaConfigQuestionnaire importExcel(Long fileId);
 }

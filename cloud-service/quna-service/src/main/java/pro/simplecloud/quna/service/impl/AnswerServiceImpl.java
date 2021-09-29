@@ -40,6 +40,10 @@ public class AnswerServiceImpl implements AnswerService {
 
     @Override
     public QunaAnswerQuestionnaire init(Long questionnaireId) {
+        QunaConfigQuestionnaire questionnaire = questionnaireService.getById(questionnaireId);
+        if (questionnaire == null) {
+            throw new RequestException(Messages.NOT_FOUND);
+        }
         //检验是否已存在问卷
         QunaAnswerQuestionnaire answerQuestionnaire = new QunaAnswerQuestionnaire();
         answerQuestionnaire.setQuestionnaireId(questionnaireId);
@@ -54,7 +58,6 @@ public class AnswerServiceImpl implements AnswerService {
         answerQuestionnaire.setQuestionIndex(1L);
         answerQuestionnaireService.save(answerQuestionnaire);
         //更新问卷配置信息
-        QunaConfigQuestionnaire questionnaire = questionnaireService.getById(questionnaireId);
         LambdaQueryWrapper<QunaAnswerQuestionnaire> queryWrapper = Wrappers.lambdaQuery();
         queryWrapper.eq(QunaAnswerQuestionnaire::getQuestionnaireId, questionnaireId);
         int count = answerQuestionnaireService.count(queryWrapper);

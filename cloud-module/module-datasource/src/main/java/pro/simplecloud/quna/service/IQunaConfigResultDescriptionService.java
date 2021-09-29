@@ -1,6 +1,6 @@
 package pro.simplecloud.quna.service;
 
-import pro.simplecloud.quna.entity.QunaConfigResult;
+import pro.simplecloud.quna.entity.QunaConfigResultDescription;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author Generator
  * @since 2021-09-29
  */
-public interface IQunaConfigResultService extends IService<QunaConfigResult> {
+public interface IQunaConfigResultDescriptionService extends IService<QunaConfigResultDescription> {
 
 }
