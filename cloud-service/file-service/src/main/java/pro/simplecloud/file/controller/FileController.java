@@ -1,6 +1,6 @@
-package pro.simplecloud.controller;
+package pro.simplecloud.file.controller;
 
-import pro.simplecloud.service.FileService;
+import pro.simplecloud.file.service.FileService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;

@@ -1,11 +1,10 @@
 package pro.simplecloud.user.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springframework.stereotype.Service;
 import pro.simplecloud.constant.Messages;
-import pro.simplecloud.constant.UserType;
+import pro.simplecloud.user.constant.UserType;
 import pro.simplecloud.device.ApiHeaderHelper;
 import pro.simplecloud.entity.ApiHeader;
 import pro.simplecloud.exception.RequestException;
@@ -37,18 +36,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void signIn(UserDto userDto) {
+        String username = userDto.getUsername();
         //是否重复注册
-        QueryWrapper<UserMaster> queryWrapper = new QueryWrapper<UserMaster>().eq("username", userDto.getUsername());
+        QueryWrapper<UserMaster> queryWrapper = new QueryWrapper<UserMaster>().eq("username", username);
         int count = userMasterService.count(queryWrapper);
         if (count >= 1) {
             throw new RequestException(Messages.USERNAME_EXIST);
         }
         //更新游客信息为注册用户
         ApiHeader apiHeader = ApiHeaderHelper.get();
-        String username = apiHeader.getUsername();
+        String userNo = apiHeader.getUsername();
         String token = apiHeader.getToken();
         UserMaster userMaster = new UserMaster();
-        userMaster.setUserNo(username);
+        userMaster.setUserNo(userNo);
         userMaster.setToken(token);
         List<UserMaster> userMasters = userMasterService.list(Wrappers.query(userMaster));
         if (userMasters.isEmpty()) {
@@ -59,6 +59,7 @@ public class UserServiceImpl implements UserService {
         }
         userMaster = userMasters.get(0);
         userMaster.setType(UserType.USER.code);
+        userMaster.setUsername(username);
         //密码加密
         userMaster.setPassword(PasswordUtils.encrypt(userMaster.getPassword()));
         userMasterService.saveOrUpdate(userMaster);
@@ -67,18 +68,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto login(UserDto userDto) {
         //查询用户
-        LambdaQueryWrapper<UserMaster> queryWrapper = Wrappers.lambdaQuery();
-        queryWrapper.eq(UserMaster::getUsername, userDto.getUsername())
-                .eq(UserMaster::getPassword, PasswordUtils.encrypt(userDto.getPassword()));
-        List<UserMaster> userMasters = userMasterService.list(queryWrapper);
+        UserMaster userMaster = new UserMaster();
+        userMaster.setUsername(userDto.getUsername());
+        userMaster.setPassword(PasswordUtils.encrypt(userMaster.getPassword()));
+        List<UserMaster> userMasters = userMasterService.list(Wrappers.query(userMaster));
         if (userMasters.isEmpty()) {
             throw new RequestException(Messages.LOGIN_ERROR);
         } else if (userMasters.size() > 1) {
             throw new SystemErrorException(Messages.DB_DATA_ERROR);
         }
-        UserMaster userMaster = userMasters.get(0);
+        userMaster = userMasters.get(0);
         //更新token
-        String token = UserTokenUtils.generateToken(userDto.getUsername());
+        String token = UserTokenUtils.generateToken(userMaster.getUsername());
         userMaster.setToken(token);
         userMasterService.saveOrUpdate(userMaster);
         BeanUtils.copy(userMaster, userDto);

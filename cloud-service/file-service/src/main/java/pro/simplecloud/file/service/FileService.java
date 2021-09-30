@@ -1,4 +1,4 @@
-package pro.simplecloud.service;
+package pro.simplecloud.file.service;
 
 import org.springframework.web.multipart.MultipartFile;
 import pro.simplecloud.file.entity.FileMaster;

@@ -11,6 +11,7 @@ import pro.simplecloud.quna.constant.AnswerFlow;
 import pro.simplecloud.quna.entity.QunaAnswerQuestion;
 import pro.simplecloud.quna.entity.QunaAnswerQuestionnaire;
 import pro.simplecloud.quna.entity.QunaConfigQuestionnaire;
+import pro.simplecloud.quna.mapper.QunaAnswerQuestionMapperCust;
 import pro.simplecloud.quna.service.*;
 
 import javax.annotation.Resource;
@@ -34,6 +35,9 @@ public class AnswerServiceImpl implements AnswerService {
 
     @Resource
     private IQunaConfigQuestionnaireService questionnaireService;
+
+    @Resource
+    private QunaAnswerQuestionMapperCust answerQuestionMapperCust;
 
     @Resource
     private ResultService resultService;
@@ -73,7 +77,8 @@ public class AnswerServiceImpl implements AnswerService {
             throw new RequestException(Messages.NOT_FOUND);
         }
         Long flow = answerQuestionnaire.getFlow();
-        if (AnswerFlow.INIT.value.equals(flow)) {
+        //需要重新计数是否完成答题
+        if (AnswerFlow.INIT.value.equals(flow) || AnswerFlow.ANSWER.value.equals(flow)) {
             //查看是否回答结束
             QunaAnswerQuestion answerQuestion = new QunaAnswerQuestion();
             answerQuestion.setAnswerId(answerId);
@@ -81,6 +86,12 @@ public class AnswerServiceImpl implements AnswerService {
             QunaConfigQuestionnaire questionnaire = questionnaireService.getById(answerQuestionnaire.getQuestionnaireId());
             if (count < questionnaire.getQuestionNum()) {
                 answerQuestionnaire.setFlow(AnswerFlow.ANSWER.value);
+                //查询没有回答的第一个问题
+                Long questionIndex = answerQuestionMapperCust.firstNotAnswerQuestionIndex(questionnaire.getId(), answerId);
+                if (questionIndex == null) {
+                    throw new SystemErrorException(Messages.DB_DATA_ERROR);
+                }
+                answerQuestionnaire.setQuestionIndex(questionIndex);
                 answerQuestionnaireService.saveOrUpdate(answerQuestionnaire);
             } else if (count == questionnaire.getQuestionNum()) {
                 answerQuestionnaire.setFlow(AnswerFlow.SUBMIT.value);

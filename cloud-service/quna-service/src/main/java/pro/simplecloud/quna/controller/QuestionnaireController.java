@@ -50,4 +50,17 @@ public class QuestionnaireController extends BaseController<QunaConfigQuestionna
         QunaConfigQuestionnaire questionnaire =  questionnaireService.importExcel(fileId);
         return HttpResponse.ok(questionnaire);
     }
+
+    @PostMapping("/delete")
+    public ApiResponse deleteConfig(@RequestBody QuestionnaireDto questionnaireDto){
+        if (questionnaireDto == null) {
+            HttpResponse.reject(Messages.REQUEST_EMPTY);
+        }
+        Long id = questionnaireDto.getId();
+        if (id == null) {
+            HttpResponse.reject(Messages.ID_EMPTY);
+        }
+        questionnaireService.deleteConfig(id);
+        return HttpResponse.ok();
+    }
 }

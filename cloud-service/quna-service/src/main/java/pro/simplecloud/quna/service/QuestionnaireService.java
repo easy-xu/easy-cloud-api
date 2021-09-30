@@ -1,9 +1,6 @@
 package pro.simplecloud.quna.service;
 
-import pro.simplecloud.dto.PageQueryDto;
 import pro.simplecloud.quna.dto.QuestionDto;
-import pro.simplecloud.quna.dto.QuestionnaireDto;
-import pro.simplecloud.quna.entity.QunaAnswerQuestionnaire;
 import pro.simplecloud.quna.entity.QunaConfigQuestionnaire;
 
 import java.util.List;
@@ -27,8 +24,15 @@ public interface QuestionnaireService {
 
     /**
      * 从已上传文件中导入问卷配置
+     *
      * @param fileId 文件id
      * @return QunaConfigQuestionnaire
      */
     QunaConfigQuestionnaire importExcel(Long fileId);
+
+    /**
+     * 删除问卷配置
+     * @param id 问卷id
+     */
+    void deleteConfig(Long id);
 }

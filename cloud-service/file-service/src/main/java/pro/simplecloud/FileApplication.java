@@ -6,18 +6,18 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * Title: DevApplication
+ * Title: Application
  * Description:
  *
  * @author Xu Honglin
  * @version 1.0
  */
 @Slf4j
-@SpringBootApplication(scanBasePackages = "pro.simplecloud")
+@SpringBootApplication
 @MapperScan("pro.simplecloud.*.mapper")
-public class DevApplication {
+public class FileApplication {
     public static void main(String[] args) {
-        SpringApplication.run(DevApplication.class, args);
-        log.info("-----服务启动成功-----");
+        SpringApplication.run(FileApplication.class, args);
+        log.info("-----文件服务启动成功-----");
     }
 }

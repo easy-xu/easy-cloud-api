@@ -1,7 +1,7 @@
-package pro.simplecloud.service.impl;
+package pro.simplecloud.file.service.impl;
 
-import pro.simplecloud.constant.FileStatus;
-import pro.simplecloud.service.FileService;
+import pro.simplecloud.file.constant.FileStatus;
+import pro.simplecloud.file.service.FileService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

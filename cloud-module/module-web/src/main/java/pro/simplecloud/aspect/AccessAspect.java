@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -32,7 +34,6 @@ import javax.annotation.Resource;
  * @date 2021/7/21 13:33 首次创建
  * @date 2021/7/21 13:33 最后修改
  */
-@Slf4j
 @Order(100)
 @Aspect
 @Component
@@ -43,6 +44,7 @@ public class AccessAspect {
 
     @Around("execution(* pro.simplecloud..*.controller.*.*(..)))")
     public Object controllerAround(ProceedingJoinPoint joinPoint) throws Throwable {
+        Logger log = LoggerFactory.getLogger(joinPoint.getTarget().getClass());
         //未初始化BaseInfo直接放行
         ApiHeader apiHeader = ApiHeaderHelper.get();
         if (apiHeader == null) {
@@ -76,7 +78,7 @@ public class AccessAspect {
             }
             result = joinPoint.proceed(joinPoint.getArgs());
         } catch (Throwable ex) {
-            result = handelException(ex);
+            result = handelException(ex, log);
         } finally {
             //更新日志
             if (result instanceof HttpResponse) {
@@ -91,7 +93,7 @@ public class AccessAspect {
         return result;
     }
 
-    private HttpResponse handelException(Throwable ex) {
+    private HttpResponse handelException(Throwable ex, Logger log) {
         //自定义异常
         if (ex instanceof BaseException) {
             log.error(ex.getMessage());

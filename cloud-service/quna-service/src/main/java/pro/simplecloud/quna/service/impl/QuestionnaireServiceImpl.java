@@ -166,7 +166,6 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
                 log.info("{}|{}|{}", resultTitle, filedName, filedText);
                 resultRow = resultSheet.getRow(index++);
             }
-
             //解析问题页
             Sheet questionsSheet = workbook.getSheet("问题");
             Row questionSubTitleRow = questionsSheet.getRow(1);
@@ -226,13 +225,23 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
             int count = questionService.count(Wrappers.query(question));
             questionnaire.setQuestionNum((long) count);
             questionnaireService.saveOrUpdate(questionnaire);
-
-
         } catch (Exception e) {
             e.printStackTrace();
             throw new SystemErrorException("解析文件异常", e);
         }
         return questionnaire;
+    }
+
+    @Override
+    public void deleteConfig(Long id) {
+        questionnaireService.removeById(id);
+        HashMap<String, Object> hashMap = new HashMap<>(1);
+        hashMap.put("questionnaire_id", id);
+        questionService.removeByMap(hashMap);
+        optionService.removeByMap(hashMap);
+        resultService.removeByMap(hashMap);
+        resultScoreService.removeByMap(hashMap);
+        resultDescriptionService.removeByMap(hashMap);
     }
 
 }

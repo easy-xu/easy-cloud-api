@@ -1,4 +1,4 @@
-package pro.simplecloud.constant;
+package pro.simplecloud.file.constant;
 
 /**
  * Title: FileStatus

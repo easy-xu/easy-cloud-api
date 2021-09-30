@@ -8,6 +8,8 @@ import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -25,7 +27,6 @@ import java.lang.reflect.Method;
  * @date 2021/7/21 13:33 首次创建
  * @date 2021/7/21 13:33 最后修改
  */
-@Slf4j
 @Order(1)
 @Aspect
 @Component
@@ -33,7 +34,7 @@ public class AroundLogAspect {
 
     @Around("@annotation(pro.simplecloud.annotation.AroundLog) || execution(* pro.simplecloud..*.controller.*.*(..))")
     public Object controllerAround(ProceedingJoinPoint joinPoint) throws Throwable {
-
+        Logger log = LoggerFactory.getLogger(joinPoint.getTarget().getClass());
         Timer timer = new Timer();
         timer.start();
         String apiName;

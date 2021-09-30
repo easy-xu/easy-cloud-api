@@ -1,4 +1,4 @@
-package pro.simplecloud.constant;
+package pro.simplecloud.user.constant;
 
 /**
  * Title: UserType
