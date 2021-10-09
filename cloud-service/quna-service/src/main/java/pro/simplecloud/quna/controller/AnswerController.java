@@ -1,6 +1,9 @@
 package pro.simplecloud.quna.controller;
 
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import pro.simplecloud.constant.Messages;
 import pro.simplecloud.entity.ApiResponse;
 import pro.simplecloud.entity.HttpResponse;

@@ -32,6 +32,7 @@ public interface QuestionnaireService {
 
     /**
      * 删除问卷配置
+     *
      * @param id 问卷id
      */
     void deleteConfig(Long id);

@@ -1,6 +1,5 @@
 package pro.simplecloud.quna.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Select;
 import pro.simplecloud.quna.dto.ResultDto;
 import pro.simplecloud.quna.entity.QunaAnswerResult;
@@ -19,6 +18,7 @@ public interface QunaAnswerResultMapperCust {
 
     /**
      * 根据回答id合计分数
+     *
      * @param answerId 回答id
      * @return List<QunaAnswerResult>
      */
@@ -27,6 +27,7 @@ public interface QunaAnswerResultMapperCust {
 
     /**
      * 根据回答id查询计算结果
+     *
      * @param answerId 回答id
      * @return List<ResultDto>
      */

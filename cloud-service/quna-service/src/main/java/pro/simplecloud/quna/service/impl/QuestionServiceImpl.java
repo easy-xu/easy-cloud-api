@@ -10,13 +10,11 @@ import pro.simplecloud.quna.entity.QunaConfigOption;
 import pro.simplecloud.quna.entity.QunaConfigQuestion;
 import pro.simplecloud.quna.service.IQunaConfigOptionService;
 import pro.simplecloud.quna.service.IQunaConfigQuestionService;
-import pro.simplecloud.quna.service.IQunaConfigQuestionnaireService;
 import pro.simplecloud.quna.service.QuestionService;
 import pro.simplecloud.utils.BeanUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Title: QuestionServiceImpl
@@ -51,7 +49,7 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public QuestionDto getDetailByIndex(Long questionnaireId, Long questionIndex) {
+    public QuestionDto getDetailByIndex(Long questionnaireId, Integer questionIndex) {
         //查询问题
         QunaConfigQuestion question = new QunaConfigQuestion();
         question.setQuestionnaireId(questionnaireId);

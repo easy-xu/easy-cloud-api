@@ -1,7 +1,7 @@
 package pro.simplecloud.file.mapper;
 
-import pro.simplecloud.file.entity.FileContent;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import pro.simplecloud.file.entity.FileContent;
 
 /**
  * <p>
@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author Generator
- * @since 2021-09-29
+ * @since 2021-10-09
  */
 public interface FileContentMapper extends BaseMapper<FileContent> {
 

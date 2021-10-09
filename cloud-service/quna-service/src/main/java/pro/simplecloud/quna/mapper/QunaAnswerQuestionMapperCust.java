@@ -2,10 +2,6 @@ package pro.simplecloud.quna.mapper;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
-import pro.simplecloud.quna.dto.ResultDto;
-import pro.simplecloud.quna.entity.QunaAnswerResult;
-
-import java.util.List;
 
 /**
  * <p>
@@ -19,11 +15,12 @@ public interface QunaAnswerQuestionMapperCust {
 
     /**
      * 查询未回答的收个问题
-     * @param answerId 回答id
+     *
+     * @param answerId        回答id
      * @param questionnaireId 问卷id
      * @return Long
      */
     @Select("select order_num from quna_config_question cq where cq.questionnaire_id = #{questionnaireId} and not exists ( select 1 from quna_answer_question aq where cq.id= aq.question_id and aq.answer_id = #{answerId} ) ORDER BY order_num LIMIT 1")
-    Long firstNotAnswerQuestionIndex(@Param("questionnaireId") Long questionnaireId, @Param("answerId") Long answerId);
+    Integer firstNotAnswerQuestionIndex(@Param("questionnaireId") Long questionnaireId, @Param("answerId") Long answerId);
 
 }

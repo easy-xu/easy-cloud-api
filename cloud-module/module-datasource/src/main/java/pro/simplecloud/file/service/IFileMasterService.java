@@ -1,7 +1,7 @@
 package pro.simplecloud.file.service;
 
-import pro.simplecloud.file.entity.FileMaster;
 import com.baomidou.mybatisplus.extension.service.IService;
+import pro.simplecloud.file.entity.FileMaster;
 
 /**
  * <p>
@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author Generator
- * @since 2021-09-29
+ * @since 2021-10-09
  */
 public interface IFileMasterService extends IService<FileMaster> {
 

@@ -1,10 +1,10 @@
 package pro.simplecloud.file.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.stereotype.Service;
 import pro.simplecloud.file.entity.FileMaster;
 import pro.simplecloud.file.mapper.FileMasterMapper;
 import pro.simplecloud.file.service.IFileMasterService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.stereotype.Service;
 
 /**
  * <p>
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author Generator
- * @since 2021-09-29
+ * @since 2021-10-09
  */
 @Service
 public class FileMasterServiceImpl extends ServiceImpl<FileMasterMapper, FileMaster> implements IFileMasterService {

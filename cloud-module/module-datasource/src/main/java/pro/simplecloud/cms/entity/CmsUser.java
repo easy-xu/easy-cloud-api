@@ -1,8 +1,8 @@
-package pro.simplecloud.user.entity;
+package pro.simplecloud.cms.entity;
 
-import pro.simplecloud.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import pro.simplecloud.entity.BaseEntity;
 
 /**
  * <p>
@@ -10,11 +10,11 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author Generator
- * @since 2021-09-29
+ * @since 2021-10-09
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class UserMaster extends BaseEntity {
+public class CmsUser extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 

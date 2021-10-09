@@ -125,7 +125,7 @@ public class DbSequenceEngine {
             //开启事务
             connection.setAutoCommit(false);
             //查询并锁定
-            statement = connection.prepareStatement("select max_no, no_step from sys_max_no where no_type = ? and no_limit = ? for update");
+            statement = connection.prepareStatement("select max_no, no_step from seq_max_no where no_type = ? and no_limit = ? for update");
             statement.setString(1, noType);
             statement.setString(2, noLimit);
             ResultSet resultSet = statement.executeQuery();
@@ -136,7 +136,7 @@ public class DbSequenceEngine {
                 int noStep = resultSet.getInt(2);
                 maxNoCache.setNoStep(noStep);
                 maxNo = maxNo + noStep;
-                statement = connection.prepareStatement("update sys_max_no set max_no = ?, update_by = ?, update_time = ? where no_type = ? and no_limit = ?");
+                statement = connection.prepareStatement("update seq_max_no set max_no = ?, update_by = ?, update_time = ? where no_type = ? and no_limit = ?");
                 statement.setLong(1, maxNo);
                 statement.setString(2, DEFAULT_OPERATOR);
                 statement.setDate(3, dateTime);
@@ -155,7 +155,7 @@ public class DbSequenceEngine {
             } else {
                 //不存在则新增
                 int noStep = maxNoCache.getNoStep();
-                statement = connection.prepareStatement("insert into sys_max_no (`no_type`, `no_limit`, `max_no`, `no_step`, `create_by`, `create_time`, `update_by`, `update_time`) values (?,?,?,?,?,?,?,?)");
+                statement = connection.prepareStatement("insert into seq_max_no (`no_type`, `no_limit`, `max_no`, `no_step`, `create_by`, `create_time`, `update_by`, `update_time`) values (?,?,?,?,?,?,?,?)");
                 statement.setString(1, noType);
                 statement.setString(2, noLimit);
                 statement.setLong(3, noStep);

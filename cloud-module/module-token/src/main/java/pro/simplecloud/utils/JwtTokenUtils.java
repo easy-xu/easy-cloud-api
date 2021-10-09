@@ -32,7 +32,7 @@ public class JwtTokenUtils {
         map.put("typ", "JWT");
         JWTCreator.Builder builder = JWT.create().withHeader(map);
         claimMap.forEach(builder::withClaim);
-        if (expiresAt == null){
+        if (expiresAt == null) {
             return builder
                     .withIssuedAt(new Date())
                     .sign(Algorithm.HMAC256(SECRET));
@@ -49,7 +49,7 @@ public class JwtTokenUtils {
         try {
             JWTVerifier verifier = JWT.require(Algorithm.HMAC256(SECRET)).build();
             verifier.verify(token);
-        } catch (TokenExpiredException e){
+        } catch (TokenExpiredException e) {
             log.error("verify token expired: {}", e.getMessage());
             throw new TokenErrorException(Messages.TOKEN_EXPIRED);
         } catch (Exception e) {

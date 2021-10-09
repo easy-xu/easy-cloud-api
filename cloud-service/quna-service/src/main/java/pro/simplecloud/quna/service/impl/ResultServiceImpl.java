@@ -2,6 +2,7 @@ package pro.simplecloud.quna.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springframework.stereotype.Service;
+import pro.simplecloud.annotation.AroundLog;
 import pro.simplecloud.quna.dto.ResultDto;
 import pro.simplecloud.quna.entity.QunaAnswerResult;
 import pro.simplecloud.quna.entity.QunaConfigResultDescription;
@@ -10,7 +11,6 @@ import pro.simplecloud.quna.service.IQunaAnswerResultService;
 import pro.simplecloud.quna.service.IQunaConfigResultDescriptionService;
 import pro.simplecloud.quna.service.IQunaConfigResultService;
 import pro.simplecloud.quna.service.ResultService;
-import pro.simplecloud.annotation.AroundLog;
 
 import javax.annotation.Resource;
 import java.util.List;

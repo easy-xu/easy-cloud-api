@@ -9,7 +9,7 @@ import pro.simplecloud.constant.Messages;
  * @author Xu Honglin
  * @version 1.0
  */
-public class RequestException extends BaseException{
+public class RequestException extends BaseException {
     public RequestException(String message) {
         super(400, message);
     }

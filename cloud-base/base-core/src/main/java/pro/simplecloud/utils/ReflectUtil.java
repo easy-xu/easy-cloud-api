@@ -14,13 +14,13 @@ import java.util.Map;
  */
 public class ReflectUtil {
 
-    private ReflectUtil() {
-    }
-
     /**
      * 缓存类属性信息
      */
     private static Map<String, Field> fieldCash = new HashMap<>();
+
+    private ReflectUtil() {
+    }
 
     /**
      * 反射set方法赋值，可以赋值父类属性

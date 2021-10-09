@@ -1,8 +1,8 @@
 -- ----------------------------
 -- 用户主表
 -- ----------------------------
-drop table if exists user_master;
-create table user_master
+drop table if exists cms_user;
+create table cms_user
 (
     id           bigint(20)  not null auto_increment comment '用户ID',
     username     varchar(60) not null comment '用户账号',
@@ -23,16 +23,97 @@ create table user_master
     primary key (id)
 ) engine = innodb
   auto_increment = 1 comment = '用户信息主表';
-ALTER TABLE `user_master`
+ALTER TABLE `cms_user`
     ADD INDEX `index_username` (`username`) USING BTREE;
-ALTER TABLE `user_master`
+ALTER TABLE `cms_user`
     ADD INDEX `index_user_no` (`user_no`) USING BTREE;
+
+-- ----------------------------
+-- 角色主表
+-- ----------------------------
+drop table if exists cmsrole;
+create table cms_role
+(
+    id          bigint(20)   not null auto_increment comment '角色ID',
+    role_name   varchar(30)  not null comment '角色名称',
+    role_code   varchar(100) not null comment '角色权限字符串',
+    order_num   int(4)       not null comment '显示顺序',
+    status      char(1)      not null comment '角色状态（0正常 1停用）',
+    deleted     char(1)      default '0' comment '删除标志（0正常 1停用）',
+    create_by   varchar(60) comment '创建者',
+    create_time datetime comment '创建时间',
+    update_by   varchar(60) comment '更新者',
+    update_time datetime comment '更新时间',
+    remark      varchar(500) default null comment '备注',
+    primary key (id)
+) engine = innodb
+  auto_increment = 100 comment = '角色信息表';
+
+-- ----------------------------
+-- 菜单权限表
+-- ----------------------------
+drop table if exists cms_menu;
+create table cms_menu
+(
+    id          bigint(20)  not null auto_increment comment '菜单ID',
+    menu_name   varchar(50) not null comment '菜单名称',
+    parent_id   bigint(20)   default 0 comment '父菜单ID',
+    order_num   int(4)       default 0 comment '显示顺序',
+    path        varchar(200) default '' comment '路由地址',
+    component   varchar(255) default null comment '组件路径',
+    menu_type   char(1)      default '' comment '菜单类型（M目录 C菜单 F按钮）',
+    visible     char(1)      default 0 comment '菜单状态（0显示 1隐藏）',
+    icon        varchar(100) default '' comment '菜单图标',
+    status      char(1)     not null comment '角色状态（0正常 1停用）',
+    deleted     char(1)      default '0' comment '删除标志（0正常 1停用）',
+    create_by   varchar(60) comment '创建者',
+    create_time datetime comment '创建时间',
+    update_by   varchar(60) comment '更新者',
+    update_time datetime comment '更新时间',
+    remark      varchar(500) default null comment '备注',
+    primary key (id)
+) engine = innodb
+  auto_increment = 2000 comment = '菜单权限表';
+
+-- ----------------------------
+-- 用户和角色关联表  用户N-1角色
+-- ----------------------------
+drop table if exists cms_user_role;
+create table cms_user_role
+(
+    id          bigint(20) not null auto_increment comment '主键',
+    user_id     bigint(20) not null comment '用户ID',
+    role_id     bigint(20) not null comment '角色ID',
+    deleted     char(1) default '0' comment '删除标志（0正常 1停用）',
+    create_by   varchar(60) comment '创建者',
+    create_time datetime comment '创建时间',
+    update_by   varchar(60) comment '更新者',
+    update_time datetime comment '更新时间',
+    primary key (id)
+) engine = innodb comment = '用户和角色关联表';
+
+-- ----------------------------
+-- 角色和菜单关联表  角色1-N菜单
+-- ----------------------------
+drop table if exists cms_role_menu;
+create table cms_role_menu
+(
+    id          bigint(20) not null auto_increment comment '主键',
+    role_id     bigint(20) not null comment '角色ID',
+    menu_id     bigint(20) not null comment '菜单ID',
+    deleted     char(1) default '0' comment '删除标志（0正常 1停用）',
+    create_by   varchar(60) comment '创建者',
+    create_time datetime comment '创建时间',
+    update_by   varchar(60) comment '更新者',
+    update_time datetime comment '更新时间',
+    primary key (id)
+) engine = innodb comment = '角色和菜单关联表';
 
 -- ----------------------------
 -- 接口日志表字段
 -- ----------------------------
-drop table if exists sys_api_log;
-create table sys_api_log
+drop table if exists api_log;
+create table api_log
 (
     id               bigint(20) not null auto_increment comment '主键',
     request_id       varchar(60) comment '请求流水号',
@@ -51,14 +132,14 @@ create table sys_api_log
     primary key (id)
 ) engine = innodb
   auto_increment = 1 comment = '接口日志表';
-ALTER TABLE sys_api_log
+ALTER TABLE api_log
     ADD INDEX `index_request_id` (`request_id`) USING BTREE;
 
 -- ----------------------------
 -- 自增序列配置表
 -- ----------------------------
-drop table if exists sys_max_no;
-create table sys_max_no
+drop table if exists seq_max_no;
+create table seq_max_no
 (
     id          bigint(20)  not null auto_increment comment '主键',
     no_type     varchar(60) not null comment '序列号类型',
@@ -73,7 +154,7 @@ create table sys_max_no
     primary key (id)
 ) engine = innodb
   auto_increment = 1 comment = '自增序列配置表';
-ALTER TABLE `sys_max_no`
+ALTER TABLE `seq_max_no`
     ADD INDEX `index_no_query` (`no_type`, no_limit) USING BTREE;
 
 

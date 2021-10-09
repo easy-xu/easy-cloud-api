@@ -1,7 +1,7 @@
 package pro.simplecloud.quna.service;
 
-import pro.simplecloud.quna.entity.QunaConfigResultScore;
 import com.baomidou.mybatisplus.extension.service.IService;
+import pro.simplecloud.quna.entity.QunaConfigResultScore;
 
 /**
  * <p>
@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author Generator
- * @since 2021-09-29
+ * @since 2021-10-09
  */
 public interface IQunaConfigResultScoreService extends IService<QunaConfigResultScore> {
 

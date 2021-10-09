@@ -1,8 +1,8 @@
 package pro.simplecloud.quna.entity;
 
-import pro.simplecloud.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import pro.simplecloud.entity.BaseEntity;
 
 /**
  * <p>
@@ -10,7 +10,7 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author Generator
- * @since 2021-09-29
+ * @since 2021-10-09
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -31,7 +31,7 @@ public class QunaConfigQuestion extends BaseEntity {
     /**
      * 问题排序
      */
-    private Long orderNum;
+    private Integer orderNum;
 
 
 }

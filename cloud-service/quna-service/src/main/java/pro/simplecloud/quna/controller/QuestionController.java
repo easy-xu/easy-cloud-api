@@ -45,7 +45,7 @@ public class QuestionController {
         if (answerQuestionnaire == null) {
             return HttpResponse.reject(Messages.REQUEST_EMPTY);
         }
-        Long questionIndex = answerQuestionnaire.getQuestionIndex();
+        Integer questionIndex = answerQuestionnaire.getQuestionIndex();
         Long questionnaireId = answerQuestionnaire.getQuestionnaireId();
         if (questionIndex == null || questionnaireId == null) {
             return HttpResponse.reject(Messages.ID_EMPTY);

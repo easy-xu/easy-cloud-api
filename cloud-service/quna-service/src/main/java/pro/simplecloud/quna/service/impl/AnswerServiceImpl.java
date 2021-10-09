@@ -59,7 +59,7 @@ public class AnswerServiceImpl implements AnswerService {
         }
         //初始化回答
         answerQuestionnaire.setFlow(AnswerFlow.INIT.value);
-        answerQuestionnaire.setQuestionIndex(1L);
+        answerQuestionnaire.setQuestionIndex(1);
         answerQuestionnaireService.save(answerQuestionnaire);
         //更新问卷配置信息
         LambdaQueryWrapper<QunaAnswerQuestionnaire> queryWrapper = Wrappers.lambdaQuery();
@@ -87,7 +87,7 @@ public class AnswerServiceImpl implements AnswerService {
             if (count < questionnaire.getQuestionNum()) {
                 answerQuestionnaire.setFlow(AnswerFlow.ANSWER.value);
                 //查询没有回答的第一个问题
-                Long questionIndex = answerQuestionMapperCust.firstNotAnswerQuestionIndex(questionnaire.getId(), answerId);
+                Integer questionIndex = answerQuestionMapperCust.firstNotAnswerQuestionIndex(questionnaire.getId(), answerId);
                 if (questionIndex == null) {
                     throw new SystemErrorException(Messages.DB_DATA_ERROR);
                 }

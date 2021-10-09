@@ -25,5 +25,5 @@ public interface QuestionService {
      * @param questionIndex   问题index
      * @return QuestionDto
      */
-    QuestionDto getDetailByIndex(Long questionnaireId, Long questionIndex);
+    QuestionDto getDetailByIndex(Long questionnaireId, Integer questionIndex);
 }

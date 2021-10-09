@@ -1,6 +1,5 @@
 package pro.simplecloud.quna.dto;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import pro.simplecloud.entity.ApiRequest;

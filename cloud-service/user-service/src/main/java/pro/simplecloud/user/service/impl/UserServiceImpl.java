@@ -3,16 +3,16 @@ package pro.simplecloud.user.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springframework.stereotype.Service;
+import pro.simplecloud.cms.entity.CmsUser;
+import pro.simplecloud.cms.service.ICmsUserService;
 import pro.simplecloud.constant.Messages;
-import pro.simplecloud.user.constant.UserType;
 import pro.simplecloud.device.ApiHeaderHelper;
 import pro.simplecloud.entity.ApiHeader;
 import pro.simplecloud.exception.RequestException;
 import pro.simplecloud.exception.SystemErrorException;
 import pro.simplecloud.idgenerator.IDGeneratorInstance;
+import pro.simplecloud.user.constant.UserType;
 import pro.simplecloud.user.dto.UserDto;
-import pro.simplecloud.user.entity.UserMaster;
-import pro.simplecloud.user.service.IUserMasterService;
 import pro.simplecloud.user.service.UserService;
 import pro.simplecloud.utils.BeanUtils;
 import pro.simplecloud.utils.PasswordUtils;
@@ -32,14 +32,14 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     @Resource
-    private IUserMasterService userMasterService;
+    private ICmsUserService userService;
 
     @Override
     public void signIn(UserDto userDto) {
         String username = userDto.getUsername();
         //是否重复注册
-        QueryWrapper<UserMaster> queryWrapper = new QueryWrapper<UserMaster>().eq("username", username);
-        int count = userMasterService.count(queryWrapper);
+        QueryWrapper<CmsUser> queryWrapper = new QueryWrapper<CmsUser>().eq("username", username);
+        int count = userService.count(queryWrapper);
         if (count >= 1) {
             throw new RequestException(Messages.USERNAME_EXIST);
         }
@@ -47,42 +47,42 @@ public class UserServiceImpl implements UserService {
         ApiHeader apiHeader = ApiHeaderHelper.get();
         String userNo = apiHeader.getUsername();
         String token = apiHeader.getToken();
-        UserMaster userMaster = new UserMaster();
-        userMaster.setUserNo(userNo);
-        userMaster.setToken(token);
-        List<UserMaster> userMasters = userMasterService.list(Wrappers.query(userMaster));
-        if (userMasters.isEmpty()) {
+        CmsUser cmsUser = new CmsUser();
+        cmsUser.setUserNo(userNo);
+        cmsUser.setToken(token);
+        List<CmsUser> users = userService.list(Wrappers.query(cmsUser));
+        if (users.isEmpty()) {
             throw new RequestException(Messages.NOT_FOUND);
         }
-        if (userMasters.size() > 1) {
+        if (users.size() > 1) {
             throw new SystemErrorException(Messages.DB_DATA_ERROR);
         }
-        userMaster = userMasters.get(0);
-        userMaster.setType(UserType.USER.code);
-        userMaster.setUsername(username);
+        cmsUser = users.get(0);
+        cmsUser.setType(UserType.USER.code);
+        cmsUser.setUsername(username);
         //密码加密
-        userMaster.setPassword(PasswordUtils.encrypt(userMaster.getPassword()));
-        userMasterService.saveOrUpdate(userMaster);
+        cmsUser.setPassword(PasswordUtils.encrypt(cmsUser.getPassword()));
+        userService.saveOrUpdate(cmsUser);
     }
 
     @Override
     public UserDto login(UserDto userDto) {
         //查询用户
-        UserMaster userMaster = new UserMaster();
-        userMaster.setUsername(userDto.getUsername());
-        userMaster.setPassword(PasswordUtils.encrypt(userMaster.getPassword()));
-        List<UserMaster> userMasters = userMasterService.list(Wrappers.query(userMaster));
-        if (userMasters.isEmpty()) {
+        CmsUser cmsUser = new CmsUser();
+        cmsUser.setUsername(userDto.getUsername());
+        cmsUser.setPassword(PasswordUtils.encrypt(cmsUser.getPassword()));
+        List<CmsUser> users = userService.list(Wrappers.query(cmsUser));
+        if (users.isEmpty()) {
             throw new RequestException(Messages.LOGIN_ERROR);
-        } else if (userMasters.size() > 1) {
+        } else if (users.size() > 1) {
             throw new SystemErrorException(Messages.DB_DATA_ERROR);
         }
-        userMaster = userMasters.get(0);
+        cmsUser = users.get(0);
         //更新token
-        String token = UserTokenUtils.generateToken(userMaster.getUsername());
-        userMaster.setToken(token);
-        userMasterService.saveOrUpdate(userMaster);
-        BeanUtils.copy(userMaster, userDto);
+        String token = UserTokenUtils.generateToken(cmsUser.getUsername());
+        cmsUser.setToken(token);
+        userService.saveOrUpdate(cmsUser);
+        BeanUtils.copy(cmsUser, userDto);
         return userDto;
     }
 
@@ -90,13 +90,13 @@ public class UserServiceImpl implements UserService {
     public UserDto initUser() {
         String userNo = IDGeneratorInstance.USER_NO.generate();
         String token = UserTokenUtils.generateToken(userNo);
-        UserMaster userMaster = new UserMaster();
-        userMaster.setUsername(userNo);
-        userMaster.setUserNo(userNo);
-        userMaster.setToken(token);
-        userMasterService.save(userMaster);
+        CmsUser cmsUser = new CmsUser();
+        cmsUser.setUsername(userNo);
+        cmsUser.setUserNo(userNo);
+        cmsUser.setToken(token);
+        userService.save(cmsUser);
         UserDto userDto = new UserDto();
-        BeanUtils.copy(userMaster, userDto);
+        BeanUtils.copy(cmsUser, userDto);
         return userDto;
     }
 }

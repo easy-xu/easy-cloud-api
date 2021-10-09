@@ -13,6 +13,7 @@ import pro.simplecloud.file.entity.FileMaster;
 public interface FileService {
     /**
      * 上传文件
+     *
      * @param file 文件
      * @return FileMaster
      */

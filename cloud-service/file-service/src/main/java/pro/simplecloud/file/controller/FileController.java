@@ -1,6 +1,5 @@
 package pro.simplecloud.file.controller;
 
-import pro.simplecloud.file.service.FileService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,6 +8,7 @@ import pro.simplecloud.constant.Messages;
 import pro.simplecloud.entity.ApiResponse;
 import pro.simplecloud.entity.HttpResponse;
 import pro.simplecloud.file.entity.FileMaster;
+import pro.simplecloud.file.service.FileService;
 
 import javax.annotation.Resource;
 
@@ -31,7 +31,7 @@ public class FileController {
         if (file == null) {
             return HttpResponse.reject(Messages.REQUEST_EMPTY);
         }
-        FileMaster fileMaster= fileService.upload(file);
+        FileMaster fileMaster = fileService.upload(file);
         return HttpResponse.ok(fileMaster);
     }
 }

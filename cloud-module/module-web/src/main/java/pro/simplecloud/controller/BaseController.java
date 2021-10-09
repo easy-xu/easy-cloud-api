@@ -21,10 +21,11 @@ import pro.simplecloud.entity.HttpResponse;
  */
 public class BaseController<T extends BaseEntity, S extends IService<T>> {
 
+    private S service;
+
     public BaseController(S service) {
         this.service = service;
     }
-    private S service;
 
     @PostMapping("/query")
     public ApiResponse queryQuestionnaire(@RequestBody T entity) {
@@ -50,7 +51,7 @@ public class BaseController<T extends BaseEntity, S extends IService<T>> {
         //分页
         Page<T> page = pageQueryDto.getPage();
         //查询条件
-        QueryWrapper<T> queryWrapper  = Wrappers.query(pageQueryDto.getQuery());
+        QueryWrapper<T> queryWrapper = Wrappers.query(pageQueryDto.getQuery());
         service.page(page, queryWrapper);
         return HttpResponse.ok(pageQueryDto);
     }

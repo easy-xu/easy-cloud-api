@@ -23,6 +23,7 @@ public interface ResultService {
 
     /**
      * 查询问卷结果
+     *
      * @param answerId 回答Id
      * @return List<ResultDto>
      */

@@ -12,12 +12,14 @@ import pro.simplecloud.user.dto.UserDto;
 public interface UserService {
     /**
      * 用户注册
+     *
      * @param userDto 用户信息
      */
     void signIn(UserDto userDto);
 
     /**
      * 用户登录
+     *
      * @param userDto 用户信息
      * @return userDto 用户信息
      */
@@ -25,6 +27,7 @@ public interface UserService {
 
     /**
      * 初始化用户
+     *
      * @return UserDto
      */
     UserDto initUser();

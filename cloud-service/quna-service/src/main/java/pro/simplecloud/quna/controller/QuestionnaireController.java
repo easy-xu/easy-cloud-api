@@ -10,10 +10,8 @@ import pro.simplecloud.controller.BaseController;
 import pro.simplecloud.entity.ApiResponse;
 import pro.simplecloud.entity.HttpResponse;
 import pro.simplecloud.quna.dto.QuestionnaireDto;
-import pro.simplecloud.quna.entity.QunaAnswerQuestionnaire;
 import pro.simplecloud.quna.entity.QunaConfigQuestionnaire;
 import pro.simplecloud.quna.service.IQunaConfigQuestionnaireService;
-import pro.simplecloud.quna.service.QuestionService;
 import pro.simplecloud.quna.service.QuestionnaireService;
 
 import javax.annotation.Resource;
@@ -39,7 +37,7 @@ public class QuestionnaireController extends BaseController<QunaConfigQuestionna
 
 
     @PostMapping("/import")
-    public ApiResponse importExcel(@RequestBody QuestionnaireDto questionnaireDto){
+    public ApiResponse importExcel(@RequestBody QuestionnaireDto questionnaireDto) {
         if (questionnaireDto == null) {
             HttpResponse.reject(Messages.REQUEST_EMPTY);
         }
@@ -47,12 +45,12 @@ public class QuestionnaireController extends BaseController<QunaConfigQuestionna
         if (fileId == null) {
             HttpResponse.reject(Messages.ID_EMPTY);
         }
-        QunaConfigQuestionnaire questionnaire =  questionnaireService.importExcel(fileId);
+        QunaConfigQuestionnaire questionnaire = questionnaireService.importExcel(fileId);
         return HttpResponse.ok(questionnaire);
     }
 
     @PostMapping("/delete")
-    public ApiResponse deleteConfig(@RequestBody QuestionnaireDto questionnaireDto){
+    public ApiResponse deleteConfig(@RequestBody QuestionnaireDto questionnaireDto) {
         if (questionnaireDto == null) {
             HttpResponse.reject(Messages.REQUEST_EMPTY);
         }

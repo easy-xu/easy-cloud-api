@@ -2,7 +2,6 @@ package pro.simplecloud.aspect;
 
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -11,17 +10,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
+import pro.simplecloud.api.entity.ApiLog;
+import pro.simplecloud.api.service.IApiLogService;
 import pro.simplecloud.constant.Messages;
+import pro.simplecloud.device.ApiHeaderHelper;
 import pro.simplecloud.entity.ApiHeader;
 import pro.simplecloud.entity.HttpResponse;
 import pro.simplecloud.exception.BaseException;
 import pro.simplecloud.exception.RequestException;
-import pro.simplecloud.system.entity.SysApiLog;
-import pro.simplecloud.system.service.ISysApiLogService;
 import pro.simplecloud.utils.BeanUtils;
 import pro.simplecloud.utils.Timer;
 import pro.simplecloud.utils.UserTokenUtils;
-import pro.simplecloud.device.ApiHeaderHelper;
 
 import javax.annotation.Resource;
 
@@ -40,7 +39,7 @@ import javax.annotation.Resource;
 public class AccessAspect {
 
     @Resource
-    private ISysApiLogService logService;
+    private IApiLogService logService;
 
     @Around("execution(* pro.simplecloud..*.controller.*.*(..)))")
     public Object controllerAround(ProceedingJoinPoint joinPoint) throws Throwable {
@@ -57,21 +56,21 @@ public class AccessAspect {
         Timer timer = new Timer();
         timer.start();
         //保存初始日志
-        SysApiLog sysApiLog = new SysApiLog();
-        BeanUtils.copy(apiHeader, sysApiLog);
-        logService.save(sysApiLog);
+        ApiLog apiLog = new ApiLog();
+        BeanUtils.copy(apiHeader, apiLog);
+        logService.save(apiLog);
         try {
             //校验流水号
             if (!StringUtils.hasLength(requestId)) {
                 throw new RequestException("交易流水号不能为空");
             }
-            sysApiLog.setRequestId(requestId);
-            int count = logService.count(Wrappers.query(sysApiLog));
+            apiLog.setRequestId(requestId);
+            int count = logService.count(Wrappers.query(apiLog));
             if (count > 1) {
                 throw new RequestException("交易流水号重复：" + requestId);
             }
             String path = apiHeader.getPath();
-            if(!path.startsWith("/api/open")){
+            if (!path.startsWith("/api/open")) {
                 //校验Token
                 String token = apiHeader.getToken();
                 UserTokenUtils.verifyToken(token);
@@ -84,11 +83,11 @@ public class AccessAspect {
             if (result instanceof HttpResponse) {
                 HttpResponse responseDto = (HttpResponse) result;
                 int code = responseDto.getCode();
-                sysApiLog.setResponseCode((long) code);
-                sysApiLog.setResponseMessage(responseDto.getMessage());
+                apiLog.setResponseCode((long) code);
+                apiLog.setResponseMessage(responseDto.getMessage());
             }
-            sysApiLog.setUsedTime(timer.end());
-            logService.saveOrUpdate(sysApiLog);
+            apiLog.setUsedTime(timer.end());
+            logService.saveOrUpdate(apiLog);
         }
         return result;
     }

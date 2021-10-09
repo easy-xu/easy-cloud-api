@@ -1,8 +1,8 @@
 package pro.simplecloud.quna.entity;
 
-import pro.simplecloud.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import pro.simplecloud.entity.BaseEntity;
 
 /**
  * <p>
@@ -10,7 +10,7 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author Generator
- * @since 2021-09-29
+ * @since 2021-10-09
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -26,7 +26,7 @@ public class QunaAnswerQuestionnaire extends BaseEntity {
     /**
      * 当前问题编号
      */
-    private Long questionIndex;
+    private Integer questionIndex;
 
     /**
      * 问卷回答流程（0初始化 1回答中 2回答完毕 3生成结果）

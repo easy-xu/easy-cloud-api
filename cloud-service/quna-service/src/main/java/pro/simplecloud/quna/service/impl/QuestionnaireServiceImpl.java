@@ -139,7 +139,7 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
             int index = 1;
             QunaConfigResult result = null;
             Row resultRow = resultSheet.getRow(index);
-            long orderNum = 1L;
+            int orderNum = 1;
             Map<String, Long> resultIds = new HashMap<>();
             while (resultRow != null) {
                 String resultTitle = resultRow.getCell(0).getStringCellValue();
@@ -150,7 +150,7 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
                     result.setQuestionnaireId(questionnaire.getId());
                     result.setTitle(resultTitle);
                     resultService.save(result);
-                    orderNum = 1L;
+                    orderNum = 1;
                     resultIds.put(resultTitle, result.getId());
                 }
                 if (result != null) {
@@ -181,7 +181,7 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
                 if ("题目".equals(type)) {
                     question = new QunaConfigQuestion();
                     question.setQuestionnaireId(questionnaire.getId());
-                    question.setOrderNum((long) sort);
+                    question.setOrderNum((int) sort);
                     question.setTitle(text);
                     questionService.save(question);
                     optionValue = 'A';
