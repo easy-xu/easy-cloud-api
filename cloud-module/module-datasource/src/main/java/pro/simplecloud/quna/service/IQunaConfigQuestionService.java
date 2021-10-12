@@ -1,7 +1,7 @@
 package pro.simplecloud.quna.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
 import pro.simplecloud.quna.entity.QunaConfigQuestion;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * <p>
@@ -9,7 +9,7 @@ import pro.simplecloud.quna.entity.QunaConfigQuestion;
  * </p>
  *
  * @author Generator
- * @since 2021-10-09
+ * @since 2021-10-11
  */
 public interface IQunaConfigQuestionService extends IService<QunaConfigQuestion> {
 

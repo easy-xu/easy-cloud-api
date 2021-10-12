@@ -1,10 +1,10 @@
 package pro.simplecloud.quna.service.impl;
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.stereotype.Service;
 import pro.simplecloud.quna.entity.QunaConfigResultDescription;
 import pro.simplecloud.quna.mapper.QunaConfigResultDescriptionMapper;
 import pro.simplecloud.quna.service.IQunaConfigResultDescriptionService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.stereotype.Service;
 
 /**
  * <p>
@@ -12,7 +12,7 @@ import pro.simplecloud.quna.service.IQunaConfigResultDescriptionService;
  * </p>
  *
  * @author Generator
- * @since 2021-10-09
+ * @since 2021-10-11
  */
 @Service
 public class QunaConfigResultDescriptionServiceImpl extends ServiceImpl<QunaConfigResultDescriptionMapper, QunaConfigResultDescription> implements IQunaConfigResultDescriptionService {

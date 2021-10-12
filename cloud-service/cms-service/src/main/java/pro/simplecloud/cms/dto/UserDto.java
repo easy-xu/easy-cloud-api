@@ -1,4 +1,4 @@
-package pro.simplecloud.user.dto;
+package pro.simplecloud.cms.dto;
 
 import lombok.Data;
 import pro.simplecloud.entity.ApiRequest;

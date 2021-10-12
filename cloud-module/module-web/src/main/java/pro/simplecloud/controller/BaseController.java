@@ -7,10 +7,13 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import pro.simplecloud.constant.Messages;
+import pro.simplecloud.dto.BaseEntityDto;
 import pro.simplecloud.dto.PageQueryDto;
 import pro.simplecloud.entity.ApiResponse;
 import pro.simplecloud.entity.BaseEntity;
 import pro.simplecloud.entity.HttpResponse;
+
+import java.util.List;
 
 /**
  * Title: BaseController
@@ -28,7 +31,7 @@ public class BaseController<T extends BaseEntity, S extends IService<T>> {
     }
 
     @PostMapping("/query")
-    public ApiResponse queryQuestionnaire(@RequestBody T entity) {
+    public ApiResponse queryEntity(@RequestBody T entity) {
         if (entity == null) {
             return HttpResponse.reject(Messages.REQUEST_EMPTY);
         }
@@ -43,8 +46,52 @@ public class BaseController<T extends BaseEntity, S extends IService<T>> {
         return HttpResponse.ok(entity);
     }
 
+    @PostMapping("/save")
+    public ApiResponse saveEntity(@RequestBody T entity) {
+        if (entity == null) {
+            return HttpResponse.reject(Messages.REQUEST_EMPTY);
+        }
+        boolean success = service.saveOrUpdate(entity);
+        if (!success) {
+            return HttpResponse.error(Messages.DB_SAVE_ERROR);
+        }
+        return HttpResponse.ok(entity.getId());
+    }
+
+    @PostMapping("/delete")
+    public ApiResponse deleteEntity(@RequestBody T entity) {
+        if (entity == null) {
+            return HttpResponse.reject(Messages.REQUEST_EMPTY);
+        }
+        Long id = entity.getId();
+        if (id == null) {
+            return HttpResponse.reject(Messages.ID_EMPTY);
+        }
+        boolean success = service.removeById(id);
+        if (!success) {
+            return HttpResponse.error(Messages.DB_DELETE_ERROR);
+        }
+        return HttpResponse.ok();
+    }
+
+    @PostMapping("/delete-all")
+    public ApiResponse deleteAllEntity(@RequestBody BaseEntityDto entity) {
+        if (entity == null) {
+            return HttpResponse.reject(Messages.REQUEST_EMPTY);
+        }
+        List<Long> ids = entity.getIds();
+        if (ids == null) {
+            return HttpResponse.reject(Messages.ID_EMPTY);
+        }
+        boolean success = service.removeByIds(ids);
+        if (!success) {
+            return HttpResponse.error(Messages.DB_DELETE_ERROR);
+        }
+        return HttpResponse.ok();
+    }
+
     @PostMapping("/page-list")
-    public ApiResponse pageListQuestionnaire(@RequestBody PageQueryDto<T> pageQueryDto) {
+    public ApiResponse pageList(@RequestBody PageQueryDto<T> pageQueryDto) {
         if (pageQueryDto == null) {
             return HttpResponse.reject(Messages.REQUEST_EMPTY);
         }

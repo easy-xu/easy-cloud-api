@@ -1,10 +1,10 @@
 package pro.simplecloud.quna.service.impl;
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.stereotype.Service;
 import pro.simplecloud.quna.entity.QunaAnswerQuestionnaire;
 import pro.simplecloud.quna.mapper.QunaAnswerQuestionnaireMapper;
 import pro.simplecloud.quna.service.IQunaAnswerQuestionnaireService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.stereotype.Service;
 
 /**
  * <p>
@@ -12,7 +12,7 @@ import pro.simplecloud.quna.service.IQunaAnswerQuestionnaireService;
  * </p>
  *
  * @author Generator
- * @since 2021-10-09
+ * @since 2021-10-11
  */
 @Service
 public class QunaAnswerQuestionnaireServiceImpl extends ServiceImpl<QunaAnswerQuestionnaireMapper, QunaAnswerQuestionnaire> implements IQunaAnswerQuestionnaireService {

@@ -34,6 +34,8 @@ public enum Messages {
     /**
      * 服务端错误
      */
+    DB_SAVE_ERROR(500, "数据保存失败"),
+    DB_DELETE_ERROR(500, "数据删除失败"),
     DB_DATA_ERROR(500, "数据库数据错误");
     private int code;
     private String message;

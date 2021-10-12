@@ -15,7 +15,7 @@
     <dependencies>
         <dependency>
             <groupId>pro.simplecloud.application</groupId>
-            <artifactId>user-service</artifactId>
+            <artifactId>cms-service</artifactId>
             <version>1.0</version>
         </dependency>
         <dependency>

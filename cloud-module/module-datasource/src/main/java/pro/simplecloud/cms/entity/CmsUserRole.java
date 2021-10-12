@@ -1,8 +1,8 @@
 package pro.simplecloud.cms.entity;
 
+import pro.simplecloud.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import pro.simplecloud.entity.BaseEntity;
 
 /**
  * <p>
@@ -10,7 +10,7 @@ import pro.simplecloud.entity.BaseEntity;
  * </p>
  *
  * @author Generator
- * @since 2021-10-09
+ * @since 2021-10-11
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

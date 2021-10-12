@@ -1,7 +1,7 @@
 package pro.simplecloud.cms.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import pro.simplecloud.cms.entity.CmsRoleMenu;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
  * <p>
@@ -9,7 +9,7 @@ import pro.simplecloud.cms.entity.CmsRoleMenu;
  * </p>
  *
  * @author Generator
- * @since 2021-10-09
+ * @since 2021-10-11
  */
 public interface CmsRoleMenuMapper extends BaseMapper<CmsRoleMenu> {
 

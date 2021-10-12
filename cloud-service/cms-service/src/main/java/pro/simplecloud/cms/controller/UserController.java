@@ -1,15 +1,15 @@
-package pro.simplecloud.user.controller;
+package pro.simplecloud.cms.controller;
 
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pro.simplecloud.cms.dto.UserDto;
 import pro.simplecloud.constant.Messages;
 import pro.simplecloud.entity.ApiResponse;
 import pro.simplecloud.entity.HttpResponse;
-import pro.simplecloud.user.dto.UserDto;
-import pro.simplecloud.user.service.UserService;
+import pro.simplecloud.cms.service.UserService;
 
 import javax.annotation.Resource;
 

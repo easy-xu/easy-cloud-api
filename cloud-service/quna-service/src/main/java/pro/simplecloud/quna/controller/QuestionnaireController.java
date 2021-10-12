@@ -39,20 +39,21 @@ public class QuestionnaireController extends BaseController<QunaConfigQuestionna
     @PostMapping("/import")
     public ApiResponse importExcel(@RequestBody QuestionnaireDto questionnaireDto) {
         if (questionnaireDto == null) {
-            HttpResponse.reject(Messages.REQUEST_EMPTY);
+            return HttpResponse.reject(Messages.REQUEST_EMPTY);
         }
         Long fileId = questionnaireDto.getFileId();
         if (fileId == null) {
-            HttpResponse.reject(Messages.ID_EMPTY);
+            return HttpResponse.reject(Messages.ID_EMPTY);
         }
         QunaConfigQuestionnaire questionnaire = questionnaireService.importExcel(fileId);
         return HttpResponse.ok(questionnaire);
     }
 
+    @Override
     @PostMapping("/delete")
-    public ApiResponse deleteConfig(@RequestBody QuestionnaireDto questionnaireDto) {
+    public ApiResponse deleteEntity(@RequestBody QunaConfigQuestionnaire questionnaireDto) {
         if (questionnaireDto == null) {
-            HttpResponse.reject(Messages.REQUEST_EMPTY);
+            return HttpResponse.reject(Messages.REQUEST_EMPTY);
         }
         Long id = questionnaireDto.getId();
         if (id == null) {

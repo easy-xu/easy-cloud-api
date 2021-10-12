@@ -1,6 +1,6 @@
-package pro.simplecloud.user.service;
+package pro.simplecloud.cms.service;
 
-import pro.simplecloud.user.dto.UserDto;
+import pro.simplecloud.cms.dto.UserDto;
 
 /**
  * Title: UserService

@@ -1,19 +1,19 @@
-package pro.simplecloud.user.service.impl;
+package pro.simplecloud.cms.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springframework.stereotype.Service;
+import pro.simplecloud.cms.constant.UserType;
+import pro.simplecloud.cms.dto.UserDto;
 import pro.simplecloud.cms.entity.CmsUser;
 import pro.simplecloud.cms.service.ICmsUserService;
+import pro.simplecloud.cms.service.UserService;
 import pro.simplecloud.constant.Messages;
 import pro.simplecloud.device.ApiHeaderHelper;
 import pro.simplecloud.entity.ApiHeader;
 import pro.simplecloud.exception.RequestException;
 import pro.simplecloud.exception.SystemErrorException;
 import pro.simplecloud.idgenerator.IDGeneratorInstance;
-import pro.simplecloud.user.constant.UserType;
-import pro.simplecloud.user.dto.UserDto;
-import pro.simplecloud.user.service.UserService;
 import pro.simplecloud.utils.BeanUtils;
 import pro.simplecloud.utils.PasswordUtils;
 import pro.simplecloud.utils.UserTokenUtils;

@@ -1,7 +1,7 @@
 package pro.simplecloud.quna.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import pro.simplecloud.quna.entity.QunaConfigQuestionnaire;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
  * <p>
@@ -9,7 +9,7 @@ import pro.simplecloud.quna.entity.QunaConfigQuestionnaire;
  * </p>
  *
  * @author Generator
- * @since 2021-10-09
+ * @since 2021-10-11
  */
 public interface QunaConfigQuestionnaireMapper extends BaseMapper<QunaConfigQuestionnaire> {
 

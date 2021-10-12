@@ -1,10 +1,10 @@
 package pro.simplecloud.cms.service.impl;
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.stereotype.Service;
 import pro.simplecloud.cms.entity.CmsRole;
 import pro.simplecloud.cms.mapper.CmsRoleMapper;
 import pro.simplecloud.cms.service.ICmsRoleService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.stereotype.Service;
 
 /**
  * <p>
@@ -12,7 +12,7 @@ import pro.simplecloud.cms.service.ICmsRoleService;
  * </p>
  *
  * @author Generator
- * @since 2021-10-09
+ * @since 2021-10-11
  */
 @Service
 public class CmsRoleServiceImpl extends ServiceImpl<CmsRoleMapper, CmsRole> implements ICmsRoleService {
