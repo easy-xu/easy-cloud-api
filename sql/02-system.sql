@@ -31,14 +31,13 @@ ALTER TABLE `cms_user`
 -- ----------------------------
 -- 角色主表
 -- ----------------------------
-drop table if exists cmsrole;
+drop table if exists cms_role;
 create table cms_role
 (
     id          bigint(20)   not null auto_increment comment '角色ID',
-    role_name   varchar(30)  not null comment '角色名称',
-    role_code   varchar(100) not null comment '角色权限字符串',
-    order_num   int(4)       not null comment '显示顺序',
-    status      char(1)      not null comment '状态（0正常 1停用）',
+    name        varchar(30)  not null comment '角色名称',
+    code        varchar(100) not null comment '角色权限字符串',
+    status      char(1)      default '0' comment '状态（0正常 1停用）',
     deleted     char(1)      default '0' comment '删除标志（0正常 1停用）',
     create_by   varchar(60) comment '创建者',
     create_time datetime comment '创建时间',
@@ -47,7 +46,7 @@ create table cms_role
     remark      varchar(500) default null comment '备注',
     primary key (id)
 ) engine = innodb
-  auto_increment = 100 comment = '角色信息表';
+  auto_increment = 1 comment = '角色信息表';
 
 -- ----------------------------
 -- 菜单权限表
@@ -56,15 +55,15 @@ drop table if exists cms_menu;
 create table cms_menu
 (
     id          bigint(20)  not null auto_increment comment '菜单ID',
-    menu_name   varchar(50) not null comment '菜单名称',
+    name        varchar(50) not null comment '菜单名称',
     parent_id   bigint(20)   default 0 comment '父菜单ID',
     order_num   int(4)       default 0 comment '显示顺序',
     path        varchar(200) default '' comment '路由地址',
     component   varchar(255) default null comment '组件路径',
-    menu_type   char(1)      default '' comment '菜单类型（M目录 C菜单 F按钮）',
+    type        char(1)      default '' comment '菜单类型（F目录 M菜单）',
     visible     char(1)      default 0 comment '菜单状态（0显示 1隐藏）',
     icon        varchar(100) default '' comment '菜单图标',
-    status      char(1)     not null comment '状态（0正常 1停用）',
+    status      char(1)      default '0' comment '状态（0正常 1停用）',
     deleted     char(1)      default '0' comment '删除标志（0正常 1停用）',
     create_by   varchar(60) comment '创建者',
     create_time datetime comment '创建时间',
@@ -73,7 +72,7 @@ create table cms_menu
     remark      varchar(500) default null comment '备注',
     primary key (id)
 ) engine = innodb
-  auto_increment = 2000 comment = '菜单权限表';
+  auto_increment = 1 comment = '菜单权限表';
 
 -- ----------------------------
 -- 用户和角色关联表  用户N-1角色
@@ -90,7 +89,8 @@ create table cms_user_role
     update_by   varchar(60) comment '更新者',
     update_time datetime comment '更新时间',
     primary key (id)
-) engine = innodb comment = '用户和角色关联表';
+) engine = innodb
+  auto_increment = 1 comment = '用户和角色关联表';
 
 -- ----------------------------
 -- 角色和菜单关联表  角色1-N菜单
@@ -107,7 +107,8 @@ create table cms_role_menu
     update_by   varchar(60) comment '更新者',
     update_time datetime comment '更新时间',
     primary key (id)
-) engine = innodb comment = '角色和菜单关联表';
+) engine = innodb
+  auto_increment = 1 comment = '角色和菜单关联表';
 
 -- ----------------------------
 -- 接口日志表字段
@@ -198,3 +199,16 @@ create table file_content
 ) engine = innodb
   auto_increment = 1 comment = '文件内容表';
 
+
+
+-- 数据备份
+
+INSERT INTO `simple-cloud`.`cms_menu`(`id`, `name`, `parent_id`, `order_num`, `path`, `component`, `type`, `visible`, `icon`, `status`, `deleted`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (1, '系统管理', 0, 0, 'cms', NULL, 'F', '0', 'SettingFilled', '0', '0', 'admin', '2021-10-12 17:38:52', 'admin', '2021-10-12 21:27:49', NULL);
+INSERT INTO `simple-cloud`.`cms_menu`(`id`, `name`, `parent_id`, `order_num`, `path`, `component`, `type`, `visible`, `icon`, `status`, `deleted`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (2, '菜单管理', 1, 1, 'menu', NULL, 'M', '0', '', '0', '0', 'admin', '2021-10-12 19:33:27', 'admin', '2021-10-12 20:56:20', NULL);
+INSERT INTO `simple-cloud`.`cms_menu`(`id`, `name`, `parent_id`, `order_num`, `path`, `component`, `type`, `visible`, `icon`, `status`, `deleted`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (3, '角色管理', 1, 2, 'role', NULL, 'M', '0', '', '0', '0', 'admin', '2021-10-12 20:29:45', 'admin', '2021-10-12 20:56:33', NULL);
+INSERT INTO `simple-cloud`.`cms_menu`(`id`, `name`, `parent_id`, `order_num`, `path`, `component`, `type`, `visible`, `icon`, `status`, `deleted`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (4, '用户管理', 1, 3, 'user', NULL, 'M', '0', '', '0', '0', 'admin', '2021-10-12 21:07:21', 'admin', '2021-10-12 21:07:21', NULL);
+
+
+INSERT INTO `simple-cloud`.`cms_role`(`id`, `name`, `code`, `status`, `deleted`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (1, '系统管理员', 'admin', '0', '0', 'admin', '2021-10-12 21:55:40', 'admin', '2021-10-12 21:55:40', NULL);
+INSERT INTO `simple-cloud`.`cms_role`(`id`, `name`, `code`, `status`, `deleted`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (2, '只读用户', 'readable', '0', '0', 'admin', '2021-10-12 21:56:22', 'admin', '2021-10-12 21:57:33', NULL);
+INSERT INTO `simple-cloud`.`cms_role`(`id`, `name`, `code`, `status`, `deleted`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (3, '可写用户', 'writable', '0', '0', 'admin', '2021-10-12 21:56:50', 'admin', '2021-10-12 21:57:15', NULL);

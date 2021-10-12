@@ -10,7 +10,7 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author Generator
- * @since 2021-10-11
+ * @since 2021-10-12
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -21,20 +21,15 @@ public class CmsRole extends BaseEntity {
     /**
      * 角色名称
      */
-    private String roleName;
+    private String name;
 
     /**
      * 角色权限字符串
      */
-    private String roleCode;
+    private String code;
 
     /**
-     * 显示顺序
-     */
-    private Integer orderNum;
-
-    /**
-     * 角色状态（0正常 1停用）
+     * 状态（0正常 1停用）
      */
     private String status;
 

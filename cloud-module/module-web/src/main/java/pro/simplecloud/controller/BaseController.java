@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import pro.simplecloud.constant.Messages;
 import pro.simplecloud.dto.BaseEntityDto;
+import pro.simplecloud.dto.PageDto;
 import pro.simplecloud.dto.PageQueryDto;
 import pro.simplecloud.entity.ApiResponse;
 import pro.simplecloud.entity.BaseEntity;
@@ -96,11 +97,25 @@ public class BaseController<T extends BaseEntity, S extends IService<T>> {
             return HttpResponse.reject(Messages.REQUEST_EMPTY);
         }
         //分页
-        Page<T> page = pageQueryDto.getPage();
+        PageDto pageDto = pageQueryDto.getPage();
+        Page<T> page = new Page<>(pageDto.getCurrent(), pageDto.getPageSize());
         //查询条件
         QueryWrapper<T> queryWrapper = Wrappers.query(pageQueryDto.getQuery());
         service.page(page, queryWrapper);
+        pageDto.setTotal(page.getTotal());
+        pageQueryDto.setRecords(page.getRecords());
         return HttpResponse.ok(pageQueryDto);
+    }
+
+    @PostMapping("/list")
+    public ApiResponse listEntity(@RequestBody T entity) {
+        if (entity == null) {
+            return HttpResponse.reject(Messages.REQUEST_EMPTY);
+        }
+        //查询条件
+        QueryWrapper<T> queryWrapper = Wrappers.query(entity);
+        List<T> list = service.list(queryWrapper);
+        return HttpResponse.ok(list);
     }
 
 }

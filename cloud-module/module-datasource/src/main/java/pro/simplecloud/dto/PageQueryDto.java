@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.Data;
 import pro.simplecloud.entity.BaseEntity;
 
+import java.util.List;
+
 
 /**
  * Title: PageQueryDto
@@ -15,5 +17,6 @@ import pro.simplecloud.entity.BaseEntity;
 @Data
 public class PageQueryDto<T extends BaseEntity> {
     private T query;
-    private Page<T> page;
+    private PageDto page = new PageDto();
+    private List<T> records;
 }
