@@ -26,9 +26,9 @@ public class AutoFillHandler implements MetaObjectHandler {
         this.strictInsertFill(metaObject, "createTime", LocalDateTime.class, LocalDateTime.now());
         this.strictInsertFill(metaObject, "updateTime", LocalDateTime.class, LocalDateTime.now());
         ApiHeader apiHeader = ApiHeaderHelper.get();
-        if (apiHeader != null && StringUtils.hasLength(apiHeader.getUsername())) {
-            this.strictInsertFill(metaObject, "createBy", String.class, apiHeader.getUsername());
-            this.strictInsertFill(metaObject, "updateBy", String.class, apiHeader.getUsername());
+        if (apiHeader != null && StringUtils.hasLength(apiHeader.getUserNo())) {
+            this.strictInsertFill(metaObject, "createBy", String.class, apiHeader.getUserNo());
+            this.strictInsertFill(metaObject, "updateBy", String.class, apiHeader.getUserNo());
         }
     }
 
@@ -36,8 +36,8 @@ public class AutoFillHandler implements MetaObjectHandler {
     public void updateFill(MetaObject metaObject) {
         this.strictUpdateFill(metaObject, "updateTime", LocalDateTime.class, LocalDateTime.now());
         ApiHeader apiHeader = ApiHeaderHelper.get();
-        if (apiHeader != null && StringUtils.hasLength(apiHeader.getUsername())) {
-            this.strictUpdateFill(metaObject, "updateBy", String.class, apiHeader.getUsername());
+        if (apiHeader != null && StringUtils.hasLength(apiHeader.getUserNo())) {
+            this.strictUpdateFill(metaObject, "updateBy", String.class, apiHeader.getUserNo());
         }
     }
 }

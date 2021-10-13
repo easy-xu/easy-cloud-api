@@ -20,9 +20,9 @@ public class ApiHeader {
      */
     private String token;
     /**
-     * 用户名
+     * 用户编号
      */
-    private String username;
+    private String userNo;
     /**
      * 请求签名
      */

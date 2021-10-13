@@ -46,14 +46,14 @@ public class UserServiceImpl implements UserService {
     public void signIn(UserDto userDto) {
         String username = userDto.getUsername();
         //是否重复注册
-        QueryWrapper<CmsUser> queryWrapper = new QueryWrapper<CmsUser>().eq("username", username);
+        QueryWrapper<CmsUser> queryWrapper = new QueryWrapper<CmsUser>().eq("userNo", username);
         int count = cmsUserService.count(queryWrapper);
         if (count >= 1) {
             throw new RequestException(Messages.USERNAME_EXIST);
         }
         //更新游客信息为注册用户
         ApiHeader apiHeader = ApiHeaderHelper.get();
-        String userNo = apiHeader.getUsername();
+        String userNo = apiHeader.getUserNo();
         String token = apiHeader.getToken();
         CmsUser cmsUser = new CmsUser();
         cmsUser.setUserNo(userNo);
@@ -87,7 +87,7 @@ public class UserServiceImpl implements UserService {
         }
         cmsUser = users.get(0);
         //更新token
-        String token = UserTokenUtils.generateToken(cmsUser.getUsername());
+        String token = UserTokenUtils.generateToken(cmsUser.getUserNo());
         cmsUser.setToken(token);
         cmsUserService.saveOrUpdate(cmsUser);
         BeanUtils.copy(cmsUser, userDto);

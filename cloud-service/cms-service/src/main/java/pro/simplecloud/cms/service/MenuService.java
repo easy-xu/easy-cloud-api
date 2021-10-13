@@ -16,6 +16,7 @@ public interface MenuService {
      * 用户菜单树
      *
      * @return List<MenuDto>
+     * @param userNo 用户编号
      */
-    List<MenuDto> tree();
+    List<MenuDto> tree(String userNo);
 }

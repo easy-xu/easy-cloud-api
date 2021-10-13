@@ -30,7 +30,7 @@ public class TemplateMailSender {
     @Resource
     private TemplateEngine templateEngine;
 
-    @Value("${spring.mail.username}")
+    @Value("${spring.mail.userNo}")
     private String sysMail;
 
     public void send(String template, Map<String, Object> params, String subject, String to, String... cc) throws MessagingException {

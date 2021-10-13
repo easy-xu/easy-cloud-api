@@ -51,7 +51,7 @@ public class AnswerServiceImpl implements AnswerService {
         //检验是否已存在问卷
         QunaAnswerQuestionnaire answerQuestionnaire = new QunaAnswerQuestionnaire();
         answerQuestionnaire.setQuestionnaireId(questionnaireId);
-        String username = ApiHeaderHelper.get().getUsername();
+        String username = ApiHeaderHelper.get().getUserNo();
         answerQuestionnaire.setCreateBy(username);
         List<QunaAnswerQuestionnaire> answerQuestionnaires = answerQuestionnaireService.list(Wrappers.query(answerQuestionnaire));
         if (!answerQuestionnaires.isEmpty()) {
@@ -121,7 +121,7 @@ public class AnswerServiceImpl implements AnswerService {
         //查询是否正在进行
         QunaAnswerQuestionnaire answerQuestionnaire = new QunaAnswerQuestionnaire();
         answerQuestionnaire.setQuestionnaireId(questionnaireId);
-        answerQuestionnaire.setCreateBy(ApiHeaderHelper.get().getUsername());
+        answerQuestionnaire.setCreateBy(ApiHeaderHelper.get().getUserNo());
         List<QunaAnswerQuestionnaire> answerQuestionnaires = answerQuestionnaireService.list(Wrappers.query(answerQuestionnaire));
         if (answerQuestionnaires.size() > 1) {
             //只能有一个问题正在进行
