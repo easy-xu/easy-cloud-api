@@ -39,7 +39,7 @@ public class MenuServiceImpl implements MenuService {
         return children.stream().map(item -> {
             MenuDto menuDto = new MenuDto();
             BeanUtils.copy(item, menuDto);
-            if (FOLDER.code.equals(item.getType())){
+            if (FOLDER.code.equals(item.getType())) {
                 menuDto.setChildren(getChildren(item.getId()));
             }
             return menuDto;

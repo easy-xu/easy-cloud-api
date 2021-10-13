@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pro.simplecloud.constant.Messages;
 import pro.simplecloud.controller.BaseController;
+import pro.simplecloud.dto.PageQueryDto;
 import pro.simplecloud.entity.ApiResponse;
 import pro.simplecloud.entity.HttpResponse;
 import pro.simplecloud.quna.dto.QuestionnaireDto;
@@ -35,6 +36,23 @@ public class QuestionnaireController extends BaseController<QunaConfigQuestionna
         super(service);
     }
 
+    @Override
+    @PostMapping("/query")
+    public ApiResponse queryEntity(@RequestBody QunaConfigQuestionnaire entity) {
+        return super.queryEntity(entity);
+    }
+
+    @Override
+    @PostMapping("/save")
+    public ApiResponse saveEntity(@RequestBody QunaConfigQuestionnaire entity) {
+        return super.saveEntity(entity);
+    }
+
+    @Override
+    @PostMapping("/page-list")
+    public ApiResponse pageList(@RequestBody PageQueryDto<QunaConfigQuestionnaire> pageQueryDto) {
+        return super.pageList(pageQueryDto);
+    }
 
     @PostMapping("/import")
     public ApiResponse importExcel(@RequestBody QuestionnaireDto questionnaireDto) {

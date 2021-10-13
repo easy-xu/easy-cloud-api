@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import pro.simplecloud.constant.Messages;
 import pro.simplecloud.dto.BaseEntityDto;
@@ -31,7 +30,6 @@ public class BaseController<T extends BaseEntity, S extends IService<T>> {
         this.service = service;
     }
 
-    @PostMapping("/query")
     public ApiResponse queryEntity(@RequestBody T entity) {
         if (entity == null) {
             return HttpResponse.reject(Messages.REQUEST_EMPTY);
@@ -47,7 +45,6 @@ public class BaseController<T extends BaseEntity, S extends IService<T>> {
         return HttpResponse.ok(entity);
     }
 
-    @PostMapping("/save")
     public ApiResponse saveEntity(@RequestBody T entity) {
         if (entity == null) {
             return HttpResponse.reject(Messages.REQUEST_EMPTY);
@@ -59,7 +56,6 @@ public class BaseController<T extends BaseEntity, S extends IService<T>> {
         return HttpResponse.ok(entity.getId());
     }
 
-    @PostMapping("/delete")
     public ApiResponse deleteEntity(@RequestBody T entity) {
         if (entity == null) {
             return HttpResponse.reject(Messages.REQUEST_EMPTY);
@@ -75,7 +71,6 @@ public class BaseController<T extends BaseEntity, S extends IService<T>> {
         return HttpResponse.ok();
     }
 
-    @PostMapping("/delete-all")
     public ApiResponse deleteAllEntity(@RequestBody BaseEntityDto entity) {
         if (entity == null) {
             return HttpResponse.reject(Messages.REQUEST_EMPTY);
@@ -91,7 +86,6 @@ public class BaseController<T extends BaseEntity, S extends IService<T>> {
         return HttpResponse.ok();
     }
 
-    @PostMapping("/page-list")
     public ApiResponse pageList(@RequestBody PageQueryDto<T> pageQueryDto) {
         if (pageQueryDto == null) {
             return HttpResponse.reject(Messages.REQUEST_EMPTY);
@@ -107,7 +101,6 @@ public class BaseController<T extends BaseEntity, S extends IService<T>> {
         return HttpResponse.ok(pageQueryDto);
     }
 
-    @PostMapping("/list")
     public ApiResponse listEntity(@RequestBody T entity) {
         if (entity == null) {
             return HttpResponse.reject(Messages.REQUEST_EMPTY);

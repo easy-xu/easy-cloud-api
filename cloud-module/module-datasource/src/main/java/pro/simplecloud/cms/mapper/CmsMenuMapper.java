@@ -1,16 +1,16 @@
 package pro.simplecloud.cms.mapper;
 
-import pro.simplecloud.cms.entity.CmsUser;
+import pro.simplecloud.cms.entity.CmsMenu;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
  * <p>
- * 用户信息主表 Mapper 接口
+ * 菜单权限表 Mapper 接口
  * </p>
  *
  * @author Generator
  * @since 2021-10-13
  */
-public interface CmsUserMapper extends BaseMapper<CmsUser> {
+public interface CmsMenuMapper extends BaseMapper<CmsMenu> {
 
 }

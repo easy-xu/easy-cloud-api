@@ -1,16 +1,16 @@
 package pro.simplecloud.cms.service;
 
-import pro.simplecloud.cms.entity.CmsRole;
+import pro.simplecloud.cms.entity.CmsMenu;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * <p>
- * 角色信息表 服务类
+ * 菜单权限表 服务类
  * </p>
  *
  * @author Generator
  * @since 2021-10-13
  */
-public interface ICmsRoleService extends IService<CmsRole> {
+public interface ICmsMenuService extends IService<CmsMenu> {
 
 }

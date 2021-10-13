@@ -14,6 +14,7 @@ import java.util.List;
 public interface MenuService {
     /**
      * 用户菜单树
+     *
      * @return List<MenuDto>
      */
     List<MenuDto> tree();

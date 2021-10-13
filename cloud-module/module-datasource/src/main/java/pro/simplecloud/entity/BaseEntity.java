@@ -23,14 +23,6 @@ public class BaseEntity implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-
-    /**
-     * 删除标志（0正常 1停用）
-     */
-    @JsonIgnore
-    @TableLogic
-    private String deleted;
-
     /**
      * 创建者
      */

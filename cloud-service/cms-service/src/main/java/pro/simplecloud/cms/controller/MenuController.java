@@ -1,14 +1,13 @@
 package pro.simplecloud.cms.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pro.simplecloud.cms.dto.MenuDto;
 import pro.simplecloud.cms.entity.CmsMenu;
 import pro.simplecloud.cms.service.ICmsMenuService;
 import pro.simplecloud.cms.service.MenuService;
 import pro.simplecloud.controller.BaseController;
+import pro.simplecloud.dto.PageQueryDto;
 import pro.simplecloud.entity.ApiResponse;
 import pro.simplecloud.entity.HttpResponse;
 
@@ -26,16 +25,46 @@ import java.util.List;
 @RequestMapping("/api/cms/menu")
 public class MenuController extends BaseController<CmsMenu, ICmsMenuService> {
 
+    @Resource
+    private MenuService menuService;
+
     @Autowired
     public MenuController(ICmsMenuService service) {
         super(service);
     }
 
-    @Resource
-    private MenuService menuService;
+    @Override
+    @PostMapping("/query")
+    public ApiResponse queryEntity(@RequestBody CmsMenu entity) {
+        return super.queryEntity(entity);
+    }
+
+    @Override
+    @PostMapping("/save")
+    public ApiResponse saveEntity(@RequestBody CmsMenu entity) {
+        return super.saveEntity(entity);
+    }
+
+    @Override
+    @PostMapping("/delete")
+    public ApiResponse deleteEntity(@RequestBody CmsMenu entity) {
+        return super.deleteEntity(entity);
+    }
+
+    @Override
+    @PostMapping("/page-list")
+    public ApiResponse pageList(@RequestBody PageQueryDto<CmsMenu> pageQueryDto) {
+        return super.pageList(pageQueryDto);
+    }
+
+    @Override
+    @PostMapping("/list")
+    public ApiResponse listEntity(@RequestBody CmsMenu entity) {
+        return super.listEntity(entity);
+    }
 
     @GetMapping("/tree")
-    public ApiResponse tree(){
+    public ApiResponse tree() {
         List<MenuDto> tree = menuService.tree();
         return HttpResponse.ok(tree);
     }
