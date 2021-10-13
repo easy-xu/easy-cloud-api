@@ -3,9 +3,12 @@ package pro.simplecloud.cms.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pro.simplecloud.cms.constant.UserType;
 import pro.simplecloud.cms.dto.UserDto;
 import pro.simplecloud.cms.entity.CmsUser;
+import pro.simplecloud.cms.entity.CmsUserRole;
+import pro.simplecloud.cms.service.ICmsUserRoleService;
 import pro.simplecloud.cms.service.ICmsUserService;
 import pro.simplecloud.cms.service.UserService;
 import pro.simplecloud.constant.Messages;
@@ -20,6 +23,7 @@ import pro.simplecloud.utils.UserTokenUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Title: UserService
@@ -29,17 +33,21 @@ import java.util.List;
  * @version 1.0
  */
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class UserServiceImpl implements UserService {
 
     @Resource
-    private ICmsUserService userService;
+    private ICmsUserService cmsUserService;
+
+    @Resource
+    private ICmsUserRoleService cmsUserRoleService;
 
     @Override
     public void signIn(UserDto userDto) {
         String username = userDto.getUsername();
         //是否重复注册
         QueryWrapper<CmsUser> queryWrapper = new QueryWrapper<CmsUser>().eq("username", username);
-        int count = userService.count(queryWrapper);
+        int count = cmsUserService.count(queryWrapper);
         if (count >= 1) {
             throw new RequestException(Messages.USERNAME_EXIST);
         }
@@ -50,7 +58,7 @@ public class UserServiceImpl implements UserService {
         CmsUser cmsUser = new CmsUser();
         cmsUser.setUserNo(userNo);
         cmsUser.setToken(token);
-        List<CmsUser> users = userService.list(Wrappers.query(cmsUser));
+        List<CmsUser> users = cmsUserService.list(Wrappers.query(cmsUser));
         if (users.isEmpty()) {
             throw new RequestException(Messages.NOT_FOUND);
         }
@@ -62,7 +70,7 @@ public class UserServiceImpl implements UserService {
         cmsUser.setUsername(username);
         //密码加密
         cmsUser.setPassword(PasswordUtils.encrypt(cmsUser.getPassword()));
-        userService.saveOrUpdate(cmsUser);
+        cmsUserService.saveOrUpdate(cmsUser);
     }
 
     @Override
@@ -71,7 +79,7 @@ public class UserServiceImpl implements UserService {
         CmsUser cmsUser = new CmsUser();
         cmsUser.setUsername(userDto.getUsername());
         cmsUser.setPassword(PasswordUtils.encrypt(cmsUser.getPassword()));
-        List<CmsUser> users = userService.list(Wrappers.query(cmsUser));
+        List<CmsUser> users = cmsUserService.list(Wrappers.query(cmsUser));
         if (users.isEmpty()) {
             throw new RequestException(Messages.LOGIN_ERROR);
         } else if (users.size() > 1) {
@@ -81,7 +89,7 @@ public class UserServiceImpl implements UserService {
         //更新token
         String token = UserTokenUtils.generateToken(cmsUser.getUsername());
         cmsUser.setToken(token);
-        userService.saveOrUpdate(cmsUser);
+        cmsUserService.saveOrUpdate(cmsUser);
         BeanUtils.copy(cmsUser, userDto);
         return userDto;
     }
@@ -94,9 +102,44 @@ public class UserServiceImpl implements UserService {
         cmsUser.setUsername(userNo);
         cmsUser.setUserNo(userNo);
         cmsUser.setToken(token);
-        userService.save(cmsUser);
+        cmsUserService.save(cmsUser);
         UserDto userDto = new UserDto();
         BeanUtils.copy(cmsUser, userDto);
+        return userDto;
+    }
+
+    @Override
+    public void save(UserDto userDto) {
+        CmsUser cmsUser = new CmsUser();
+        BeanUtils.copy(userDto, cmsUser);
+        cmsUserService.saveOrUpdate(cmsUser);
+        Long userId = cmsUser.getId();
+        //删除关联历史
+        CmsUserRole cmsUserRole = new CmsUserRole();
+        cmsUserRole.setUserId(userId);
+        cmsUserRoleService.remove(Wrappers.query(cmsUserRole));
+        //新增关联
+        List<Long> roleIds = userDto.getRoleIds();
+        List<CmsUserRole> cmsUserRoles = roleIds.stream().map(roleId -> {
+            CmsUserRole userRole = new CmsUserRole();
+            userRole.setUserId(userId);
+            userRole.setRoleId(roleId);
+            return userRole;
+        }).collect(Collectors.toList());
+        cmsUserRoleService.saveBatch(cmsUserRoles);
+    }
+
+    @Override
+    public UserDto getDetail(Long id) {
+        UserDto userDto = new UserDto();
+        CmsUser cmsUser = cmsUserService.getById(id);
+        BeanUtils.copy(cmsUser, userDto);
+        //查询关联角色
+        CmsUserRole cmsUserRole = new CmsUserRole();
+        cmsUserRole.setUserId(id);
+        List<CmsUserRole> roleMenus = cmsUserRoleService.list(Wrappers.query(cmsUserRole));
+        List<Long> roleIds = roleMenus.stream().map(CmsUserRole::getRoleId).collect(Collectors.toList());
+        userDto.setRoleIds(roleIds);
         return userDto;
     }
 }

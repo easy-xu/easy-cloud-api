@@ -32,4 +32,16 @@ public interface UserService {
      */
     UserDto initUser();
 
+    /**
+     * 保存用户
+     * @param userDto 用户信息
+     */
+    void save(UserDto userDto);
+
+    /**
+     * 查询用户详情
+     * @param id 用户id
+     * @return UserDto
+     */
+    UserDto getDetail(Long id);
 }

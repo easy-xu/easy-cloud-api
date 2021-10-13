@@ -38,15 +38,14 @@ public class RoleController extends BaseController<CmsRole, ICmsRoleService> {
 
     @PostMapping("/query")
     public ApiResponse queryEntity(@RequestBody RoleDto roleDto) {
-        if (roleDto == null) {
-            return HttpResponse.reject(Messages.REQUEST_EMPTY);
-        }
-        Long id = roleDto.getId();
-        if (id == null) {
-            return HttpResponse.reject(Messages.ID_EMPTY);
-        }
-        roleDto = roleService.getDetail(id);
+        roleDto = roleService.getDetail(requireId(roleDto));
         return HttpResponse.ok(roleDto);
+    }
+
+    @PostMapping("/save")
+    public ApiResponse saveEntity(@RequestBody RoleDto roleDto) {
+        roleService.save(notNull(roleDto));
+        return HttpResponse.ok();
     }
 
     @Override
@@ -65,15 +64,6 @@ public class RoleController extends BaseController<CmsRole, ICmsRoleService> {
     @PostMapping("/list")
     public ApiResponse listEntity(@RequestBody CmsRole entity) {
         return super.listEntity(entity);
-    }
-
-    @PostMapping("/save")
-    public ApiResponse saveEntity(@RequestBody RoleDto roleDto) {
-        if (roleDto == null) {
-            return HttpResponse.reject(Messages.REQUEST_EMPTY);
-        }
-        roleService.save(roleDto);
-        return HttpResponse.ok();
     }
 
 }

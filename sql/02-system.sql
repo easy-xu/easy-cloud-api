@@ -15,6 +15,7 @@ create table cms_user
     phone_number varchar(11) comment '手机号码',
     sex          char(1)    default '2' comment '用户性别（0男 1女 2未知）',
     avatar       varchar(100) comment '头像地址',
+    status       char(1)    default '0' comment '状态（0正常 1停用）',
     deleted      char(1)    default '0' comment '删除标志（0正常 1停用）',
     create_by    varchar(60) comment '创建者',
     create_time  datetime comment '创建时间',
@@ -198,15 +199,36 @@ create table file_content
   auto_increment = 1 comment = '文件内容表';
 
 
-
 -- 数据备份
 
-INSERT INTO `simple-cloud`.`cms_menu`(`id`, `name`, `parent_id`, `order_num`, `path`, `component`, `type`, `visible`, `icon`, `status`, `deleted`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (1, '系统管理', 0, 0, 'cms', NULL, 'F', '0', 'SettingFilled', '0', '0', 'admin', '2021-10-12 17:38:52', 'admin', '2021-10-12 21:27:49', NULL);
-INSERT INTO `simple-cloud`.`cms_menu`(`id`, `name`, `parent_id`, `order_num`, `path`, `component`, `type`, `visible`, `icon`, `status`, `deleted`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (2, '菜单管理', 1, 1, 'menu', NULL, 'M', '0', '', '0', '0', 'admin', '2021-10-12 19:33:27', 'admin', '2021-10-12 20:56:20', NULL);
-INSERT INTO `simple-cloud`.`cms_menu`(`id`, `name`, `parent_id`, `order_num`, `path`, `component`, `type`, `visible`, `icon`, `status`, `deleted`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (3, '角色管理', 1, 2, 'role', NULL, 'M', '0', '', '0', '0', 'admin', '2021-10-12 20:29:45', 'admin', '2021-10-12 20:56:33', NULL);
-INSERT INTO `simple-cloud`.`cms_menu`(`id`, `name`, `parent_id`, `order_num`, `path`, `component`, `type`, `visible`, `icon`, `status`, `deleted`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (4, '用户管理', 1, 3, 'user', NULL, 'M', '0', '', '0', '0', 'admin', '2021-10-12 21:07:21', 'admin', '2021-10-12 21:07:21', NULL);
+INSERT INTO `simple-cloud`.`cms_menu`(`id`, `name`, `parent_id`, `order_num`, `path`, `component`, `type`, `visible`,
+                                      `icon`, `status`, `deleted`, `create_by`, `create_time`, `update_by`,
+                                      `update_time`, `remark`)
+VALUES (1, '系统管理', 0, 0, 'cms', NULL, 'F', '0', 'SettingFilled', '0', '0', 'admin', '2021-10-12 17:38:52', 'admin',
+        '2021-10-12 21:27:49', NULL);
+INSERT INTO `simple-cloud`.`cms_menu`(`id`, `name`, `parent_id`, `order_num`, `path`, `component`, `type`, `visible`,
+                                      `icon`, `status`, `deleted`, `create_by`, `create_time`, `update_by`,
+                                      `update_time`, `remark`)
+VALUES (2, '菜单管理', 1, 1, 'menu', NULL, 'M', '0', '', '0', '0', 'admin', '2021-10-12 19:33:27', 'admin',
+        '2021-10-12 20:56:20', NULL);
+INSERT INTO `simple-cloud`.`cms_menu`(`id`, `name`, `parent_id`, `order_num`, `path`, `component`, `type`, `visible`,
+                                      `icon`, `status`, `deleted`, `create_by`, `create_time`, `update_by`,
+                                      `update_time`, `remark`)
+VALUES (3, '角色管理', 1, 2, 'role', NULL, 'M', '0', '', '0', '0', 'admin', '2021-10-12 20:29:45', 'admin',
+        '2021-10-12 20:56:33', NULL);
+INSERT INTO `simple-cloud`.`cms_menu`(`id`, `name`, `parent_id`, `order_num`, `path`, `component`, `type`, `visible`,
+                                      `icon`, `status`, `deleted`, `create_by`, `create_time`, `update_by`,
+                                      `update_time`, `remark`)
+VALUES (4, '用户管理', 1, 3, 'user', NULL, 'M', '0', '', '0', '0', 'admin', '2021-10-12 21:07:21', 'admin',
+        '2021-10-12 21:07:21', NULL);
 
 
-INSERT INTO `simple-cloud`.`cms_role`(`id`, `name`, `code`, `status`, `deleted`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (1, '系统管理员', 'admin', '0', '0', 'admin', '2021-10-12 21:55:40', 'admin', '2021-10-12 21:55:40', NULL);
-INSERT INTO `simple-cloud`.`cms_role`(`id`, `name`, `code`, `status`, `deleted`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (2, '只读用户', 'readable', '0', '0', 'admin', '2021-10-12 21:56:22', 'admin', '2021-10-12 21:57:33', NULL);
-INSERT INTO `simple-cloud`.`cms_role`(`id`, `name`, `code`, `status`, `deleted`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (3, '可写用户', 'writable', '0', '0', 'admin', '2021-10-12 21:56:50', 'admin', '2021-10-12 21:57:15', NULL);
+INSERT INTO `simple-cloud`.`cms_role`(`id`, `name`, `code`, `status`, `deleted`, `create_by`, `create_time`,
+                                      `update_by`, `update_time`, `remark`)
+VALUES (1, '系统管理员', 'admin', '0', '0', 'admin', '2021-10-12 21:55:40', 'admin', '2021-10-12 21:55:40', NULL);
+INSERT INTO `simple-cloud`.`cms_role`(`id`, `name`, `code`, `status`, `deleted`, `create_by`, `create_time`,
+                                      `update_by`, `update_time`, `remark`)
+VALUES (2, '只读用户', 'readable', '0', '0', 'admin', '2021-10-12 21:56:22', 'admin', '2021-10-12 21:57:33', NULL);
+INSERT INTO `simple-cloud`.`cms_role`(`id`, `name`, `code`, `status`, `deleted`, `create_by`, `create_time`,
+                                      `update_by`, `update_time`, `remark`)
+VALUES (3, '可写用户', 'writable', '0', '0', 'admin', '2021-10-12 21:56:50', 'admin', '2021-10-12 21:57:15', NULL);

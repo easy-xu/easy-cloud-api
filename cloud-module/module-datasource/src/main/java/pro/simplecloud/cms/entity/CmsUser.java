@@ -68,5 +68,10 @@ public class CmsUser extends LogicDeleteEntity {
      */
     private String avatar;
 
+    /**
+     * 状态（0正常 1停用）
+     */
+    private String status;
+
 
 }

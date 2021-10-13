@@ -1,7 +1,11 @@
 package pro.simplecloud.cms.dto;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import pro.simplecloud.cms.entity.CmsUser;
 import pro.simplecloud.entity.ApiRequest;
+
+import java.util.List;
 
 /**
  * Title: UserDto
@@ -11,10 +15,8 @@ import pro.simplecloud.entity.ApiRequest;
  * @version 1.0
  */
 @Data
-public class UserDto implements ApiRequest {
-    private String username;
-    private String nickname;
-    private String password;
-    private String token;
-    private String type;
+@EqualsAndHashCode(callSuper = true)
+public class UserDto extends CmsUser {
+
+    private List<Long> roleIds;
 }

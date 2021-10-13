@@ -12,6 +12,7 @@ import pro.simplecloud.dto.PageQueryDto;
 import pro.simplecloud.entity.ApiResponse;
 import pro.simplecloud.entity.BaseEntity;
 import pro.simplecloud.entity.HttpResponse;
+import pro.simplecloud.exception.RequestException;
 
 import java.util.List;
 
@@ -31,13 +32,7 @@ public class BaseController<T extends BaseEntity, S extends IService<T>> {
     }
 
     public ApiResponse queryEntity(@RequestBody T entity) {
-        if (entity == null) {
-            return HttpResponse.reject(Messages.REQUEST_EMPTY);
-        }
-        Long id = entity.getId();
-        if (id == null) {
-            return HttpResponse.reject(Messages.ID_EMPTY);
-        }
+        Long id = requireId(entity);
         entity = service.getById(id);
         if (entity == null) {
             return HttpResponse.error(Messages.NOT_FOUND);
@@ -46,52 +41,33 @@ public class BaseController<T extends BaseEntity, S extends IService<T>> {
     }
 
     public ApiResponse saveEntity(@RequestBody T entity) {
-        if (entity == null) {
-            return HttpResponse.reject(Messages.REQUEST_EMPTY);
-        }
-        boolean success = service.saveOrUpdate(entity);
-        if (!success) {
+        if (!service.saveOrUpdate(notNull(entity))) {
             return HttpResponse.error(Messages.DB_SAVE_ERROR);
         }
         return HttpResponse.ok(entity.getId());
     }
 
     public ApiResponse deleteEntity(@RequestBody T entity) {
-        if (entity == null) {
-            return HttpResponse.reject(Messages.REQUEST_EMPTY);
-        }
-        Long id = entity.getId();
-        if (id == null) {
-            return HttpResponse.reject(Messages.ID_EMPTY);
-        }
-        boolean success = service.removeById(id);
-        if (!success) {
+        if (!service.removeById(requireId(entity))) {
             return HttpResponse.error(Messages.DB_DELETE_ERROR);
         }
         return HttpResponse.ok();
     }
 
     public ApiResponse deleteAllEntity(@RequestBody BaseEntityDto entity) {
-        if (entity == null) {
-            return HttpResponse.reject(Messages.REQUEST_EMPTY);
-        }
-        List<Long> ids = entity.getIds();
+        List<Long> ids = notNull(entity).getIds();
         if (ids == null) {
             return HttpResponse.reject(Messages.ID_EMPTY);
         }
-        boolean success = service.removeByIds(ids);
-        if (!success) {
+        if (!service.removeByIds(ids)) {
             return HttpResponse.error(Messages.DB_DELETE_ERROR);
         }
         return HttpResponse.ok();
     }
 
     public ApiResponse pageList(@RequestBody PageQueryDto<T> pageQueryDto) {
-        if (pageQueryDto == null) {
-            return HttpResponse.reject(Messages.REQUEST_EMPTY);
-        }
         //分页
-        PageDto pageDto = pageQueryDto.getPage();
+        PageDto pageDto = notNull(pageQueryDto).getPage();
         Page<T> page = new Page<>(pageDto.getCurrent(), pageDto.getPageSize());
         //查询条件
         QueryWrapper<T> queryWrapper = Wrappers.query(pageQueryDto.getQuery());
@@ -102,13 +78,24 @@ public class BaseController<T extends BaseEntity, S extends IService<T>> {
     }
 
     public ApiResponse listEntity(@RequestBody T entity) {
-        if (entity == null) {
-            return HttpResponse.reject(Messages.REQUEST_EMPTY);
-        }
         //查询条件
-        QueryWrapper<T> queryWrapper = Wrappers.query(entity);
+        QueryWrapper<T> queryWrapper = Wrappers.query(notNull(entity));
         List<T> list = service.list(queryWrapper);
         return HttpResponse.ok(list);
     }
 
+    protected Long requireId(T entity) {
+        Long id = notNull(entity).getId();
+        if (id == null) {
+            throw new RequestException(Messages.ID_EMPTY);
+        }
+        return id;
+    }
+
+    protected <O> O notNull(O object) {
+        if (object == null) {
+            throw new RequestException(Messages.REQUEST_EMPTY);
+        }
+        return object;
+    }
 }

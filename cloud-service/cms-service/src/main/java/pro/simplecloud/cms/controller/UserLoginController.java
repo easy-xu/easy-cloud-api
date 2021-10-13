@@ -26,45 +26,28 @@ import javax.annotation.Resource;
  * @version 1.0
  */
 @RestController
-@RequestMapping("/api/cms/user")
-public class UserController extends BaseController<CmsUser, ICmsUserService> {
+@RequestMapping("/api/user")
+public class UserLoginController {
 
     @Resource
     private UserService userService;
 
-    @Autowired
-    public UserController(ICmsUserService service) {
-        super(service);
-    }
-
-    @PostMapping("/query")
-    public ApiResponse queryEntity(@RequestBody UserDto userDto) {
-        userDto = userService.getDetail(requireId(userDto));
+    @PostMapping("/login")
+    public ApiResponse login(@RequestBody UserDto userDto) {
+        if (userDto == null || !StringUtils.hasLength(userDto.getUsername())) {
+            return HttpResponse.reject(Messages.USERNAME_EMPTY);
+        }
+        userDto = userService.login(userDto);
         return HttpResponse.ok(userDto);
     }
 
-    @PostMapping("/save")
-    public ApiResponse saveEntity(@RequestBody UserDto userDto) {
-        userService.save(notNull(userDto));
+    @PostMapping("/signIn")
+    public ApiResponse signIn(@RequestBody UserDto userDto) {
+        if (userDto == null || !StringUtils.hasLength(userDto.getUsername())) {
+            return HttpResponse.reject(Messages.USERNAME_EMPTY);
+        }
+        userService.signIn(userDto);
         return HttpResponse.ok();
-    }
-
-    @Override
-    @PostMapping("/delete")
-    public ApiResponse deleteEntity(@RequestBody CmsUser entity) {
-        return super.deleteEntity(entity);
-    }
-
-    @Override
-    @PostMapping("/page-list")
-    public ApiResponse pageList(@RequestBody PageQueryDto<CmsUser> pageQueryDto) {
-        return super.pageList(pageQueryDto);
-    }
-
-    @Override
-    @PostMapping("/list")
-    public ApiResponse listEntity(@RequestBody CmsUser entity) {
-        return super.listEntity(entity);
     }
 
 }
