@@ -68,10 +68,5 @@ public class CmsUser extends PrimaryDataEntity {
      */
     private String avatar;
 
-    /**
-     * 数据权限
-     */
-    private String dataMode;
-
 
 }

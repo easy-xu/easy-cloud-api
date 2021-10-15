@@ -322,16 +322,13 @@ VALUES (1, '查询', 'query', '0', 'U20211013000001', '2021-10-14 16:05:53', 'U2
         NULL);
 INSERT INTO `simple-cloud`.`cms_option`(`id`, `name`, `code`, `deleted`, `create_by`, `create_time`, `update_by`,
                                         `update_time`, `remark`)
-VALUES (2, '查看', 'view', '0', 'U20211013000001', '2021-10-14 16:06:18', 'U20211013000001', '2021-10-14 16:06:18', NULL);
+VALUES (2, '新增', 'add', '0', 'U20211013000001', '2021-10-14 16:06:31', 'U20211013000001', '2021-10-14 16:06:31', NULL);
 INSERT INTO `simple-cloud`.`cms_option`(`id`, `name`, `code`, `deleted`, `create_by`, `create_time`, `update_by`,
                                         `update_time`, `remark`)
-VALUES (3, '新增', 'add', '0', 'U20211013000001', '2021-10-14 16:06:31', 'U20211013000001', '2021-10-14 16:06:31', NULL);
+VALUES (3, '修改', 'edit', '0', 'U20211013000001', '2021-10-14 16:06:42', 'U20211013000001', '2021-10-14 16:06:42', NULL);
 INSERT INTO `simple-cloud`.`cms_option`(`id`, `name`, `code`, `deleted`, `create_by`, `create_time`, `update_by`,
                                         `update_time`, `remark`)
-VALUES (4, '修改', 'edit', '0', 'U20211013000001', '2021-10-14 16:06:42', 'U20211013000001', '2021-10-14 16:06:42', NULL);
-INSERT INTO `simple-cloud`.`cms_option`(`id`, `name`, `code`, `deleted`, `create_by`, `create_time`, `update_by`,
-                                        `update_time`, `remark`)
-VALUES (5, '删除', 'delete', '0', 'U20211013000001', '2021-10-14 16:06:54', 'U20211013000001', '2021-10-14 16:06:54',
+VALUES (4, '删除', 'delete', '0', 'U20211013000001', '2021-10-14 16:06:54', 'U20211013000001', '2021-10-14 16:06:54',
         NULL);
 
 INSERT INTO `simple-cloud`.`cms_menu`(`id`, `name`, `parent_id`, `order_num`, `code`, `component`, `type`, `visible`,
@@ -392,6 +389,25 @@ VALUES (16, 1, 1, 'U20211013000001', '2021-10-14 10:27:24', 'U20211013000001', '
 INSERT INTO `simple-cloud`.`cms_user`(`id`, `username`, `user_no`, `password`, `nickname`, `type`, `token`, `email`,
                                       `phone_number`, `sex`, `avatar`, `deleted`, `create_by`, `create_time`,
                                       `update_by`, `update_time`)
-VALUES (1, 'admin', 'U20211013000001', 'B7exzphzxZANPZkW2rArP651aTbKemYuaVZ8yhj9jsAG', NULL, '01',
+VALUES (1, 'admin', 'U20211013000001', 'D3PDDq2gnuZBy7TaGcgmjzwqqDxwqLcNAeHMs7zaG4vu', NULL, '01',
         'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiVTIwMjExMDEzMDAwMDAxIiwiaWF0IjoxNjM0MTc1OTEzfQ.aBv19JPSIcZT_hyMXInU8qKVfeKIJZ2dBqQhSq_ZhgA',
         NULL, NULL, '2', NULL, '0', NULL, '2021-10-13 20:35:41', 'U20211013000001', '2021-10-14 10:27:24');
+
+INSERT INTO `simple-cloud`.`cms_auth`(`id`, `name`, `code`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (1, '所有权限', 'All', '0', NULL, 'w', 'r', '-', 'U20211013000001', '2021-10-15 20:59:40', 'U20211013000001', '2021-10-15 20:59:40', NULL);
+
+INSERT INTO `simple-cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (1, 1, 1, 'U20211013000001', '2021-10-15 20:59:40', 'U20211013000001', '2021-10-15 20:59:40');
+INSERT INTO `simple-cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (2, 1, 7, 'U20211013000001', '2021-10-15 20:59:40', 'U20211013000001', '2021-10-15 20:59:40');
+INSERT INTO `simple-cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (3, 1, 2, 'U20211013000001', '2021-10-15 20:59:40', 'U20211013000001', '2021-10-15 20:59:40');
+INSERT INTO `simple-cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (4, 1, 8, 'U20211013000001', '2021-10-15 20:59:40', 'U20211013000001', '2021-10-15 20:59:40');
+INSERT INTO `simple-cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (5, 1, 3, 'U20211013000001', '2021-10-15 20:59:40', 'U20211013000001', '2021-10-15 20:59:40');
+INSERT INTO `simple-cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (6, 1, 4, 'U20211013000001', '2021-10-15 20:59:40', 'U20211013000001', '2021-10-15 20:59:40');
+INSERT INTO `simple-cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (7, 1, 5, 'U20211013000001', '2021-10-15 20:59:40', 'U20211013000001', '2021-10-15 20:59:40');
+INSERT INTO `simple-cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (8, 1, 6, 'U20211013000001', '2021-10-15 20:59:40', 'U20211013000001', '2021-10-15 20:59:40');
+
+
+INSERT INTO `simple-cloud`.`cms_auth_option`(`id`, `auth_id`, `option_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (1, 1, 1, 'U20211013000001', '2021-10-15 20:59:40', 'U20211013000001', '2021-10-15 20:59:40');
+INSERT INTO `simple-cloud`.`cms_auth_option`(`id`, `auth_id`, `option_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (2, 1, 2, 'U20211013000001', '2021-10-15 20:59:40', 'U20211013000001', '2021-10-15 20:59:40');
+INSERT INTO `simple-cloud`.`cms_auth_option`(`id`, `auth_id`, `option_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (3, 1, 3, 'U20211013000001', '2021-10-15 20:59:40', 'U20211013000001', '2021-10-15 20:59:40');
+INSERT INTO `simple-cloud`.`cms_auth_option`(`id`, `auth_id`, `option_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (4, 1, 4, 'U20211013000001', '2021-10-15 20:59:40', 'U20211013000001', '2021-10-15 20:59:40');
+
+INSERT INTO `simple-cloud`.`cms_role_auth`(`id`, `role_id`, `auth_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (1, 1, 1, 'U20211013000001', '2021-10-15 21:00:43', 'U20211013000001', '2021-10-15 21:00:43');

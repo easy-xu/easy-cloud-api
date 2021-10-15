@@ -59,11 +59,6 @@ public class CmsMenu extends PrimaryDataEntity {
     private String icon;
 
     /**
-     * 数据权限
-     */
-    private String dataMode;
-
-    /**
      * 备注
      */
     private String remark;

@@ -22,14 +22,25 @@ public class PrimaryDataEntity extends BaseEntity {
     @TableLogic
     private String deleted;
 
+
     /**
      * 数据分组
      */
-    private String dataGroup;
+    private Long groupId;
 
     /**
-     * 数据权限
+     * 所有者权限（-不可读不可写 r可读 w可读可写）
      */
-    private String dataMode;
+    private String ownMode;
+
+    /**
+     * 同分组权限（-不可读不可写 r可读 w可读可写）
+     */
+    private String groupMode;
+
+    /**
+     * 其他分组权限（-不可读不可写 r可读 w可读可写）
+     */
+    private String otherMode;
 
 }

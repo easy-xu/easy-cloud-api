@@ -43,10 +43,5 @@ public class FileMaster extends PrimaryDataEntity {
      */
     private Long status;
 
-    /**
-     * 数据权限
-     */
-    private String dataMode;
-
 
 }

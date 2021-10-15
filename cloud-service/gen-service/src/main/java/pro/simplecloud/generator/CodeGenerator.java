@@ -79,7 +79,7 @@ public class CodeGenerator {
         //设置父类
         if (primaryData) {
             strategy.setSuperEntityClass(PrimaryDataEntity.class);
-            strategy.setSuperEntityColumns("id","deleted","data_group", "data_group", "create_by", "create_time", "update_by", "update_time");
+            strategy.setSuperEntityColumns("id","deleted","group_id", "own_mode", "other_mode", "group_mode", "create_by", "create_time", "update_by", "update_time");
         } else {
             strategy.setSuperEntityClass(BaseEntity.class);
             strategy.setSuperEntityColumns("id", "create_by", "create_time", "update_by", "update_time");

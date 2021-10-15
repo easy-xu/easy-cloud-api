@@ -29,11 +29,6 @@ public class CmsRole extends PrimaryDataEntity {
     private String code;
 
     /**
-     * 数据权限
-     */
-    private String dataMode;
-
-    /**
      * 备注
      */
     private String remark;
