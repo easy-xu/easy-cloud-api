@@ -26,7 +26,7 @@ public class CodeGenerator {
         generate("file", true, "file_master");
         generate("file", false, "file_content");
 
-        generate("cms", true, "cms_user", "cms_menu", "cms_role", "cms_auth", "cms_option");
+        generate("cms", true, "cms_user", "cms_menu", "cms_role", "cms_auth", "cms_option","cms_group");
         generate("cms", false, "cms_user_role", "cms_role_auth","cms_auth_menu", "cms_auth_option" );
 
         //generate("quna", true, "quna_config_questionnaire", "quna_config_question", "quna_config_option", "quna_answer_questionnaire", "quna_answer_question", "quna_config_result", "quna_config_result_score", "quna_config_result_description", "quna_answer_result");
