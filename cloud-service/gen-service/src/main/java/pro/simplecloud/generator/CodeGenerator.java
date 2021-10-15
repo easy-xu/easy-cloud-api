@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.generator.config.po.TableFill;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import pro.simplecloud.entity.BaseEntity;
-import pro.simplecloud.entity.LogicDeleteEntity;
+import pro.simplecloud.entity.PrimaryDataEntity;
 
 import java.util.ArrayList;
 
@@ -21,16 +21,18 @@ public class CodeGenerator {
 
 
     public static void main(String[] args) {
-        generate("api", true, "api_log");
-        generate("file", true, "file_master", "file_content");
+        generate("api", false, "api_log");
 
-        generate("cms", true, "cms_user", "cms_menu", "cms_role");
-        generate("cms", false, "cms_role_menu", "cms_user_role");
+        generate("file", true, "file_master");
+        generate("file", false, "file_content");
 
-        generate("quna", true, "quna_config_questionnaire", "quna_config_question", "quna_config_option", "quna_answer_questionnaire", "quna_answer_question", "quna_config_result", "quna_config_result_score", "quna_config_result_description", "quna_answer_result");
+        generate("cms", true, "cms_user", "cms_menu", "cms_role", "cms_auth", "cms_option");
+        generate("cms", false, "cms_user_role", "cms_role_auth","cms_auth_menu", "cms_auth_option" );
+
+        //generate("quna", true, "quna_config_questionnaire", "quna_config_question", "quna_config_option", "quna_answer_questionnaire", "quna_answer_question", "quna_config_result", "quna_config_result_score", "quna_config_result_description", "quna_answer_result");
     }
 
-    private static void generate(String module, boolean logicDelete, String... table) {
+    private static void generate(String module, boolean primaryData, String... table) {
         // 代码生成器
         AutoGenerator mpg = new AutoGenerator();
 
@@ -75,9 +77,9 @@ public class CodeGenerator {
         strategy.setInclude(table);
         strategy.setControllerMappingHyphenStyle(true);
         //设置父类
-        if (logicDelete) {
-            strategy.setSuperEntityClass(LogicDeleteEntity.class);
-            strategy.setSuperEntityColumns("id", "deleted", "create_by", "create_time", "update_by", "update_time");
+        if (primaryData) {
+            strategy.setSuperEntityClass(PrimaryDataEntity.class);
+            strategy.setSuperEntityColumns("id","deleted","data_group", "data_group", "create_by", "create_time", "update_by", "update_time");
         } else {
             strategy.setSuperEntityClass(BaseEntity.class);
             strategy.setSuperEntityColumns("id", "create_by", "create_time", "update_by", "update_time");

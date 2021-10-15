@@ -1,6 +1,6 @@
 package pro.simplecloud.file.entity;
 
-import pro.simplecloud.entity.LogicDeleteEntity;
+import pro.simplecloud.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -10,11 +10,11 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author Generator
- * @since 2021-10-13
+ * @since 2021-10-15
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class FileContent extends LogicDeleteEntity {
+public class FileContent extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 

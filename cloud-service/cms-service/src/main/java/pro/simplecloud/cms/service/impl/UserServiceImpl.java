@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService {
         //查询用户
         CmsUser cmsUser = new CmsUser();
         cmsUser.setUsername(userDto.getUsername());
-        cmsUser.setPassword(PasswordUtils.encrypt(cmsUser.getPassword()));
+        cmsUser.setPassword(PasswordUtils.encrypt(userDto.getPassword()));
         List<CmsUser> users = cmsUserService.list(Wrappers.query(cmsUser));
         if (users.isEmpty()) {
             throw new RequestException(Messages.LOGIN_ERROR);

@@ -1,6 +1,6 @@
 package pro.simplecloud.cms.entity;
 
-import pro.simplecloud.entity.LogicDeleteEntity;
+import pro.simplecloud.entity.PrimaryDataEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -10,11 +10,11 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author Generator
- * @since 2021-10-13
+ * @since 2021-10-15
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class CmsRole extends LogicDeleteEntity {
+public class CmsRole extends PrimaryDataEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -29,9 +29,9 @@ public class CmsRole extends LogicDeleteEntity {
     private String code;
 
     /**
-     * 状态（0正常 1停用）
+     * 数据权限
      */
-    private String status;
+    private String dataMode;
 
     /**
      * 备注

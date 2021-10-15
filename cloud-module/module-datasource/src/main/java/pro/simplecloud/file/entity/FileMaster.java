@@ -1,6 +1,6 @@
 package pro.simplecloud.file.entity;
 
-import pro.simplecloud.entity.LogicDeleteEntity;
+import pro.simplecloud.entity.PrimaryDataEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -10,11 +10,11 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author Generator
- * @since 2021-10-13
+ * @since 2021-10-15
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class FileMaster extends LogicDeleteEntity {
+public class FileMaster extends PrimaryDataEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -42,6 +42,11 @@ public class FileMaster extends LogicDeleteEntity {
      * 文件状态（0临时文件 1正常文件）
      */
     private Long status;
+
+    /**
+     * 数据权限
+     */
+    private String dataMode;
 
 
 }

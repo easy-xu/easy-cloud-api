@@ -5,12 +5,13 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springframework.stereotype.Service;
 import pro.simplecloud.cms.dto.MenuDto;
 import pro.simplecloud.cms.entity.CmsMenu;
-import pro.simplecloud.cms.mapper.CmsUserMapperCust;
+import pro.simplecloud.cms.mapper.CmsMapperCust;
 import pro.simplecloud.cms.service.ICmsMenuService;
 import pro.simplecloud.cms.service.MenuService;
 import pro.simplecloud.utils.BeanUtils;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,7 +31,7 @@ public class MenuServiceImpl implements MenuService {
     private ICmsMenuService cmsMenuService;
 
     @Resource
-    private CmsUserMapperCust cmsUserMapperCust;
+    private CmsMapperCust cmsMapperCust;
 
     @Override
     public List<MenuDto> tree(String userNo) {
@@ -38,7 +39,10 @@ public class MenuServiceImpl implements MenuService {
             return getChildren(0L, null);
         }
         //查询当前用户所有菜单id
-        List<Long> menuIds = cmsUserMapperCust.userMenuIds(userNo);
+        List<Long> menuIds = cmsMapperCust.userMenuIds(userNo);
+        if (menuIds.isEmpty()){
+            return new ArrayList<>();
+        }
         return getChildren(0L, menuIds);
     }
 
@@ -49,6 +53,7 @@ public class MenuServiceImpl implements MenuService {
         if (ids!= null && !ids.isEmpty()) {
             query.in("id", ids);
         }
+        query.orderByAsc("order_num");
         List<CmsMenu> children = cmsMenuService.list(query);
         return children.stream().map(item -> {
             MenuDto menuDto = new MenuDto();

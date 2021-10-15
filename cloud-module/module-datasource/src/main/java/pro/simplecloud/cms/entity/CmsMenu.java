@@ -1,6 +1,6 @@
 package pro.simplecloud.cms.entity;
 
-import pro.simplecloud.entity.LogicDeleteEntity;
+import pro.simplecloud.entity.PrimaryDataEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -10,11 +10,11 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author Generator
- * @since 2021-10-13
+ * @since 2021-10-15
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class CmsMenu extends LogicDeleteEntity {
+public class CmsMenu extends PrimaryDataEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -22,6 +22,11 @@ public class CmsMenu extends LogicDeleteEntity {
      * 菜单名称
      */
     private String name;
+
+    /**
+     * 路径字符
+     */
+    private String code;
 
     /**
      * 父菜单ID
@@ -32,11 +37,6 @@ public class CmsMenu extends LogicDeleteEntity {
      * 显示顺序
      */
     private Integer orderNum;
-
-    /**
-     * 路由地址
-     */
-    private String path;
 
     /**
      * 组件路径
@@ -59,9 +59,9 @@ public class CmsMenu extends LogicDeleteEntity {
     private String icon;
 
     /**
-     * 状态（0正常 1停用）
+     * 数据权限
      */
-    private String status;
+    private String dataMode;
 
     /**
      * 备注

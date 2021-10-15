@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author Generator
- * @since 2021-10-13
+ * @since 2021-10-14
  */
 public interface IQunaConfigQuestionnaireService extends IService<QunaConfigQuestionnaire> {
 

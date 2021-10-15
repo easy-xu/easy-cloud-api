@@ -5,7 +5,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pro.simplecloud.cms.dto.RoleDto;
 import pro.simplecloud.cms.entity.CmsRole;
+import pro.simplecloud.cms.entity.CmsRoleAuth;
 import pro.simplecloud.cms.entity.CmsRoleMenu;
+import pro.simplecloud.cms.service.ICmsRoleAuthService;
 import pro.simplecloud.cms.service.ICmsRoleMenuService;
 import pro.simplecloud.cms.service.ICmsRoleService;
 import pro.simplecloud.cms.service.RoleService;
@@ -30,7 +32,7 @@ public class RoleServiceImpl implements RoleService {
     private ICmsRoleService cmsRoleService;
 
     @Resource
-    private ICmsRoleMenuService cmsRoleMenuService;
+    private ICmsRoleAuthService cmsRoleAuthService;
 
     @Override
     public void save(RoleDto roleDto) {
@@ -39,18 +41,18 @@ public class RoleServiceImpl implements RoleService {
         cmsRoleService.saveOrUpdate(cmsRole);
         Long roleId = cmsRole.getId();
         //删除关联历史
-        CmsRoleMenu cmsRoleMenu = new CmsRoleMenu();
-        cmsRoleMenu.setRoleId(roleId);
-        cmsRoleMenuService.remove(Wrappers.query(cmsRoleMenu));
+        CmsRoleAuth cmsRoleAuth = new CmsRoleAuth();
+        cmsRoleAuth.setRoleId(roleId);
+        cmsRoleAuthService.remove(Wrappers.query(cmsRoleAuth));
         //新增关联
-        List<Long> menuIds = roleDto.getMenuIds();
-        List<CmsRoleMenu> cmsRoleMenus = menuIds.stream().map(menuId -> {
-            CmsRoleMenu roleMenu = new CmsRoleMenu();
-            roleMenu.setMenuId(menuId);
-            roleMenu.setRoleId(roleId);
-            return roleMenu;
+        List<Long> authIds = roleDto.getAuthIds();
+        List<CmsRoleAuth> cmsRoleAuths = authIds.stream().map(authId -> {
+            CmsRoleAuth roleAuth = new CmsRoleAuth();
+            roleAuth.setAuthId(authId);
+            roleAuth.setRoleId(roleId);
+            return roleAuth;
         }).collect(Collectors.toList());
-        cmsRoleMenuService.saveBatch(cmsRoleMenus);
+        cmsRoleAuthService.saveBatch(cmsRoleAuths);
     }
 
     @Override
@@ -58,12 +60,12 @@ public class RoleServiceImpl implements RoleService {
         RoleDto roleDto = new RoleDto();
         CmsRole cmsRole = cmsRoleService.getById(id);
         BeanUtils.copy(cmsRole, roleDto);
-        //查询关联菜单
-        CmsRoleMenu cmsRoleMenu = new CmsRoleMenu();
-        cmsRoleMenu.setRoleId(id);
-        List<CmsRoleMenu> roleMenus = cmsRoleMenuService.list(Wrappers.query(cmsRoleMenu));
-        List<Long> menuIds = roleMenus.stream().map(CmsRoleMenu::getMenuId).collect(Collectors.toList());
-        roleDto.setMenuIds(menuIds);
+        //查询关联
+        CmsRoleAuth cmsRoleAuth = new CmsRoleAuth();
+        cmsRoleAuth.setRoleId(id);
+        List<CmsRoleAuth> roleAuths = cmsRoleAuthService.list(Wrappers.query(cmsRoleAuth));
+        List<Long> authIds = roleAuths.stream().map(CmsRoleAuth::getAuthId).collect(Collectors.toList());
+        roleDto.setAuthIds(authIds);
         return roleDto;
     }
 }

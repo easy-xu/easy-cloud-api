@@ -11,7 +11,14 @@ package pro.simplecloud.utils;
  */
 public class PasswordUtils {
 
+    private PasswordUtils() {}
+
     public static String encrypt(String password) {
         return SHA256Utils.digest(password);
+    }
+
+    public static void main(String[] args) {
+        String encrypt = PasswordUtils.encrypt("admin123");
+        System.out.println(encrypt);
     }
 }

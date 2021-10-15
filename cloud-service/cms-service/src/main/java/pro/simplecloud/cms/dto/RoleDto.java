@@ -17,5 +17,5 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class RoleDto extends CmsRole {
 
-    private List<Long> menuIds;
+    private List<Long> authIds;
 }

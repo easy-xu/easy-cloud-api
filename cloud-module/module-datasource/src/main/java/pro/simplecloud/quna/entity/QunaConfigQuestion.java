@@ -1,6 +1,6 @@
 package pro.simplecloud.quna.entity;
 
-import pro.simplecloud.entity.LogicDeleteEntity;
+import pro.simplecloud.entity.PrimaryDataEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -10,11 +10,11 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author Generator
- * @since 2021-10-13
+ * @since 2021-10-14
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class QunaConfigQuestion extends LogicDeleteEntity {
+public class QunaConfigQuestion extends PrimaryDataEntity {
 
     private static final long serialVersionUID = 1L;
 
