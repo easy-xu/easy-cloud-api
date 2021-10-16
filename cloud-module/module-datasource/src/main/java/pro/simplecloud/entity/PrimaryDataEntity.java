@@ -19,9 +19,7 @@ public class PrimaryDataEntity extends BaseEntity {
     /**
      * 删除标志（0正常 1停用）
      */
-    @TableLogic
     private String deleted;
-
 
     /**
      * 数据分组
