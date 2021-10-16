@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author Generator
- * @since 2021-10-15
+ * @since 2021-10-16
  */
 public interface IFileContentService extends IService<FileContent> {
 

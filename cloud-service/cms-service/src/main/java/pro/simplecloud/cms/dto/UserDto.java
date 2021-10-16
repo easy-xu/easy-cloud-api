@@ -3,7 +3,6 @@ package pro.simplecloud.cms.dto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import pro.simplecloud.cms.entity.CmsUser;
-import pro.simplecloud.entity.ApiRequest;
 
 import java.util.List;
 
@@ -19,4 +18,6 @@ import java.util.List;
 public class UserDto extends CmsUser {
 
     private List<Long> roleIds;
+
+    private List<Long> groupIds;
 }

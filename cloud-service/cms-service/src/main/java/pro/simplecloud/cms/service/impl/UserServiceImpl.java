@@ -7,7 +7,9 @@ import org.springframework.transaction.annotation.Transactional;
 import pro.simplecloud.cms.constant.UserType;
 import pro.simplecloud.cms.dto.UserDto;
 import pro.simplecloud.cms.entity.CmsUser;
+import pro.simplecloud.cms.entity.CmsUserGroup;
 import pro.simplecloud.cms.entity.CmsUserRole;
+import pro.simplecloud.cms.service.ICmsUserGroupService;
 import pro.simplecloud.cms.service.ICmsUserRoleService;
 import pro.simplecloud.cms.service.ICmsUserService;
 import pro.simplecloud.cms.service.UserService;
@@ -41,6 +43,9 @@ public class UserServiceImpl implements UserService {
 
     @Resource
     private ICmsUserRoleService cmsUserRoleService;
+
+    @Resource
+    private ICmsUserGroupService cmsUserGroupService;
 
     @Override
     public void signIn(UserDto userDto) {
@@ -127,6 +132,20 @@ public class UserServiceImpl implements UserService {
             return userRole;
         }).collect(Collectors.toList());
         cmsUserRoleService.saveBatch(cmsUserRoles);
+
+        //删除关联历史
+        CmsUserGroup cmsUserGroup = new CmsUserGroup();
+        cmsUserGroup.setUserId(userId);
+        cmsUserGroupService.remove(Wrappers.query(cmsUserGroup));
+        //新增关联
+        List<Long> groupIds = userDto.getGroupIds();
+        List<CmsUserGroup> cmsUserGroups = groupIds.stream().map(groupId -> {
+            CmsUserGroup userGroup = new CmsUserGroup();
+            userGroup.setUserId(userId);
+            userGroup.setGroupId(groupId);
+            return userGroup;
+        }).collect(Collectors.toList());
+        cmsUserGroupService.saveBatch(cmsUserGroups);
     }
 
     @Override
@@ -137,9 +156,15 @@ public class UserServiceImpl implements UserService {
         //查询关联角色
         CmsUserRole cmsUserRole = new CmsUserRole();
         cmsUserRole.setUserId(id);
-        List<CmsUserRole> roleMenus = cmsUserRoleService.list(Wrappers.query(cmsUserRole));
-        List<Long> roleIds = roleMenus.stream().map(CmsUserRole::getRoleId).collect(Collectors.toList());
+        List<CmsUserRole> userRoles = cmsUserRoleService.list(Wrappers.query(cmsUserRole));
+        List<Long> roleIds = userRoles.stream().map(CmsUserRole::getRoleId).collect(Collectors.toList());
         userDto.setRoleIds(roleIds);
+        //查询关联分组
+        CmsUserGroup cmsUserGroup = new CmsUserGroup();
+        cmsUserGroup.setUserId(id);
+        List<CmsUserGroup> userGroups = cmsUserGroupService.list(Wrappers.query(cmsUserGroup));
+        List<Long> groupIds = userGroups.stream().map(CmsUserGroup::getGroupId).collect(Collectors.toList());
+        userDto.setGroupIds(groupIds);
         return userDto;
     }
 }

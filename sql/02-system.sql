@@ -15,6 +15,7 @@ create table cms_user
     phone_number varchar(11) comment '手机号码',
     sex          char(1)    default '2' comment '用户性别（0男 1女 2未知）',
     avatar       varchar(100) comment '头像地址',
+    user_group     bigint(20) comment '用户默认分组',
     deleted      char(1)    default '0' comment '删除标志（0正常 1停用）',
     group_id     bigint(20) comment '数据分组',
     own_mode     char(1)    default 'w' comment '所有者权限（-不可读不可写 r可读 w可读可写）',
@@ -223,6 +224,23 @@ create table cms_user_role
     primary key (id)
 ) engine = innodb
   auto_increment = 1 comment = '用户和角色关联表';
+
+-- ----------------------------
+-- 用户和分组关联表  用户N-1分组
+-- ----------------------------
+drop table if exists cms_user_group;
+create table cms_user_group
+(
+    id          bigint(20) not null auto_increment comment '主键',
+    user_id     bigint(20) not null comment '用户ID',
+    group_id     bigint(20) not null comment '分组ID',
+    create_by   varchar(60) comment '创建者',
+    create_time datetime comment '创建时间',
+    update_by   varchar(60) comment '更新者',
+    update_time datetime comment '更新时间',
+    primary key (id)
+) engine = innodb
+  auto_increment = 1 comment = '用户和分组关联表';
 
 -- ----------------------------
 -- 接口日志表字段

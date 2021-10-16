@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author Generator
- * @since 2021-10-15
+ * @since 2021-10-16
  */
 @Service
 public class CmsMenuServiceImpl extends ServiceImpl<CmsMenuMapper, CmsMenu> implements ICmsMenuService {
