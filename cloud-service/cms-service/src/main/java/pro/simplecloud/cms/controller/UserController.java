@@ -67,5 +67,12 @@ public class UserController extends BaseController<CmsUser, ICmsUserService> {
         return super.listEntity(entity);
     }
 
+    @PostMapping("/reset-password")
+    public ApiResponse resetPassword(@RequestBody UserDto userDto) {
+        requireId(userDto);
+        userService.resetPassword(userDto);
+        return HttpResponse.ok();
+    }
+
 }
 

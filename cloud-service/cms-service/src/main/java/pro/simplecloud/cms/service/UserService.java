@@ -44,4 +44,10 @@ public interface UserService {
      * @return UserDto
      */
     UserDto getDetail(Long id);
+
+    /**
+     * 重置密码
+     * @param userDto 用户信息
+     */
+    void resetPassword(UserDto userDto);
 }

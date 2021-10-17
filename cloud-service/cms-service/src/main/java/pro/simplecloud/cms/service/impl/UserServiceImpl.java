@@ -51,8 +51,9 @@ public class UserServiceImpl implements UserService {
     public void signIn(UserDto userDto) {
         String username = userDto.getUsername();
         //是否重复注册
-        QueryWrapper<CmsUser> queryWrapper = new QueryWrapper<CmsUser>().eq("userNo", username);
-        int count = cmsUserService.count(queryWrapper);
+        CmsUser cmsUser = new CmsUser();
+        cmsUser.setUsername(username);
+        int count = cmsUserService.count(Wrappers.query(cmsUser));
         if (count >= 1) {
             throw new RequestException(Messages.USERNAME_EXIST);
         }
@@ -60,7 +61,6 @@ public class UserServiceImpl implements UserService {
         ApiHeader apiHeader = ApiHeaderHelper.get();
         String userNo = apiHeader.getUserNo();
         String token = apiHeader.getToken();
-        CmsUser cmsUser = new CmsUser();
         cmsUser.setUserNo(userNo);
         cmsUser.setToken(token);
         List<CmsUser> users = cmsUserService.list(Wrappers.query(cmsUser));
@@ -117,6 +117,9 @@ public class UserServiceImpl implements UserService {
     public void save(UserDto userDto) {
         CmsUser cmsUser = new CmsUser();
         BeanUtils.copy(userDto, cmsUser);
+        String userNo = IDGeneratorInstance.USER_NO.generate();
+        cmsUser.setUserNo(userNo);
+        cmsUser.setPassword(PasswordUtils.encrypt(cmsUser.getPassword()));
         cmsUserService.saveOrUpdate(cmsUser);
         Long userId = cmsUser.getId();
         //删除关联历史
@@ -166,5 +169,13 @@ public class UserServiceImpl implements UserService {
         List<Long> groupIds = userGroups.stream().map(CmsUserGroup::getGroupId).collect(Collectors.toList());
         userDto.setGroupIds(groupIds);
         return userDto;
+    }
+
+    @Override
+    public void resetPassword(UserDto userDto) {
+        Long id = userDto.getId();
+        CmsUser cmsUser = cmsUserService.getById(id);
+        cmsUser.setPassword(PasswordUtils.encrypt(userDto.getPassword()));
+        cmsUserService.saveOrUpdate(cmsUser);
     }
 }
