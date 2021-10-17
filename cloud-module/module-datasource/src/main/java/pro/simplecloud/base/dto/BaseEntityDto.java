@@ -1,8 +1,8 @@
-package pro.simplecloud.dto;
+package pro.simplecloud.base.dto;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import pro.simplecloud.entity.BaseEntity;
+import pro.simplecloud.base.entity.BaseEntity;
 
 import java.util.List;
 

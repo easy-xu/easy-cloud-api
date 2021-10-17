@@ -1,6 +1,6 @@
 package pro.simplecloud.api.entity;
 
-import pro.simplecloud.entity.BaseEntity;
+import pro.simplecloud.base.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

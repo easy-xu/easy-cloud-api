@@ -9,9 +9,8 @@ import pro.simplecloud.cms.dto.RoleDto;
 import pro.simplecloud.cms.entity.CmsRole;
 import pro.simplecloud.cms.service.ICmsRoleService;
 import pro.simplecloud.cms.service.RoleService;
-import pro.simplecloud.constant.Messages;
-import pro.simplecloud.controller.BaseController;
-import pro.simplecloud.dto.PageQueryDto;
+import pro.simplecloud.base.controller.BaseController;
+import pro.simplecloud.base.dto.PageQueryDto;
 import pro.simplecloud.entity.ApiResponse;
 import pro.simplecloud.entity.HttpResponse;
 

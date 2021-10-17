@@ -1,4 +1,4 @@
-package pro.simplecloud.dto;
+package pro.simplecloud.base.dto;
 
 import lombok.Data;
 

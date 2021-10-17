@@ -7,10 +7,8 @@ import pro.simplecloud.cms.entity.CmsMenu;
 import pro.simplecloud.cms.entity.CmsUser;
 import pro.simplecloud.cms.service.ICmsMenuService;
 import pro.simplecloud.cms.service.MenuService;
-import pro.simplecloud.controller.BaseController;
-import pro.simplecloud.device.ApiHeaderHelper;
-import pro.simplecloud.dto.PageQueryDto;
-import pro.simplecloud.entity.ApiHeader;
+import pro.simplecloud.base.controller.BaseController;
+import pro.simplecloud.base.dto.PageQueryDto;
 import pro.simplecloud.entity.ApiResponse;
 import pro.simplecloud.entity.HttpResponse;
 

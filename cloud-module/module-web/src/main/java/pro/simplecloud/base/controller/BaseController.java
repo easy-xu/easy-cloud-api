@@ -1,16 +1,16 @@
-package pro.simplecloud.controller;
+package pro.simplecloud.base.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.web.bind.annotation.RequestBody;
+import pro.simplecloud.base.dto.BaseEntityDto;
+import pro.simplecloud.base.dto.PageDto;
+import pro.simplecloud.base.dto.PageQueryDto;
+import pro.simplecloud.base.entity.BaseEntity;
 import pro.simplecloud.constant.Messages;
-import pro.simplecloud.dto.BaseEntityDto;
-import pro.simplecloud.dto.PageDto;
-import pro.simplecloud.dto.PageQueryDto;
 import pro.simplecloud.entity.ApiResponse;
-import pro.simplecloud.entity.BaseEntity;
 import pro.simplecloud.entity.HttpResponse;
 import pro.simplecloud.exception.RequestException;
 
@@ -98,4 +98,6 @@ public class BaseController<T extends BaseEntity, S extends IService<T>> {
         }
         return object;
     }
+
+
 }

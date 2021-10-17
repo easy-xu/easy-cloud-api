@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pro.simplecloud.cms.entity.CmsOption;
 import pro.simplecloud.cms.service.ICmsOptionService;
-import pro.simplecloud.controller.BaseController;
-import pro.simplecloud.dto.PageQueryDto;
+import pro.simplecloud.base.controller.BaseController;
+import pro.simplecloud.base.dto.PageQueryDto;
 import pro.simplecloud.entity.ApiResponse;
 
 /**

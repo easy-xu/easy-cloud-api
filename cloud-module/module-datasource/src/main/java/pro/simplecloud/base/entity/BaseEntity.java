@@ -1,4 +1,4 @@
-package pro.simplecloud.entity;
+package pro.simplecloud.base.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -54,4 +54,17 @@ public class BaseEntity implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
+
+    /**
+     * 创建者昵称
+     */
+    @TableField(exist = false)
+    private String createByNickname;
+
+    /**
+     * 更新者昵称
+     */
+    @TableField(exist = false)
+    private String updateByNickname;
+
 }

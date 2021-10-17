@@ -1,18 +1,13 @@
 package pro.simplecloud.cms.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pro.simplecloud.cms.dto.UserDto;
-import pro.simplecloud.cms.entity.CmsUser;
-import pro.simplecloud.cms.service.ICmsUserService;
 import pro.simplecloud.cms.service.UserService;
 import pro.simplecloud.constant.Messages;
-import pro.simplecloud.controller.BaseController;
-import pro.simplecloud.dto.PageQueryDto;
 import pro.simplecloud.entity.ApiResponse;
 import pro.simplecloud.entity.HttpResponse;
 

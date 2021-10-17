@@ -7,12 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pro.simplecloud.cms.dto.AuthDto;
 import pro.simplecloud.cms.entity.CmsAuth;
-import pro.simplecloud.cms.entity.CmsOption;
 import pro.simplecloud.cms.service.ICmsAuthService;
 import pro.simplecloud.cms.service.AuthService;
-import pro.simplecloud.controller.BaseController;
+import pro.simplecloud.base.controller.BaseController;
 import pro.simplecloud.device.ApiHeaderHelper;
-import pro.simplecloud.dto.PageQueryDto;
+import pro.simplecloud.base.dto.PageQueryDto;
 import pro.simplecloud.entity.ApiResponse;
 import pro.simplecloud.entity.HttpResponse;
 

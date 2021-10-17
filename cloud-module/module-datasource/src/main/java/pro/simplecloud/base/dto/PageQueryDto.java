@@ -1,8 +1,7 @@
-package pro.simplecloud.dto;
+package pro.simplecloud.base.dto;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.Data;
-import pro.simplecloud.entity.BaseEntity;
+import pro.simplecloud.base.entity.BaseEntity;
 
 import java.util.List;
 

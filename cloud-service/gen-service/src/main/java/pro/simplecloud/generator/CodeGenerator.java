@@ -6,8 +6,8 @@ import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.po.TableFill;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
-import pro.simplecloud.entity.BaseEntity;
-import pro.simplecloud.entity.PrimaryDataEntity;
+import pro.simplecloud.base.entity.BaseEntity;
+import pro.simplecloud.base.entity.PrimaryDataEntity;
 
 import java.util.ArrayList;
 

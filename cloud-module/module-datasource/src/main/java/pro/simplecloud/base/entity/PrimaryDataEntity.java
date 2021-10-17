@@ -1,7 +1,5 @@
-package pro.simplecloud.entity;
+package pro.simplecloud.base.entity;
 
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
