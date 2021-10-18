@@ -3,6 +3,7 @@ package pro.simplecloud.base.entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import pro.simplecloud.base.enums.DeletedEnum;
+import pro.simplecloud.base.enums.ModeEnum;
 
 /**
  * Title: PrimaryDataEntity
@@ -28,16 +29,16 @@ public class PrimaryDataEntity extends BaseEntity {
     /**
      * 所有者权限（-不可读不可写 r可读 w可读可写）
      */
-    private String ownMode;
+    private ModeEnum ownMode;
 
     /**
      * 同分组权限（-不可读不可写 r可读 w可读可写）
      */
-    private String groupMode;
+    private ModeEnum groupMode;
 
     /**
      * 其他分组权限（-不可读不可写 r可读 w可读可写）
      */
-    private String otherMode;
+    private ModeEnum otherMode;
 
 }

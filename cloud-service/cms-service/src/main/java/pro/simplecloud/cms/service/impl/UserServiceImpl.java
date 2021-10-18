@@ -117,9 +117,16 @@ public class UserServiceImpl implements UserService {
     public void save(UserDto userDto) {
         CmsUser cmsUser = new CmsUser();
         BeanUtils.copy(userDto, cmsUser);
-        String userNo = IDGeneratorInstance.USER_NO.generate();
-        cmsUser.setUserNo(userNo);
-        cmsUser.setPassword(PasswordUtils.encrypt(cmsUser.getPassword()));
+        String userNo = cmsUser.getUserNo();
+        //新增用户
+        if (userNo == null) {
+            userNo = IDGeneratorInstance.USER_NO.generate();
+            cmsUser.setUserNo(userNo);
+        }
+        String password = cmsUser.getPassword();
+        if(password !=null){
+            cmsUser.setPassword(PasswordUtils.encrypt(password));
+        }
         cmsUserService.saveOrUpdate(cmsUser);
         Long userId = cmsUser.getId();
         //删除关联历史

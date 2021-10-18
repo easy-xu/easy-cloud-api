@@ -42,7 +42,6 @@ public class ApiHeaderFilter implements Filter {
             header.setIp(ip);
             header.setPath(request.getServletPath());
             header.setMethod(request.getMethod());
-            header.setUserNo(StringUtils.hasLength(token) ? UserTokenUtils.decodeToken(token) : null);
             header.setTimestamp(timestamp);
             ApiHeaderHelper.set(header);
             chain.doFilter(request, response);

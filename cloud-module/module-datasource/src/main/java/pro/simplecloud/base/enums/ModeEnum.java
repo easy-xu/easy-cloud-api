@@ -1,29 +1,30 @@
 package pro.simplecloud.base.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
-import com.baomidou.mybatisplus.annotation.IEnum;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
- * Title: DeletedEnum
+ * Title: ModeEnum
  * Description:
  *
  * @author Xu Honglin
  * @version 1.0
  */
-public enum DeletedEnum{
+public enum ModeEnum {
+
     /**
-     * 删除标志（0正常 1停用）
+     * 权限（-不可读不可写 r可读 w可读可写）
      */
-    DELETED("1", "停用"),
-    NOT_DELETED("0", "正常");
+    NOT_READ("-", "不可读写"),
+    READ("r", "可读"),
+    READ_WRITE("w", "可读写");
 
     @JsonValue
     @EnumValue
     private final String code;
     private final String name;
 
-    DeletedEnum (String code, String name){
+    ModeEnum(String code, String name){
         this.code = code;
         this.name = name;
     }

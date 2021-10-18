@@ -18,6 +18,9 @@ import pro.simplecloud.entity.HttpResponse;
 import javax.annotation.Resource;
 import java.util.List;
 
+import static pro.simplecloud.base.utils.BaseUtil.notNull;
+import static pro.simplecloud.base.utils.BaseUtil.requireId;
+
 /**
  * Title: AuthController
  * Description:

@@ -15,12 +15,12 @@ create table cms_user
     phone_number varchar(11) comment '手机号码',
     sex          char(1)    default '2' comment '用户性别（0男 1女 2未知）',
     avatar       varchar(100) comment '头像地址',
-    user_group     bigint(20) comment '用户默认分组',
+    default_group_id     bigint(20) comment '用户默认分组',
     deleted      char(1)    default '0' comment '删除标志（0正常 1停用）',
     group_id     bigint(20) comment '数据分组',
     own_mode     char(1)    default 'w' comment '所有者权限（-不可读不可写 r可读 w可读可写）',
     group_mode   char(1)    default 'r' comment '同分组权限（-不可读不可写 r可读 w可读可写）',
-    other_mode   char(1)    default '-' comment '其他分组权限（-不可读不可写 r可读 w可读可写）',
+    other_mode   char(1)    default 'r' comment '其他分组权限（-不可读不可写 r可读 w可读可写）',
     create_by    varchar(60) comment '创建者',
     create_time  datetime comment '创建时间',
     update_by    varchar(60) comment '更新者',
@@ -33,6 +33,9 @@ ALTER TABLE `cms_user`
 ALTER TABLE `cms_user`
     ADD INDEX `index_user_no` (`user_no`) USING BTREE;
 
+INSERT INTO `simple-cloud`.`cms_user`(`id`, `username`, `user_no`, `password`, `nickname`, `type`, `token`, `email`, `phone_number`, `sex`, `avatar`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `default_group_id`) VALUES (1, 'admin', 'U20211013000001', 'D3PDDq2gnuZBy7TaGcgmjzwqqDxwqLcNAeHMs7zaG4vu', '系统管理员', '01', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiVTIwMjExMDEzMDAwMDAxIiwiaWF0IjoxNjM0NTI0OTAxfQ.MCt7puTf-8r9tGD1Nb_YKmWnqgVfZcSaUQxSpE75q_o', NULL, NULL, '2', NULL, '0', NULL, 'w', 'r', '-', 'U20211013000001', '2021-10-13 20:35:41', 'U20211013000001', '2021-10-16 21:40:42', NULL);
+INSERT INTO `simple-cloud`.`cms_user`(`id`, `username`, `user_no`, `password`, `nickname`, `type`, `token`, `email`, `phone_number`, `sex`, `avatar`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `default_group_id`) VALUES (2, 'dev', 'U20211018000002', 'B7exzphzxZANPZkW2rArP651aTbKemYuaVZ8yhj9jsAG', '开发人员', '00', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiVTIwMjExMDE4MDAwMDAxIiwiaWF0IjoxNjM0NDg2ODY5fQ.bzwjJJYLdGGtaklwayqZy6cjllq-DNDuXTzflx24BZs', NULL, NULL, '2', NULL, '0', NULL, 'w', 'r', '-', 'U20211013000001', '2021-10-16 21:59:42', 'U20211017000100', '2021-10-18 00:09:05', NULL);
+INSERT INTO `simple-cloud`.`cms_user`(`id`, `username`, `user_no`, `password`, `nickname`, `type`, `token`, `email`, `phone_number`, `sex`, `avatar`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `default_group_id`) VALUES (3, 'ops', 'U20211017000100', '7pvk763joCo25grKGoJfDVi9hHMkZoxJu8FLFoDDvyNU', '运维人员', '00', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiVTIwMjExMDE3MDAwMTAwIiwiaWF0IjoxNjM0NTI0OTcxfQ.EYJkopppfhrPScc5GWSjLwwEb_VayikMkxWfqvZViBI', NULL, NULL, '2', NULL, '0', NULL, 'w', 'r', '-', 'U20211013000001', '2021-10-16 22:00:00', 'U20211017000001', '2021-10-17 16:07:41', NULL);
 
 -- ----------------------------
 -- 分组表
@@ -47,7 +50,7 @@ create table cms_group
     group_id     bigint(20) comment '数据分组',
     own_mode     char(1)    default 'w' comment '所有者权限（-不可读不可写 r可读 w可读可写）',
     group_mode   char(1)    default 'r' comment '同分组权限（-不可读不可写 r可读 w可读可写）',
-    other_mode   char(1)    default '-' comment '其他分组权限（-不可读不可写 r可读 w可读可写）',
+    other_mode   char(1)    default 'r' comment '其他分组权限（-不可读不可写 r可读 w可读可写）',
     create_by   varchar(60) comment '创建者',
     create_time datetime comment '创建时间',
     update_by   varchar(60) comment '更新者',
@@ -71,7 +74,7 @@ create table cms_role
     group_id     bigint(20) comment '数据分组',
     own_mode     char(1)    default 'w' comment '所有者权限（-不可读不可写 r可读 w可读可写）',
     group_mode   char(1)    default 'r' comment '同分组权限（-不可读不可写 r可读 w可读可写）',
-    other_mode   char(1)    default '-' comment '其他分组权限（-不可读不可写 r可读 w可读可写）',
+    other_mode   char(1)    default 'r' comment '其他分组权限（-不可读不可写 r可读 w可读可写）',
     create_by   varchar(60) comment '创建者',
     create_time datetime comment '创建时间',
     update_by   varchar(60) comment '更新者',
@@ -100,7 +103,7 @@ create table cms_menu
     group_id     bigint(20) comment '数据分组',
     own_mode     char(1)    default 'w' comment '所有者权限（-不可读不可写 r可读 w可读可写）',
     group_mode   char(1)    default 'r' comment '同分组权限（-不可读不可写 r可读 w可读可写）',
-    other_mode   char(1)    default '-' comment '其他分组权限（-不可读不可写 r可读 w可读可写）',
+    other_mode   char(1)    default 'r' comment '其他分组权限（-不可读不可写 r可读 w可读可写）',
     create_by   varchar(60) comment '创建者',
     create_time datetime comment '创建时间',
     update_by   varchar(60) comment '更新者',
@@ -123,7 +126,7 @@ create table cms_option
     group_id     bigint(20) comment '数据分组',
     own_mode     char(1)    default 'w' comment '所有者权限（-不可读不可写 r可读 w可读可写）',
     group_mode   char(1)    default 'r' comment '同分组权限（-不可读不可写 r可读 w可读可写）',
-    other_mode   char(1)    default '-' comment '其他分组权限（-不可读不可写 r可读 w可读可写）',
+    other_mode   char(1)    default 'r' comment '其他分组权限（-不可读不可写 r可读 w可读可写）',
     create_by   varchar(60) comment '创建者',
     create_time datetime comment '创建时间',
     update_by   varchar(60) comment '更新者',
@@ -146,7 +149,7 @@ create table cms_auth
     group_id     bigint(20) comment '数据分组',
     own_mode     char(1)    default 'w' comment '所有者权限（-不可读不可写 r可读 w可读可写）',
     group_mode   char(1)    default 'r' comment '同分组权限（-不可读不可写 r可读 w可读可写）',
-    other_mode   char(1)    default '-' comment '其他分组权限（-不可读不可写 r可读 w可读可写）',
+    other_mode   char(1)    default 'r' comment '其他分组权限（-不可读不可写 r可读 w可读可写）',
     create_by   varchar(60) comment '创建者',
     create_time datetime comment '创建时间',
     update_by   varchar(60) comment '更新者',
@@ -305,7 +308,7 @@ create table file_master
     group_id     bigint(20) comment '数据分组',
     own_mode     char(1)    default 'w' comment '所有者权限（-不可读不可写 r可读 w可读可写）',
     group_mode   char(1)    default 'r' comment '同分组权限（-不可读不可写 r可读 w可读可写）',
-    other_mode   char(1)    default '-' comment '其他分组权限（-不可读不可写 r可读 w可读可写）',
+    other_mode   char(1)    default 'r' comment '其他分组权限（-不可读不可写 r可读 w可读可写）',
     create_by     varchar(60) default '' comment '创建者',
     create_time   datetime comment '创建时间',
     update_by     varchar(60) default '' comment '更新者',
@@ -403,13 +406,6 @@ VALUES (3, '可写用户', 'writable', '0', 'admin', '2021-10-12 21:56:50', 'adm
 INSERT INTO `simple-cloud`.`cms_user_role`(`id`, `user_id`, `role_id`, `create_by`, `create_time`, `update_by`,
                                            `update_time`)
 VALUES (16, 1, 1, 'U20211013000001', '2021-10-14 10:27:24', 'U20211013000001', '2021-10-14 10:27:24');
-
-INSERT INTO `simple-cloud`.`cms_user`(`id`, `username`, `user_no`, `password`, `nickname`, `type`, `token`, `email`,
-                                      `phone_number`, `sex`, `avatar`, `deleted`, `create_by`, `create_time`,
-                                      `update_by`, `update_time`)
-VALUES (1, 'admin', 'U20211013000001', 'D3PDDq2gnuZBy7TaGcgmjzwqqDxwqLcNAeHMs7zaG4vu', NULL, '01',
-        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiVTIwMjExMDEzMDAwMDAxIiwiaWF0IjoxNjM0MTc1OTEzfQ.aBv19JPSIcZT_hyMXInU8qKVfeKIJZ2dBqQhSq_ZhgA',
-        NULL, NULL, '2', NULL, '0', NULL, '2021-10-13 20:35:41', 'U20211013000001', '2021-10-14 10:27:24');
 
 INSERT INTO `simple-cloud`.`cms_auth`(`id`, `name`, `code`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (1, '所有权限', 'All', '0', NULL, 'w', 'r', '-', 'U20211013000001', '2021-10-15 20:59:40', 'U20211013000001', '2021-10-15 20:59:40', NULL);
 

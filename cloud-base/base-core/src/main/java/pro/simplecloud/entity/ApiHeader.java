@@ -24,6 +24,14 @@ public class ApiHeader {
      */
     private String userNo;
     /**
+     * 用户名
+     */
+    private String username;
+    /**
+     * 用户分组id
+     */
+    private Long defaultGroup;
+    /**
      * 请求签名
      */
     private String signature;

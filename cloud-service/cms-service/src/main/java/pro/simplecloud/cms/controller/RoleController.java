@@ -16,6 +16,9 @@ import pro.simplecloud.entity.HttpResponse;
 
 import javax.annotation.Resource;
 
+import static pro.simplecloud.base.utils.BaseUtil.notNull;
+import static pro.simplecloud.base.utils.BaseUtil.requireId;
+
 /**
  * Title: MenuController
  * Description:

@@ -15,6 +15,8 @@ import pro.simplecloud.entity.HttpResponse;
 import javax.annotation.Resource;
 import java.util.List;
 
+import static pro.simplecloud.base.utils.BaseUtil.notNull;
+
 /**
  * Title: MenuController
  * Description:

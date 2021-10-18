@@ -30,6 +30,9 @@ public class AutoFillHandler implements MetaObjectHandler {
             this.strictInsertFill(metaObject, "createBy", String.class, apiHeader.getUserNo());
             this.strictInsertFill(metaObject, "updateBy", String.class, apiHeader.getUserNo());
         }
+        if (apiHeader != null && apiHeader.getDefaultGroup() != null) {
+            this.strictInsertFill(metaObject, "groupId", Long.class, apiHeader.getDefaultGroup());
+        }
     }
 
     @Override

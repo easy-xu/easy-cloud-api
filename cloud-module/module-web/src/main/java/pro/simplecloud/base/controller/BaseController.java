@@ -14,9 +14,10 @@ import pro.simplecloud.base.enums.DeletedEnum;
 import pro.simplecloud.constant.Messages;
 import pro.simplecloud.entity.ApiResponse;
 import pro.simplecloud.entity.HttpResponse;
-import pro.simplecloud.exception.RequestException;
 
 import java.util.List;
+
+import static pro.simplecloud.base.utils.BaseUtil.*;
 
 /**
  * Title: BaseController
@@ -73,7 +74,7 @@ public class BaseController<T extends BaseEntity, S extends IService<T>> {
         Page<T> page = new Page<>(pageDto.getCurrent(), pageDto.getPageSize());
         //查询条件
         QueryWrapper<T> queryWrapper = Wrappers.query(pageQueryDto.getQuery());
-        service.page(page, queryWrapper);
+        service.page(page, groupModeAuthQuery(queryWrapper));
         pageDto.setTotal(page.getTotal());
         pageQueryDto.setRecords(page.getRecords());
         return HttpResponse.ok(pageQueryDto);
@@ -82,27 +83,11 @@ public class BaseController<T extends BaseEntity, S extends IService<T>> {
     public ApiResponse listEntity(@RequestBody T entity) {
         //查询条件
         if (entity instanceof PrimaryDataEntity) {
-            ((PrimaryDataEntity)entity).setDeleted(DeletedEnum.NOT_DELETED);
+            ((PrimaryDataEntity) entity).setDeleted(DeletedEnum.NOT_DELETED);
         }
         QueryWrapper<T> queryWrapper = Wrappers.query(notNull(entity));
-        List<T> list = service.list(queryWrapper);
+        List<T> list = service.list(groupModeAuthQuery(queryWrapper));
         return HttpResponse.ok(list);
     }
-
-    protected Long requireId(T entity) {
-        Long id = notNull(entity).getId();
-        if (id == null) {
-            throw new RequestException(Messages.ID_EMPTY);
-        }
-        return id;
-    }
-
-    protected <O> O notNull(O object) {
-        if (object == null) {
-            throw new RequestException(Messages.REQUEST_EMPTY);
-        }
-        return object;
-    }
-
 
 }

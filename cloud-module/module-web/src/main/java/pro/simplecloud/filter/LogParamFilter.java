@@ -24,7 +24,6 @@ public class LogParamFilter implements Filter {
             ApiHeader header = ApiHeaderHelper.get();
             //Slf4j 参数赋值
             MDC.put("requestId", header.getRequestId());
-            MDC.put("user", header.getUserNo());
             chain.doFilter(servletRequest, servletResponse);
         } finally {
             MDC.clear();

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import pro.simplecloud.api.entity.ApiLog;
 import pro.simplecloud.api.service.IApiLogService;
+import pro.simplecloud.base.mapper.BaseMapperCust;
 import pro.simplecloud.constant.Messages;
 import pro.simplecloud.device.ApiHeaderHelper;
 import pro.simplecloud.entity.ApiHeader;
@@ -41,23 +42,26 @@ public class AccessAspect {
     @Resource
     private IApiLogService logService;
 
+    @Resource
+    private BaseMapperCust baseMapperCust;
+
     @Around("execution(* pro.simplecloud..*.controller.*.*(..)))")
     public Object controllerAround(ProceedingJoinPoint joinPoint) throws Throwable {
         Logger log = LoggerFactory.getLogger(joinPoint.getTarget().getClass());
         //未初始化BaseInfo直接放行
-        ApiHeader apiHeader = ApiHeaderHelper.get();
-        if (apiHeader == null) {
+        ApiHeader header = ApiHeaderHelper.get();
+        if (header == null) {
             return HttpResponse.reject(Messages.NOT_STANDARD);
         }
         //插入交易记录表
         Object result = null;
-        String requestId = apiHeader.getRequestId();
+        String requestId = header.getRequestId();
         //记录起止日期
         Timer timer = new Timer();
         timer.start();
         //保存初始日志
         ApiLog apiLog = new ApiLog();
-        BeanUtils.copy(apiHeader, apiLog);
+        BeanUtils.copy(header, apiLog);
         logService.save(apiLog);
         try {
             //校验流水号
@@ -69,11 +73,16 @@ public class AccessAspect {
             if (count > 1) {
                 throw new RequestException("交易流水号重复：" + requestId);
             }
-            String path = apiHeader.getPath();
+            String path = header.getPath();
             if (!path.startsWith("/api/open")) {
                 //校验Token
-                String token = apiHeader.getToken();
+                String token = header.getToken();
                 UserTokenUtils.verifyToken(token);
+                String userNo = UserTokenUtils.decodeToken(token);
+                header.setUserNo(userNo);
+                //查询用户默认分组
+                Long groupId = baseMapperCust.getDefaultGroup(userNo);
+                header.setDefaultGroup(groupId);
             }
             result = joinPoint.proceed(joinPoint.getArgs());
         } catch (Throwable ex) {

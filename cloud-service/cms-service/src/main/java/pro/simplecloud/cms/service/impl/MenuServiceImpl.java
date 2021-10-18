@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static pro.simplecloud.base.utils.BaseUtil.groupModeAuthQuery;
 import static pro.simplecloud.cms.constant.MenuType.FOLDER;
 
 /**
@@ -53,6 +54,8 @@ public class MenuServiceImpl implements MenuService {
         if (ids!= null && !ids.isEmpty()) {
             query.in("id", ids);
         }
+        //检查用户权限
+        groupModeAuthQuery(query);
         query.orderByAsc("order_num");
         List<CmsMenu> children = cmsMenuService.list(query);
         return children.stream().map(item -> {
