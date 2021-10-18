@@ -9,6 +9,8 @@ import pro.simplecloud.base.dto.BaseEntityDto;
 import pro.simplecloud.base.dto.PageDto;
 import pro.simplecloud.base.dto.PageQueryDto;
 import pro.simplecloud.base.entity.BaseEntity;
+import pro.simplecloud.base.entity.PrimaryDataEntity;
+import pro.simplecloud.base.enums.DeletedEnum;
 import pro.simplecloud.constant.Messages;
 import pro.simplecloud.entity.ApiResponse;
 import pro.simplecloud.entity.HttpResponse;
@@ -79,6 +81,9 @@ public class BaseController<T extends BaseEntity, S extends IService<T>> {
 
     public ApiResponse listEntity(@RequestBody T entity) {
         //查询条件
+        if (entity instanceof PrimaryDataEntity) {
+            ((PrimaryDataEntity)entity).setDeleted(DeletedEnum.NOT_DELETED);
+        }
         QueryWrapper<T> queryWrapper = Wrappers.query(notNull(entity));
         List<T> list = service.list(queryWrapper);
         return HttpResponse.ok(list);

@@ -12,6 +12,10 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
 
+#mybatis
+mybatis-plus:
+  typeEnumsPackage: pro.simplecloud.*.enums
+
 logging:
   level:
     pro.simplecloud.*.mapper: debug
