@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author Generator
- * @since 2021-10-18
+ * @since 2021-10-19
  */
 public interface CmsGroupMapper extends BaseMapper<CmsGroup> {
 

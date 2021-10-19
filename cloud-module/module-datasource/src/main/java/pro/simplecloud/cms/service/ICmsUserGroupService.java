@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author Generator
- * @since 2021-10-18
+ * @since 2021-10-19
  */
 public interface ICmsUserGroupService extends IService<CmsUserGroup> {
 

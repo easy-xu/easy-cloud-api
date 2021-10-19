@@ -96,6 +96,10 @@ public class GroupModeAuthCheckAspect {
         String userNo = header.getUserNo();
         Long defaultGroup = header.getDefaultGroup();
         String createBy = entity.getCreateBy();
+        String path = header.getPath();
+        if (path.startsWith("/api/open") || path.endsWith("/login")) {
+            return false;
+        }
         ModeEnum ownMode = entity.getOwnMode();
         if (userNo.equals(createBy) && !ownMode.equals(ModeEnum.NOT_READ)) {
             return false;
@@ -114,6 +118,10 @@ public class GroupModeAuthCheckAspect {
         ApiHeader header = ApiHeaderHelper.get();
         String userNo = header.getUserNo();
         Long defaultGroup = header.getDefaultGroup();
+        String path = header.getPath();
+        if (path.startsWith("/api/open") || path.endsWith("/login")) {
+            return false;
+        }
         String createBy = entity.getCreateBy();
         ModeEnum ownMode = entity.getOwnMode();
         if (userNo.equals(createBy) && ownMode.equals(ModeEnum.READ_WRITE)) {

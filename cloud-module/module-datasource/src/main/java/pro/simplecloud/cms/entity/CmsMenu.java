@@ -3,6 +3,7 @@ package pro.simplecloud.cms.entity;
 import pro.simplecloud.base.entity.PrimaryDataEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import pro.simplecloud.cms.enums.MenuTypeEnum;
 
 /**
  * <p>
@@ -10,7 +11,7 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author Generator
- * @since 2021-10-18
+ * @since 2021-10-19
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -46,7 +47,7 @@ public class CmsMenu extends PrimaryDataEntity {
     /**
      * 菜单类型（F目录 M菜单）
      */
-    private String type;
+    private MenuTypeEnum type;
 
     /**
      * 菜单状态（0显示 1隐藏）

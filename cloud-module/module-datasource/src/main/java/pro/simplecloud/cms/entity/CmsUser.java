@@ -3,6 +3,7 @@ package pro.simplecloud.cms.entity;
 import pro.simplecloud.base.entity.PrimaryDataEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import pro.simplecloud.cms.enums.UserTypeEnum;
 
 /**
  * <p>
@@ -10,7 +11,7 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author Generator
- * @since 2021-10-18
+ * @since 2021-10-19
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -41,7 +42,7 @@ public class CmsUser extends PrimaryDataEntity {
     /**
      * 用户类型（00访客）
      */
-    private String type;
+    private UserTypeEnum type;
 
     /**
      * 认证

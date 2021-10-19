@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springframework.stereotype.Service;
 import pro.simplecloud.cms.dto.MenuDto;
 import pro.simplecloud.cms.entity.CmsMenu;
+import pro.simplecloud.cms.enums.MenuTypeEnum;
 import pro.simplecloud.cms.mapper.CmsMapperCust;
 import pro.simplecloud.cms.service.ICmsMenuService;
 import pro.simplecloud.cms.service.MenuService;
@@ -16,7 +17,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static pro.simplecloud.base.utils.BaseUtil.groupModeAuthQuery;
-import static pro.simplecloud.cms.constant.MenuType.FOLDER;
 
 /**
  * Title: MenuServiceImpl
@@ -61,7 +61,7 @@ public class MenuServiceImpl implements MenuService {
         return children.stream().map(item -> {
             MenuDto menuDto = new MenuDto();
             BeanUtils.copy(item, menuDto);
-            if (FOLDER.code.equals(item.getType())) {
+            if (MenuTypeEnum.FOLDER.equals(item.getType())) {
                 menuDto.setChildren(getChildren(item.getId(), ids));
             }
             return menuDto;

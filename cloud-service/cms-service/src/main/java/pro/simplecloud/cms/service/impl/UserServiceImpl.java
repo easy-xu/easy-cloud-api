@@ -1,10 +1,9 @@
 package pro.simplecloud.cms.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pro.simplecloud.cms.constant.UserType;
+import pro.simplecloud.cms.enums.UserTypeEnum;
 import pro.simplecloud.cms.dto.UserDto;
 import pro.simplecloud.cms.entity.CmsUser;
 import pro.simplecloud.cms.entity.CmsUserGroup;
@@ -71,7 +70,7 @@ public class UserServiceImpl implements UserService {
             throw new SystemErrorException(Messages.DB_DATA_ERROR);
         }
         cmsUser = users.get(0);
-        cmsUser.setType(UserType.USER.code);
+        cmsUser.setType(UserTypeEnum.USER);
         cmsUser.setUsername(username);
         //密码加密
         cmsUser.setPassword(PasswordUtils.encrypt(cmsUser.getPassword()));
@@ -94,6 +93,9 @@ public class UserServiceImpl implements UserService {
         //更新token
         String token = UserTokenUtils.generateToken(cmsUser.getUserNo());
         cmsUser.setToken(token);
+        ApiHeader header = ApiHeaderHelper.get();
+        header.setToken(token);
+        header.setDefaultGroup(cmsUser.getDefaultGroupId());
         cmsUserService.saveOrUpdate(cmsUser);
         BeanUtils.copy(cmsUser, userDto);
         return userDto;
@@ -107,6 +109,7 @@ public class UserServiceImpl implements UserService {
         cmsUser.setUsername(userNo);
         cmsUser.setUserNo(userNo);
         cmsUser.setToken(token);
+        cmsUser.setType(UserTypeEnum.VISITOR);
         cmsUserService.save(cmsUser);
         UserDto userDto = new UserDto();
         BeanUtils.copy(cmsUser, userDto);
@@ -127,6 +130,7 @@ public class UserServiceImpl implements UserService {
         if(password !=null){
             cmsUser.setPassword(PasswordUtils.encrypt(password));
         }
+        cmsUser.setType(UserTypeEnum.USER);
         cmsUserService.saveOrUpdate(cmsUser);
         Long userId = cmsUser.getId();
         //删除关联历史
