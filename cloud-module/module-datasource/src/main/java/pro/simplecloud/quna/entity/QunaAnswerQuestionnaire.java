@@ -3,6 +3,7 @@ package pro.simplecloud.quna.entity;
 import pro.simplecloud.base.entity.PrimaryDataEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import pro.simplecloud.quna.enums.AnswerFlowEnum;
 
 /**
  * <p>
@@ -31,7 +32,7 @@ public class QunaAnswerQuestionnaire extends PrimaryDataEntity {
     /**
      * 问卷回答流程（0初始化 1回答中 2回答完毕 3生成结果）
      */
-    private Long flow;
+    private AnswerFlowEnum flow;
 
 
 }

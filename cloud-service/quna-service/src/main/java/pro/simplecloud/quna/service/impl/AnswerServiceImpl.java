@@ -7,15 +7,16 @@ import pro.simplecloud.constant.Messages;
 import pro.simplecloud.device.ApiHeaderHelper;
 import pro.simplecloud.exception.RequestException;
 import pro.simplecloud.exception.SystemErrorException;
-import pro.simplecloud.quna.constant.AnswerFlow;
+import pro.simplecloud.quna.enums.AnswerFlowEnum;
 import pro.simplecloud.quna.entity.QunaAnswerQuestion;
 import pro.simplecloud.quna.entity.QunaAnswerQuestionnaire;
 import pro.simplecloud.quna.entity.QunaConfigQuestionnaire;
-import pro.simplecloud.quna.mapper.QunaAnswerQuestionMapperCust;
+import pro.simplecloud.quna.mapper.QunaMapperCust;
 import pro.simplecloud.quna.service.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Title: AnswerServiceImpl
@@ -37,36 +38,29 @@ public class AnswerServiceImpl implements AnswerService {
     private IQunaConfigQuestionnaireService questionnaireService;
 
     @Resource
-    private QunaAnswerQuestionMapperCust answerQuestionMapperCust;
+    private QunaMapperCust qunaMapperCust;
 
     @Resource
     private ResultService resultService;
 
     @Override
     public QunaAnswerQuestionnaire init(Long questionnaireId) {
-        QunaConfigQuestionnaire questionnaire = questionnaireService.getById(questionnaireId);
-        if (questionnaire == null) {
-            throw new RequestException(Messages.NOT_FOUND);
-        }
-        //检验是否已存在问卷
+       //初始化回答
         QunaAnswerQuestionnaire answerQuestionnaire = new QunaAnswerQuestionnaire();
         answerQuestionnaire.setQuestionnaireId(questionnaireId);
-        String username = ApiHeaderHelper.get().getUserNo();
-        answerQuestionnaire.setCreateBy(username);
-        List<QunaAnswerQuestionnaire> answerQuestionnaires = answerQuestionnaireService.list(Wrappers.query(answerQuestionnaire));
-        if (!answerQuestionnaires.isEmpty()) {
-            answerQuestionnaireService.remove(Wrappers.query(answerQuestionnaire));
-        }
-        //初始化回答
-        answerQuestionnaire.setFlow(AnswerFlow.INIT.value);
+        answerQuestionnaire.setFlow(AnswerFlowEnum.INIT);
         answerQuestionnaire.setQuestionIndex(1);
         answerQuestionnaireService.save(answerQuestionnaire);
         //更新问卷配置信息
-        LambdaQueryWrapper<QunaAnswerQuestionnaire> queryWrapper = Wrappers.lambdaQuery();
-        queryWrapper.eq(QunaAnswerQuestionnaire::getQuestionnaireId, questionnaireId);
-        int count = answerQuestionnaireService.count(queryWrapper);
-        questionnaire.setParticipantNum((long) count);
-        questionnaireService.updateById(questionnaire);
+        new Thread(()->{
+            LambdaQueryWrapper<QunaAnswerQuestionnaire> queryWrapper = Wrappers.lambdaQuery();
+            queryWrapper.eq(QunaAnswerQuestionnaire::getQuestionnaireId, questionnaireId);
+            int count = answerQuestionnaireService.count(queryWrapper);
+            QunaConfigQuestionnaire questionnaire = questionnaireService.getById(questionnaireId);
+            questionnaire.setParticipantNum((long) count);
+            questionnaireService.updateById(questionnaire);
+        }).start();
+
         return answerQuestionnaire;
     }
 
@@ -76,25 +70,25 @@ public class AnswerServiceImpl implements AnswerService {
         if (answerQuestionnaire == null) {
             throw new RequestException(Messages.NOT_FOUND);
         }
-        Long flow = answerQuestionnaire.getFlow();
+        AnswerFlowEnum flow = answerQuestionnaire.getFlow();
         //需要重新计数是否完成答题
-        if (AnswerFlow.INIT.value.equals(flow) || AnswerFlow.ANSWER.value.equals(flow)) {
+        if (AnswerFlowEnum.INIT.equals(flow) || AnswerFlowEnum.ANSWER.equals(flow)) {
             //查看是否回答结束
             QunaAnswerQuestion answerQuestion = new QunaAnswerQuestion();
             answerQuestion.setAnswerId(answerId);
             int count = answerQuestionService.count(Wrappers.query(answerQuestion));
             QunaConfigQuestionnaire questionnaire = questionnaireService.getById(answerQuestionnaire.getQuestionnaireId());
             if (count < questionnaire.getQuestionNum()) {
-                answerQuestionnaire.setFlow(AnswerFlow.ANSWER.value);
+                answerQuestionnaire.setFlow(AnswerFlowEnum.ANSWER);
                 //查询没有回答的第一个问题
-                Integer questionIndex = answerQuestionMapperCust.firstNotAnswerQuestionIndex(questionnaire.getId(), answerId);
+                Integer questionIndex = qunaMapperCust.firstNotAnswerQuestionIndex(questionnaire.getId(), answerId);
                 if (questionIndex == null) {
                     throw new SystemErrorException(Messages.DB_DATA_ERROR);
                 }
                 answerQuestionnaire.setQuestionIndex(questionIndex);
                 answerQuestionnaireService.saveOrUpdate(answerQuestionnaire);
             } else if (count == questionnaire.getQuestionNum()) {
-                answerQuestionnaire.setFlow(AnswerFlow.SUBMIT.value);
+                answerQuestionnaire.setFlow(AnswerFlowEnum.SUBMIT);
                 answerQuestionnaireService.saveOrUpdate(answerQuestionnaire);
                 //触发计算结果异步
                 new Thread(() -> {
@@ -103,6 +97,12 @@ public class AnswerServiceImpl implements AnswerService {
             } else {
                 throw new SystemErrorException(Messages.DB_DATA_ERROR);
             }
+        }
+        if (AnswerFlowEnum.SUBMIT.equals(flow)) {
+            //触发计算结果异步
+            new Thread(() -> {
+                resultService.calculateScore(answerId);
+            }).start();
         }
         return answerQuestionnaire;
     }
@@ -119,23 +119,28 @@ public class AnswerServiceImpl implements AnswerService {
     @Override
     public QunaAnswerQuestionnaire getDetailByQuestionnaireId(Long questionnaireId) {
         //查询是否正在进行
-        QunaAnswerQuestionnaire answerQuestionnaire = new QunaAnswerQuestionnaire();
-        answerQuestionnaire.setQuestionnaireId(questionnaireId);
-        answerQuestionnaire.setCreateBy(ApiHeaderHelper.get().getUserNo());
-        List<QunaAnswerQuestionnaire> answerQuestionnaires = answerQuestionnaireService.list(Wrappers.query(answerQuestionnaire));
-        if (answerQuestionnaires.size() > 1) {
-            //只能有一个问题正在进行
-            throw new SystemErrorException(Messages.DB_DATA_ERROR);
-        }
-        if (answerQuestionnaires.size() == 1) {
-            return answerQuestionnaires.get(0);
-        }
-        return null;
+        String userNo = ApiHeaderHelper.get().getUserNo();
+        //查询最近一次记录
+        return  qunaMapperCust.latestAnswer(questionnaireId, userNo);
     }
 
     @Override
     public void saveAnswerQuestion(QunaAnswerQuestion answerQuestion) {
-        answerQuestionService.saveOrUpdate(answerQuestion);
+        String userNo = ApiHeaderHelper.get().getUserNo();
+        Long answerId = answerQuestion.getAnswerId();
+        Long questionId = answerQuestion.getQuestionId();
+        String key = userNo + "|" + answerId + "|" + questionId;
+        synchronized (key.intern()) {
+            QunaAnswerQuestion query = new QunaAnswerQuestion();
+            query.setAnswerId(answerId);
+            query.setQuestionId(questionId);
+            query.setCreateBy(userNo);
+            List<QunaAnswerQuestion> answerQuestions = answerQuestionService.list(Wrappers.query(query));
+            if (!answerQuestions.isEmpty()) {
+                answerQuestionService.removeByIds(answerQuestions.stream().map(QunaAnswerQuestion::getId).collect(Collectors.toList()));
+            }
+            answerQuestionService.saveOrUpdate(answerQuestion);
+        }
     }
 
 

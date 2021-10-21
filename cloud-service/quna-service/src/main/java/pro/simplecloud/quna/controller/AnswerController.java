@@ -79,6 +79,11 @@ public class AnswerController {
         if (answerQuestion == null) {
             return HttpResponse.reject(Messages.REQUEST_EMPTY);
         }
+        Long answerId = answerQuestion.getAnswerId();
+        Long questionId = answerQuestion.getQuestionId();
+        if (answerId == null || questionId == null) {
+            return HttpResponse.reject(Messages.ID_EMPTY);
+        }
         answerService.saveAnswerQuestion(answerQuestion);
         return HttpResponse.ok();
     }
