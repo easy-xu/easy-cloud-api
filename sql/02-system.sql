@@ -250,7 +250,7 @@ create table api_log
     id               bigint(20) not null auto_increment comment '主键',
     request_id       varchar(60) comment '请求流水号',
     request_code     varchar(20) comment '接口编码',
-    request_path     varchar(20) comment '接口地址',
+    request_path     varchar(200) comment '接口地址',
     business_no      varchar(20) comment '业务编号',
     sys_code         varchar(20) comment '系统编号',
     used_time        bigint(20) comment '接口耗时',

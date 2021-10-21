@@ -2,7 +2,6 @@ package pro.simplecloud.aspect;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.extension.service.IService;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -96,7 +95,7 @@ public class GroupModeAuthCheckAspect {
         String userNo = header.getUserNo();
         Long defaultGroup = header.getDefaultGroup();
         String createBy = entity.getCreateBy();
-        String path = header.getPath();
+        String path = header.getRequestPath();
         if (path.startsWith("/api/open") || path.endsWith("/login")) {
             return false;
         }
@@ -118,7 +117,7 @@ public class GroupModeAuthCheckAspect {
         ApiHeader header = ApiHeaderHelper.get();
         String userNo = header.getUserNo();
         Long defaultGroup = header.getDefaultGroup();
-        String path = header.getPath();
+        String path = header.getRequestPath();
         if (path.startsWith("/api/open") || path.endsWith("/login")) {
             return false;
         }

@@ -7,6 +7,7 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -59,36 +60,36 @@ public class AccessAspect {
         //记录起止日期
         Timer timer = new Timer();
         timer.start();
-        //保存初始日志
-        ApiLog apiLog = new ApiLog();
-        BeanUtils.copy(header, apiLog);
-        logService.save(apiLog);
         try {
-            //校验流水号
-            if (!StringUtils.hasLength(requestId)) {
-                throw new RequestException("交易流水号不能为空");
-            }
-            apiLog.setRequestId(requestId);
-            int count = logService.count(Wrappers.query(apiLog));
-            if (count > 1) {
-                throw new RequestException("交易流水号重复：" + requestId);
-            }
-            String path = header.getPath();
+            String path = header.getRequestPath();
             if (!path.startsWith("/api/open")) {
                 //校验Token
                 String token = header.getToken();
                 UserTokenUtils.verifyToken(token);
                 String userNo = UserTokenUtils.decodeToken(token);
                 header.setUserNo(userNo);
+                MDC.put("user", header.getUserNo() + "|" + header.getUsername());
                 //查询用户默认分组
                 Long groupId = baseMapperCust.getDefaultGroup(userNo);
                 header.setDefaultGroup(groupId);
+            }
+            //校验流水号
+            if (!StringUtils.hasLength(requestId)) {
+                throw new RequestException("交易流水号不能为空");
+            }
+            ApiLog apiLog = new ApiLog();
+            apiLog.setRequestId(requestId);
+            int count = logService.count(Wrappers.query(apiLog));
+            if (count > 0) {
+                throw new RequestException("交易流水号重复：" + requestId);
             }
             result = joinPoint.proceed(joinPoint.getArgs());
         } catch (Throwable ex) {
             result = handelException(ex, log);
         } finally {
-            //更新日志
+            //保存日志
+            ApiLog apiLog = new ApiLog();
+            BeanUtils.copy(header, apiLog);
             if (result instanceof HttpResponse) {
                 HttpResponse responseDto = (HttpResponse) result;
                 int code = responseDto.getCode();
@@ -96,7 +97,7 @@ public class AccessAspect {
                 apiLog.setResponseMessage(responseDto.getMessage());
             }
             apiLog.setUsedTime(timer.end());
-            logService.saveOrUpdate(apiLog);
+            logService.save(apiLog);
         }
         return result;
     }

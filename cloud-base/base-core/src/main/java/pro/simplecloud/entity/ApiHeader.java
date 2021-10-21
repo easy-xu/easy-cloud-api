@@ -39,11 +39,16 @@ public class ApiHeader {
      * 请求时间戳
      */
     private String timestamp;
-
-
-    private String ip;
-
-    private String path;
-
-    private String method;
+    /**
+     * 请求ip
+     */
+    private String requestIp;
+    /**
+     * 接口路径
+     */
+    private String requestPath;
+    /**
+     * 接口方法
+     */
+    private String requestMethod;
 }

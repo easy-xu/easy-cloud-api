@@ -1,11 +1,9 @@
 package pro.simplecloud.filter;
 
-import org.springframework.util.StringUtils;
 import pro.simplecloud.constant.ApiHeaderTag;
 import pro.simplecloud.device.ApiHeaderHelper;
 import pro.simplecloud.entity.ApiHeader;
 import pro.simplecloud.utils.IpAddressUtils;
-import pro.simplecloud.utils.UserTokenUtils;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -39,9 +37,9 @@ public class ApiHeaderFilter implements Filter {
             header.setRequestId(requestId);
             header.setSignature(signature);
             header.setToken(token);
-            header.setIp(ip);
-            header.setPath(request.getServletPath());
-            header.setMethod(request.getMethod());
+            header.setRequestIp(ip);
+            header.setRequestPath(request.getServletPath());
+            header.setRequestMethod(request.getMethod());
             header.setTimestamp(timestamp);
             ApiHeaderHelper.set(header);
             chain.doFilter(request, response);

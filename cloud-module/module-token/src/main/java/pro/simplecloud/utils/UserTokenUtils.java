@@ -1,5 +1,7 @@
 package pro.simplecloud.utils;
 
+import pro.simplecloud.entity.ApiHeader;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
