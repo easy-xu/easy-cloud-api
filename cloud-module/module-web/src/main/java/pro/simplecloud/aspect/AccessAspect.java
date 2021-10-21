@@ -68,7 +68,7 @@ public class AccessAspect {
                 UserTokenUtils.verifyToken(token);
                 String userNo = UserTokenUtils.decodeToken(token);
                 header.setUserNo(userNo);
-                MDC.put("user", header.getUserNo() + "|" + header.getUsername());
+                MDC.put("userNo", header.getUserNo());
                 //查询用户默认分组
                 Long groupId = baseMapperCust.getDefaultGroup(userNo);
                 header.setDefaultGroup(groupId);
