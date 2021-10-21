@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author Generator
- * @since 2021-10-14
+ * @since 2021-10-21
  */
 @Service
 public class QunaConfigQuestionnaireServiceImpl extends ServiceImpl<QunaConfigQuestionnaireMapper, QunaConfigQuestionnaire> implements IQunaConfigQuestionnaireService {
