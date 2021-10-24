@@ -28,6 +28,11 @@
             <artifactId>file-service</artifactId>
             <version>1.0</version>
         </dependency>
+        <dependency>
+            <groupId>pro.simplecloud.application</groupId>
+            <artifactId>knowledge-service</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
 
     <build>

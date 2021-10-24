@@ -31,8 +31,7 @@ public class CodeGenerator {
 
         //generate("quna", true, "quna_config_questionnaire", "quna_config_question", "quna_config_option", "quna_answer_questionnaire", "quna_answer_question", "quna_config_result", "quna_config_result_score", "quna_config_result_description", "quna_answer_result");
 
-
-        generate("quna", true, "quna_config_questionnaire");
+        generate("kl", true, "kl_knowledge_node", "kl_knowledge_content");
 
     }
 
