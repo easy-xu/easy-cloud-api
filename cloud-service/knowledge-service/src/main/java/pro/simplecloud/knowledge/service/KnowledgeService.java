@@ -1,5 +1,7 @@
 package pro.simplecloud.knowledge.service;
 
+import pro.simplecloud.base.dto.PageQueryDto;
+import pro.simplecloud.kl.entity.KlKnowledgeNode;
 import pro.simplecloud.knowledge.dto.KnowledgeDto;
 
 import java.util.List;
@@ -39,4 +41,11 @@ public interface KnowledgeService {
      * @return KnowledgeDto
      */
     KnowledgeDto queryEntityDto(Long id);
+
+    /**
+     * 分页查询
+     * @param entityDto 查询提交
+     * @return PageQueryDto<KlKnowledgeNode>
+     */
+    List<KlKnowledgeNode> listEntity(KnowledgeDto entityDto);
 }

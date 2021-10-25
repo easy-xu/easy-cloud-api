@@ -75,10 +75,10 @@ public class NodeController extends BaseController<KlKnowledgeNode, IKlKnowledge
         return super.pageList(pageQueryDto);
     }
 
-    @Override
     @PostMapping("/list")
-    public ApiResponse listEntity(@RequestBody KlKnowledgeNode entity) {
-        return super.listEntity(entity);
+    public ApiResponse listEntity(@RequestBody KnowledgeDto entityDto) {
+        List<KlKnowledgeNode> list = knowledgeService.listEntity(entityDto);
+        return HttpResponse.ok(list);
     }
 
 }

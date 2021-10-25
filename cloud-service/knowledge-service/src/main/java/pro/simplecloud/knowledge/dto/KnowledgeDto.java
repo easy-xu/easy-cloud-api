@@ -22,4 +22,6 @@ public class KnowledgeDto extends KlKnowledgeNode {
      * 内容markdown
      */
     private String markdown;
+
+    private List<String> types;
 }

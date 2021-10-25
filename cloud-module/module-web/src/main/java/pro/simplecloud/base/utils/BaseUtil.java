@@ -19,6 +19,9 @@ import static pro.simplecloud.base.enums.ModeEnum.READ_WRITE;
  */
 public class BaseUtil {
 
+    private BaseUtil() {
+    }
+
     public static  <T> QueryWrapper<T> groupModeAuthQuery(QueryWrapper<T> queryWrapper){
         ApiHeader header = ApiHeaderHelper.get();
         if (header == null) {
@@ -26,13 +29,13 @@ public class BaseUtil {
         }
         String userNo = header.getUserNo();
         Long defaultGroup = header.getDefaultGroup();
-        return queryWrapper
+        return queryWrapper.and(qw-> qw
                 //当前用户可读写
                 .eq("create_by", userNo).in("own_mode", READ, READ_WRITE)
                 //同组可读写
                 .or(q -> q.eq("group_id", defaultGroup).in("group_mode", READ, READ_WRITE))
                 //其他组可读写
-                .or(q -> q.in("other_mode", READ, READ_WRITE));
+                .or(q -> q.in("other_mode", READ, READ_WRITE)));
     }
 
 

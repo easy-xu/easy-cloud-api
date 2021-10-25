@@ -2,9 +2,10 @@ package pro.simplecloud.knowledge.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.stereotype.Service;
-import pro.simplecloud.constant.Messages;
-import pro.simplecloud.exception.RequestException;
+import pro.simplecloud.base.dto.PageDto;
+import pro.simplecloud.base.dto.PageQueryDto;
 import pro.simplecloud.kl.entity.KlKnowledgeContent;
 import pro.simplecloud.kl.entity.KlKnowledgeNode;
 import pro.simplecloud.kl.service.IKlKnowledgeContentService;
@@ -19,6 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static pro.simplecloud.base.utils.BaseUtil.groupModeAuthQuery;
+import static pro.simplecloud.base.utils.BaseUtil.notNull;
 
 /**
  * Title: KnowledgeServiceImpl
@@ -52,13 +54,18 @@ public class KnowledgeServiceImpl implements KnowledgeService {
 
     @Override
     public void saveEntityDto(KnowledgeDto entityDto) {
-        KlKnowledgeContent klKnowledgeContent = new KlKnowledgeContent();
-        klKnowledgeContent.setId(entityDto.getContentId());
-        klKnowledgeContent.setMarkdown(entityDto.getMarkdown());
-        knowledgeContentService.saveOrUpdate(klKnowledgeContent);
         KlKnowledgeNode klKnowledgeNode = new KlKnowledgeNode();
         BeanUtils.copy(entityDto, klKnowledgeNode);
-        klKnowledgeNode.setContentId(klKnowledgeContent.getId());
+        KlKnowledgeContent klKnowledgeContent = new KlKnowledgeContent();
+        String markdown = entityDto.getMarkdown();
+        if (markdown != null) {
+            klKnowledgeContent.setId(entityDto.getContentId());
+            klKnowledgeContent.setMarkdown(markdown);
+            knowledgeContentService.saveOrUpdate(klKnowledgeContent);
+            klKnowledgeNode.setContentId(klKnowledgeContent.getId());
+        } else {
+            klKnowledgeNode.setContentId(null);
+        }
         knowledgeNodeService.saveOrUpdate(klKnowledgeNode);
     }
 
@@ -66,15 +73,26 @@ public class KnowledgeServiceImpl implements KnowledgeService {
     public KnowledgeDto queryEntityDto(Long id) {
         KnowledgeDto knowledgeDto = new KnowledgeDto();
         KlKnowledgeNode knowledgeNode = knowledgeNodeService.getById(id);
-        BeanUtils.copy(knowledgeNode,knowledgeDto);
+        BeanUtils.copy(knowledgeNode, knowledgeDto);
         Long contentId = knowledgeNode.getContentId();
-        if (contentId!= null) {
+        if (contentId != null) {
             KlKnowledgeContent knowledgeContent = knowledgeContentService.getById(contentId);
-            if (knowledgeContent !=null){
+            if (knowledgeContent != null) {
                 knowledgeDto.setMarkdown(knowledgeContent.getMarkdown());
             }
         }
         return knowledgeDto;
+    }
+
+    @Override
+    public List<KlKnowledgeNode> listEntity(KnowledgeDto entityDto) {
+        //查询条件
+        QueryWrapper<KlKnowledgeNode> queryWrapper = Wrappers.query(entityDto);
+        List<String> types = entityDto.getTypes();
+        if (types != null) {
+            queryWrapper.in("type", types);
+        }
+        return knowledgeNodeService.list(groupModeAuthQuery(queryWrapper));
     }
 
     private List<KnowledgeDto> getChildren(Long parentId) {
@@ -106,7 +124,7 @@ public class KnowledgeServiceImpl implements KnowledgeService {
             KnowledgeDto knowledgeDto = new KnowledgeDto();
             BeanUtils.copy(item, knowledgeDto);
             childrenList.add(knowledgeDto);
-            List<KnowledgeDto> itemChildren =getChildren(item.getId(), childrenList);
+            List<KnowledgeDto> itemChildren = getChildren(item.getId(), childrenList);
             //累计子元素个数
             int childCount = itemChildren.size();
             for (KnowledgeDto itemChild : itemChildren) {
