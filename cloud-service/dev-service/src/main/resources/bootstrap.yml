@@ -14,7 +14,7 @@ spring:
 
 #mybatis
 mybatis-plus:
-  typeEnumsPackage: pro.simplecloud.*.enums
+  typeEnumsPackage: cloud.easy.*.enums
 #  configuration:
 #    #开启sql日志
 #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

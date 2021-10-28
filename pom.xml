@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>pro.simplecloud</groupId>
-    <artifactId>simple-cloud</artifactId>
+    <groupId>cloud.easy</groupId>
+    <artifactId>cloud</artifactId>
     <version>1.0</version>
 
     <modules>
@@ -132,31 +132,31 @@
 
             <!-- 自建模块 -->
             <dependency>
-                <groupId>pro.simplecloud.base</groupId>
+                <groupId>cloud.easy.base</groupId>
                 <artifactId>base-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>pro.simplecloud.model</groupId>
+                <groupId>cloud.easy.model</groupId>
                 <artifactId>module-web</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>pro.simplecloud.model</groupId>
+                <groupId>cloud.easy.model</groupId>
                 <artifactId>module-datasource</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>pro.simplecloud.model</groupId>
+                <groupId>cloud.easy.model</groupId>
                 <artifactId>module-token</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>pro.simplecloud.model</groupId>
+                <groupId>cloud.easy.model</groupId>
                 <artifactId>module-id-generator</artifactId>
                 <version>${project.version}</version>
             </dependency>

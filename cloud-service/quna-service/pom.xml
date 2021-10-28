@@ -3,7 +3,7 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>pro.simplecloud.application</groupId>
+        <groupId>cloud.easy.application</groupId>
         <artifactId>cloud-service</artifactId>
         <version>1.0</version>
     </parent>
@@ -14,12 +14,12 @@
 
     <dependencies>
         <dependency>
-            <groupId>pro.simplecloud.model</groupId>
+            <groupId>cloud.easy.model</groupId>
             <artifactId>module-web</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>pro.simplecloud.model</groupId>
+            <groupId>cloud.easy.model</groupId>
             <artifactId>module-datasource</artifactId>
         </dependency>
 

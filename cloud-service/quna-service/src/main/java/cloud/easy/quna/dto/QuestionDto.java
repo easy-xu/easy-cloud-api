@@ -1,0 +1,24 @@
+package cloud.easy.quna.dto;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import cloud.easy.entity.ApiRequest;
+import cloud.easy.quna.entity.QunaConfigOption;
+import cloud.easy.quna.entity.QunaConfigQuestion;
+
+import java.util.List;
+
+/**
+ * Title: QuestionDto
+ * Description:
+ *
+ * @author Xu Honglin
+ * @version 1.0
+ */
+@Data
+@EqualsAndHashCode(callSuper = true)
+public class QuestionDto extends QunaConfigQuestion implements ApiRequest {
+
+    private List<QunaConfigOption> options;
+
+}

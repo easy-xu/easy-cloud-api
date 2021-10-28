@@ -2,7 +2,7 @@ spring:
   # Mysql
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/simple-cloud?useUnicode=true&characterEncoding=utf8
+    url: jdbc:mysql://localhost:3306/cloud?useUnicode=true&characterEncoding=utf8
     username: root
     password: root
 
