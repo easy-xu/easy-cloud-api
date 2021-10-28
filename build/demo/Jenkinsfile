@@ -30,7 +30,7 @@ pipeline {
         stage('构建 Docker 镜像') {
             steps {
                 //准备文件
-                sh 'cp ${WORKSPACE_PATH}/cloud-service/demo-service/target/demo-service.jar ${WORKSPACE_PATH}/build/demo/application.jar'
+                sh 'cp ${WORKSPACE_PATH}/cloud-service/dev-service/target/dev-service.jar ${WORKSPACE_PATH}/build/demo/application.jar'
                 //构建镜像
                 dir('./build/demo/') {
                     script {
