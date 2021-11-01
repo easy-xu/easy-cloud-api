@@ -30,9 +30,9 @@ pipeline {
         stage('构建 Docker 镜像') {
             steps {
                 //准备文件
-                sh 'cp ${WORKSPACE_PATH}/cloud-service/dev-service/target/dev-service.jar ${WORKSPACE_PATH}/build/demo/application.jar'
+                sh 'cp ${WORKSPACE_PATH}/cloud-service/dev-service/target/dev-service.jar ${WORKSPACE_PATH}/build/jar/application.jar'
                 //构建镜像
-                dir('./build/demo/') {
+                dir('./build/jar/') {
                     script {
                         if (env.TAG_NAME ==~ /.*/) {
                             DOCKER_IMAGE_VERSION = "${env.TAG_NAME}"
@@ -43,7 +43,7 @@ pipeline {
                         }
                         // 注意：创建项目时链接标识不要使用下划线，而是连字符，比如 My Project 的标识应为 my-project
                         // 请修改 build/my-api 为你的制品库名称和镜像名称
-                        CODING_DOCKER_IMAGE_NAME = "${env.PROJECT_NAME.toLowerCase()}/docker-default/demo-app"
+                        CODING_DOCKER_IMAGE_NAME = "${env.PROJECT_NAME.toLowerCase()}/docker-default/easyxu-app"
                         // 本项目内的制品库已内置环境变量 CODING_ARTIFACTS_CREDENTIALS_ID，无需手动设置
                         docker.withRegistry("https://${env.CCI_CURRENT_TEAM}-docker.pkg.coding.net", "${env.CODING_ARTIFACTS_CREDENTIALS_ID}") {
                             docker.build("${CODING_DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION}").push()

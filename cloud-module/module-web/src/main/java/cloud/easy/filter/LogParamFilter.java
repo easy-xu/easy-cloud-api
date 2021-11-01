@@ -8,6 +8,8 @@ import cloud.easy.entity.ApiHeader;
 import javax.servlet.*;
 import java.io.IOException;
 
+import static cloud.easy.constant.ApiHeaderTag.*;
+
 
 /**
  * Title: LogParamFilter
@@ -23,9 +25,9 @@ public class LogParamFilter implements Filter {
         try {
             ApiHeader header = ApiHeaderHelper.get();
             //Slf4j 参数赋值
-            MDC.put("requestId", header.getRequestId());
-            MDC.put("requestPath", header.getRequestPath());
-            MDC.put("requestIp", header.getRequestIp());
+            MDC.put(REQUEST_ID, header.getRequestId());
+            MDC.put(REQUEST_PATH, header.getRequestPath());
+            MDC.put(REQUEST_IP, header.getRequestIp());
             chain.doFilter(servletRequest, servletResponse);
         } finally {
             MDC.clear();

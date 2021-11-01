@@ -97,8 +97,8 @@ public class GroupModeAuthCheckAspect {
         if (header == null) {
             return false;
         }
-        String path = header.getRequestPath();
-        if (path.startsWith("/api/open") || path.endsWith("/login")) {
+        String token = header.getToken();
+        if (token == null) {
             return false;
         }
         return true;

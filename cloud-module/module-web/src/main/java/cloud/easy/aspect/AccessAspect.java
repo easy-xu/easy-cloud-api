@@ -1,10 +1,13 @@
 package cloud.easy.aspect;
 
 
+import cloud.easy.annotation.NonStandardRequest;
+import cloud.easy.idgenerator.IDGeneratorInstance;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -25,6 +28,10 @@ import cloud.easy.utils.Timer;
 import cloud.easy.utils.UserTokenUtils;
 
 import javax.annotation.Resource;
+import java.lang.reflect.Method;
+
+import static cloud.easy.constant.ApiHeaderTag.REQUEST_ID;
+import static cloud.easy.constant.ApiHeaderTag.USER_NO;
 
 /**
  * Title: TransLogAspect
@@ -48,7 +55,10 @@ public class AccessAspect {
 
     @Around("execution(* cloud.easy..*.controller.*.*(..)))")
     public Object controllerAround(ProceedingJoinPoint joinPoint) throws Throwable {
-        Logger log = LoggerFactory.getLogger(joinPoint.getTarget().getClass());
+        Class<?> targetClass = joinPoint.getTarget().getClass();
+        MethodSignature methodSignature = (MethodSignature) (joinPoint.getSignature());
+        Method targetMethod = targetClass.getDeclaredMethod(methodSignature.getName(), methodSignature.getParameterTypes());
+        Logger log = LoggerFactory.getLogger(targetClass);
         //未初始化BaseInfo直接放行
         ApiHeader header = ApiHeaderHelper.get();
         if (header == null) {
@@ -61,27 +71,35 @@ public class AccessAspect {
         Timer timer = new Timer();
         timer.start();
         try {
-            String path = header.getRequestPath();
-            if (!path.startsWith("/api/open")) {
+            if (!targetClass.isAnnotationPresent(NonStandardRequest.class) && !targetMethod.isAnnotationPresent(NonStandardRequest.class)){
                 //校验Token
                 String token = header.getToken();
                 UserTokenUtils.verifyToken(token);
                 String userNo = UserTokenUtils.decodeToken(token);
                 header.setUserNo(userNo);
-                MDC.put("userNo", header.getUserNo());
+                MDC.put(USER_NO, header.getUserNo());
                 //查询用户默认分组
                 Long groupId = baseMapperCust.getDefaultGroup(userNo);
                 header.setDefaultGroup(groupId);
-            }
-            //校验流水号
-            if (!StringUtils.hasLength(requestId)) {
-                throw new RequestException("交易流水号不能为空");
-            }
-            ApiLog apiLog = new ApiLog();
-            apiLog.setRequestId(requestId);
-            int count = logService.count(Wrappers.query(apiLog));
-            if (count > 0) {
-                throw new RequestException("交易流水号重复：" + requestId);
+
+                //流水号不能为空
+                if (!StringUtils.hasLength(requestId)) {
+                    throw new RequestException("交易流水号不能为空");
+                }
+                //流水号不能重复
+                ApiLog apiLog = new ApiLog();
+                apiLog.setRequestId(requestId);
+                int count = logService.count(Wrappers.query(apiLog));
+                if (count > 0) {
+                    throw new RequestException("交易流水号重复：" + requestId);
+                }
+            } else {
+                //非标准请求，流水号为空则补充流水号
+                if (!StringUtils.hasLength(header.getRequestId())){
+                    requestId = IDGeneratorInstance.TRANS_NO.generate();
+                    header.setRequestId(requestId);
+                    MDC.put(REQUEST_ID, requestId);
+                }
             }
             result = joinPoint.proceed(joinPoint.getArgs());
         } catch (Throwable ex) {
@@ -90,6 +108,7 @@ public class AccessAspect {
             //保存日志
             ApiLog apiLog = new ApiLog();
             BeanUtils.copy(header, apiLog);
+
             if (result instanceof HttpResponse) {
                 HttpResponse responseDto = (HttpResponse) result;
                 int code = responseDto.getCode();

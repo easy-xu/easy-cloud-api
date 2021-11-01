@@ -26,7 +26,7 @@ import java.lang.reflect.Method;
  * @date 2021/7/21 13:33 首次创建
  * @date 2021/7/21 13:33 最后修改
  */
-@Order(1)
+@Order(101)
 @Aspect
 @Component
 public class AroundLogAspect {

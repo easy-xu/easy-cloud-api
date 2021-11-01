@@ -17,6 +17,7 @@
         <module>dev-service</module>
         <module>file-service</module>
         <module>knowledge-service</module>
+        <module>wx-service</module>
     </modules>
 
     <groupId>cloud.easy.application</groupId>

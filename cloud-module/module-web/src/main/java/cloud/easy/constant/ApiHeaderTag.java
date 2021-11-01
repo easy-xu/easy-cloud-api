@@ -7,31 +7,15 @@ package cloud.easy.constant;
  * @author Xu Honglin
  * @version 1.0
  */
-public enum ApiHeaderTag {
-    /**
-     * 请求id
-     */
-    REQUEST_ID("requestId"),
-    /**
-     * 用户token
-     */
-    TOKEN("token"),
-    /**
-     * 接口签名
-     */
-    SIGNATURE("signature"),
-    /**
-     * 接口时间戳
-     */
-    TIMESTAMP("timestamp");
-
-    private String name;
-
-    ApiHeaderTag(String name) {
-        this.name = name;
+public class ApiHeaderTag {
+    private ApiHeaderTag() {
     }
 
-    public String getName() {
-        return name;
-    }
+    public static final String REQUEST_ID = "requestId";
+    public static final String REQUEST_PATH = "requestPath";
+    public static final String REQUEST_IP = "requestIp";
+    public static final String USER_NO = "userNo";
+    public static final String SIGNATURE = "signature";
+    public static final String TOKEN = "token";
+    public static final String TIMESTAMP = "timestamp";
 }

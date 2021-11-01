@@ -38,6 +38,10 @@
             <groupId>cloud.easy.model</groupId>
             <artifactId>module-token</artifactId>
         </dependency>
+        <dependency>
+            <groupId>cloud.easy.model</groupId>
+            <artifactId>module-id-generator</artifactId>
+        </dependency>
 
     </dependencies>
 </project>

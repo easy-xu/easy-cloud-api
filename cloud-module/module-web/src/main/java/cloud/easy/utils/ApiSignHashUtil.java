@@ -4,6 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.TreeMap;
 
+import static cloud.easy.constant.ApiHeaderTag.REQUEST_ID;
+import static cloud.easy.constant.ApiHeaderTag.USER_NO;
+
 /**
  * Title: ApiSignHashUtil
  * Description:
@@ -22,26 +25,17 @@ public class ApiSignHashUtil {
         return new ApiSignHashUtil();
     }
 
-    public static void main(String[] args) {
-        String generate = ApiSignHashUtil.builder()
-                .setRequestId("reddd")
-                .setUser("dddd")
-                .setBody("ddddd")
-                .generate();
-        System.out.println(generate);
-    }
-
     private void addParams(String name, String value) {
         this.params.put(name, value);
     }
 
     public ApiSignHashUtil setRequestId(String requestId) {
-        this.addParams("requestId", requestId);
+        this.addParams(REQUEST_ID, requestId);
         return this;
     }
 
     public ApiSignHashUtil setUser(String user) {
-        this.addParams("user", user);
+        this.addParams(USER_NO, user);
         return this;
     }
 

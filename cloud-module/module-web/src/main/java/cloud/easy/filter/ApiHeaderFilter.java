@@ -27,10 +27,10 @@ public class ApiHeaderFilter implements Filter {
         try {
             HttpServletRequest request = (HttpServletRequest) servletRequest;
             HttpServletResponse response = (HttpServletResponse) servletResponse;
-            String requestId = request.getHeader(ApiHeaderTag.REQUEST_ID.getName());
-            String signature = request.getHeader(ApiHeaderTag.SIGNATURE.getName());
-            String token = request.getHeader(ApiHeaderTag.TOKEN.getName());
-            String timestamp = request.getHeader(ApiHeaderTag.TIMESTAMP.getName());
+            String requestId = request.getHeader(ApiHeaderTag.REQUEST_ID);
+            String signature = request.getHeader(ApiHeaderTag.SIGNATURE);
+            String token = request.getHeader(ApiHeaderTag.TOKEN);
+            String timestamp = request.getHeader(ApiHeaderTag.TIMESTAMP);
             String ip = IpAddressUtils.getIpAddr(request);
             //自定义Header对象赋值
             ApiHeader header = new ApiHeader();

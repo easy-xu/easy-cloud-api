@@ -13,8 +13,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @version 1.0
  */
 @Slf4j
-@SpringBootApplication(scanBasePackages = "cloud.easy")
 @MapperScan("cloud.easy.*.mapper")
+@SpringBootApplication(scanBasePackages = "cloud.easy")
 public class DevApplication {
     public static void main(String[] args) {
         SpringApplication.run(DevApplication.class, args);

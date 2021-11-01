@@ -1,5 +1,6 @@
 package cloud.easy.cms.controller;
 
+import cloud.easy.annotation.NonStandardRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +18,7 @@ import javax.annotation.Resource;
  * @author Xu Honglin
  * @version 1.0
  */
+@NonStandardRequest
 @RestController
 @RequestMapping("/api/open")
 public class UserOpenController {

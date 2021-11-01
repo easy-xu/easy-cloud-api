@@ -33,6 +33,11 @@
             <artifactId>knowledge-service</artifactId>
             <version>1.0</version>
         </dependency>
+        <dependency>
+            <groupId>cloud.easy.application</groupId>
+            <artifactId>wx-service</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
 
     <build>
