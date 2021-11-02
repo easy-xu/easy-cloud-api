@@ -1,9 +1,12 @@
 package cloud.easy.wx.dto;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlCData;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * Title: WxMessage
@@ -29,7 +32,11 @@ public class WxMessage {
 
     @JacksonXmlCData
     @JacksonXmlProperty(localName = "MsgType")
-    private String msgType;
+    private WxMsgType msgType;
+
+    @JacksonXmlCData
+    @JacksonXmlProperty(localName = "Event")
+    private String event;
 
     @JacksonXmlCData
     @JacksonXmlProperty(localName = "Content")
@@ -38,4 +45,10 @@ public class WxMessage {
     @JacksonXmlProperty(localName = "MsgId")
     private String msgId;
 
+    @JacksonXmlProperty(localName = "ArticleCount")
+    private Integer articleCount;
+
+    @JacksonXmlElementWrapper(localName = "Articles")
+    @JacksonXmlProperty(localName = "item")
+    private List<WxArticle> articles;
 }

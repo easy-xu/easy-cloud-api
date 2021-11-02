@@ -94,6 +94,7 @@ public class UserServiceImpl implements UserService {
         String token = UserTokenUtils.generateToken(cmsUser.getUserNo());
         cmsUser.setToken(token);
         ApiHeader header = ApiHeaderHelper.get();
+        header.setUserNo(cmsUser.getUserNo());
         header.setToken(token);
         header.setDefaultGroup(cmsUser.getDefaultGroupId());
         cmsUserService.saveOrUpdate(cmsUser);
