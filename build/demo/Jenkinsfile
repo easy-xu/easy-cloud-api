@@ -30,9 +30,9 @@ pipeline {
         stage('构建 Docker 镜像') {
             steps {
                 //准备文件
-                sh 'cp ${WORKSPACE_PATH}/cloud-service/dev-service/target/dev-service.jar ${WORKSPACE_PATH}/build/application.jar'
+                sh 'cp ${WORKSPACE_PATH}/cloud-service/dev-service/target/dev-service.jar ${WORKSPACE_PATH}/build/demo/application.jar'
                 //构建镜像
-                dir('./build/jar/') {
+                dir('./build/demo/') {
                     script {
                         if (env.TAG_NAME ==~ /.*/) {
                             DOCKER_IMAGE_VERSION = "${env.TAG_NAME}"
