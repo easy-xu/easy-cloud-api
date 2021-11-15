@@ -38,6 +38,20 @@ public class TextMessageHandler implements WxMessageHandler {
 
         String content = message.getContent();
         log.info("content:{}", content);
+        if ("图谱".equals(content)) {
+            List<WxArticle> articles = new ArrayList<>();
+            //图文消息
+            WxArticle article = new WxArticle();
+            article.setTitle("知识图谱");
+            article.setDescription("http://110.40.249.62/knowledge");
+            article.setPicUrl("https://mmbiz.qpic.cn/mmbiz_png/CM8Zt6lXnuFhoHjAE2FBn73xKmQ4Bb40o7ZqmriaOIAQbVZiaUP9kIS9Rgyv0ibY0975bXwiaj3Lk2ToTPiaTg9bwUg/0?wx_fmt=png");
+            article.setUrl("http://110.40.249.62/knowledge");
+            articles.add(article);
+            message.setMsgType(WxMsgType.NEWS);
+            message.setArticleCount(articles.size());
+            message.setArticles(articles);
+            return message;
+        }
         //查询知识点
         KlKnowledgeNode klKnowledgeNode = new KlKnowledgeNode();
         klKnowledgeNode.setName(content);

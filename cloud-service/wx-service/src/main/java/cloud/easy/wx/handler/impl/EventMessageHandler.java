@@ -23,7 +23,7 @@ public class EventMessageHandler implements WxMessageHandler {
         //订阅消息
         if("subscribe".equals(message.getEvent())){
             message.setMsgType(WxMsgType.TEXT);
-            message.setContent("欢迎关注安逸的打工人\n输入知识点查询链接，例如：java\n快试试吧");
+            message.setContent("欢迎关注安逸的打工人\n回复知识点查询链接，例如：java\n回复[图谱]查看全部\n快试试吧");
         }
 
         return message;
