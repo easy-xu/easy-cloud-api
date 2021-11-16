@@ -2,7 +2,10 @@ spring:
   # Mysql
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mysql-0.mysql.database-system.svc.cluster.local:3306/cloud?useUnicode=true&characterEncoding=utf8
-    username: local_prd
-    password: local_prd
+    url: jdbc:mysql://110.40.249.62:30306/cloud?useUnicode=true&characterEncoding=utf8
+    username: remote_prd
+    password: remote_prd_xuhonglin
 
+#    url: jdbc:mysql://mysql-0.mysql.database-system.svc.cluster.local:3306/cloud?useUnicode=true&characterEncoding=utf8
+#    username: local_prd
+#    password: local_prd
