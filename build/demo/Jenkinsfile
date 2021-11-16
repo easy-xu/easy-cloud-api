@@ -34,13 +34,15 @@ pipeline {
                 //构建镜像
                 dir('./build/demo/') {
                     script {
-                        if (env.TAG_NAME ==~ /.*/) {
-                            DOCKER_IMAGE_VERSION = "${env.TAG_NAME}"
-                        } else if (env.MR_SOURCE_BRANCH ==~ /.*/) {
-                            DOCKER_IMAGE_VERSION = "mr-${env.MR_RESOURCE_ID}-${env.GIT_COMMIT_SHORT}"
-                        } else {
-                            DOCKER_IMAGE_VERSION = "${env.BRANCH_NAME.replace('/', '-')}-${env.GIT_COMMIT_SHORT}"
-                        }
+                        //if (env.TAG_NAME ==~ /.*/) {
+                        //    DOCKER_IMAGE_VERSION = "${env.TAG_NAME}"
+                        //} else if (env.MR_SOURCE_BRANCH ==~ /.*/) {
+                        //    DOCKER_IMAGE_VERSION = "mr-${env.MR_RESOURCE_ID}-${env.GIT_COMMIT_SHORT}"
+                        //} else {
+                        //    DOCKER_IMAGE_VERSION = "${env.BRANCH_NAME.replace('/', '-')}-${env.GIT_COMMIT_SHORT}"
+                        //}
+                        //简单的使用分支名作为镜像名称
+                        DOCKER_IMAGE_VERSION = "${env.BRANCH_NAME.replace('/', '-')}"
                         // 注意：创建项目时链接标识不要使用下划线，而是连字符，比如 My Project 的标识应为 my-project
                         // 请修改 build/my-api 为你的制品库名称和镜像名称
                         CODING_DOCKER_IMAGE_NAME = "${env.PROJECT_NAME.toLowerCase()}/docker-default/easyxu-app"
