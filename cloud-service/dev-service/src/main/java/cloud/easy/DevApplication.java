@@ -18,6 +18,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class DevApplication {
     public static void main(String[] args) {
         SpringApplication.run(DevApplication.class, args);
-        log.info("-----服务启动成功-----");
+        log.info("-----服务启动成功！-----");
     }
 }
