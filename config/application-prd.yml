@@ -2,7 +2,7 @@ spring:
   # Mysql
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:30306/cloud?useUnicode=true&characterEncoding=utf8
+    url: jdbc:mysql://172.17.0.14:30306/cloud?useUnicode=true&characterEncoding=utf8
     username: local_prd
     password: local_prd
 
