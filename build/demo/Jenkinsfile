@@ -21,7 +21,7 @@ pipeline {
                             "CODING_ARTIFACTS_USERNAME=${CODING_ARTIFACTS_USERNAME}",
                             "CODING_ARTIFACTS_PASSWORD=${CODING_ARTIFACTS_PASSWORD}"
                     ]) {
-                        sh 'mvn clean install'
+                        sh "mvn clean install -P ${env.PROFILE}"
                         sh 'mvn deploy -s ./maven/settings.xml'
                     }
                 }
