@@ -43,9 +43,9 @@ public class TextMessageHandler implements WxMessageHandler {
             //图文消息
             WxArticle article = new WxArticle();
             article.setTitle("知识图谱");
-            article.setDescription("http://110.40.249.62/knowledge");
+            article.setDescription("https://www.easyxu.cloud/knowledge");
             article.setPicUrl("https://mmbiz.qpic.cn/mmbiz_png/CM8Zt6lXnuFhoHjAE2FBn73xKmQ4Bb40o7ZqmriaOIAQbVZiaUP9kIS9Rgyv0ibY0975bXwiaj3Lk2ToTPiaTg9bwUg/0?wx_fmt=png");
-            article.setUrl("http://110.40.249.62/knowledge");
+            article.setUrl("https://www.easyxu.cloud/knowledge");
             articles.add(article);
             message.setMsgType(WxMsgType.NEWS);
             message.setArticleCount(articles.size());
@@ -66,9 +66,9 @@ public class TextMessageHandler implements WxMessageHandler {
                 //图文消息
                 WxArticle article = new WxArticle();
                 article.setTitle(knowledgeNode.getName());
-                article.setDescription("http://110.40.249.62/knowledge/detail?id=" + knowledgeNode.getId());
+                article.setDescription("https://www.easyxu.cloud/knowledge/detail?id=" + knowledgeNode.getId());
                 article.setPicUrl("https://mmbiz.qpic.cn/mmbiz_png/CM8Zt6lXnuHohBrIXGEgeib1iaZeicOpphrLKoMkgZxG0CKe54NwKlPbLUECKm8z5YTQZY0V29icNAtHJCibyN7Fyaw/0?wx_fmt=png");
-                article.setUrl("http://110.40.249.62/knowledge/detail?id=" + knowledgeNode.getId());
+                article.setUrl("https://www.easyxu.cloud/knowledge/detail?id=" + knowledgeNode.getId());
                 return article;
             })).collect(Collectors.toList());
             message.setMsgType(WxMsgType.NEWS);
