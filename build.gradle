@@ -49,8 +49,18 @@ allprojects {
     }
 }
 
+def env = System.getProperty("profile") ?: "dev"
+def configPath = project.rootDir.getPath() + "/config/" + env
 
 configure(serviceProjects) { project ->
+    def resourcesPath = projectDir.getPath() + '/build/resources/main'
+    jar.doFirst {
+        println 'copy config file:' + configPath + '>>>>' + resourcesPath
+        copy {
+            from configPath
+            into resourcesPath
+        }
+    }
 
 }
 
