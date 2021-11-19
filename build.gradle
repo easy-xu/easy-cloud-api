@@ -22,6 +22,7 @@ allprojects {
     version '1.0-SNAPSHOT'
 
     repositories {
+        maven { url 'https://easy-cloud.coding.net/public-artifacts/easy-cloud/maven-repo/packages' }
         mavenCentral()
     }
 
@@ -49,16 +50,45 @@ allprojects {
     }
 }
 
-def env = System.getProperty("profile") ?: "dev"
-def configPath = project.rootDir.getPath() + "/config/" + env
+def profile = System.getProperty("profile") ?: "dev"
+def configPath = project.rootDir.getPath() + "/config/" + profile
+def dockerParentPath = project.rootDir.getPath() + "/docker/"
+def dockerFileTemp = dockerParentPath + 'Dockerfile'
 
-configure(serviceProjects) { project ->
+configure(serviceProjects) { service ->
     def resourcesPath = projectDir.getPath() + '/build/resources/main'
     jar.doFirst {
-        println 'copy config file:' + configPath + '>>>>' + resourcesPath
+        println 'copy config file: ' + configPath + '---->>>>' + resourcesPath
         copy {
             from configPath
             into resourcesPath
+        }
+    }
+
+    def jarName = service.name + '-' + service.version + '.jar'
+    def jarPath = projectDir.getPath() + '/build/libs/' + jarName
+    def dockerPath = dockerParentPath + service.name + "/"
+    jar.doLast {
+        println 'copy jar file: ' + jarPath + '---->>>>' + dockerPath
+        copy {
+            from jarPath
+            into dockerPath
+        }
+
+        def dockerFilePath = dockerPath + 'Dockerfile'
+        def list = []
+        new File(dockerFileTemp).withReader('UTF-8') { reader ->
+            reader.eachLine {
+                it = it.replace('${jar}', jarName)
+                it = it.replace('${profile}', profile)
+                list.add(it + '\r\n')
+            }
+        }
+        println 'write Dockerfile: ' + dockerFilePath
+        new File(dockerFilePath).withWriter('UTF-8') { writer ->
+            list.each {
+                writer.write(it)
+            }
         }
     }
 
