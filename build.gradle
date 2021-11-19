@@ -22,7 +22,8 @@ allprojects {
     version '1.0-SNAPSHOT'
 
     repositories {
-        maven { url 'https://easy-cloud.coding.net/public-artifacts/easy-cloud/maven-repo/packages' }
+        maven { url 'https://easy-cloud.coding.net/public-artifacts/easy-cloud/maven-repo/packages/' }
+        maven { allowInsecureProtocol = true url 'http://mirrors.tencentyun.com/nexus/repository/maven-public/' }
         mavenCentral()
     }
 
