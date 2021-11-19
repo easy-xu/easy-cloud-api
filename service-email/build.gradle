@@ -1,0 +1,4 @@
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-mail:2.5.1'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:2.5.1'
+}

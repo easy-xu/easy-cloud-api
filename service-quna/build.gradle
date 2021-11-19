@@ -1,0 +1,6 @@
+dependencies {
+    implementation project(':base-core')
+    implementation project(':module-web')
+    implementation project(':module-datasource')
+    implementation 'org.apache.poi:poi-ooxml:3.17'
+}

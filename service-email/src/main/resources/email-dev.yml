@@ -1,0 +1,25 @@
+spring:
+  thymeleaf:
+    prefix: classpath:/templates/
+    check-template-location: true
+    mode: HTML
+    suffix: .html
+    encoding: UTF-8
+    cache: false
+
+  #email
+  mail:
+    host: smtp.exmail.qq.com
+    username: no-reply@simplecloud.pro
+    password: NoReply_2021
+    port: 465
+    properties:
+      mail:
+        smtp:
+          auth: true
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+          starttls:
+            enable: true
+    protocol: smtp
+    default-encoding: UTF-8
