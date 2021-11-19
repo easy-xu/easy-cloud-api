@@ -6,10 +6,6 @@ ext {
     moduleProjects = subprojects.findAll { it.name.startsWith("module-") }
     serviceProjects = subprojects.findAll { it.name.startsWith("service-") }
 }
-repositories {
-    maven { url 'https://maven.aliyun.com/repository/gradle-plugin'}
-    mavenCentral()
-}
 
 allprojects {
     apply plugin: 'java'
@@ -26,7 +22,6 @@ allprojects {
     version '1.0-SNAPSHOT'
 
     repositories {
-        maven { url 'https://maven.aliyun.com/repository/gradle-plugin'}
         mavenCentral()
     }
 
