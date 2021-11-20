@@ -1,7 +1,7 @@
 dependencies {
     implementation project(':module-web')
     implementation project(':service-cms')
-    implementation project(':service-quna')
+    implementation project(':service-questionnaire')
     implementation project(':service-file')
     implementation project(':service-knowledge')
     implementation project(':service-wx')

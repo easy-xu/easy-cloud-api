@@ -10,6 +10,6 @@ include 'service-email'
 include 'service-file'
 include 'service-gen'
 include 'service-knowledge'
-include 'service-quna'
+include 'service-questionnaire'
 include 'service-wx'
 
