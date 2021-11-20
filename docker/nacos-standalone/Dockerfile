@@ -1,5 +1,5 @@
-FROM java:8
+FROM nacos/nacos-server:latest
 MAINTAINER easyxu
-COPY nacos nacos
+ADD conf/application.properties conf/application.properties
 EXPOSE 8848
 ENTRYPOINT ["sh","nacos/bin/startup.sh", "-m", "standalone"]
