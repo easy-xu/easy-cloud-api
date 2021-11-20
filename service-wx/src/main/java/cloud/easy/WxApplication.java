@@ -17,10 +17,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @Slf4j
 @SpringBootApplication
 @MapperScan("cloud.easy.*.mapper")
-public class QuestionnaireApplication {
+public class WxApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(QuestionnaireApplication.class, args);
+        SpringApplication.run(WxApplication.class, args);
         log.info("-----问卷服务启动成功-----");
     }
 }
