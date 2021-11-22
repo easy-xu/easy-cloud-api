@@ -1,5 +1,6 @@
 plugins {
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id "org.springframework.boot" version "2.5.6" apply false
 }
 
 ext {
@@ -8,12 +9,12 @@ ext {
 }
 
 allprojects {
+
     apply plugin: 'java'
     apply plugin: "io.spring.dependency-management"
 
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
-
     tasks.withType(JavaCompile) {
         options.encoding = "UTF-8"
     }
@@ -42,10 +43,10 @@ allprojects {
         implementation 'com.baomidou:mybatis-plus-boot-starter:3.4.3.4'
         compileOnly 'com.fasterxml.jackson.core:jackson-annotations:2.13.0'
         //服务层依赖
-        implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
-        implementation 'org.springframework.boot:spring-boot-starter-web'
-        implementation 'org.springframework.boot:spring-boot-starter-test'
-        implementation 'org.springframework.boot:spring-boot-starter-aop'
+        implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap:3.0.4'
+        implementation 'org.springframework.boot:spring-boot-starter-web:2.5.6'
+        implementation 'org.springframework.boot:spring-boot-starter-test:2.5.6'
+        implementation 'org.springframework.boot:spring-boot-starter-aop:2.5.6'
     }
 }
 
@@ -55,6 +56,13 @@ def dockerParentPath = project.rootDir.getPath() + "/docker/"
 def dockerFileTemp = dockerParentPath + 'Dockerfile'
 
 configure(serviceProjects) { service ->
+
+    //SpringBoot方式打包
+    apply plugin: 'org.springframework.boot'
+    jar.manifest.attributes(['Main-Class': 'cloud.easy.Application'])
+
+
+    //拷贝配置文件
     def resourcesPath = projectDir.getPath() + '/build/resources/main'
     jar.doFirst {
         println 'copy config file: ' + configPath + '---->>>>' + resourcesPath
@@ -64,6 +72,7 @@ configure(serviceProjects) { service ->
         }
     }
 
+    //拷贝jar用于构建Docker
     def jarName = service.name + '-' + service.version + '.jar'
     def jarPath = projectDir.getPath() + '/build/libs/' + jarName
     def dockerPath = dockerParentPath + service.name + "/"
@@ -90,7 +99,6 @@ configure(serviceProjects) { service ->
             }
         }
     }
-
 }
 
 

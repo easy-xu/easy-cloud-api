@@ -6,4 +6,3 @@ dependencies {
     implementation project(':service-knowledge')
     implementation project(':service-wx')
 }
-

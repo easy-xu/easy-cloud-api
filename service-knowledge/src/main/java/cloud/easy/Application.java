@@ -15,9 +15,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @Slf4j
 @SpringBootApplication
 @MapperScan("cloud.easy.*.mapper")
-public class CmsApplication {
+public class Application {
     public static void main(String[] args) {
-        SpringApplication.run(CmsApplication.class, args);
-        log.info("-----Cms服务启动成功-----");
+        SpringApplication.run(Application.class, args);
+        log.info("-----问卷服务启动成功-----");
     }
 }
