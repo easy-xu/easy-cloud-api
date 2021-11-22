@@ -6,6 +6,8 @@ plugins {
 ext {
     moduleProjects = subprojects.findAll { it.name.startsWith("module-") }
     serviceProjects = subprojects.findAll { it.name.startsWith("service-") }
+    webProjects = subprojects.findAll { !it.name.equalsIgnoreCase("cloud-gateway") }
+    gatewayProjects = subprojects.findAll { it.name.equalsIgnoreCase("cloud-gateway") }
 }
 
 allprojects {
@@ -43,24 +45,42 @@ allprojects {
         implementation 'com.baomidou:mybatis-plus-boot-starter:3.4.3.4'
         compileOnly 'com.fasterxml.jackson.core:jackson-annotations:2.13.0'
         //服务层依赖
-        implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap:3.0.4'
-        implementation 'org.springframework.boot:spring-boot-starter-web:2.5.6'
         implementation 'org.springframework.boot:spring-boot-starter-test:2.5.6'
         implementation 'org.springframework.boot:spring-boot-starter-aop:2.5.6'
     }
 }
+
+configure(webProjects) { web ->
+    dependencies {
+        //web依赖
+        implementation 'org.springframework.boot:spring-boot-starter-web:2.5.6'
+    }
+}
+configure(gatewayProjects) { gateway ->
+    dependencies {
+        //gateway依赖
+        implementation 'org.springframework.cloud:spring-cloud-starter-gateway:3.0.5'
+    }
+}
+
 
 def profile = System.getProperty("profile") ?: "dev"
 def configPath = project.rootDir.getPath() + "/config/" + profile
 def dockerParentPath = project.rootDir.getPath() + "/docker/"
 def dockerFileTemp = dockerParentPath + 'Dockerfile'
 
-configure(serviceProjects) { service ->
+configure(serviceProjects + gatewayProjects) { service ->
 
     //SpringBoot方式打包
     apply plugin: 'org.springframework.boot'
     jar.manifest.attributes(['Main-Class': 'cloud.easy.Application'])
 
+    dependencies {
+        //微服务依赖
+        implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap:3.0.4'
+        implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery:2021.1'
+        implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config:2021.1'
+    }
 
     //拷贝配置文件
     def resourcesPath = projectDir.getPath() + '/build/resources/main'

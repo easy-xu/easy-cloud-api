@@ -1,23 +1,22 @@
 package cloud.easy;
 
 import lombok.extern.slf4j.Slf4j;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
 /**
- * Title: DevApplication
- * Description:
+ * Application
  *
- * @author Xu Honglin
- * @version 1.0
+ * @author xu honglin
+ * @date 2021/11/22 16:46
  */
 @Slf4j
-@MapperScan("cloud.easy.*.mapper")
-@SpringBootApplication(scanBasePackages = "cloud.easy")
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
-        log.info("-----服务启动成功！-----");
+        log.info("-----网关服务启动成功-----");
     }
 }
+
