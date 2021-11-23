@@ -2,8 +2,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://mysql-headless:3306/cloud?useUnicode=true&characterEncoding=utf8
-    username: ENC(aLu89FHrkHr53n5jQ1MDgg==)
-    password: ENC(l9lR/HOkv5rLxJlBU+KelWe2WiKW3IG6)
+    username: ENC(J2VWgLMJqeJ8735mAR7ZzQ==)
+    password: ENC(tOQ1zdQZW5n+CA0IeizLPP6tZp4OD6Cd)
   cloud:
     nacos:
       discovery:
