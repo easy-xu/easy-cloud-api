@@ -5,4 +5,4 @@ ENV JPASSWORD=abc
 #使用gradle替换变量，构建前设定
 ADD ${jar} ${jar}
 EXPOSE 8080
-CMD ["java","-jar","${jar}", "--spring.profiles.active=${profile} --jasypt.encryptor.password=${JPASSWORD}"]
+CMD ["java","-jar","${jar}", "--spring.profiles.active=${profile}", "--jasypt.encryptor.password=${JPASSWORD}"]
