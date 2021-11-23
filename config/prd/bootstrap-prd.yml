@@ -2,19 +2,19 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://mysql-headless:3306/cloud?useUnicode=true&characterEncoding=utf8
-    username: root
-    password: root
+    username: ENC(aLu89FHrkHr53n5jQ1MDgg==)
+    password: ENC(l9lR/HOkv5rLxJlBU+KelWe2WiKW3IG6)
   cloud:
     nacos:
       discovery:
         # 命名空间
         namespace: ${spring.profiles.active}
         # 服务注册地址
-        server-addr: nacos-standalone-headless:8848
+        server-addr: nacos-standalone-headless.middle-ware:8848
       config:
         # 命名空间
         namespace: ${spring.profiles.active}
         # 配置中心地址
-        server-addr: nacos-standalone-headless:8848
+        server-addr: nacos-standalone-headless.middle-ware:8848
         # 配置文件格式
         file-extension: yml
