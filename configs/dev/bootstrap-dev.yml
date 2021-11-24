@@ -2,11 +2,15 @@ spring:
   cloud:
     nacos:
       discovery:
+        username: ENC(clSmdEmc4/duWW6zAUqo0or4uA1263CJ)
+        password: ENC(DX3TAPmi7SS9C44nnH//abc5bCDHDEKm)
         # 命名空间
         namespace: ${spring.profiles.active}
         # 服务注册地址
         server-addr: 110.40.249.62:30848
       config:
+        username: ENC(mZGRDmj0eSkbja5o1i1aql80dhU4wqGb)
+        password: ENC(s4G1QCpVAdwY2Uy/XL4HWTbpVsE1RIfx)
         # 命名空间
         namespace: ${spring.profiles.active}
         # 配置中心地址
@@ -14,3 +18,8 @@ spring:
         # 配置文件格式
         file-extension: yml
 
+
+jasypt:
+  encryptor:
+    algorithm: PBEWithMD5AndDES
+    password: 123456

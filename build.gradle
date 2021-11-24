@@ -67,7 +67,7 @@ configure(gatewayProjects) { gateway ->
 
 
 def profile = System.getProperty("profile") ?: "dev"
-def configPath = project.rootDir.getPath() + "/config/" + profile
+def configPath = project.rootDir.getPath() + "/configs/" + profile
 def dockerParentPath = project.rootDir.getPath() + "/docker/"
 def dockerFileTemp = dockerParentPath + 'Dockerfile'
 

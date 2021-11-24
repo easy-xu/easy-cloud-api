@@ -2,8 +2,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/cloud?useUnicode=true&characterEncoding=utf8
-    username: ENC(sxHfEIbO9pLUVWsgE/lg/c3CL3r4cxtF)
-    password: ENC(sxHfEIbO9pLUVWsgE/lg/c3CL3r4cxtF)
+    username: ENC(0UWZHY97ynKHSxVdjflZFQOZK6ryNuKU)
+    password: ENC(0UWZHY97ynKHSxVdjflZFQOZK6ryNuKU)
 
 #mybatis
 mybatis-plus:
