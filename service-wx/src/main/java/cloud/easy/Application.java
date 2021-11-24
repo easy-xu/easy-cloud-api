@@ -15,7 +15,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @date 2021/8/30 21:02 最后修改
  */
 @Slf4j
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "cloud.easy")
 @MapperScan("cloud.easy.*.mapper")
 public class Application {
 
