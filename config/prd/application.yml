@@ -1,0 +1,9 @@
+spring:
+  profiles:
+    # 引用本地配置，文件夹区分
+    include: datasource
+
+  jackson:
+    default-property-inclusion: non_null
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8

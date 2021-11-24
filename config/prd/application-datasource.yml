@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://mysql-headless:3306/cloud?useUnicode=true&characterEncoding=utf8
+    username: ENC(ggGn6HFTYHhsXN9fjjEYswjYIza/6mp7)
+    password: ENC(vSnjRVbwJSuIC+gpfpYz8ZkO11jz8BqL98T6P70AmQM=)
+
+#mybatis
+mybatis-plus:
+  typeEnumsPackage: cloud.easy.*.enums
+#  configuration:
+#    #开启sql日志
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
