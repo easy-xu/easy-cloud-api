@@ -3,14 +3,14 @@ spring:
     nacos:
       discovery:
         username: ENC(UCIioMqD/gF4sSvnZdLfO5k00n/YmHal)
-        password: ENC(w/g5brDCcQlh9GDD4xKlwmG8a7FegEs7yOXx97o4/3A=)
+        password: ENC(UCIioMqD/gF4sSvnZdLfO5k00n/YmHal)
         # 命名空间
         namespace: ${spring.profiles.active}
         # 服务注册地址
         server-addr: nacos-standalone-headless.middle-ware:8848
       config:
         username: ENC(KunYYB2z9+MA3lq11Q5l5sxTCzN3UJvN)
-        password: ENC(Ad4Qfy5pxUwA1ND/b7iNYy9+kH33V+hCKDz61Afo1l0=)
+        password: ENC(KunYYB2z9+MA3lq11Q5l5sxTCzN3UJvN)
         # 命名空间
         namespace: ${spring.profiles.active}
         # 配置中心地址
