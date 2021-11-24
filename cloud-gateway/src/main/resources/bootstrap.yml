@@ -2,7 +2,7 @@
 spring:
   application:
     # 应用名称
-    name: service-gateway
+    name: cloud-gateway
   profiles:
     # 环境配置
     active: dev

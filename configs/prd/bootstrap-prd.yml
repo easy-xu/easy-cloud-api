@@ -9,8 +9,8 @@ spring:
         # 服务注册地址
         server-addr: nacos-standalone-headless.middle-ware:8848
       config:
-        username: ENC(Oo96GX+tjZOng/gjrlFC46Imn87ORO+y)
-        password: ENC(D2PjgdRS40SkBAm6ee2RRP2XGcDbh6Knq4RFt37x1v4=)
+        username: ENC(z2itIBZIi9O8FC5aX7ndY1RkBWLzD3Xx)
+        password: ENC(6jBe3/xCIpzN2dnuVhniJRtPDepk/DCjXTaXWFHb0bQ=)
         # 命名空间
         namespace: ${spring.profiles.active}
         # 配置中心地址
