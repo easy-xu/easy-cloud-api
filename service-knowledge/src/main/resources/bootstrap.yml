@@ -2,7 +2,13 @@
 spring:
   application:
     # 应用名称
-    name: service-questionnaire
+    name: service-knowledge
   profiles:
     # 环境配置
     active: dev
+
+
+
+
+
+
