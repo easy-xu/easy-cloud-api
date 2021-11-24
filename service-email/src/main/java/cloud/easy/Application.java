@@ -12,10 +12,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @version 1.0
  */
 @Slf4j
-@SpringBootApplication
-public class EmailApplication {
+@SpringBootApplication(scanBasePackages = "cloud.easy")
+public class Application {
     public static void main(String[] args) {
-        SpringApplication.run(EmailApplication.class, args);
+        SpringApplication.run(Application.class, args);
         log.info("-----邮件服务启动成功-----");
     }
 }
