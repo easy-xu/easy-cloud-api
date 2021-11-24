@@ -2,5 +2,5 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://mysql-headless:3306/cloud?useUnicode=true&characterEncoding=utf8
-    username: ENC(QPUNNzRBoFbXIUsRJigf+g==)
-    password: ENC(lqBpDdnMvLu63/d9iaEUyI2TKSArJSHy)
+    username: ENC(+ewQSwJdaN0OJ7nzglgdag==)
+    password: ENC(z6jBkpobiU14GsNHvlh1e3ipJ2igg8pv)
