@@ -1,7 +1,6 @@
 package cloud.easy.utils;
 
 import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;
-import org.jasypt.encryption.pbe.StandardPBEByteEncryptor;
 import org.jasypt.encryption.pbe.config.SimpleStringPBEConfig;
 
 /**
@@ -21,9 +20,9 @@ public class JasyptUtils {
      * @return 加密后密文
      */
     public static String encryptPwd(String password, String value) {
-        PooledPBEStringEncryptor encryptOr = new PooledPBEStringEncryptor();
-        encryptOr.setConfig(cryptOr(password));
-        return encryptOr.encrypt(value);
+        PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
+        encryptor.setConfig(config(password));
+        return encryptor.encrypt(value);
     }
 
     /**
@@ -34,24 +33,20 @@ public class JasyptUtils {
      * @return 解密后明文
      */
     public static String decryptPwd(String password, String value) {
-        PooledPBEStringEncryptor encryptOr = new PooledPBEStringEncryptor();
-        encryptOr.setConfig(cryptOr(password));
-        return encryptOr.decrypt(value);
+        PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
+        encryptor.setConfig(config(password));
+        return encryptor.decrypt(value);
     }
 
     /**
-     * @param password salt
+     *  默认加密配置
+     * @param password jasypt密码
      * @return 加密配置
      */
-    private static SimpleStringPBEConfig cryptOr(String password) {
+    private static SimpleStringPBEConfig config(String password) {
         SimpleStringPBEConfig config = new SimpleStringPBEConfig();
+        config.setPoolSize(1);
         config.setPassword(password);
-        config.setAlgorithm(StandardPBEByteEncryptor.DEFAULT_ALGORITHM);
-        config.setKeyObtentionIterations("1000");
-        config.setPoolSize("1");
-        config.setProviderName(null);
-        config.setSaltGeneratorClassName("org.jasypt.salt.RandomSaltGenerator");
-        config.setStringOutputType("base64");
         return config;
     }
 }
