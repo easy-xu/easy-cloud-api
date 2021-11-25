@@ -6,7 +6,6 @@ plugins {
 ext {
     moduleProjects = subprojects.findAll { it.name.startsWith("module-") }
     serviceProjects = subprojects.findAll { it.name.startsWith("service-") }
-    webProjects = subprojects.findAll { !it.name.equalsIgnoreCase("cloud-gateway") }
     gatewayProjects = subprojects.findAll { it.name.equalsIgnoreCase("cloud-gateway") }
 }
 
@@ -31,7 +30,7 @@ allprojects {
     dependencyManagement {
         imports {
             mavenBom 'org.springframework.cloud:spring-cloud-dependencies:2020.0.3'
-            mavenBom 'org.springframework.boot:spring-boot-dependencies:2.5.6'
+            mavenBom "org.springframework.boot:spring-boot-dependencies:2.5.6"
         }
     }
 
@@ -45,17 +44,16 @@ allprojects {
         //持久层依赖
         implementation 'mysql:mysql-connector-java:8.0.25'
         implementation 'com.baomidou:mybatis-plus-boot-starter:3.4.3.4'
-        compileOnly 'com.fasterxml.jackson.core:jackson-annotations:2.13.0'
         //服务层依赖
-        implementation 'org.springframework.boot:spring-boot-starter-test:2.5.6'
-        implementation 'org.springframework.boot:spring-boot-starter-aop:2.5.6'
+        implementation "org.springframework.boot:spring-boot-starter-test:2.5.6"
+        implementation "org.springframework.boot:spring-boot-starter-aop:2.5.6"
     }
 }
 
-configure(webProjects) { web ->
+configure(serviceProjects + moduleProjects) { web ->
     dependencies {
         //web依赖
-        implementation 'org.springframework.boot:spring-boot-starter-web:2.5.6'
+        implementation("org.springframework.boot:spring-boot-starter-web:2.5.6")
     }
 }
 configure(gatewayProjects) { gateway ->
@@ -87,7 +85,7 @@ configure(serviceProjects + gatewayProjects) { service ->
     //拷贝配置文件
     def resourcesPath = projectDir.getPath() + '/build/resources/main'
     classes.doLast {
-        println 'copy config file: ' + configPath + '---->>>>' + resourcesPath
+        println 'copy config file'
         copy {
             from configPath
             into resourcesPath
@@ -99,7 +97,7 @@ configure(serviceProjects + gatewayProjects) { service ->
     def jarPath = projectDir.getPath() + '/build/libs/' + jarName
     def dockerPath = dockerParentPath + service.name + "/"
     bootJar.doLast {
-        println 'copy jar file: ' + jarPath + '---->>>>' + dockerPath
+        println 'copy jar file'
         copy {
             from jarPath
             into dockerPath
@@ -114,7 +112,7 @@ configure(serviceProjects + gatewayProjects) { service ->
                 list.add(it + '\r\n')
             }
         }
-        println 'write Dockerfile: ' + dockerFilePath
+        println 'write Dockerfile'
         new File(dockerFilePath).withWriter('UTF-8') { writer ->
             list.each {
                 writer.write(it)
