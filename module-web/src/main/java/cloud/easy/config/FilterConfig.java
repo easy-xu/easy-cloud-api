@@ -35,7 +35,7 @@ public class FilterConfig {
         filterReg.setFilter(new ApiHeaderFilter());
         filterReg.setOrder(0);
         filterReg.setName("ApiHeaderFilter");
-        filterReg.addUrlPatterns("/api/*");
+        filterReg.addUrlPatterns("/*");
         return filterReg;
     }
 
@@ -45,7 +45,7 @@ public class FilterConfig {
         filterReg.setFilter(new LogParamFilter());
         filterReg.setOrder(1);
         filterReg.setName("LogParamFilter");
-        filterReg.addUrlPatterns("/api/*");
+        filterReg.addUrlPatterns("/*");
         return filterReg;
     }
 

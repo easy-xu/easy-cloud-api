@@ -44,6 +44,7 @@ allprojects {
         //持久层依赖
         implementation 'mysql:mysql-connector-java:8.0.25'
         implementation 'com.baomidou:mybatis-plus-boot-starter:3.4.3.4'
+
         //服务层依赖
         implementation "org.springframework.boot:spring-boot-starter-test:2.5.6"
         implementation "org.springframework.boot:spring-boot-starter-aop:2.5.6"
@@ -80,6 +81,8 @@ configure(serviceProjects + gatewayProjects) { service ->
         implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap:3.0.4'
         implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery:2021.1'
         implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config:2021.1'
+        implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:3.0.4'
+        implementation 'org.springframework.cloud:spring-cloud-starter-loadbalancer:3.0.4'
     }
 
     //拷贝配置文件
