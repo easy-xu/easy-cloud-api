@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  */
 @NonStandardRequest
 @RestController
-@RequestMapping("/api/open")
+@RequestMapping("/api/cms/open")
 public class UserOpenController {
 
     @Resource

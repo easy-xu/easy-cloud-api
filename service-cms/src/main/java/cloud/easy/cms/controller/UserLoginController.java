@@ -21,7 +21,7 @@ import javax.annotation.Resource;
  * @version 1.0
  */
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/cms/user")
 public class UserLoginController {
 
     @Resource
