@@ -7,7 +7,7 @@ package cloud.easy.generator;
 public class CodeGeneratorOld {
 
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         //generate("api", false, "api_log", "api_option_log");
 
         //generate("file", true, "file_master");
@@ -22,7 +22,7 @@ public class CodeGeneratorOld {
 
     }
 
-    /*private static void generate(String module, boolean primaryData, String... table) {
+    private static void generate(String module, boolean primaryData, String... table) {
         // 代码生成器
         AutoGenerator mpg = new AutoGenerator();
 
