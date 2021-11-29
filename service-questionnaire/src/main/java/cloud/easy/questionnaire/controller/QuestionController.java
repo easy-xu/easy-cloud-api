@@ -4,7 +4,7 @@ import cloud.easy.constant.Messages;
 import cloud.easy.entity.ApiResponse;
 import cloud.easy.entity.HttpResponse;
 import cloud.easy.questionnaire.dto.QuestionDto;
-import cloud.easy.questionnaire.entity.QunaAnswerQuestionnaire;
+import cloud.easy.quna.entity.QunaAnswerQuestionnaire;
 import cloud.easy.questionnaire.service.QuestionService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

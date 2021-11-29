@@ -1,19 +1,22 @@
 package cloud.easy.api.entity;
 
 import cloud.easy.base.entity.BaseEntity;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import com.baomidou.mybatisplus.annotation.TableName;
+import java.io.Serializable;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * <p>
  * 接口日志表
  * </p>
  *
- * @author Generator
- * @since 2021-10-19
+ * @author Mybatis Plus
+ * @since 2021-11-29
  */
-@Data
-@EqualsAndHashCode(callSuper = true)
+@Getter
+@Setter
+@TableName("api_log")
 public class ApiLog extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
@@ -22,6 +25,16 @@ public class ApiLog extends BaseEntity {
      * 请求流水号
      */
     private String requestId;
+
+    /**
+     * 用户编号
+     */
+    private String userNo;
+
+    /**
+     * 设备编号
+     */
+    private String deviceNo;
 
     /**
      * 接口编码

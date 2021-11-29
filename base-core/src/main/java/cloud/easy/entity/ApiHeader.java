@@ -24,6 +24,10 @@ public class ApiHeader {
      */
     private String userNo;
     /**
+     * 设备编号
+     */
+    private String deviceNo;
+    /**
      * 用户名
      */
     private String username;

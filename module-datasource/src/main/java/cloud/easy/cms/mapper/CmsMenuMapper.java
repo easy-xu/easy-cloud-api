@@ -8,8 +8,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * 菜单权限表 Mapper 接口
  * </p>
  *
- * @author Generator
- * @since 2021-10-19
+ * @author Mybatis Plus
+ * @since 2021-11-29
  */
 public interface CmsMenuMapper extends BaseMapper<CmsMenu> {
 

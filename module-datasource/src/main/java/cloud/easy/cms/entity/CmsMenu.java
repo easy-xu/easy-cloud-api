@@ -2,19 +2,21 @@ package cloud.easy.cms.entity;
 
 import cloud.easy.base.entity.PrimaryDataEntity;
 import cloud.easy.cms.enums.MenuTypeEnum;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * <p>
  * 菜单权限表
  * </p>
  *
- * @author Generator
- * @since 2021-10-19
+ * @author Mybatis Plus
+ * @since 2021-11-29
  */
-@Data
-@EqualsAndHashCode(callSuper = true)
+@Getter
+@Setter
+@TableName("cms_menu")
 public class CmsMenu extends PrimaryDataEntity {
 
     private static final long serialVersionUID = 1L;

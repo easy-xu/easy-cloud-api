@@ -1,3 +1,4 @@
+
 -- ----------------------------
 -- 用户主表
 -- ----------------------------
@@ -7,6 +8,7 @@ create table cms_user
     id           bigint(20)  not null auto_increment comment '用户ID',
     username     varchar(60) not null comment '用户账号',
     user_no      varchar(60) comment '用户编号',
+    device_no    varchar(60) comment '设备编号',
     password     varchar(100) comment '密码',
     nickname     varchar(30) comment '用户昵称',
     type         varchar(2) default '00' comment '用户类型（00访客）',
@@ -249,6 +251,8 @@ create table api_log
 (
     id               bigint(20) not null auto_increment comment '主键',
     request_id       varchar(60) comment '请求流水号',
+    user_no          varchar(60) comment '用户编号',
+    device_no        varchar(60) comment '设备编号',
     request_code     varchar(20) comment '接口编码',
     request_path     varchar(200) comment '接口地址',
     business_no      varchar(20) comment '业务编号',
@@ -265,6 +269,29 @@ create table api_log
   auto_increment = 1 comment = '接口日志表';
 ALTER TABLE api_log
     ADD INDEX `index_request_id` (`request_id`) USING BTREE;
+
+
+-- ----------------------------
+-- 操作记录表
+-- ----------------------------
+drop table if exists api_option_log;
+create table api_option_log
+(
+    id           bigint(20)  not null auto_increment comment '主键ID',
+    user_no          varchar(60) comment '用户编号',
+    device_no        varchar(60) comment '设备编号',
+    option_name        varchar(60) comment '操作名称',
+    create_by    varchar(60) comment '创建者',
+    create_time  datetime comment '创建时间',
+    update_by    varchar(60) comment '更新者',
+    update_time  datetime comment '更新时间',
+    primary key (id)
+) engine = innodb
+  auto_increment = 1 comment = '操作记录表';
+ALTER TABLE `api_option_log`
+    ADD INDEX `index_device_no` (`device_no`) USING BTREE;
+ALTER TABLE `api_option_log`
+    ADD INDEX `index_user_no` (`user_no`) USING BTREE;
 
 -- ----------------------------
 -- 自增序列配置表
@@ -430,9 +457,9 @@ INSERT INTO `cms_role_auth` VALUES (6, 3, 3, 'U20211013000001', '2021-10-16 21:5
 -- ----------------------------
 -- Records of cms_user
 -- ----------------------------
-INSERT INTO `cms_user` VALUES (1, 'admin', 'U20211018000106', 'D3PDDq2gnuZBy7TaGcgmjzwqqDxwqLcNAeHMs7zaG4vu', '系统管理员', '01', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiVTIwMjExMDE4MDAwMTA2IiwiaWF0IjoxNjM0NTM3MjY0fQ.pm5SsevcxxOjBcd7rG1BF30IImD1wAbzf_pgtCUN-xg', NULL, NULL, '2', NULL, 1, '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-13 20:35:41', 'U20211018000201', '2021-10-18 13:39:44');
-INSERT INTO `cms_user` VALUES (2, 'dev', 'U20211018000202', '8iLQLpiZZntVnMhZ8VX9YnhTvNREHK7kUrpCYXkgH5vC', '开发人员', '00', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiVTIwMjExMDE4MDAwMjAyIiwiaWF0IjoxNjM0NTQ5MTExfQ.AM3q21ES2ZTbC2keWuBV2df3iLHkQUzihzXbsnsx02M', NULL, NULL, '2', NULL, 3, '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-16 21:59:42', 'U20211018000201', '2021-10-18 13:39:55');
-INSERT INTO `cms_user` VALUES (3, 'ops', 'U20211018000201', '7pvk763joCo25grKGoJfDVi9hHMkZoxJu8FLFoDDvyNU', '运维人员', '00', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiVTIwMjExMDE4MDAwMjAxIiwiaWF0IjoxNjM0NTM1NDMxfQ.lQtFBPyqirUzEr3KAai03GaCgHeYDjrr3kJT_D2XUYA', NULL, NULL, '2', NULL, 4, '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-16 22:00:00', 'U20211018000201', '2021-10-18 13:40:04');
+INSERT INTO `cloud`.`cms_user`(`id`, `username`, `user_no`, `password`, `nickname`, `type`, `token`, `email`, `phone_number`, `sex`, `avatar`, `default_group_id`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (1, 'admin', 'U20211018000106', '9ZPsmFqGpMkaSNg8Fxv8XR7wMsnpdV4eb4rUNntp184V', '系统管理员', '01', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiVTIwMjExMDE4MDAwMTA2IiwiaWF0IjoxNjM4MTAzOTI5fQ.gVwF6I27L6wwrELyibwGnFV1yMndxKV8MAyeP750618', NULL, NULL, '2', NULL, 1, '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-13 20:35:41', 'U20211018000201', '2021-10-18 13:39:44');
+INSERT INTO `cloud`.`cms_user`(`id`, `username`, `user_no`, `password`, `nickname`, `type`, `token`, `email`, `phone_number`, `sex`, `avatar`, `default_group_id`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (2, 'dev', 'U20211018000202', '8iLQLpiZZntVnMhZ8VX9YnhTvNREHK7kUrpCYXkgH5vC', '开发人员', '00', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiVTIwMjExMDE4MDAwMjAyIiwiaWF0IjoxNjM1MTI2MjM1fQ.hmeH5GJtMYAic6FRp7Ji1UKum7s5xT8YCRMzGxWeLo8', NULL, NULL, '2', NULL, 3, '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-16 21:59:42', 'U20211018000201', '2021-10-18 13:39:55');
+INSERT INTO `cloud`.`cms_user`(`id`, `username`, `user_no`, `password`, `nickname`, `type`, `token`, `email`, `phone_number`, `sex`, `avatar`, `default_group_id`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (3, 'ops', 'U20211018000201', '7pvk763joCo25grKGoJfDVi9hHMkZoxJu8FLFoDDvyNU', '运维人员', '00', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiVTIwMjExMDE4MDAwMjAxIiwiaWF0IjoxNjM0NTM1NDMxfQ.lQtFBPyqirUzEr3KAai03GaCgHeYDjrr3kJT_D2XUYA', NULL, NULL, '2', NULL, 4, '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-16 22:00:00', 'U20211018000201', '2021-10-18 13:40:04');
 
 -- ----------------------------
 -- Records of cms_user_group

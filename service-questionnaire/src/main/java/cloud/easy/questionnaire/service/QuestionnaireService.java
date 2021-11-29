@@ -1,7 +1,7 @@
 package cloud.easy.questionnaire.service;
 
 import cloud.easy.questionnaire.dto.QuestionDto;
-import cloud.easy.questionnaire.entity.QunaConfigQuestionnaire;
+import cloud.easy.quna.entity.QunaConfigQuestionnaire;
 
 import java.util.List;
 

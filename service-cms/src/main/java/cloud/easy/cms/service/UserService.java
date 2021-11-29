@@ -30,7 +30,7 @@ public interface UserService {
      *
      * @return UserDto
      */
-    UserDto initUser();
+    UserDto initDevice();
 
     /**
      * 保存用户

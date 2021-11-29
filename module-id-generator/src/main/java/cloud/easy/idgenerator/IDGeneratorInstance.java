@@ -26,6 +26,12 @@ public enum IDGeneratorInstance implements IDGenerator {
     USER_NO(new IDGeneratorBuilder().append(new ConstantStringGenerator("U"))
             .append(new DateTimeGenerator("yyyyMMdd"))
             .append(new FixedStringPlusGenerator(new SequenceNumPlusGenerator("user_no", new DateTimeGenerator("yyyyMMdd"), 100), 6, "0"))),
+    /**
+     * 设备唯一编号
+     */
+    DEVICE_NO(new IDGeneratorBuilder().append(new ConstantStringGenerator("D"))
+            .append(new DateTimeGenerator("yyyyMMdd"))
+            .append(new FixedStringPlusGenerator(new SequenceNumPlusGenerator("device_no", new DateTimeGenerator("yyyyMMdd"), 100), 6, "0"))),
     ;
 
 

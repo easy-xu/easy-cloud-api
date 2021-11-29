@@ -1,8 +1,8 @@
 package cloud.easy.questionnaire.dto;
 
 import cloud.easy.entity.ApiRequest;
-import cloud.easy.questionnaire.entity.QunaConfigOption;
-import cloud.easy.questionnaire.entity.QunaConfigQuestion;
+import cloud.easy.quna.entity.QunaConfigOption;
+import cloud.easy.quna.entity.QunaConfigQuestion;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

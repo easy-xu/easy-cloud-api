@@ -1,19 +1,22 @@
 package cloud.easy.cms.entity;
 
 import cloud.easy.base.entity.PrimaryDataEntity;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import com.baomidou.mybatisplus.annotation.TableName;
+import java.io.Serializable;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * <p>
  * 角色信息表
  * </p>
  *
- * @author Generator
- * @since 2021-10-19
+ * @author Mybatis Plus
+ * @since 2021-11-29
  */
-@Data
-@EqualsAndHashCode(callSuper = true)
+@Getter
+@Setter
+@TableName("cms_role")
 public class CmsRole extends PrimaryDataEntity {
 
     private static final long serialVersionUID = 1L;

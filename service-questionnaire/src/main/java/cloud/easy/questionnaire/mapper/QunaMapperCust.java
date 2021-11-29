@@ -1,8 +1,8 @@
 package cloud.easy.questionnaire.mapper;
 
 import cloud.easy.questionnaire.dto.ResultDto;
-import cloud.easy.questionnaire.entity.QunaAnswerQuestionnaire;
-import cloud.easy.questionnaire.entity.QunaAnswerResult;
+import cloud.easy.quna.entity.QunaAnswerQuestionnaire;
+import cloud.easy.quna.entity.QunaAnswerResult;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 

@@ -1,7 +1,7 @@
 package cloud.easy.questionnaire.service;
 
-import cloud.easy.questionnaire.entity.QunaAnswerQuestion;
-import cloud.easy.questionnaire.entity.QunaAnswerQuestionnaire;
+import cloud.easy.quna.entity.QunaAnswerQuestion;
+import cloud.easy.quna.entity.QunaAnswerQuestionnaire;
 
 /**
  * Title: AnswerService

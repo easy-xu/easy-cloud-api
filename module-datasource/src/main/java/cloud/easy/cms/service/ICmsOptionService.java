@@ -8,8 +8,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * 操作类型表 服务类
  * </p>
  *
- * @author Generator
- * @since 2021-10-19
+ * @author Mybatis Plus
+ * @since 2021-11-29
  */
 public interface ICmsOptionService extends IService<CmsOption> {
 

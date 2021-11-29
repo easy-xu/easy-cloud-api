@@ -1,7 +1,7 @@
 package cloud.easy.questionnaire.dto;
 
-import cloud.easy.questionnaire.entity.QunaAnswerResult;
-import cloud.easy.questionnaire.entity.QunaConfigResultDescription;
+import cloud.easy.quna.entity.QunaAnswerResult;
+import cloud.easy.quna.entity.QunaConfigResultDescription;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

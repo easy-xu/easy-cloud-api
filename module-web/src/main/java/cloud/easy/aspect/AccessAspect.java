@@ -28,9 +28,9 @@ import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.lang.reflect.Method;
+import java.util.Map;
 
-import static cloud.easy.constant.ApiHeaderTag.REQUEST_ID;
-import static cloud.easy.constant.ApiHeaderTag.USER_NO;
+import static cloud.easy.constant.ApiHeaderTag.*;
 
 /**
  * Title: TransLogAspect
@@ -88,7 +88,10 @@ public class AccessAspect {
                 //校验Token
                 String token = header.getToken();
                 UserTokenUtils.verifyToken(token);
-                String userNo = UserTokenUtils.decodeToken(token);
+                Map<String, String> decodeToken = UserTokenUtils.decodeToken(token);
+                String userNo = decodeToken.get(USER_NO);
+                String deviceNo = decodeToken.get(DEVICE_NO);
+                header.setDeviceNo(deviceNo);
                 header.setUserNo(userNo);
                 MDC.put(USER_NO, header.getUserNo());
                 //查询用户默认分组

@@ -1,5 +1,6 @@
 package cloud.easy.cms.service.impl;
 
+import cloud.easy.api.entity.ApiOptionLog;
 import cloud.easy.cms.dto.UserDto;
 import cloud.easy.cms.entity.CmsUser;
 import cloud.easy.cms.entity.CmsUserGroup;
@@ -56,22 +57,10 @@ public class UserServiceImpl implements UserService {
         if (count >= 1) {
             throw new RequestException(Messages.USERNAME_EXIST);
         }
-        //更新游客信息为注册用户
-        ApiHeader apiHeader = ApiHeaderHelper.get();
-        String userNo = apiHeader.getUserNo();
-        String token = apiHeader.getToken();
+        //生成用户编号
+        String userNo = IDGeneratorInstance.USER_NO.generate();
         cmsUser.setUserNo(userNo);
-        cmsUser.setToken(token);
-        List<CmsUser> users = cmsUserService.list(Wrappers.query(cmsUser));
-        if (users.isEmpty()) {
-            throw new RequestException(Messages.NOT_FOUND);
-        }
-        if (users.size() > 1) {
-            throw new SystemErrorException(Messages.DB_DATA_ERROR);
-        }
-        cmsUser = users.get(0);
         cmsUser.setType(UserTypeEnum.USER);
-        cmsUser.setUsername(username);
         //密码加密
         cmsUser.setPassword(PasswordUtils.encrypt(cmsUser.getPassword()));
         cmsUserService.saveOrUpdate(cmsUser);
@@ -90,10 +79,13 @@ public class UserServiceImpl implements UserService {
             throw new SystemErrorException(Messages.DB_DATA_ERROR);
         }
         cmsUser = users.get(0);
-        //更新token
-        String token = UserTokenUtils.generateToken(cmsUser.getUserNo());
-        cmsUser.setToken(token);
+        //更新记录
         ApiHeader header = ApiHeaderHelper.get();
+        String deviceNo = header.getDeviceNo();
+        String token = UserTokenUtils.generateToken(cmsUser.getUserNo(), deviceNo);
+        cmsUser.setToken(token);
+        cmsUser.setDeviceNo(deviceNo);
+        //更新线程变量
         header.setUserNo(cmsUser.getUserNo());
         header.setToken(token);
         header.setDefaultGroup(cmsUser.getDefaultGroupId());
@@ -103,17 +95,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto initUser() {
-        String userNo = IDGeneratorInstance.USER_NO.generate();
-        String token = UserTokenUtils.generateToken(userNo);
-        CmsUser cmsUser = new CmsUser();
-        cmsUser.setUsername(userNo);
-        cmsUser.setUserNo(userNo);
-        cmsUser.setToken(token);
-        cmsUser.setType(UserTypeEnum.VISITOR);
-        cmsUserService.save(cmsUser);
+    public UserDto initDevice() {
+        String deviceNo = IDGeneratorInstance.DEVICE_NO.generate();
+        String token = UserTokenUtils.generateToken(null, deviceNo);
+        ApiOptionLog optionLog = new ApiOptionLog();
+        optionLog.setDeviceNo(deviceNo);
+        optionLog.setOptionName("初始化");
         UserDto userDto = new UserDto();
-        BeanUtils.copy(cmsUser, userDto);
+        userDto.setDeviceNo(deviceNo);
+        userDto.setToken(token);
         return userDto;
     }
 

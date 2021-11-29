@@ -2,19 +2,21 @@ package cloud.easy.cms.entity;
 
 import cloud.easy.base.entity.PrimaryDataEntity;
 import cloud.easy.cms.enums.UserTypeEnum;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * <p>
  * 用户信息主表
  * </p>
  *
- * @author Generator
- * @since 2021-10-19
+ * @author Mybatis Plus
+ * @since 2021-11-29
  */
-@Data
-@EqualsAndHashCode(callSuper = true)
+@Getter
+@Setter
+@TableName("cms_user")
 public class CmsUser extends PrimaryDataEntity {
 
     private static final long serialVersionUID = 1L;
@@ -28,6 +30,11 @@ public class CmsUser extends PrimaryDataEntity {
      * 用户编号
      */
     private String userNo;
+
+    /**
+     * 设备编号
+     */
+    private String deviceNo;
 
     /**
      * 密码
