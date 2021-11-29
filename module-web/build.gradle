@@ -1,6 +1,5 @@
 dependencies {
     implementation project(':base-core')
     implementation project(':module-datasource')
-    implementation project(':module-token')
     implementation project(':module-id-generator')
 }
