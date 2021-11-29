@@ -89,8 +89,36 @@ public class UserServiceImpl implements UserService {
         header.setUserNo(cmsUser.getUserNo());
         header.setToken(token);
         header.setDefaultGroup(cmsUser.getDefaultGroupId());
+        //不校验权限
+        header.setCheckAuth(false);
         cmsUserService.saveOrUpdate(cmsUser);
         BeanUtils.copy(cmsUser, userDto);
+        return userDto;
+    }
+
+    @Override
+    public UserDto logout() {
+        ApiHeader header = ApiHeaderHelper.get();
+        String userNo = header.getUserNo();
+        //查询用户
+        CmsUser cmsUser = new CmsUser();
+        cmsUser.setUserNo(userNo);
+        List<CmsUser> users = cmsUserService.list(Wrappers.query(cmsUser));
+        if (users.isEmpty()) {
+            throw new RequestException(Messages.NOT_FOUND);
+        } else if (users.size() > 1) {
+            throw new SystemErrorException(Messages.DB_DATA_ERROR);
+        }
+        cmsUser = users.get(0);
+        cmsUser.setToken(null);
+        //不校验权限
+        header.setCheckAuth(false);
+        cmsUserService.saveOrUpdate(cmsUser);
+        String deviceNo = header.getDeviceNo();
+        UserDto userDto = new UserDto();
+        userDto.setDeviceNo(deviceNo);
+        String token = UserTokenUtils.generateToken(null, deviceNo);
+        userDto.setToken(token);
         return userDto;
     }
 

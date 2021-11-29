@@ -16,6 +16,10 @@ public class ApiHeader {
      */
     private String requestId;
     /**
+     * 是否校验数据权限，默认校验，系统内部更新非用户更新操作可关闭
+     */
+    private boolean checkAuth = true;
+    /**
      * 用户token
      */
     private String token;

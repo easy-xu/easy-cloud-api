@@ -101,7 +101,7 @@ public class GroupModeAuthCheckAspect {
         if (token == null) {
             return false;
         }
-        return true;
+        return header.isCheckAuth();
     }
 
     private boolean hasReadAuth(PrimaryDataEntity entity) {

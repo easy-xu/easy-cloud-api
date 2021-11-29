@@ -35,6 +35,11 @@ public class UserLoginController {
         userDto = userService.login(userDto);
         return HttpResponse.ok(userDto);
     }
+    @PostMapping("/logout")
+    public ApiResponse logout() {
+        UserDto userDto = userService.logout();
+        return HttpResponse.ok(userDto);
+    }
 
     @PostMapping("/signIn")
     public ApiResponse signIn(@RequestBody UserDto userDto) {

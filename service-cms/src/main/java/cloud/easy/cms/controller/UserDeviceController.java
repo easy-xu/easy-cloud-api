@@ -27,7 +27,7 @@ public class UserDeviceController {
     private UserService userService;
 
     @GetMapping("/device")
-    public ApiResponse device() {
+    public ApiResponse getDevice() {
         UserDto userDto = userService.initDevice();
         return HttpResponse.ok(userDto);
     }

@@ -25,6 +25,13 @@ public interface UserService {
      */
     UserDto login(UserDto userDto);
 
+
+    /**
+     * 用户退出
+     * @return userDto
+     */
+    UserDto logout();
+
     /**
      * 初始化用户
      *
@@ -53,4 +60,5 @@ public interface UserService {
      * @param userDto 用户信息
      */
     void resetPassword(UserDto userDto);
+
 }
