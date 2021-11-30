@@ -2,8 +2,8 @@ package cloud.easy.aspect;
 
 
 import cloud.easy.annotation.NonStandardRequest;
-import cloud.easy.api.entity.ApiLog;
-import cloud.easy.api.service.IApiLogService;
+import cloud.easy.sys.entity.SysApiLog;
+import cloud.easy.sys.service.ISysApiLogService;
 import cloud.easy.base.mapper.BaseMapperCust;
 import cloud.easy.device.ApiHeaderHelper;
 import cloud.easy.entity.ApiHeader;
@@ -47,7 +47,7 @@ import static cloud.easy.constant.ApiHeaderTag.*;
 public class AccessAspect {
 
     @Resource
-    private IApiLogService logService;
+    private ISysApiLogService logService;
 
     @Resource
     private BaseMapperCust baseMapperCust;
@@ -79,7 +79,7 @@ public class AccessAspect {
                     throw new RequestException("交易流水号不能为空");
                 }
                 //流水号不能重复
-                ApiLog apiLog = new ApiLog();
+                SysApiLog apiLog = new SysApiLog();
                 apiLog.setRequestId(requestId);
                 long count = logService.count(Wrappers.query(apiLog));
                 if (count > 0) {
@@ -103,7 +103,7 @@ public class AccessAspect {
             result = handleException(ex, log);
         } finally {
             //保存日志
-            ApiLog apiLog = new ApiLog();
+            SysApiLog apiLog = new SysApiLog();
             BeanUtils.copy(header, apiLog);
             if (result instanceof HttpResponse) {
                 HttpResponse responseDto = (HttpResponse) result;

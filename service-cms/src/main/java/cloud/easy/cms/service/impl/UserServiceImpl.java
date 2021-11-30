@@ -1,6 +1,6 @@
 package cloud.easy.cms.service.impl;
 
-import cloud.easy.api.entity.ApiOptionLog;
+import cloud.easy.sys.entity.SysOptionLog;
 import cloud.easy.cms.dto.UserDto;
 import cloud.easy.cms.entity.CmsUser;
 import cloud.easy.cms.entity.CmsUserGroup;
@@ -126,7 +126,7 @@ public class UserServiceImpl implements UserService {
     public UserDto initDevice() {
         String deviceNo = IDGeneratorInstance.DEVICE_NO.generate();
         String token = UserTokenUtils.generateToken(null, deviceNo);
-        ApiOptionLog optionLog = new ApiOptionLog();
+        SysOptionLog optionLog = new SysOptionLog();
         optionLog.setDeviceNo(deviceNo);
         optionLog.setOptionName("初始化");
         UserDto userDto = new UserDto();

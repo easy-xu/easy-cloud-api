@@ -16,6 +16,9 @@ import org.aspectj.lang.annotation.Before;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import java.lang.reflect.Method;
+import java.lang.reflect.Type;
+
 /**
  * Title: GroupModeCheckAspect
  * Description: 检查记录mode
@@ -64,13 +67,26 @@ public class GroupModeAuthCheckAspect {
     private void checkWriteAuth(JoinPoint joinPoint) {
         Object target = joinPoint.getTarget();
         Long entityId = getEntityId(joinPoint);
-        if (entityId != null && needCheck()) {
-            BaseMapper<?> mapper = (BaseMapper) target;
+        BaseMapper<?> mapper = (BaseMapper<?>) target;
+        if (needCheck() && entityId != null && isPrimaryData(mapper)) {
             PrimaryDataEntity entity = (PrimaryDataEntity) mapper.selectById(entityId);
             if (!hasWriteAuth(entity)) {
                 throw new RequestException(Messages.AUTH_ERROR);
             }
         }
+    }
+
+    private boolean isPrimaryData(BaseMapper<?> target) {
+        try {
+            Method method = target.getClass().getMethod("selectById", Long.class);
+            Type returnType = method.getAnnotatedReturnType().getType();
+            if (returnType instanceof PrimaryDataEntity) {
+                return true;
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     private Long getEntityId(JoinPoint joinPoint) {

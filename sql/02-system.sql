@@ -246,8 +246,8 @@ create table cms_user_group
 -- ----------------------------
 -- 接口日志表字段
 -- ----------------------------
-drop table if exists api_log;
-create table api_log
+drop table if exists sys_api_log;
+create table sys_api_log
 (
     id               bigint(20) not null auto_increment comment '主键',
     request_id       varchar(60) comment '请求流水号',
@@ -267,7 +267,7 @@ create table api_log
     primary key (id)
 ) engine = innodb
   auto_increment = 1 comment = '接口日志表';
-ALTER TABLE api_log
+ALTER TABLE sys_api_log
     ADD INDEX `index_request_id` (`request_id`) USING BTREE;
 
 
@@ -296,8 +296,8 @@ ALTER TABLE `api_option_log`
 -- ----------------------------
 -- 自增序列配置表
 -- ----------------------------
-drop table if exists seq_max_no;
-create table seq_max_no
+drop table if exists sys_max_no;
+create table sys_max_no
 (
     id          bigint(20)  not null auto_increment comment '主键',
     no_type     varchar(60) not null comment '序列号类型',
@@ -311,7 +311,7 @@ create table seq_max_no
     primary key (id)
 ) engine = innodb
   auto_increment = 1 comment = '自增序列配置表';
-ALTER TABLE `seq_max_no`
+ALTER TABLE `sys_max_no`
     ADD INDEX `index_no_query` (`no_type`, no_limit) USING BTREE;
 
 

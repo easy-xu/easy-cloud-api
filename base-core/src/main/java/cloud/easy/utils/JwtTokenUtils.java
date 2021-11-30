@@ -26,8 +26,12 @@ public class JwtTokenUtils {
 
     private static final String SECRET = "this is a secret";
 
+    private JwtTokenUtils() {
+
+    }
+
     public static String generateToken(Map<String, String> claimMap, Date expiresAt) {
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>(2);
         map.put("alg", "HS256");
         map.put("typ", "JWT");
         JWTCreator.Builder builder = JWT.create().withHeader(map);

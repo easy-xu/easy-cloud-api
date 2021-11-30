@@ -1,8 +1,10 @@
-package cloud.easy.api.entity;
+package cloud.easy.sys.entity;
 
 import cloud.easy.base.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,28 +14,23 @@ import lombok.Setter;
  * </p>
  *
  * @author Mybatis Plus
- * @since 2021-11-29
+ * @since 2021-11-30
  */
 @Getter
 @Setter
-@TableName("api_option_log")
-public class ApiOptionLog extends BaseEntity {
+@TableName("sys_option_log")
+@ApiModel(value = "SysOptionLog对象", description = "操作记录表")
+public class SysOptionLog extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 用户编号
-     */
+    @ApiModelProperty("用户编号")
     private String userNo;
 
-    /**
-     * 设备编号
-     */
+    @ApiModelProperty("设备编号")
     private String deviceNo;
 
-    /**
-     * 操作名称
-     */
+    @ApiModelProperty("操作名称")
     private String optionName;
 
 
