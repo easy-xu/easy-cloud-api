@@ -1,5 +1,6 @@
 package cloud.easy.cms.controller;
 
+import cloud.easy.annotation.OptionLog;
 import cloud.easy.base.controller.BaseController;
 import cloud.easy.base.dto.PageQueryDto;
 import cloud.easy.cms.dto.UserDto;
@@ -38,12 +39,14 @@ public class UserController extends BaseController<CmsUser, ICmsUserService> {
         super(service);
     }
 
+    @OptionLog("用户详情")
     @PostMapping("/query")
     public ApiResponse queryEntity(@RequestBody UserDto userDto) {
         userDto = userService.getDetail(requireId(userDto));
         return HttpResponse.ok(userDto);
     }
 
+    @OptionLog("用户保存")
     @PostMapping("/save")
     public ApiResponse saveEntity(@RequestBody UserDto userDto) {
         userService.save(notNull(userDto));
@@ -51,12 +54,14 @@ public class UserController extends BaseController<CmsUser, ICmsUserService> {
     }
 
     @Override
+    @OptionLog("用户删除")
     @PostMapping("/delete")
     public ApiResponse deleteEntity(@RequestBody CmsUser entity) {
         return super.deleteEntity(entity);
     }
 
     @Override
+    @OptionLog("用户查询")
     @PostMapping("/page-list")
     public ApiResponse pageList(@RequestBody PageQueryDto<CmsUser> pageQueryDto) {
         return super.pageList(pageQueryDto);
@@ -68,6 +73,7 @@ public class UserController extends BaseController<CmsUser, ICmsUserService> {
         return super.listEntity(entity);
     }
 
+    @OptionLog("重置密码")
     @PostMapping("/reset-password")
     public ApiResponse resetPassword(@RequestBody UserDto userDto) {
         requireId(userDto);

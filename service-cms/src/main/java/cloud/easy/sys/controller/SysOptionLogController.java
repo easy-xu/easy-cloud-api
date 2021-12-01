@@ -30,7 +30,7 @@ public class SysOptionLogController extends BaseController<SysOptionLog, ISysOpt
     }
 
     @Override
-    @OptionLog("操作记录查询")
+    @OptionLog("操作记录详情")
     @PostMapping("/query")
     public ApiResponse queryEntity(@RequestBody SysOptionLog entity) {
         return super.queryEntity(entity);

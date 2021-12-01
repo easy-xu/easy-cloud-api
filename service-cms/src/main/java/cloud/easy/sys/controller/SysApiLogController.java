@@ -30,7 +30,7 @@ public class SysApiLogController extends BaseController<SysApiLog, ISysApiLogSer
     }
 
     @Override
-    @OptionLog("接口日志查询")
+    @OptionLog("接口日志详情")
     @PostMapping("/query")
     public ApiResponse queryEntity(@RequestBody SysApiLog entity) {
         return super.queryEntity(entity);

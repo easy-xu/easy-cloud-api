@@ -1,6 +1,7 @@
 package cloud.easy.cms.controller;
 
 import cloud.easy.annotation.NonStandardRequest;
+import cloud.easy.annotation.OptionLog;
 import cloud.easy.cms.dto.UserDto;
 import cloud.easy.cms.service.UserService;
 import cloud.easy.entity.ApiResponse;
@@ -26,6 +27,7 @@ public class UserDeviceController {
     @Resource
     private UserService userService;
 
+    @OptionLog("初始化")
     @GetMapping("/device")
     public ApiResponse getDevice() {
         UserDto userDto = userService.initDevice();

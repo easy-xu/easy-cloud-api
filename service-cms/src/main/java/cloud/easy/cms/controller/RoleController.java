@@ -1,5 +1,6 @@
 package cloud.easy.cms.controller;
 
+import cloud.easy.annotation.OptionLog;
 import cloud.easy.base.controller.BaseController;
 import cloud.easy.base.dto.PageQueryDto;
 import cloud.easy.cms.dto.RoleDto;
@@ -38,12 +39,14 @@ public class RoleController extends BaseController<CmsRole, ICmsRoleService> {
         super(service);
     }
 
+    @OptionLog("角色详情")
     @PostMapping("/query")
     public ApiResponse queryEntity(@RequestBody RoleDto roleDto) {
         roleDto = roleService.getDetail(requireId(roleDto));
         return HttpResponse.ok(roleDto);
     }
 
+    @OptionLog("角色保存")
     @PostMapping("/save")
     public ApiResponse saveEntity(@RequestBody RoleDto roleDto) {
         roleService.save(notNull(roleDto));
@@ -51,12 +54,14 @@ public class RoleController extends BaseController<CmsRole, ICmsRoleService> {
     }
 
     @Override
+    @OptionLog("角色删除")
     @PostMapping("/delete")
     public ApiResponse deleteEntity(@RequestBody CmsRole entity) {
         return super.deleteEntity(entity);
     }
 
     @Override
+    @OptionLog("角色查询")
     @PostMapping("/page-list")
     public ApiResponse pageList(@RequestBody PageQueryDto<CmsRole> pageQueryDto) {
         return super.pageList(pageQueryDto);

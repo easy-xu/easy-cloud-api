@@ -1,5 +1,6 @@
 package cloud.easy.cms.controller;
 
+import cloud.easy.annotation.OptionLog;
 import cloud.easy.base.controller.BaseController;
 import cloud.easy.base.dto.PageQueryDto;
 import cloud.easy.cms.dto.MenuDto;
@@ -40,24 +41,28 @@ public class MenuController extends BaseController<CmsMenu, ICmsMenuService> {
     }
 
     @Override
+    @OptionLog("菜单详情")
     @PostMapping("/query")
     public ApiResponse queryEntity(@RequestBody CmsMenu entity) {
         return super.queryEntity(entity);
     }
 
     @Override
+    @OptionLog("菜单保存")
     @PostMapping("/save")
     public ApiResponse saveEntity(@RequestBody CmsMenu entity) {
         return super.saveEntity(entity);
     }
 
     @Override
+    @OptionLog("菜单删除")
     @PostMapping("/delete")
     public ApiResponse deleteEntity(@RequestBody CmsMenu entity) {
         return super.deleteEntity(entity);
     }
 
     @Override
+    @OptionLog("菜单查询")
     @PostMapping("/page-list")
     public ApiResponse pageList(@RequestBody PageQueryDto<CmsMenu> pageQueryDto) {
         return super.pageList(pageQueryDto);

@@ -1,5 +1,6 @@
 package cloud.easy.cms.controller;
 
+import cloud.easy.annotation.OptionLog;
 import cloud.easy.base.controller.BaseController;
 import cloud.easy.base.dto.PageQueryDto;
 import cloud.easy.cms.dto.AuthDto;
@@ -40,12 +41,14 @@ public class AuthController extends BaseController<CmsAuth, ICmsAuthService> {
         super(service);
     }
 
+    @OptionLog("权限详情")
     @PostMapping("/query")
     public ApiResponse queryEntity(@RequestBody AuthDto authDto) {
         authDto = authService.getDetail(requireId(authDto));
         return HttpResponse.ok(authDto);
     }
 
+    @OptionLog("权限保存")
     @PostMapping("/save")
     public ApiResponse saveEntity(@RequestBody AuthDto authDto) {
         authService.save(notNull(authDto));
@@ -53,12 +56,14 @@ public class AuthController extends BaseController<CmsAuth, ICmsAuthService> {
     }
 
     @Override
+    @OptionLog("权限删除")
     @PostMapping("/delete")
     public ApiResponse deleteEntity(@RequestBody CmsAuth entity) {
         return super.deleteEntity(entity);
     }
 
     @Override
+    @OptionLog("权限查询")
     @PostMapping("/page-list")
     public ApiResponse pageList(@RequestBody PageQueryDto<CmsAuth> pageQueryDto) {
         return super.pageList(pageQueryDto);

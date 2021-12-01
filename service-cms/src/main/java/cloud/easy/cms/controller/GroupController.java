@@ -1,5 +1,6 @@
 package cloud.easy.cms.controller;
 
+import cloud.easy.annotation.OptionLog;
 import cloud.easy.base.controller.BaseController;
 import cloud.easy.base.dto.PageQueryDto;
 import cloud.easy.cms.entity.CmsGroup;
@@ -29,24 +30,28 @@ public class GroupController extends BaseController<CmsGroup, ICmsGroupService> 
     }
 
     @Override
+    @OptionLog("分组详情")
     @PostMapping("/query")
     public ApiResponse queryEntity(@RequestBody CmsGroup entity) {
         return super.queryEntity(entity);
     }
 
     @Override
+    @OptionLog("分组保存")
     @PostMapping("/save")
     public ApiResponse saveEntity(@RequestBody CmsGroup entity) {
         return super.saveEntity(entity);
     }
 
     @Override
+    @OptionLog("分组删除")
     @PostMapping("/delete")
     public ApiResponse deleteEntity(@RequestBody CmsGroup entity) {
         return super.deleteEntity(entity);
     }
 
     @Override
+    @OptionLog("分组查询")
     @PostMapping("/page-list")
     public ApiResponse pageList(@RequestBody PageQueryDto<CmsGroup> pageQueryDto) {
         return super.pageList(pageQueryDto);

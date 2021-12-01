@@ -1,5 +1,6 @@
 package cloud.easy.cms.controller;
 
+import cloud.easy.annotation.OptionLog;
 import cloud.easy.base.controller.BaseController;
 import cloud.easy.base.dto.PageQueryDto;
 import cloud.easy.cms.entity.CmsOption;
@@ -29,24 +30,28 @@ public class OptionController extends BaseController<CmsOption, ICmsOptionServic
     }
 
     @Override
+    @OptionLog("操作详情")
     @PostMapping("/query")
     public ApiResponse queryEntity(@RequestBody CmsOption entity) {
         return super.queryEntity(entity);
     }
 
     @Override
+    @OptionLog("操作保存")
     @PostMapping("/save")
     public ApiResponse saveEntity(@RequestBody CmsOption entity) {
         return super.saveEntity(entity);
     }
 
     @Override
+    @OptionLog("操作删除")
     @PostMapping("/delete")
     public ApiResponse deleteEntity(@RequestBody CmsOption entity) {
         return super.deleteEntity(entity);
     }
 
     @Override
+    @OptionLog("操作查询")
     @PostMapping("/page-list")
     public ApiResponse pageList(@RequestBody PageQueryDto<CmsOption> pageQueryDto) {
         return super.pageList(pageQueryDto);
