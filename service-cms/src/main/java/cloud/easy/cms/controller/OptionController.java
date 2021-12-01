@@ -30,7 +30,6 @@ public class OptionController extends BaseController<CmsOption, ICmsOptionServic
     }
 
     @Override
-    @OptionLog("操作详情")
     @PostMapping("/query")
     public ApiResponse queryEntity(@RequestBody CmsOption entity) {
         return super.queryEntity(entity);
@@ -51,7 +50,6 @@ public class OptionController extends BaseController<CmsOption, ICmsOptionServic
     }
 
     @Override
-    @OptionLog("操作查询")
     @PostMapping("/page-list")
     public ApiResponse pageList(@RequestBody PageQueryDto<CmsOption> pageQueryDto) {
         return super.pageList(pageQueryDto);

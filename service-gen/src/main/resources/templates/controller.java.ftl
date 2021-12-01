@@ -30,7 +30,6 @@ public class ${table.controllerName} extends BaseController<${table.entityName},
     }
 
     @Override
-    @OptionLog("${table.comment!?replace('表','')}查询")
     @PostMapping("/query")
     public ApiResponse queryEntity(@RequestBody ${table.entityName} entity) {
         return super.queryEntity(entity);
@@ -51,7 +50,6 @@ public class ${table.controllerName} extends BaseController<${table.entityName},
     }
 
     @Override
-    @OptionLog("${table.comment!?replace('表','')}查询")
     @PostMapping("/page-list")
     public ApiResponse pageList(@RequestBody PageQueryDto<${table.entityName}> pageQueryDto) {
         return super.pageList(pageQueryDto);

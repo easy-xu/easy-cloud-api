@@ -41,7 +41,6 @@ public class AuthController extends BaseController<CmsAuth, ICmsAuthService> {
         super(service);
     }
 
-    @OptionLog("权限详情")
     @PostMapping("/query")
     public ApiResponse queryEntity(@RequestBody AuthDto authDto) {
         authDto = authService.getDetail(requireId(authDto));
@@ -63,7 +62,6 @@ public class AuthController extends BaseController<CmsAuth, ICmsAuthService> {
     }
 
     @Override
-    @OptionLog("权限查询")
     @PostMapping("/page-list")
     public ApiResponse pageList(@RequestBody PageQueryDto<CmsAuth> pageQueryDto) {
         return super.pageList(pageQueryDto);

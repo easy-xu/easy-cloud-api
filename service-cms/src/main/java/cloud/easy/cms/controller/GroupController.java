@@ -30,7 +30,6 @@ public class GroupController extends BaseController<CmsGroup, ICmsGroupService> 
     }
 
     @Override
-    @OptionLog("分组详情")
     @PostMapping("/query")
     public ApiResponse queryEntity(@RequestBody CmsGroup entity) {
         return super.queryEntity(entity);
@@ -51,7 +50,6 @@ public class GroupController extends BaseController<CmsGroup, ICmsGroupService> 
     }
 
     @Override
-    @OptionLog("分组查询")
     @PostMapping("/page-list")
     public ApiResponse pageList(@RequestBody PageQueryDto<CmsGroup> pageQueryDto) {
         return super.pageList(pageQueryDto);

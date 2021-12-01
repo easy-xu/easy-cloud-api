@@ -41,7 +41,6 @@ public class MenuController extends BaseController<CmsMenu, ICmsMenuService> {
     }
 
     @Override
-    @OptionLog("菜单详情")
     @PostMapping("/query")
     public ApiResponse queryEntity(@RequestBody CmsMenu entity) {
         return super.queryEntity(entity);
@@ -62,7 +61,6 @@ public class MenuController extends BaseController<CmsMenu, ICmsMenuService> {
     }
 
     @Override
-    @OptionLog("菜单查询")
     @PostMapping("/page-list")
     public ApiResponse pageList(@RequestBody PageQueryDto<CmsMenu> pageQueryDto) {
         return super.pageList(pageQueryDto);

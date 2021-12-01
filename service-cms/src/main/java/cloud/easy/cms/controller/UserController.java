@@ -39,7 +39,6 @@ public class UserController extends BaseController<CmsUser, ICmsUserService> {
         super(service);
     }
 
-    @OptionLog("用户详情")
     @PostMapping("/query")
     public ApiResponse queryEntity(@RequestBody UserDto userDto) {
         userDto = userService.getDetail(requireId(userDto));
@@ -61,7 +60,6 @@ public class UserController extends BaseController<CmsUser, ICmsUserService> {
     }
 
     @Override
-    @OptionLog("用户查询")
     @PostMapping("/page-list")
     public ApiResponse pageList(@RequestBody PageQueryDto<CmsUser> pageQueryDto) {
         return super.pageList(pageQueryDto);

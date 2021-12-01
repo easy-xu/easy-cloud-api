@@ -39,7 +39,6 @@ public class RoleController extends BaseController<CmsRole, ICmsRoleService> {
         super(service);
     }
 
-    @OptionLog("角色详情")
     @PostMapping("/query")
     public ApiResponse queryEntity(@RequestBody RoleDto roleDto) {
         roleDto = roleService.getDetail(requireId(roleDto));
@@ -61,7 +60,6 @@ public class RoleController extends BaseController<CmsRole, ICmsRoleService> {
     }
 
     @Override
-    @OptionLog("角色查询")
     @PostMapping("/page-list")
     public ApiResponse pageList(@RequestBody PageQueryDto<CmsRole> pageQueryDto) {
         return super.pageList(pageQueryDto);

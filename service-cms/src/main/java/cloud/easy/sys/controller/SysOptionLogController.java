@@ -30,7 +30,6 @@ public class SysOptionLogController extends BaseController<SysOptionLog, ISysOpt
     }
 
     @Override
-    @OptionLog("操作记录详情")
     @PostMapping("/query")
     public ApiResponse queryEntity(@RequestBody SysOptionLog entity) {
         return super.queryEntity(entity);
@@ -51,7 +50,6 @@ public class SysOptionLogController extends BaseController<SysOptionLog, ISysOpt
     }
 
     @Override
-    @OptionLog("操作记录查询")
     @PostMapping("/page-list")
     public ApiResponse pageList(@RequestBody PageQueryDto<SysOptionLog> pageQueryDto) {
         return super.pageList(pageQueryDto);
