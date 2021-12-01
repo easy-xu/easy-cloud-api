@@ -1,8 +1,7 @@
 package cloud.easy.cms.entity;
 
-import cloud.easy.base.entity.PrimaryDataEntity;
+import cloud.easy.base.entity.AuthDataEntity;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,7 +16,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @TableName("cms_option")
-public class CmsOption extends PrimaryDataEntity {
+public class CmsOption extends AuthDataEntity {
 
     private static final long serialVersionUID = 1L;
 

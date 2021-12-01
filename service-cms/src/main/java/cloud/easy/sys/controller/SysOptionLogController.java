@@ -3,6 +3,7 @@ package cloud.easy.sys.controller;
 import cloud.easy.entity.ApiResponse;
 import cloud.easy.base.controller.BaseController;
 import cloud.easy.base.dto.PageQueryDto;
+import cloud.easy.annotation.OptionLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +18,7 @@ import cloud.easy.sys.service.ISysOptionLogService;
  * </p>
  *
  * @author Mybatis Plus
- * @since 2021-11-30
+ * @since 2021-12-01
  */
 @RestController
 @RequestMapping("/api/sys/optionlog")
@@ -29,24 +30,28 @@ public class SysOptionLogController extends BaseController<SysOptionLog, ISysOpt
     }
 
     @Override
+    @OptionLog("操作记录查询")
     @PostMapping("/query")
     public ApiResponse queryEntity(@RequestBody SysOptionLog entity) {
         return super.queryEntity(entity);
     }
 
     @Override
+    @OptionLog("操作记录保存")
     @PostMapping("/save")
     public ApiResponse saveEntity(@RequestBody SysOptionLog entity) {
         return super.saveEntity(entity);
     }
 
     @Override
+    @OptionLog("操作记录删除")
     @PostMapping("/delete")
     public ApiResponse deleteEntity(@RequestBody SysOptionLog entity) {
         return super.deleteEntity(entity);
     }
 
     @Override
+    @OptionLog("操作记录查询")
     @PostMapping("/page-list")
     public ApiResponse pageList(@RequestBody PageQueryDto<SysOptionLog> pageQueryDto) {
         return super.pageList(pageQueryDto);

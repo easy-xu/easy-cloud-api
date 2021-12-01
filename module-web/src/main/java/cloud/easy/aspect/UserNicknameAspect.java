@@ -27,15 +27,15 @@ import java.util.Map;
 @Component
 public class UserNicknameAspect {
 
-    private static Map<String, String> nicknames = new HashMap<>();
+    private static final Map<String, String> NICKNAMES = new HashMap<>();
 
     @AfterReturning(value = "execution( * cloud.easy.*.mapper.*Mapper.selectById(..))", returning = "res")
     public Object afterReturning(Object res) {
         if (res instanceof BaseEntity) {
             queryNickname((BaseEntity) res);
         }
-        if (res instanceof List) {
-            for (Object item : (List) res) {
+        if (res instanceof List<?>) {
+            for (Object item : (List<?>) res) {
                 if (item instanceof BaseEntity) {
                     queryNickname((BaseEntity) item);
                 }
@@ -52,12 +52,12 @@ public class UserNicknameAspect {
     }
 
     private String getNickname(String userNo) {
-        if (nicknames.containsKey(userNo)) {
-            return nicknames.get(userNo);
+        if (NICKNAMES.containsKey(userNo)) {
+            return NICKNAMES.get(userNo);
         } else {
             BaseMapperCust baseMapperCust = SpringUtils.getBean(BaseMapperCust.class);
             String nickname = baseMapperCust.getNickname(userNo);
-            nicknames.put(userNo, nickname);
+            NICKNAMES.put(userNo, nickname);
             return nickname;
         }
     }

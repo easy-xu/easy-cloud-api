@@ -2,7 +2,7 @@ package cloud.easy.generator;
 
 
 import cloud.easy.base.entity.BaseEntity;
-import cloud.easy.base.entity.PrimaryDataEntity;
+import cloud.easy.base.entity.AuthDataEntity;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
 import com.baomidou.mybatisplus.generator.config.TemplateType;
@@ -34,7 +34,7 @@ public class CodeGenerator {
 
     }
 
-    private static void generate(String module, boolean primaryData, String... table) {
+    private static void generate(String module, boolean isAuthData, String... table) {
         String projectPath = System.getProperty("user.dir");
         String workPath = projectPath + "/generate";
 
@@ -59,8 +59,8 @@ public class CodeGenerator {
                             .columnNaming(NamingStrategy.underline_to_camel)
                             .enableLombok();
                     //设置父类
-                    if (primaryData) {
-                        entity.superClass(PrimaryDataEntity.class);
+                    if (isAuthData) {
+                        entity.superClass(AuthDataEntity.class);
                         entity.addSuperEntityColumns("id", "deleted", "group_id", "own_mode", "other_mode", "group_mode", "create_by", "create_time", "update_by", "update_time");
                     } else {
                         entity.superClass(BaseEntity.class);
@@ -69,6 +69,7 @@ public class CodeGenerator {
                 })
 
                 .injectionConfig(ic -> {
+                    ic.customMap(Collections.singletonMap("isAuthData", isAuthData));
                     ic.beforeOutputFile((tableInfo, configMap) -> {
                         Map<String, String> fileMap = new HashMap<>();
                         String mappingHyphen = (String) configMap.get("controllerMappingHyphen");

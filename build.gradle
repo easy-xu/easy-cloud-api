@@ -74,7 +74,8 @@ configure(serviceProjects + gatewayProjects) { service ->
 
     //SpringBoot方式打包
     apply plugin: 'org.springframework.boot'
-    jar.manifest.attributes(['Main-Class': 'cloud.easy.Application'])
+    //默认一个主类
+    //jar.manifest.attributes(['Main-Class': 'cloud.easy.Application'])
 
     dependencies {
         //微服务依赖

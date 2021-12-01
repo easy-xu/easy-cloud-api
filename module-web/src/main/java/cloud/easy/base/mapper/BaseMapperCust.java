@@ -1,6 +1,6 @@
 package cloud.easy.base.mapper;
 
-import cloud.easy.base.entity.PrimaryDataEntity;
+import cloud.easy.base.entity.AuthDataEntity;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -39,5 +39,5 @@ public interface BaseMapperCust {
      * @return 基础属性
      */
     @Select("SELECT t.id, t.deleted, t.group_id, t.own_mode, t.group_mode, t.other_mode, t.create_by, t.create_time, t.update_by, t.update_time FROM ${table} t WHERE t.id = #{id}")
-    PrimaryDataEntity getProperty(@Param("table") String table, @Param("id") Long id);
+    AuthDataEntity getProperty(@Param("table") String table, @Param("id") Long id);
 }

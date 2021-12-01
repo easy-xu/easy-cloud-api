@@ -1,6 +1,6 @@
 package cloud.easy.cms.entity;
 
-import cloud.easy.base.entity.PrimaryDataEntity;
+import cloud.easy.base.entity.AuthDataEntity;
 import cloud.easy.cms.enums.UserTypeEnum;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Getter;
@@ -17,7 +17,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @TableName("cms_user")
-public class CmsUser extends PrimaryDataEntity {
+public class CmsUser extends AuthDataEntity {
 
     private static final long serialVersionUID = 1L;
 

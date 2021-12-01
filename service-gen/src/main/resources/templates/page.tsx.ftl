@@ -27,18 +27,19 @@ const ${entity}: FC = (props: any) => {
       </#if>
       style: {
           search: { display: false },
-          table: { display: true },
-          add: { display: true },
-          edit: { display: true },
       },
-      rules: [{ required: false }],
     },
     </#list>
 
   ];
 
   return (
-    <CurdPage model="${package.ModuleName}" entity="${controllerMappingHyphen?replace('${package.ModuleName}-','')?replace('-','')}" pageTitle="${table.comment!?replace('表','页面')}" fields={fields} />
+    <CurdPage
+        model="${package.ModuleName}"
+        entity="${controllerMappingHyphen?replace('${package.ModuleName}-','')?replace('-','')}"
+        pageTitle="${table.comment!?replace('表','页面')}"
+        fields={fields}
+        isAuthData={${isAuthData?c}} />
   );
 };
 // @ts-ignore

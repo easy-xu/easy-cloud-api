@@ -1,6 +1,6 @@
 package cloud.easy.cms.entity;
 
-import cloud.easy.base.entity.PrimaryDataEntity;
+import cloud.easy.base.entity.AuthDataEntity;
 import cloud.easy.cms.enums.MenuTypeEnum;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Getter;
@@ -17,7 +17,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @TableName("cms_menu")
-public class CmsMenu extends PrimaryDataEntity {
+public class CmsMenu extends AuthDataEntity {
 
     private static final long serialVersionUID = 1L;
 

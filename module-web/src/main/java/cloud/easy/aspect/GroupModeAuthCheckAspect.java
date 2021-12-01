@@ -1,7 +1,7 @@
 package cloud.easy.aspect;
 
 
-import cloud.easy.base.entity.PrimaryDataEntity;
+import cloud.easy.base.entity.AuthDataEntity;
 import cloud.easy.base.enums.ModeEnum;
 import cloud.easy.constant.Messages;
 import cloud.easy.device.ApiHeaderHelper;
@@ -15,9 +15,6 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-
-import java.lang.reflect.Method;
-import java.lang.reflect.Type;
 
 /**
  * Title: GroupModeCheckAspect
@@ -39,11 +36,8 @@ public class GroupModeAuthCheckAspect {
      */
     @AfterReturning(value = "execution( * cloud.easy.*.mapper.*Mapper.selectById(..))", returning = "res")
     public Object afterSelect(Object res) {
-        if (res instanceof PrimaryDataEntity) {
-            PrimaryDataEntity entity = (PrimaryDataEntity) res;
-            if (needCheck() && !hasReadAuth(entity)) {
-                throw new RequestException(Messages.AUTH_ERROR);
-            }
+        if (needCheck() && !hasReadAuth(res)) {
+            throw new RequestException(Messages.AUTH_ERROR);
         }
         return res;
     }
@@ -68,25 +62,12 @@ public class GroupModeAuthCheckAspect {
         Object target = joinPoint.getTarget();
         Long entityId = getEntityId(joinPoint);
         BaseMapper<?> mapper = (BaseMapper<?>) target;
-        if (needCheck() && entityId != null && isPrimaryData(mapper)) {
-            PrimaryDataEntity entity = (PrimaryDataEntity) mapper.selectById(entityId);
+        if (needCheck() && entityId != null) {
+            Object entity = mapper.selectById(entityId);
             if (!hasWriteAuth(entity)) {
                 throw new RequestException(Messages.AUTH_ERROR);
             }
         }
-    }
-
-    private boolean isPrimaryData(BaseMapper<?> target) {
-        try {
-            Method method = target.getClass().getMethod("selectById", Long.class);
-            Type returnType = method.getAnnotatedReturnType().getType();
-            if (returnType instanceof PrimaryDataEntity) {
-                return true;
-            }
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        }
-        return false;
     }
 
     private Long getEntityId(JoinPoint joinPoint) {
@@ -102,8 +83,8 @@ public class GroupModeAuthCheckAspect {
         if (arg instanceof Long) {
             return (Long) arg;
         }
-        if (arg instanceof PrimaryDataEntity) {
-            return ((PrimaryDataEntity) arg).getId();
+        if (arg instanceof AuthDataEntity) {
+            return ((AuthDataEntity) arg).getId();
         }
         return null;
     }
@@ -120,7 +101,11 @@ public class GroupModeAuthCheckAspect {
         return header.isCheckAuth();
     }
 
-    private boolean hasReadAuth(PrimaryDataEntity entity) {
+    private boolean hasReadAuth(Object object) {
+        if (!(object instanceof AuthDataEntity)) {
+            return true;
+        }
+        AuthDataEntity entity = (AuthDataEntity) object;
         //全部可读
         ModeEnum otherMode = entity.getOtherMode();
         log.info("readAuth check -- otherMode:{}", otherMode);
@@ -152,7 +137,11 @@ public class GroupModeAuthCheckAspect {
         return userGroup != null && userGroup.equals(groupId) && !groupMode.equals(ModeEnum.NOT_READ);
     }
 
-    private boolean hasWriteAuth(PrimaryDataEntity entity) {
+    private boolean hasWriteAuth(Object object) {
+        if (!(object instanceof AuthDataEntity)) {
+            return true;
+        }
+        AuthDataEntity entity = (AuthDataEntity) object;
         //全部可写
         ModeEnum otherMode = entity.getOtherMode();
         log.info("writeAuth check -- otherMode:{}", otherMode);

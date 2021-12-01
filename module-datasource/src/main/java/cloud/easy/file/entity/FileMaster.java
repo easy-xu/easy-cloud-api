@@ -1,6 +1,6 @@
 package cloud.easy.file.entity;
 
-import cloud.easy.base.entity.PrimaryDataEntity;
+import cloud.easy.base.entity.AuthDataEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -14,7 +14,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class FileMaster extends PrimaryDataEntity {
+public class FileMaster extends AuthDataEntity {
 
     private static final long serialVersionUID = 1L;
 
