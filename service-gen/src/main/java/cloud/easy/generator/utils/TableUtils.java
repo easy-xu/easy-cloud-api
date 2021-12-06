@@ -27,6 +27,18 @@ public class TableUtils {
 
     }
 
+    public static String getModel(String tableName) {
+        return tableName.split("_")[0];
+    }
+
+    public static String getCode(String tableName) {
+        return tableName.replace("_", "").replace(getModel(tableName), "");
+    }
+
+    public static String getComment(String tableComment) {
+        return  tableComment.replace("表", "");
+    }
+
     public static String table2entity(String tableName) {
         String[] splits = tableName.split("_");
         for (int i = 0; i < splits.length; i++) {

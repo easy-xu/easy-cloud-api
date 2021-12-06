@@ -18,8 +18,16 @@ public class FieldConfig {
     private String pageType;
     private String comment;
     private String pkg;
-    private Map<String, String> codeMapping;
     private List<String> rules;
     private boolean search;
 
+    /**
+     * 固定映射
+     */
+    private Map<String, String> codeMapping;
+
+    /**
+     * 其他表映射
+     */
+    private MappingConfig tableMapping;
 }

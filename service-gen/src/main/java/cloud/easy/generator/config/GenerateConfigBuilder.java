@@ -40,10 +40,10 @@ public class GenerateConfigBuilder {
         builder.global = globalConfig;
         builder.fields = TableUtils.entityFields(tableInfo, globalConfig, custFieldConfig);
         String tableName = tableInfo.getName();
-        builder.model = tableName.split("_")[0];
+        builder.model = TableUtils.getModel(tableName);
         builder.entity = TableUtils.table2entity(tableName);
-        builder.code = tableName.replace("_", "").replace(builder.model, "");
-        builder.comment = tableInfo.getComment().replace("表", "");
+        builder.code = TableUtils.getCode(tableName);
+        builder.comment = TableUtils.getComment(tableInfo.getComment());
         return builder;
     }
 
