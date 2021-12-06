@@ -29,3 +29,4 @@ build/
 /.gradle
 /docker/*/Dockerfile
 /generate/
+/service-gen/generate/

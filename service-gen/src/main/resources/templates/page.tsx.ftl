@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import CurdPage, { IFields } from '@/components/CurdPage';
 
-const ${entity}: FC = (props: any) => {
+const ${page.name}: FC = (props: any) => {
   const fields: IFields = [
     {
       name: '主键',
@@ -14,34 +14,39 @@ const ${entity}: FC = (props: any) => {
         edit: { hidden: true },
       },
     },
-
-    <#list table.fields as field>
+    <#list fields as field>
     {
       name: '${field.comment}',
-      code: '${field.propertyName}',
-      <#if field.propertyType == 'String'>
-      type: 'string',
-      </#if>
-      <#if field.propertyType == 'Long'>
-      type: 'number',
+      code: '${field.name}',
+      type: '${field.pageType}',
+      <#if field.pageType == "select">
+      select: [
+        <#list field.codeMapping?keys as key>
+        { code: '${key}', name: '${field.codeMapping["${key}"]}' },
+        </#list>
+      ],
       </#if>
       style: {
-          search: { display: false },
+        search: { display: ${field.search?string('true', 'false')} },
       },
+      rules: [
+        <#list field.rules as rule>
+        ${rule},
+        </#list>
+      ]
     },
     </#list>
-
   ];
 
   return (
     <CurdPage
-        model="${package.ModuleName}"
-        entity="${controllerMappingHyphen?replace('${package.ModuleName}-','')?replace('-','')}"
-        pageTitle="${table.comment!?replace('表','页面')}"
+        model="${model}"
+        entity="${code}"
+        pageTitle="${comment!}页面"
         fields={fields}
         isAuthData={${isAuthData?c}} />
   );
 };
 // @ts-ignore
-Option.title = '${table.comment!?replace('表','页面')}';
-export default ${entity};
+${page.name}.title = '${comment!}页面';
+export default ${page.name};

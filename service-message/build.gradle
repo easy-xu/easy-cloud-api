@@ -1,0 +1,5 @@
+dependencies {
+    implementation project(':base-core')
+    implementation project(':module-web')
+    implementation project(':module-datasource')
+}

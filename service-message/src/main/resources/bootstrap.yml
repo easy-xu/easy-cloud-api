@@ -1,0 +1,16 @@
+server:
+  port: 8002
+# Spring
+spring:
+  application:
+    # 应用名称
+    name: service-message
+  profiles:
+    # 环境配置
+    active: dev
+
+
+
+
+
+

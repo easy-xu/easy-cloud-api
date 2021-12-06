@@ -11,4 +11,6 @@ include 'service-knowledge'
 include 'service-questionnaire'
 include 'service-wx'
 include 'cloud-gateway'
+include 'service-message'
+include 'service-job'
 

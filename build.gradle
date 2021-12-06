@@ -37,17 +37,24 @@ allprojects {
     dependencies {
         //基础依赖
         implementation 'org.apache.commons:commons-lang3:3.12.0'
-        compileOnly 'org.projectlombok:lombok:1.18.22'
+        implementation 'org.projectlombok:lombok:1.18.22'
         annotationProcessor 'org.projectlombok:lombok:1.18.22'
-        implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.4'
-
+        implementation 'com.alibaba:fastjson:1.2.78'
         //持久层依赖
         implementation 'mysql:mysql-connector-java:8.0.25'
         implementation 'com.baomidou:mybatis-plus-boot-starter:3.4.3.4'
-
         //服务层依赖
-        implementation "org.springframework.boot:spring-boot-starter-test:2.5.6"
-        implementation "org.springframework.boot:spring-boot-starter-aop:2.5.6"
+        implementation 'org.springframework.boot:spring-boot-starter-test:2.6.1'
+        implementation 'org.springframework.boot:spring-boot-starter-aop:2.6.1'
+        //配置文件加密
+        implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.4'
+        //接口文档
+        implementation group: 'io.springfox', name: 'springfox-swagger2', version: '3.0.0'
+        implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '3.0.0'
+    }
+
+    test {
+        useJUnitPlatform()
     }
 }
 

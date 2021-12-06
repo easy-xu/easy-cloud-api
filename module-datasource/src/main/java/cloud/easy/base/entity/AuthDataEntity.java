@@ -17,7 +17,7 @@ import lombok.EqualsAndHashCode;
 public class AuthDataEntity extends BaseEntity {
 
     /**
-     * 删除标志（0正常 1停用）
+     * 删除标志(0:正常, 1:停用)
      */
     private DeletedEnum deleted;
 
@@ -27,17 +27,17 @@ public class AuthDataEntity extends BaseEntity {
     private Long groupId;
 
     /**
-     * 所有者权限（-不可读不可写 r可读 w可读可写）
+     * 所有者权限(-:不可读不可写, r:可读, w:可读可写)
      */
     private ModeEnum ownMode;
 
     /**
-     * 同分组权限（-不可读不可写 r可读 w可读可写）
+     * 同分组权限(-:不可读不可写, r:可读, w:可读可写)
      */
     private ModeEnum groupMode;
 
     /**
-     * 其他分组权限（-不可读不可写 r可读 w可读可写）
+     * 其他分组权限(-:不可读不可写, r:可读, w:可读可写)
      */
     private ModeEnum otherMode;
 

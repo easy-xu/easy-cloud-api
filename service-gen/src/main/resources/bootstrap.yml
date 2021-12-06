@@ -1,0 +1,16 @@
+server:
+  port: 8004
+# Spring
+spring:
+  application:
+    # 应用名称
+    name: service-gen
+  profiles:
+    # 环境配置
+    active: dev
+
+
+
+
+
+

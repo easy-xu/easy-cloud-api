@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
  */
 public enum DeletedEnum {
     /**
-     * 删除标志（0正常 1停用）
+     * 删除标志(0:正常, 1:停用)
      */
     DELETED("1", "停用"),
     NOT_DELETED("0", "正常");
