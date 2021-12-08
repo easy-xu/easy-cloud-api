@@ -1,4 +1,4 @@
-package cloud.easy.job.controller;
+package cloud.easy.cms.controller;
 
 import cloud.easy.entity.ApiResponse;
 import cloud.easy.base.dto.PrimaryKeyDto;
@@ -7,23 +7,23 @@ import cloud.easy.annotation.OptionLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.Api;
-import cloud.easy.job.entity.JobConfig;
-import cloud.easy.job.service.IJobConfigService;
+import cloud.easy.cms.entity.CmsOption;
+import cloud.easy.cms.service.ICmsOptionService;
 import cloud.easy.base.controller.BaseController;
 
 /**
- * 任务控制器
+ * 操作类型控制器
  *
  * @author generator
  * @since 2021-12-08
  */
 @RestController
-@RequestMapping("/api/job/config")
-@Api(tags = "任务接口")
-public class JobConfigController extends BaseController<JobConfig, IJobConfigService> {
+@RequestMapping("/api/cms/option")
+@Api(tags = "操作类型接口")
+public class CmsOptionController extends BaseController<CmsOption, ICmsOptionService> {
 
     @Autowired
-    public JobConfigController(IJobConfigService service) {
+    public CmsOptionController(ICmsOptionService service) {
         super(service);
     }
 
@@ -34,14 +34,14 @@ public class JobConfigController extends BaseController<JobConfig, IJobConfigSer
     }
 
     @Override
-    @OptionLog("任务保存")
+    @OptionLog("操作类型保存")
     @PostMapping("/save")
-    public ApiResponse saveEntity(@RequestBody JobConfig entity) {
+    public ApiResponse saveEntity(@RequestBody CmsOption entity) {
         return super.saveEntity(entity);
     }
 
     @Override
-    @OptionLog("任务删除")
+    @OptionLog("操作类型删除")
     @PostMapping("/delete")
     public ApiResponse deleteEntityById(@RequestBody PrimaryKeyDto primaryKey) {
         return super.deleteEntityById(primaryKey);
@@ -49,13 +49,13 @@ public class JobConfigController extends BaseController<JobConfig, IJobConfigSer
 
     @Override
     @PostMapping("/page-list")
-    public ApiResponse pageList(@RequestBody PageQueryDto<JobConfig> pageQueryDto) {
+    public ApiResponse pageList(@RequestBody PageQueryDto<CmsOption> pageQueryDto) {
         return super.pageList(pageQueryDto);
     }
 
     @Override
     @PostMapping("/list")
-    public ApiResponse listEntity(@RequestBody JobConfig entity) {
+    public ApiResponse listEntity(@RequestBody CmsOption entity) {
         return super.listEntity(entity);
     }
 

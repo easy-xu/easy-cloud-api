@@ -5,13 +5,12 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import java.time.LocalDateTime;
 import cloud.easy.base.entity.BaseEntity;
 
 /**
  * 操作记录实体类
  *
- * @author xu honglin
+ * @author generator
  * @since 2021-12-08
  */
 @Data

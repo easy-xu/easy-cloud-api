@@ -1,12 +1,13 @@
 package cloud.easy.generator.config;
 
-import cloud.easy.base.entity.AuthDataEntity;
+import cloud.easy.base.entity.AuthEntity;
 import cloud.easy.generator.config.db.TableInfo;
 import cloud.easy.generator.config.field.FieldConfig;
 import cloud.easy.generator.config.java.*;
 import cloud.easy.generator.config.react.PageConfig;
 import cloud.easy.generator.utils.TableUtils;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,16 +20,16 @@ import java.util.Map;
  * @date 2021/12/6 10:13
  */
 @Getter
+@Setter
 public class GenerateConfigBuilder {
     private  List<GenerateConfig> configs;
-    protected TableInfo tableInfo;
-    protected GlobalConfig global;
-    protected String model;
-    protected String entity;
-    protected String code;
-    protected String comment;
+    private TableInfo tableInfo;
+    private GlobalConfig global;
+    private String model;
+    private String entity;
+    private String code;
+    private String comment;
     private List<FieldConfig> fields;
-    private List<FieldConfig> superFields;
     private boolean authData = false;
 
     private GenerateConfigBuilder() {
@@ -40,7 +41,6 @@ public class GenerateConfigBuilder {
         builder.tableInfo = tableInfo;
         builder.global = globalConfig;
         builder.fields = new ArrayList<>();
-        builder.superFields = new ArrayList<>();
         TableUtils.entityFields(builder.fields, tableInfo, globalConfig, custFieldConfig);
         String tableName = tableInfo.getName();
         builder.model = TableUtils.getModel(tableName);
@@ -53,7 +53,7 @@ public class GenerateConfigBuilder {
     public GenerateConfig buildEntity(){
         EntityConfig config = new EntityConfig(global.getBasePackage(), model, entity);
         Class<?> entitySuperClass = global.getEntitySuperClass();
-        if (entitySuperClass == AuthDataEntity.class){
+        if (entitySuperClass == AuthEntity.class){
             authData = true;
         }
         config.superClass(entitySuperClass);
@@ -89,7 +89,7 @@ public class GenerateConfigBuilder {
         return config;
     }
     public GenerateConfig buildPage(){
-        PageConfig config = new PageConfig(model,code, entity);
+        PageConfig config = new PageConfig(model,code, entity, getGlobal().getMenuParent(), getGlobal().getMenuCode());
         configs.add(config);
         return config;
     }

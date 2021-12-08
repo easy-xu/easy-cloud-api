@@ -5,20 +5,20 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import cloud.easy.base.entity.AuthEntity;
 import java.time.LocalDateTime;
-import cloud.easy.base.entity.AuthDataEntity;
 
 /**
  * 任务实体类
  *
- * @author xu honglin
+ * @author generator
  * @since 2021-12-08
  */
 @Data
 @TableName("job_config")
 @ApiModel(value = "JobConfig", description = "任务实体类")
 @EqualsAndHashCode(callSuper = true)
-public class JobConfig extends AuthDataEntity {
+public class JobConfig extends AuthEntity {
 
     private static final long serialVersionUID = 1L;
 

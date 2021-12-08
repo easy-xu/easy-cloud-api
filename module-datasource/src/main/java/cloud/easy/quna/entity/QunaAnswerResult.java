@@ -1,6 +1,6 @@
 package cloud.easy.quna.entity;
 
-import cloud.easy.base.entity.AuthDataEntity;
+import cloud.easy.base.entity.AuthEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -14,7 +14,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class QunaAnswerResult extends AuthDataEntity {
+public class QunaAnswerResult extends AuthEntity {
 
     private static final long serialVersionUID = 1L;
 

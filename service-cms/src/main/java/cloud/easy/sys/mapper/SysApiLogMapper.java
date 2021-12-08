@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 /**
  * 接口日志查询类
  *
- * @author xu honglin
+ * @author generator
  * @since 2021-12-08
  */
 @Mapper

@@ -1,6 +1,6 @@
 package cloud.easy.generator;
 
-import cloud.easy.base.entity.AuthDataEntity;
+import cloud.easy.base.entity.AuthEntity;
 import cloud.easy.base.entity.BaseEntity;
 import cloud.easy.generator.config.GlobalConfig;
 import cloud.easy.generator.config.field.FieldConfig;
@@ -31,9 +31,28 @@ class GenerateTest {
 
     @Test
     void all() throws IOException, TemplateException {
+        cms();
         job();
         sys();
     }
+
+    @Test
+    void cms() throws IOException, TemplateException {
+        HashMap<String, FieldConfig> custFiled = new HashMap<>();
+        GlobalConfig globalConfig = GlobalConfig.defaultConfig();
+        globalConfig.setJavaPlace(javaProject + "\\service-cms");
+        globalConfig.setReactPlace(reactProject);
+        globalConfig.setMenuParent("manage");
+        globalConfig.setEntitySuperClass(AuthEntity.class);
+
+        FieldConfig remark = new FieldConfig();
+        remark.setStyle(FieldStyleConfig.detailOnlyConfig());
+        custFiled.put("remark", remark);
+
+        service.generate(globalConfig, "cms_option", custFiled);
+        service.generate(globalConfig, "cms_group", custFiled);
+    }
+
 
     @Test
     void sys() throws IOException, TemplateException {
@@ -41,6 +60,7 @@ class GenerateTest {
         GlobalConfig globalConfig = GlobalConfig.defaultConfig();
         globalConfig.setJavaPlace(javaProject + "\\service-cms");
         globalConfig.setReactPlace(reactProject);
+        globalConfig.setMenuParent("system");
         globalConfig.setAdd(false);
         globalConfig.setEdit(false);
         globalConfig.setDelete(false);
@@ -56,7 +76,7 @@ class GenerateTest {
         custFiled.put("device_no", deviceNo);
         //sys_api_log
         service.generate(globalConfig, "sys_api_log", custFiled);
-        //任务日志表
+        //sys_option_log
         service.generate( globalConfig,"sys_option_log", custFiled);
     }
 
@@ -67,7 +87,7 @@ class GenerateTest {
         globalConfig.setJavaPlace(javaProject + "\\service-job");
         globalConfig.setReactPlace(reactProject);
         //任务配置表
-        globalConfig.setEntitySuperClass(AuthDataEntity.class);
+        globalConfig.setEntitySuperClass(AuthEntity.class);
         //cron不作为查询条件
         FieldConfig cron = new FieldConfig();
         cron.setStyle(FieldStyleConfig.noSearchConfig());

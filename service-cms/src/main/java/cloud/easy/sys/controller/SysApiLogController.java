@@ -14,7 +14,7 @@ import cloud.easy.base.controller.BaseController;
 /**
  * 接口日志控制器
  *
- * @author xu honglin
+ * @author generator
  * @since 2021-12-08
  */
 @RestController

@@ -1,7 +1,7 @@
 package cloud.easy.base.utils;
 
 import cloud.easy.base.dto.PrimaryKeyDto;
-import cloud.easy.base.entity.AuthDataEntity;
+import cloud.easy.base.entity.AuthEntity;
 import cloud.easy.base.entity.BaseEntity;
 import cloud.easy.constant.Messages;
 import cloud.easy.device.ApiHeaderHelper;
@@ -29,7 +29,7 @@ public class BaseUtil {
         if (header == null) {
             return queryWrapper;
         }
-        if (!(queryWrapper.getEntity() instanceof AuthDataEntity)){
+        if (!(queryWrapper.getEntity() instanceof AuthEntity)){
             return queryWrapper;
         }
 

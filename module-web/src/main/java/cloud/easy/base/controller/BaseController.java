@@ -4,7 +4,7 @@ import cloud.easy.base.dto.BatchKeyDto;
 import cloud.easy.base.dto.PageDto;
 import cloud.easy.base.dto.PageQueryDto;
 import cloud.easy.base.dto.PrimaryKeyDto;
-import cloud.easy.base.entity.AuthDataEntity;
+import cloud.easy.base.entity.AuthEntity;
 import cloud.easy.base.entity.BaseEntity;
 import cloud.easy.base.enums.DeletedEnum;
 import cloud.easy.constant.Messages;
@@ -98,8 +98,8 @@ public class BaseController<T extends BaseEntity, S extends IService<T>> {
 
     public ApiResponse listEntity(@RequestBody T entity) {
         //查询条件
-        if (entity instanceof AuthDataEntity) {
-            ((AuthDataEntity) entity).setDeleted(DeletedEnum.NOT_DELETED);
+        if (entity instanceof AuthEntity) {
+            ((AuthEntity) entity).setDeleted(DeletedEnum.NOT_DELETED);
         }
         QueryWrapper<T> queryWrapper = Wrappers.query(notNull(entity));
         List<T> list = service.list(groupModeAuthQuery(queryWrapper));

@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 /**
  * 接口日志业务实现类
  *
- * @author xu honglin
+ * @author generator
  * @since 2021-12-08
  */
 @Service

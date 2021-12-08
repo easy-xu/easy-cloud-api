@@ -58,6 +58,15 @@ create table cms_group
 ) engine = innodb
   auto_increment = 1 comment = '分组表';
 
+-- ----------------------------
+-- Records of cms_group
+-- ----------------------------
+INSERT INTO `cloud`.`cms_group`(`id`, `name`, `code`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (1, '系统分组', 'system', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-15 21:29:31', 'U20211018000201', '2021-10-18 13:37:48', NULL);
+INSERT INTO `cloud`.`cms_group`(`id`, `name`, `code`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (2, '默认分组', 'default', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-16 21:48:15', 'U20211018000201', '2021-10-18 13:38:02', NULL);
+INSERT INTO `cloud`.`cms_group`(`id`, `name`, `code`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (3, '开发分组', 'dev', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-16 21:48:28', 'U20211018000201', '2021-10-18 13:38:16', NULL);
+INSERT INTO `cloud`.`cms_group`(`id`, `name`, `code`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (4, '运维分组', 'ops', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-18 13:18:19', 'U20211018000201', '2021-10-18 13:38:31', NULL);
+INSERT INTO `cloud`.`cms_group`(`id`, `name`, `code`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (5, '演示分组', 'demo', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-11-29 17:06:04', 'U20211018000202', '2021-11-29 17:06:04', NULL);
+
 
 -- ----------------------------
 -- 角色主表
@@ -133,6 +142,14 @@ create table cms_option
     primary key (id)
 ) engine = innodb
   auto_increment = 1 comment = '操作类型表';
+
+-- ----------------------------
+-- Records of cms_option
+-- ----------------------------
+INSERT INTO `cloud`.`cms_option`(`id`, `name`, `code`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (1, '查询', 'query', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-14 16:05:53', 'U20211018000106', '2021-10-18 17:18:39', NULL);
+INSERT INTO `cloud`.`cms_option`(`id`, `name`, `code`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (2, '新增', 'add', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-14 16:06:31', 'U20211017000100', '2021-10-18 10:43:30', NULL);
+INSERT INTO `cloud`.`cms_option`(`id`, `name`, `code`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (3, '修改', 'edit', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-14 16:06:42', 'U20211013000001', '2021-10-14 16:06:42', NULL);
+INSERT INTO `cloud`.`cms_option`(`id`, `name`, `code`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (4, '删除', 'delete', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-14 16:06:54', 'U20211013000001', '2021-10-14 16:06:54', NULL);
 
 -- ----------------------------
 -- 权限表
@@ -411,13 +428,6 @@ INSERT INTO `cms_auth_option` VALUES (18, 3, 1, 'U20211013000001', '2021-10-17 1
 INSERT INTO `cms_auth_option` VALUES (19, 3, 2, 'U20211013000001', '2021-10-17 16:05:43', 'U20211013000001', '2021-10-17 16:05:43');
 INSERT INTO `cms_auth_option` VALUES (20, 3, 3, 'U20211013000001', '2021-10-17 16:05:43', 'U20211013000001', '2021-10-17 16:05:43');
 
--- ----------------------------
--- Records of cms_group
--- ----------------------------
-INSERT INTO `cms_group` VALUES (1, '系统分组', 'system', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-15 21:29:31', 'U20211018000201', '2021-10-18 13:37:48', NULL);
-INSERT INTO `cms_group` VALUES (2, '默认分组', 'default', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-16 21:48:15', 'U20211018000201', '2021-10-18 13:38:02', NULL);
-INSERT INTO `cms_group` VALUES (3, '开发分组', 'dev', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-16 21:48:28', 'U20211018000201', '2021-10-18 13:38:16', NULL);
-INSERT INTO `cms_group` VALUES (4, '运维分组', 'ops', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-18 13:18:19', 'U20211018000201', '2021-10-18 13:38:31', NULL);
 
 -- ----------------------------
 -- Records of cms_menu
@@ -432,13 +442,6 @@ INSERT INTO `cms_menu` VALUES (7, '操作管理', 'option', 1, 0, NULL, 'M', '0'
 INSERT INTO `cms_menu` VALUES (8, '权限配置', 'auth', 1, 2, NULL, 'M', '0', '', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-14 16:09:12', 'U20211013000001', '2021-10-15 21:06:49', NULL);
 INSERT INTO `cms_menu` VALUES (9, '分组管理', 'group', 1, 4, NULL, 'M', '0', '', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-15 21:20:10', 'U20211013000001', '2021-10-15 21:20:46', NULL);
 
--- ----------------------------
--- Records of cms_option
--- ----------------------------
-INSERT INTO `cms_option` VALUES (1, '查询', 'query', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-14 16:05:53', 'U20211018000106', '2021-10-18 17:18:39', NULL);
-INSERT INTO `cms_option` VALUES (2, '新增', 'add', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-14 16:06:31', 'U20211017000100', '2021-10-18 10:43:30', NULL);
-INSERT INTO `cms_option` VALUES (3, '修改', 'edit', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-14 16:06:42', 'U20211013000001', '2021-10-14 16:06:42', NULL);
-INSERT INTO `cms_option` VALUES (4, '删除', 'delete', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-14 16:06:54', 'U20211013000001', '2021-10-14 16:06:54', NULL);
 
 -- ----------------------------
 -- Records of cms_role

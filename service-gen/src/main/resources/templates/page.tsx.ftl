@@ -1,5 +1,8 @@
 import { FC, useState } from 'react';
 import CurdPage, { IFields } from '@/components/CurdPage';
+<#if entity.superClassName?? >
+import ${entity.superClassName}Page from '@/components/${entity.superClassName}Page';
+</#if>
 import { useRequest } from 'umi';
 import { baseList } from '@/services/base';
 
@@ -55,13 +58,17 @@ const ${page.name}: FC = (props: any) => {
   ];
 
   return (
+    <#if entity.superClassName?? >
+    <${entity.superClassName}Page
+    <#else>
     <CurdPage
+    </#if>
         model="${model}"
         entity="${code}"
         pageTitle="${comment!}页面"
         fields={fields}
         option={[${global.add?string('"add",', '')} ${global.edit?string('"edit",', '')} ${global.delete?string('"delete",', '')}]}
-        isAuthData={${isAuthData?c}} />
+    />
   );
 };
 // @ts-ignore

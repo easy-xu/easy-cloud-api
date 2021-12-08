@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 /**
  * 任务日志业务接口
  *
- * @author xu honglin
+ * @author generator
  * @since 2021-12-08
  */
 public interface IJobLogService extends IService<JobLog> {

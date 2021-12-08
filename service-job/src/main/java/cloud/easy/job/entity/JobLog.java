@@ -11,7 +11,7 @@ import cloud.easy.base.entity.BaseEntity;
 /**
  * 任务日志实体类
  *
- * @author xu honglin
+ * @author generator
  * @since 2021-12-08
  */
 @Data

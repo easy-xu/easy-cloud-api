@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 /**
  * 操作记录业务实现类
  *
- * @author xu honglin
+ * @author generator
  * @since 2021-12-08
  */
 @Service

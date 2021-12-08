@@ -1,7 +1,7 @@
 package cloud.easy.aspect;
 
 
-import cloud.easy.base.entity.AuthDataEntity;
+import cloud.easy.base.entity.AuthEntity;
 import cloud.easy.base.enums.ModeEnum;
 import cloud.easy.constant.Messages;
 import cloud.easy.device.ApiHeaderHelper;
@@ -83,8 +83,8 @@ public class GroupModeAuthCheckAspect {
         if (arg instanceof Long) {
             return (Long) arg;
         }
-        if (arg instanceof AuthDataEntity) {
-            return ((AuthDataEntity) arg).getId();
+        if (arg instanceof AuthEntity) {
+            return ((AuthEntity) arg).getId();
         }
         return null;
     }
@@ -102,10 +102,10 @@ public class GroupModeAuthCheckAspect {
     }
 
     private boolean hasReadAuth(Object object) {
-        if (!(object instanceof AuthDataEntity)) {
+        if (!(object instanceof AuthEntity)) {
             return true;
         }
-        AuthDataEntity entity = (AuthDataEntity) object;
+        AuthEntity entity = (AuthEntity) object;
         //全部可读
         ModeEnum otherMode = entity.getOtherMode();
         log.info("readAuth check -- otherMode:{}", otherMode);
@@ -138,10 +138,10 @@ public class GroupModeAuthCheckAspect {
     }
 
     private boolean hasWriteAuth(Object object) {
-        if (!(object instanceof AuthDataEntity)) {
+        if (!(object instanceof AuthEntity)) {
             return true;
         }
-        AuthDataEntity entity = (AuthDataEntity) object;
+        AuthEntity entity = (AuthEntity) object;
         //全部可写
         ModeEnum otherMode = entity.getOtherMode();
         log.info("writeAuth check -- otherMode:{}", otherMode);

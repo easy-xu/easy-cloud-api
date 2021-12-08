@@ -5,7 +5,6 @@ import cloud.easy.generator.config.db.ColumnInfo;
 import cloud.easy.generator.config.db.TableInfo;
 import cloud.easy.generator.config.field.FieldConfig;
 import cloud.easy.generator.config.field.FieldStyleConfig;
-import cloud.easy.generator.config.field.MappingConfig;
 import cloud.easy.generator.convert.ColumnType;
 import cloud.easy.generator.convert.DataTypeConvertor;
 import cloud.easy.utils.BeanUtils;
@@ -75,14 +74,11 @@ public class TableUtils {
             FieldConfig custField = custFieldConfig == null ? null : custFieldConfig.get(columnName);
             FieldConfig fieldConfig = getFieldConfig(globalConfig, column, custField);
             String fieldName = fieldConfig.getName();
-            //字段配置放在到不同集合
-            if (superFieldNames.contains(fieldName)) {
-                fieldConfig.setSubPage("property");
-            } else {
+            //父类字段已经在页面中固定设置
+            if (!superFieldNames.contains(fieldName)) {
                 fieldConfig.setSubPage("base");
+                fields.add(fieldConfig);
             }
-            fields.add(fieldConfig);
-
         }
     }
 
@@ -131,14 +127,6 @@ public class TableUtils {
             field.setStyle(FieldStyleConfig.searchConfig());
             return;
         }
-        if (field.getName().startsWith("create")) {
-            field.setStyle(FieldStyleConfig.createPropertyConfig());
-            return;
-        }
-        if (field.getName().startsWith("update")) {
-            field.setStyle(FieldStyleConfig.updatePropertyConfig());
-            return;
-        }
         field.setStyle(FieldStyleConfig.noSearchConfig());
     }
 
@@ -164,12 +152,6 @@ public class TableUtils {
     }
 
     private static void handleComment(FieldConfig field, String comment) {
-        //分组字段
-        if("groupId".equals(field.getName())){
-            field.setPageType("select");
-            field.setTableMapping(new MappingConfig("cms_group","id", "name") );
-            return;
-        }
         String commentConfig = RegUtils.findAny(comment, "\\(.*\\)");
         if (commentConfig == null) {
             return;

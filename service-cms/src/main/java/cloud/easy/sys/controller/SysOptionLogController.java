@@ -14,7 +14,7 @@ import cloud.easy.base.controller.BaseController;
 /**
  * 操作记录控制器
  *
- * @author xu honglin
+ * @author generator
  * @since 2021-12-08
  */
 @RestController

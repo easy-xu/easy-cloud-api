@@ -29,7 +29,6 @@ public class GlobalConfig {
     private String javaPlace;
     private String reactPlace;
 
-
     private Class<?> entitySuperClass;
     private Class<?> controllerSuperClass;
     private Class<?> serviceSuperClass;
@@ -45,6 +44,9 @@ public class GlobalConfig {
     private boolean pageList = true;
     private boolean list = true;
 
+    private String menuParent;
+    private String menuCode;
+
     /**
      * 字段映射 当前表名.字段=从表名(字段:字段)
      */
@@ -57,7 +59,7 @@ public class GlobalConfig {
         String workplace = projectPath + File.separator + "generate";
         GlobalConfig config = new GlobalConfig();
         config.setBasePackage("cloud.easy");
-        config.setAuthor("xu honglin");
+        config.setAuthor("generator");
         config.setSince(DateTimeUtils.getDate());
         config.setJavaPlace(workplace + File.separator + "java");
         config.setReactPlace(workplace + File.separator + "react");

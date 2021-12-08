@@ -4,8 +4,8 @@ import cloud.easy.exception.SystemErrorException;
 import cloud.easy.generator.config.GenerateConfig;
 import cloud.easy.generator.config.GenerateConfigBuilder;
 import cloud.easy.generator.config.GlobalConfig;
-import cloud.easy.generator.config.field.FieldConfig;
 import cloud.easy.generator.config.db.TableInfo;
+import cloud.easy.generator.config.field.FieldConfig;
 import cloud.easy.generator.config.java.JavaFileConfig;
 import cloud.easy.generator.config.react.PageConfig;
 import cloud.easy.utils.FileUtils;
@@ -48,13 +48,18 @@ public class GenerateService {
     public void generate(GlobalConfig globalConfig, String tableName) throws IOException, TemplateException {
         generate(globalConfig, tableName, null);
     }
-    public void generate(GlobalConfig globalConfig, String tableName, Map<String, FieldConfig> custFieldConfig) throws IOException, TemplateException {
 
+    public void generate(GlobalConfig globalConfig, String tableName, Map<String, FieldConfig> custFieldConfig) throws IOException, TemplateException {
         TableInfo tableInfo = tableInfoService.queryTableInfo(tableName);
         GenerateConfigBuilder configBuilder = GenerateConfigBuilder.newConfig(tableInfo, globalConfig, custFieldConfig);
+        generate(configBuilder);
+    }
+
+    public void generate(GenerateConfigBuilder configBuilder) throws IOException, TemplateException {
+        GlobalConfig global = configBuilder.getGlobal();
         Map<String, Object> root = new HashMap<>();
-        root.put("global", globalConfig);
-        root.put("table", tableInfo);
+        root.put("global", global);
+        root.put("table", configBuilder.getTableInfo());
         root.put("entity", configBuilder.buildEntity());
         root.put("controller", configBuilder.buildController());
         root.put("service", configBuilder.buildService());
@@ -62,7 +67,6 @@ public class GenerateService {
         root.put("mapper", configBuilder.buildMapper());
         root.put("page", configBuilder.buildPage());
         root.put("fields", configBuilder.getFields());
-        root.put("superFields", configBuilder.getSuperFields());
         root.put("code", configBuilder.getCode());
         root.put("comment", configBuilder.getComment());
         root.put("model", configBuilder.getModel());
@@ -70,21 +74,21 @@ public class GenerateService {
 
         //逐一生成文件
         List<GenerateConfig> configs = configBuilder.getConfigs();
-        for (GenerateConfig generateConfig: configs) {
-            process(globalConfig, generateConfig, root);
+        for (GenerateConfig config : configs) {
+            process(global, config, root);
         }
     }
 
     private void process(GlobalConfig global, GenerateConfig config, Map<String, Object> root) throws IOException, TemplateException {
         Template temp = cfg.getTemplate(config.template());
         String workplace = null;
-        if (config instanceof PageConfig && global.getReactPlace() != null){
+        if (config instanceof PageConfig && global.getReactPlace() != null) {
             workplace = global.getReactPlace();
         }
-        if (config instanceof JavaFileConfig && global.getJavaPlace() != null){
+        if (config instanceof JavaFileConfig && global.getJavaPlace() != null) {
             workplace = global.getJavaPlace();
         }
-        if (workplace == null){
+        if (workplace == null) {
             throw new SystemErrorException("未指定生成目录");
         }
         String outPath = Paths.get(workplace, config.outPath()).toString();

@@ -4,13 +4,12 @@ import cloud.easy.cms.entity.CmsGroup;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
- * <p>
- * 分组表 服务类
- * </p>
+ * 分组业务接口
  *
- * @author Mybatis Plus
- * @since 2021-11-29
+ * @author generator
+ * @since 2021-12-08
  */
 public interface ICmsGroupService extends IService<CmsGroup> {
 
 }
+

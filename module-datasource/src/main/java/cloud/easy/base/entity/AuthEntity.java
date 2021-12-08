@@ -15,7 +15,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class AuthDataEntity extends BaseEntity {
+public class AuthEntity extends BaseEntity {
 
     /**
      * 逻辑删除(0:正常, 1:停用)
