@@ -11,11 +11,11 @@ create table cms_user
     device_no    varchar(60) comment '设备编号',
     password     varchar(100) comment '密码',
     nickname     varchar(30) comment '用户昵称',
-    type         varchar(2) default '00' comment '用户类型（00访客）',
+    type         varchar(2) default '00' comment '用户类型(00访客)',
     token        varchar(300) comment '认证',
     email        varchar(50) comment '用户邮箱',
     phone_number varchar(11) comment '手机号码',
-    sex          char(1)    default '2' comment '用户性别（0男 1女 2未知）',
+    sex          char(1)    default '2' comment '用户性别(0男 1女 2未知)',
     avatar       varchar(100) comment '头像地址',
     default_group_id     bigint(20) comment '用户默认分组',
     deleted      char(1)    default '0' comment '逻辑删除(0:正常, 1:停用)',
@@ -92,20 +92,20 @@ create table cms_role
   auto_increment = 1 comment = '角色信息表';
 
 -- ----------------------------
--- 菜单权限表
+-- 菜单表
 -- ----------------------------
 drop table if exists cms_menu;
 create table cms_menu
 (
     id          bigint(20)  not null auto_increment comment '菜单ID',
     name        varchar(50) not null comment '菜单名称',
-    code        varchar(200) default '' comment '路径字符',
-    parent_id   bigint(20)   default 0 comment '父菜单ID',
+    code        varchar(200) not null comment '路径字符',
+    parent_id   bigint(20)   not null comment '父菜单ID',
     order_num   int(4)       default 0 comment '显示顺序',
-    component   varchar(255) default null comment '组件路径',
-    type        char(1)      default '' comment '菜单类型（F目录 M菜单）',
-    visible     char(1)      default 0 comment '菜单状态（0显示 1隐藏）',
-    icon        varchar(100) default '' comment '菜单图标',
+    component   varchar(255) comment '组件路径',
+    type        char(1)      not null default 'M' comment '菜单类型(F:目录 M:菜单)',
+    visible     char(1)      default '0' comment '菜单状态(0:显示 1:隐藏)',
+    icon        varchar(100)  comment '菜单图标',
     deleted     char(1)      default '0' comment '逻辑删除(0:正常, 1:停用)',
     group_id     bigint(20) comment '数据分组',
     own_mode     char(1)    default 'w' comment '所有者权限(-:不可读写, r:可读, w:可读可写)',
@@ -118,7 +118,29 @@ create table cms_menu
     remark      varchar(500) default null comment '备注',
     primary key (id)
 ) engine = innodb
-  auto_increment = 1 comment = '菜单权限表';
+  auto_increment = 1 comment = '菜单表';
+
+-- ----------------------------
+-- Records of cms_menu
+-- ----------------------------
+INSERT INTO `cloud`.`cms_menu`(`id`, `name`, `code`, `parent_id`, `order_num`, `component`, `type`, `visible`, `icon`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (1, '系统管理', 'manage', 0, 0, NULL, 'F', '0', 'SettingOutlined', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-12 17:38:52', 'admin', '2021-10-13 22:02:59', NULL);
+INSERT INTO `cloud`.`cms_menu`(`id`, `name`, `code`, `parent_id`, `order_num`, `component`, `type`, `visible`, `icon`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (2, '菜单管理', 'menu', 1, 1, NULL, 'M', '0', '', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-12 19:33:27', 'admin', '2021-10-12 20:56:20', NULL);
+INSERT INTO `cloud`.`cms_menu`(`id`, `name`, `code`, `parent_id`, `order_num`, `component`, `type`, `visible`, `icon`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (3, '角色管理', 'role', 1, 3, NULL, 'M', '0', '', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-12 20:29:45', 'U20211013000001', '2021-10-14 16:09:40', NULL);
+INSERT INTO `cloud`.`cms_menu`(`id`, `name`, `code`, `parent_id`, `order_num`, `component`, `type`, `visible`, `icon`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (4, '用户管理', 'user', 1, 5, NULL, 'M', '0', '', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-12 21:07:21', 'U20211013000001', '2021-10-15 21:20:39', NULL);
+INSERT INTO `cloud`.`cms_menu`(`id`, `name`, `code`, `parent_id`, `order_num`, `component`, `type`, `visible`, `icon`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (5, '问卷管理', 'questionnaire', 0, 11, NULL, 'F', '0', 'AuditOutlined', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-13 21:39:38', 'U20211018000106', '2021-12-04 10:22:53', NULL);
+INSERT INTO `cloud`.`cms_menu`(`id`, `name`, `code`, `parent_id`, `order_num`, `component`, `type`, `visible`, `icon`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (6, '问卷导入', 'import', 5, 1, NULL, 'M', '0', '', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-13 22:52:11', 'U20211013000001', '2021-10-14 10:28:37', NULL);
+INSERT INTO `cloud`.`cms_menu`(`id`, `name`, `code`, `parent_id`, `order_num`, `component`, `type`, `visible`, `icon`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (7, '操作管理', 'option', 1, 0, NULL, 'M', '0', '', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-14 16:02:10', 'U20211013000001', '2021-10-14 16:12:03', NULL);
+INSERT INTO `cloud`.`cms_menu`(`id`, `name`, `code`, `parent_id`, `order_num`, `component`, `type`, `visible`, `icon`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (8, '权限配置', 'auth', 1, 2, NULL, 'M', '0', '', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-14 16:09:12', 'U20211013000001', '2021-10-15 21:06:49', NULL);
+INSERT INTO `cloud`.`cms_menu`(`id`, `name`, `code`, `parent_id`, `order_num`, `component`, `type`, `visible`, `icon`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (9, '分组管理', 'group', 1, 4, NULL, 'M', '0', '', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-15 21:20:10', 'U20211013000001', '2021-10-15 21:20:46', NULL);
+INSERT INTO `cloud`.`cms_menu`(`id`, `name`, `code`, `parent_id`, `order_num`, `component`, `type`, `visible`, `icon`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (10, '知识图谱', 'knowledge', 0, 10, NULL, 'F', '0', 'DashboardOutlined', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-24 16:35:40', 'U20211018000106', '2021-12-04 10:22:16', NULL);
+INSERT INTO `cloud`.`cms_menu`(`id`, `name`, `code`, `parent_id`, `order_num`, `component`, `type`, `visible`, `icon`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (11, '节点管理', 'node', 10, 1, NULL, 'M', '0', '', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-24 16:36:20', 'U20211018000106', '2021-10-25 09:43:51', NULL);
+INSERT INTO `cloud`.`cms_menu`(`id`, `name`, `code`, `parent_id`, `order_num`, `component`, `type`, `visible`, `icon`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (13, '系统查询', 'system', 0, 3, NULL, 'F', '0', 'DatabaseOutlined', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-11-30 17:09:26', 'U20211018000106', '2021-12-04 10:22:45', NULL);
+INSERT INTO `cloud`.`cms_menu`(`id`, `name`, `code`, `parent_id`, `order_num`, `component`, `type`, `visible`, `icon`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (14, '接口查询', 'apilog', 13, 0, NULL, 'M', '0', '', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-11-30 17:10:22', 'U20211018000106', '2021-11-30 17:27:07', NULL);
+INSERT INTO `cloud`.`cms_menu`(`id`, `name`, `code`, `parent_id`, `order_num`, `component`, `type`, `visible`, `icon`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (15, '操作查询', 'optionlog', 13, 1, NULL, 'M', '0', '', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-11-30 17:10:52', 'U20211018000106', '2021-11-30 17:10:52', NULL);
+INSERT INTO `cloud`.`cms_menu`(`id`, `name`, `code`, `parent_id`, `order_num`, `component`, `type`, `visible`, `icon`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (16, '批处理管理', 'job', 0, 2, NULL, 'F', '0', 'CalendarOutlined', '0', NULL, 'w', 'r', '-', 'U20211018000106', '2021-12-04 10:23:50', 'U20211018000106', '2021-12-04 10:27:21', NULL);
+INSERT INTO `cloud`.`cms_menu`(`id`, `name`, `code`, `parent_id`, `order_num`, `component`, `type`, `visible`, `icon`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (17, '任务配置', 'config', 16, 1, NULL, 'M', '0', '', '0', NULL, 'w', 'r', '-', 'U20211018000106', '2021-12-04 10:24:48', 'U20211018000106', '2021-12-04 10:24:48', NULL);
+INSERT INTO `cloud`.`cms_menu`(`id`, `name`, `code`, `parent_id`, `order_num`, `component`, `type`, `visible`, `icon`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (18, '日志查询', 'log', 16, 2, NULL, 'M', '0', '', '0', NULL, 'w', 'r', '-', 'U20211018000106', '2021-12-04 10:25:15', 'U20211018000106', '2021-12-04 10:25:15', NULL);
+
 
 -- ----------------------------
 -- 操作类型表
@@ -343,7 +365,7 @@ create table file_master
     server_name   varchar(200) comment '服务器文件名',
     sha256        varchar(60) not null comment '文件摘要',
     content_id    bigint(20) comment '文件内容Id',
-    status        bigint(20) comment '文件状态（0临时文件 1正常文件）',
+    status        bigint(20) comment '文件状态(0临时文件 1正常文件)',
     deleted       char(1)     default '0' comment '逻辑删除(0:正常, 1:停用)',
     group_id     bigint(20) comment '数据分组',
     own_mode     char(1)    default 'w' comment '所有者权限(-:不可读写, r:可读, w:可读可写)',
@@ -427,20 +449,6 @@ INSERT INTO `cms_auth_option` VALUES (17, 2, 1, 'U20211013000001', '2021-10-17 1
 INSERT INTO `cms_auth_option` VALUES (18, 3, 1, 'U20211013000001', '2021-10-17 16:05:43', 'U20211013000001', '2021-10-17 16:05:43');
 INSERT INTO `cms_auth_option` VALUES (19, 3, 2, 'U20211013000001', '2021-10-17 16:05:43', 'U20211013000001', '2021-10-17 16:05:43');
 INSERT INTO `cms_auth_option` VALUES (20, 3, 3, 'U20211013000001', '2021-10-17 16:05:43', 'U20211013000001', '2021-10-17 16:05:43');
-
-
--- ----------------------------
--- Records of cms_menu
--- ----------------------------
-INSERT INTO `cms_menu` VALUES (1, '系统管理', 'manage', 0, 0, NULL, 'F', '0', 'SettingOutlined', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-12 17:38:52', 'admin', '2021-10-13 22:02:59', NULL);
-INSERT INTO `cms_menu` VALUES (2, '菜单管理', 'menu', 1, 1, NULL, 'M', '0', '', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-12 19:33:27', 'admin', '2021-10-12 20:56:20', NULL);
-INSERT INTO `cms_menu` VALUES (3, '角色管理', 'role', 1, 3, NULL, 'M', '0', '', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-12 20:29:45', 'U20211013000001', '2021-10-14 16:09:40', NULL);
-INSERT INTO `cms_menu` VALUES (4, '用户管理', 'user', 1, 5, NULL, 'M', '0', '', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-12 21:07:21', 'U20211013000001', '2021-10-15 21:20:39', NULL);
-INSERT INTO `cms_menu` VALUES (5, '问卷管理', 'questionnaire', 0, 1, NULL, 'F', '0', 'AuditOutlined', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-13 21:39:38', 'U20211013000001', '2021-10-13 22:51:23', NULL);
-INSERT INTO `cms_menu` VALUES (6, '问卷导入', 'import', 5, 1, NULL, 'M', '0', '', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-13 22:52:11', 'U20211013000001', '2021-10-14 10:28:37', NULL);
-INSERT INTO `cms_menu` VALUES (7, '操作管理', 'option', 1, 0, NULL, 'M', '0', '', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-14 16:02:10', 'U20211013000001', '2021-10-14 16:12:03', NULL);
-INSERT INTO `cms_menu` VALUES (8, '权限配置', 'auth', 1, 2, NULL, 'M', '0', '', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-14 16:09:12', 'U20211013000001', '2021-10-15 21:06:49', NULL);
-INSERT INTO `cms_menu` VALUES (9, '分组管理', 'group', 1, 4, NULL, 'M', '0', '', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-15 21:20:10', 'U20211013000001', '2021-10-15 21:20:46', NULL);
 
 
 -- ----------------------------

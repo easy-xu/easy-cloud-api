@@ -51,6 +51,20 @@ class GenerateTest {
 
         service.generate(globalConfig, "cms_option", custFiled);
         service.generate(globalConfig, "cms_group", custFiled);
+
+        FieldConfig parentFolder = new FieldConfig();
+        parentFolder.setTableMapping(new MappingConfig("cms_menu", "id", "name"));
+        parentFolder.setComment("父菜单");
+        parentFolder.setPageType("select");
+        custFiled.put("parent_id", parentFolder);
+        FieldConfig menuType = new FieldConfig();
+        menuType.setType("MenuTypeEnum");
+        menuType.setPkg("cloud.easy.cms.enums.MenuTypeEnum");
+        custFiled.put("type", menuType);
+        service.generate(globalConfig, "cms_menu", custFiled);
+        custFiled.remove("type");
+        custFiled.remove("parent_id");
+
     }
 
 

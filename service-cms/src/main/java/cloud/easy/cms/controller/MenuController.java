@@ -1,16 +1,10 @@
 package cloud.easy.cms.controller;
 
-import cloud.easy.annotation.OptionLog;
-import cloud.easy.base.controller.BaseController;
-import cloud.easy.base.dto.PageQueryDto;
 import cloud.easy.cms.dto.MenuDto;
-import cloud.easy.cms.entity.CmsMenu;
 import cloud.easy.cms.entity.CmsUser;
-import cloud.easy.cms.service.ICmsMenuService;
 import cloud.easy.cms.service.MenuService;
 import cloud.easy.entity.ApiResponse;
 import cloud.easy.entity.HttpResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,47 +24,10 @@ import static cloud.easy.base.utils.BaseUtil.notNull;
  */
 @RestController
 @RequestMapping("/api/cms/menu")
-public class MenuController extends BaseController<CmsMenu, ICmsMenuService> {
+public class MenuController  {
 
     @Resource
     private MenuService menuService;
-
-    @Autowired
-    public MenuController(ICmsMenuService service) {
-        super(service);
-    }
-
-    @Override
-    @PostMapping("/query")
-    public ApiResponse queryEntity(@RequestBody CmsMenu entity) {
-        return super.queryEntity(entity);
-    }
-
-    @Override
-    @OptionLog("菜单保存")
-    @PostMapping("/save")
-    public ApiResponse saveEntity(@RequestBody CmsMenu entity) {
-        return super.saveEntity(entity);
-    }
-
-    @Override
-    @OptionLog("菜单删除")
-    @PostMapping("/delete")
-    public ApiResponse deleteEntity(@RequestBody CmsMenu entity) {
-        return super.deleteEntity(entity);
-    }
-
-    @Override
-    @PostMapping("/page-list")
-    public ApiResponse pageList(@RequestBody PageQueryDto<CmsMenu> pageQueryDto) {
-        return super.pageList(pageQueryDto);
-    }
-
-    @Override
-    @PostMapping("/list")
-    public ApiResponse listEntity(@RequestBody CmsMenu entity) {
-        return super.listEntity(entity);
-    }
 
     @PostMapping("/tree")
     public ApiResponse tree(@RequestBody CmsUser cmsUser) {

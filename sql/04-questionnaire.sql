@@ -156,7 +156,7 @@ create table quna_answer_questionnaire
     id               bigint(20) not null auto_increment comment '问卷回答ID',
     questionnaire_id bigint(20) not null comment '问卷ID',
     question_index   int(4) comment '当前问题编号',
-    flow             bigint(20) comment '问卷回答流程（0初始化 1回答中 2回答完毕 3生成结果）',
+    flow             bigint(20) comment '问卷回答流程(0初始化 1回答中 2回答完毕 3生成结果)',
     deleted          char(1)     default '0' comment '逻辑删除(0:正常, 1:停用)',
     group_id         bigint(20) comment '数据分组',
     own_mode         char(1)     default 'w' comment '所有者权限(-:不可读写, r:可读, w:可读可写)',

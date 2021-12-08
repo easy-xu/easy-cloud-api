@@ -34,7 +34,6 @@ public class ${entity.name} {
     private static final long serialVersionUID = 1L;
 
 <#list fields as field>
-  <#if field.subPage == "base">
     /**
      * ${field.comment}
      */
@@ -42,7 +41,6 @@ public class ${entity.name} {
     @ApiModelProperty("${field.comment}")
     </#if>
     private ${field.type} ${field.name};
-  </#if>
 </#list>
 
 }

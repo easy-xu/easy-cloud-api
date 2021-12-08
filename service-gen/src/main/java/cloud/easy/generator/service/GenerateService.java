@@ -70,7 +70,6 @@ public class GenerateService {
         root.put("code", configBuilder.getCode());
         root.put("comment", configBuilder.getComment());
         root.put("model", configBuilder.getModel());
-        root.put("isAuthData", configBuilder.isAuthData());
 
         //逐一生成文件
         List<GenerateConfig> configs = configBuilder.getConfigs();

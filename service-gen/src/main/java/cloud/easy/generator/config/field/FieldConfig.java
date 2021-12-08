@@ -33,4 +33,6 @@ public class FieldConfig {
      * 其他表映射
      */
     private MappingConfig tableMapping;
+
+
 }

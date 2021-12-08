@@ -1,6 +1,5 @@
 package cloud.easy.generator.config;
 
-import cloud.easy.base.entity.AuthEntity;
 import cloud.easy.generator.config.db.TableInfo;
 import cloud.easy.generator.config.field.FieldConfig;
 import cloud.easy.generator.config.java.*;
@@ -30,7 +29,6 @@ public class GenerateConfigBuilder {
     private String code;
     private String comment;
     private List<FieldConfig> fields;
-    private boolean authData = false;
 
     private GenerateConfigBuilder() {
     }
@@ -53,9 +51,6 @@ public class GenerateConfigBuilder {
     public GenerateConfig buildEntity(){
         EntityConfig config = new EntityConfig(global.getBasePackage(), model, entity);
         Class<?> entitySuperClass = global.getEntitySuperClass();
-        if (entitySuperClass == AuthEntity.class){
-            authData = true;
-        }
         config.superClass(entitySuperClass);
         for (FieldConfig field: fields){
             config.addImportPackage(field.getPkg());
