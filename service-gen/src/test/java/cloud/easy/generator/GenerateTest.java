@@ -32,6 +32,32 @@ class GenerateTest {
     @Test
     void all() throws IOException, TemplateException {
         job();
+        sys();
+    }
+
+    @Test
+    void sys() throws IOException, TemplateException {
+        HashMap<String, FieldConfig> custFiled = new HashMap<>();
+        GlobalConfig globalConfig = GlobalConfig.defaultConfig();
+        globalConfig.setJavaPlace(javaProject + "\\service-cms");
+        globalConfig.setReactPlace(reactProject);
+        globalConfig.setAdd(false);
+        globalConfig.setEdit(false);
+        globalConfig.setDelete(false);
+        globalConfig.setList(false);
+        FieldConfig requestId = new FieldConfig();
+        requestId.setStyle(FieldStyleConfig.searchConfig());
+        custFiled.put("request_id", requestId);
+        FieldConfig userNo = new FieldConfig();
+        userNo.setStyle(FieldStyleConfig.searchConfig());
+        custFiled.put("user_no", userNo);
+        FieldConfig deviceNo = new FieldConfig();
+        deviceNo.setStyle(FieldStyleConfig.searchConfig());
+        custFiled.put("device_no", deviceNo);
+        //sys_api_log
+        service.generate(globalConfig, "sys_api_log", custFiled);
+        //任务日志表
+        service.generate( globalConfig,"sys_option_log", custFiled);
     }
 
     @Test

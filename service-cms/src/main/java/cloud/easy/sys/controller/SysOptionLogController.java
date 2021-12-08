@@ -1,27 +1,25 @@
 package cloud.easy.sys.controller;
 
-import cloud.easy.annotation.OptionLog;
-import cloud.easy.base.controller.BaseController;
-import cloud.easy.base.dto.PageQueryDto;
 import cloud.easy.entity.ApiResponse;
+import cloud.easy.base.dto.PrimaryKeyDto;
+import cloud.easy.base.dto.PageQueryDto;
+import cloud.easy.annotation.OptionLog;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import io.swagger.annotations.Api;
 import cloud.easy.sys.entity.SysOptionLog;
 import cloud.easy.sys.service.ISysOptionLogService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import cloud.easy.base.controller.BaseController;
 
 /**
- * <p>
- * 操作记录表 前端控制器
- * </p>
+ * 操作记录控制器
  *
- * @author Mybatis Plus
- * @since 2021-12-01
+ * @author xu honglin
+ * @since 2021-12-08
  */
 @RestController
 @RequestMapping("/api/sys/optionlog")
+@Api(tags = "操作记录接口")
 public class SysOptionLogController extends BaseController<SysOptionLog, ISysOptionLogService> {
 
     @Autowired
@@ -30,35 +28,15 @@ public class SysOptionLogController extends BaseController<SysOptionLog, ISysOpt
     }
 
     @Override
-    @PostMapping("/query")
-    public ApiResponse queryEntity(@RequestBody SysOptionLog entity) {
-        return super.queryEntity(entity);
-    }
-
-    @Override
-    @OptionLog("操作记录保存")
-    @PostMapping("/save")
-    public ApiResponse saveEntity(@RequestBody SysOptionLog entity) {
-        return super.saveEntity(entity);
-    }
-
-    @Override
-    @OptionLog("操作记录删除")
-    @PostMapping("/delete")
-    public ApiResponse deleteEntity(@RequestBody SysOptionLog entity) {
-        return super.deleteEntity(entity);
+    @PostMapping("/get")
+    public ApiResponse getEntity(@RequestBody PrimaryKeyDto primaryKey) {
+        return super.getEntity(primaryKey);
     }
 
     @Override
     @PostMapping("/page-list")
     public ApiResponse pageList(@RequestBody PageQueryDto<SysOptionLog> pageQueryDto) {
         return super.pageList(pageQueryDto);
-    }
-
-    @Override
-    @PostMapping("/list")
-    public ApiResponse listEntity(@RequestBody SysOptionLog entity) {
-        return super.listEntity(entity);
     }
 
 }

@@ -274,8 +274,8 @@ ALTER TABLE sys_api_log
 -- ----------------------------
 -- 操作记录表
 -- ----------------------------
-drop table if exists api_option_log;
-create table api_option_log
+drop table if exists sys_option_log;
+create table sys_option_log
 (
     id           bigint(20)  not null auto_increment comment '主键ID',
     user_no          varchar(60) comment '用户编号',
@@ -288,9 +288,9 @@ create table api_option_log
     primary key (id)
 ) engine = innodb
   auto_increment = 1 comment = '操作记录表';
-ALTER TABLE `api_option_log`
+ALTER TABLE `sys_option_log`
     ADD INDEX `index_device_no` (`device_no`) USING BTREE;
-ALTER TABLE `api_option_log`
+ALTER TABLE `sys_option_log`
     ADD INDEX `index_user_no` (`user_no`) USING BTREE;
 
 -- ----------------------------

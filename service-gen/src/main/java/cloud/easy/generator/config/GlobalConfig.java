@@ -1,6 +1,7 @@
 package cloud.easy.generator.config;
 
 import cloud.easy.base.controller.BaseController;
+import cloud.easy.base.entity.BaseEntity;
 import cloud.easy.generator.convert.DataTypeConvertor;
 import cloud.easy.generator.convert.MysqlConvertor;
 import cloud.easy.utils.DateTimeUtils;
@@ -60,6 +61,7 @@ public class GlobalConfig {
         config.setSince(DateTimeUtils.getDate());
         config.setJavaPlace(workplace + File.separator + "java");
         config.setReactPlace(workplace + File.separator + "react");
+        config.setEntitySuperClass(BaseEntity.class);
         config.setServiceSuperClass(IService.class);
         config.setServiceImplSuperClass(ServiceImpl.class);
         config.setMapperSuperClass(BaseMapper.class);
