@@ -1,25 +1,27 @@
 package cloud.easy.job.controller;
 
-import cloud.easy.entity.ApiResponse;
+import cloud.easy.base.controller.BaseController;
 import cloud.easy.base.dto.PageQueryDto;
-import cloud.easy.annotation.OptionLog;
+import cloud.easy.base.dto.PrimaryKeyDto;
+import cloud.easy.entity.ApiResponse;
+import cloud.easy.job.entity.JobLog;
+import cloud.easy.job.service.IJobLogService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import cloud.easy.job.entity.JobLog;
-import cloud.easy.job.service.IJobLogService;
-import cloud.easy.base.controller.BaseController;
 
 /**
  * 任务日志控制器
  *
  * @author xu honglin
- * @since 2021-12-06
+ * @since 2021-12-08
  */
 @RestController
 @RequestMapping("/api/job/log")
+@Api(tags = "任务日志接口")
 public class JobLogController extends BaseController<JobLog, IJobLogService> {
 
     @Autowired
@@ -28,23 +30,9 @@ public class JobLogController extends BaseController<JobLog, IJobLogService> {
     }
 
     @Override
-    @PostMapping("/query")
-    public ApiResponse queryEntity(@RequestBody JobLog entity) {
-        return super.queryEntity(entity);
-    }
-
-    @Override
-    @OptionLog("任务日志保存")
-    @PostMapping("/save")
-    public ApiResponse saveEntity(@RequestBody JobLog entity) {
-        return super.saveEntity(entity);
-    }
-
-    @Override
-    @OptionLog("任务日志删除")
-    @PostMapping("/delete")
-    public ApiResponse deleteEntity(@RequestBody JobLog entity) {
-        return super.deleteEntity(entity);
+    @PostMapping("/get")
+    public ApiResponse getEntity(@RequestBody PrimaryKeyDto primaryKey) {
+        return super.getEntity(primaryKey);
     }
 
     @Override

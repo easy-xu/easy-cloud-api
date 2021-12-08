@@ -1,13 +1,12 @@
 package cloud.easy.job.controller;
 
 import cloud.easy.entity.ApiResponse;
+import cloud.easy.base.dto.PrimaryKeyDto;
 import cloud.easy.base.dto.PageQueryDto;
 import cloud.easy.annotation.OptionLog;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import io.swagger.annotations.Api;
 import cloud.easy.job.entity.JobConfig;
 import cloud.easy.job.service.IJobConfigService;
 import cloud.easy.base.controller.BaseController;
@@ -16,10 +15,11 @@ import cloud.easy.base.controller.BaseController;
  * 任务控制器
  *
  * @author xu honglin
- * @since 2021-12-06
+ * @since 2021-12-08
  */
 @RestController
 @RequestMapping("/api/job/config")
+@Api(tags = "任务接口")
 public class JobConfigController extends BaseController<JobConfig, IJobConfigService> {
 
     @Autowired
@@ -28,9 +28,9 @@ public class JobConfigController extends BaseController<JobConfig, IJobConfigSer
     }
 
     @Override
-    @PostMapping("/query")
-    public ApiResponse queryEntity(@RequestBody JobConfig entity) {
-        return super.queryEntity(entity);
+    @PostMapping("/get")
+    public ApiResponse getEntity(@RequestBody PrimaryKeyDto primaryKey) {
+        return super.getEntity(primaryKey);
     }
 
     @Override
@@ -43,8 +43,8 @@ public class JobConfigController extends BaseController<JobConfig, IJobConfigSer
     @Override
     @OptionLog("任务删除")
     @PostMapping("/delete")
-    public ApiResponse deleteEntity(@RequestBody JobConfig entity) {
-        return super.deleteEntity(entity);
+    public ApiResponse deleteEntityById(@RequestBody PrimaryKeyDto primaryKey) {
+        return super.deleteEntityById(primaryKey);
     }
 
     @Override
