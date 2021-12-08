@@ -25,13 +25,24 @@ public class GlobalConfig {
     private String author;
     private String since;
     private String basePackage;
-    private String workplace;
+    private String javaPlace;
+    private String reactPlace;
 
-    protected Class<?> entitySuperClass;
-    protected Class<?> controllerSuperClass;
-    protected Class<?> serviceSuperClass;
-    protected Class<?> serviceImplSuperClass;
-    protected Class<?> mapperSuperClass;
+
+    private Class<?> entitySuperClass;
+    private Class<?> controllerSuperClass;
+    private Class<?> serviceSuperClass;
+    private Class<?> serviceImplSuperClass;
+    private Class<?> mapperSuperClass;
+
+    private boolean swagger = true;
+    private boolean add = true;
+    private boolean edit = true;
+    private boolean get = true;
+    private boolean query = false;
+    private boolean delete = true;
+    private boolean pageList = true;
+    private boolean list = true;
 
     /**
      * 字段映射 当前表名.字段=从表名(字段:字段)
@@ -47,7 +58,8 @@ public class GlobalConfig {
         config.setBasePackage("cloud.easy");
         config.setAuthor("xu honglin");
         config.setSince(DateTimeUtils.getDate());
-        config.setWorkplace(workplace);
+        config.setJavaPlace(workplace + File.separator + "java");
+        config.setReactPlace(workplace + File.separator + "react");
         config.setServiceSuperClass(IService.class);
         config.setServiceImplSuperClass(ServiceImpl.class);
         config.setMapperSuperClass(BaseMapper.class);

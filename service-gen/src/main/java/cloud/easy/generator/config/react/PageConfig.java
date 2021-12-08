@@ -19,7 +19,7 @@ public class PageConfig implements GenerateConfig {
     private String name;
     private String code;
 
-    public PageConfig(String model,String code,String name ) {
+    public PageConfig(String model, String code, String name) {
         this.model = model;
         this.name = name;
         this.code = code;
@@ -32,6 +32,6 @@ public class PageConfig implements GenerateConfig {
 
     @Override
     public String outPath() {
-        return Paths.get("react", "src", "pages", model, code + ".tsx").toString();
+        return Paths.get("src", "pages", "cms", model, code + ".tsx").toString();
     }
 }

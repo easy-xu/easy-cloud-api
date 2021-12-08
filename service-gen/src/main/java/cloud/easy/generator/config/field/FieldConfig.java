@@ -1,4 +1,4 @@
-package cloud.easy.generator.config.db;
+package cloud.easy.generator.config.field;
 
 import lombok.Data;
 
@@ -15,11 +15,14 @@ import java.util.Map;
 public class FieldConfig {
     private String name;
     private String type;
+    private String initial;
+    private String key;
     private String pageType;
+    private String subPage;
     private String comment;
     private String pkg;
     private List<String> rules;
-    private boolean search;
+    private String style;
 
     /**
      * 固定映射

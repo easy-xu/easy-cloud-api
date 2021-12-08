@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum ModeEnum {
 
     /**
-     * 权限(-:不可读不可写, r:可读, w:可读可写)
+     * 权限(-:不可读写, r:可读, w:可读可写)
      */
     NOT_READ("-", "不可读写"),
     READ("r", "可读"),

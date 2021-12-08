@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
  * @version 1.0
  */
 @Data
-public class BaseEntity implements Serializable {
+public class BaseEntity implements IEntity, Serializable {
 
     /**
      * 主键

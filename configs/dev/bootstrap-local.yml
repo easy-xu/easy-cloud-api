@@ -1,0 +1,11 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        enabled: false
+      config:
+        enabled: false
+jasypt:
+  encryptor:
+    algorithm: PBEWithMD5AndDES
+    password: 123456

@@ -1,9 +1,10 @@
 package ${entity.pkg};
 
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableName;
+<#if global.swagger>
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.baomidou.mybatisplus.annotation.TableName;
+</#if>
 import lombok.Data;
 <#if entity.superClassName?? >
 import lombok.EqualsAndHashCode;
@@ -20,7 +21,9 @@ import ${pkg};
  */
 @Data
 @TableName("${table.name}")
-@ApiModel(value = "${entity.name}对象", description = "${table.name}")
+<#if global.swagger >
+@ApiModel(value = "${entity.name}", description = "${comment!}实体类")
+</#if>
 <#if entity.superClassName?? >
 @EqualsAndHashCode(callSuper = true)
 public class ${entity.name} extends ${entity.superClassName} {
@@ -31,10 +34,15 @@ public class ${entity.name} {
     private static final long serialVersionUID = 1L;
 
 <#list fields as field>
+  <#if field.subPage == "base">
     /**
      * ${field.comment}
      */
+    <#if global.swagger >
+    @ApiModelProperty("${field.comment}")
+    </#if>
     private ${field.type} ${field.name};
+  </#if>
 </#list>
 
 }

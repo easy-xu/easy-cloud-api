@@ -49,8 +49,7 @@ allprojects {
         //配置文件加密
         implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.4'
         //接口文档
-        implementation group: 'io.springfox', name: 'springfox-swagger2', version: '3.0.0'
-        implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '3.0.0'
+        implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
     }
 
     test {

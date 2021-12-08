@@ -1,4 +1,4 @@
-package cloud.easy.job;
+package cloud.easy;
 
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
@@ -6,11 +6,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * Title: Application
- * Description:
+ * Application
  *
- * @author Xu Honglin
- * @version 1.0
+ * @author xu honglin
+ * @date 2021/12/7 11:34
  */
 @Slf4j
 @SpringBootApplication(scanBasePackages = "cloud.easy")
@@ -18,6 +17,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
-        log.info("-----批处理服务启动成功-----");
+        log.info("-----服务启动成功-----");
     }
 }

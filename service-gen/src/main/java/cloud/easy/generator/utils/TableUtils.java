@@ -2,8 +2,10 @@ package cloud.easy.generator.utils;
 
 import cloud.easy.generator.config.GlobalConfig;
 import cloud.easy.generator.config.db.ColumnInfo;
-import cloud.easy.generator.config.db.FieldConfig;
 import cloud.easy.generator.config.db.TableInfo;
+import cloud.easy.generator.config.field.FieldConfig;
+import cloud.easy.generator.config.field.FieldStyleConfig;
+import cloud.easy.generator.config.field.MappingConfig;
 import cloud.easy.generator.convert.ColumnType;
 import cloud.easy.generator.convert.DataTypeConvertor;
 import cloud.easy.utils.BeanUtils;
@@ -36,10 +38,10 @@ public class TableUtils {
     }
 
     public static String getComment(String tableComment) {
-        return  tableComment.replace("表", "");
+        return tableComment.replace("表", "");
     }
 
-    public static String table2entity(String tableName) {
+    public static String getEntity(String tableName) {
         String[] splits = tableName.split("_");
         for (int i = 0; i < splits.length; i++) {
             splits[i] = splits[i].substring(0, 1).toUpperCase() + splits[i].substring(1);
@@ -57,71 +59,122 @@ public class TableUtils {
         return String.join("", splits);
     }
 
-
-    public static List<FieldConfig> entityFields(TableInfo tableInfo, GlobalConfig globalConfig, Map<String, FieldConfig> custFieldConfig) {
-        List<FieldConfig> fields = new ArrayList<>();
-        DataTypeConvertor convertor = globalConfig.getTypeConvertor();
+    public static void entityFields(List<FieldConfig> fields, TableInfo tableInfo, GlobalConfig globalConfig, Map<String, FieldConfig> custFieldConfig) {
         Class<?> superClass = globalConfig.getEntitySuperClass();
-        List<String> superFields = new ArrayList<>();
+        //获取父类字段名
+        List<String> superFieldNames = new ArrayList<>();
         while (superClass != null && superClass != Object.class) {
             for (Field field : superClass.getDeclaredFields()) {
-                superFields.add(field.getName());
+                superFieldNames.add(field.getName());
             }
             superClass = superClass.getSuperclass();
         }
-
         List<ColumnInfo> columns = tableInfo.getColumns();
         for (ColumnInfo column : columns) {
             String columnName = column.getName();
             FieldConfig custField = custFieldConfig == null ? null : custFieldConfig.get(columnName);
-            String fieldName = TableUtils.column2field(columnName);
-            if (!superFields.contains(fieldName) || "deleted".equals(fieldName)) {
-                String dbType = column.getDataType();
-                //类型转换
-                ColumnType javaType = convertor.columnTypeToJavaType(dbType);
-                String jsType = convertor.columnTypeToJsType(dbType);
-                FieldConfig field = new FieldConfig();
-                field.setName(fieldName);
-                field.setComment(column.getComment());
-                field.setType(javaType.getType());
-                field.setPkg(javaType.getPkg());
-                field.setPageType(jsType);
-                //根据comment约定内容，解析类型内容
-                handleComment(field, column.getComment());
-                //解析规则
-                handleRules(field, column);
-                //覆盖自定义设置
-                if (custField != null) {
-                    BeanUtils.copyNotNull(custField, field);
-                }
-                fields.add(field);
+            FieldConfig fieldConfig = getFieldConfig(globalConfig, column, custField);
+            String fieldName = fieldConfig.getName();
+            //字段配置放在到不同集合
+            if (superFieldNames.contains(fieldName)) {
+                fieldConfig.setSubPage("property");
+            } else {
+                fieldConfig.setSubPage("base");
             }
+            fields.add(fieldConfig);
+
         }
-        return fields;
+    }
+
+    private static FieldConfig getFieldConfig(GlobalConfig globalConfig, ColumnInfo column, FieldConfig custField) {
+        DataTypeConvertor convertor = globalConfig.getTypeConvertor();
+        String dbType = column.getDataType();
+        //名称转换
+        String fieldName = TableUtils.column2field(column.getName());
+        //类型转换
+        ColumnType javaType = convertor.columnTypeToJavaType(dbType);
+        String jsType = convertor.columnTypeToJsType(dbType);
+        String initial = column.getInitial();
+        if ("NULL".equals(initial)) {
+            initial = null;
+        }
+        FieldConfig field = new FieldConfig();
+        field.setName(fieldName);
+        field.setComment(column.getComment());
+        field.setInitial(initial);
+        field.setKey(column.getKey());
+        field.setType(javaType.getType());
+        field.setPkg(javaType.getPkg());
+        field.setPageType(jsType);
+        //解析comment中的字典映射
+        handleComment(field, column.getComment());
+        //解析规则, 规则为空则设置默认规则
+        handleRules(field, column, custField);
+        //添加默认样式
+        handleStyle(field, column, custField);
+        //覆盖自定义设置
+        if (custField != null) {
+            BeanUtils.copyNotNull(custField, field);
+        }
+        return field;
+    }
+
+    private static void handleStyle(FieldConfig field, ColumnInfo column, FieldConfig custField) {
+        if (custField != null && custField.getStyle() != null) {
+            return;
+        }
+        if ("PRI".equals(column.getKey())) {
+            field.setStyle(FieldStyleConfig.idConfig());
+            return;
+        }
+        if ("NO".equals(column.getNullable())) {
+            field.setStyle(FieldStyleConfig.searchConfig());
+            return;
+        }
+        if (field.getName().startsWith("create")) {
+            field.setStyle(FieldStyleConfig.createPropertyConfig());
+            return;
+        }
+        if (field.getName().startsWith("update")) {
+            field.setStyle(FieldStyleConfig.updatePropertyConfig());
+            return;
+        }
+        field.setStyle(FieldStyleConfig.noSearchConfig());
     }
 
 
-    private static void handleRules(FieldConfig field, ColumnInfo column) {
+    private static void handleRules(FieldConfig field, ColumnInfo column, FieldConfig custField) {
+        //主键默认自动生成，不添加规则
+        if ("PRI".equals(column.getKey())) {
+            return;
+        }
         List<String> rules = new ArrayList<>();
         if ("NO".equals(column.getNullable())) {
             rules.add("{ required: true }");
-            //为空则默认可作为查询条件
-            field.setSearch(true);
         }
         Integer maxLength = column.getMaxLength();
         String pageType = field.getPageType();
+        if (custField != null && custField.getPageType() != null) {
+            pageType = custField.getPageType();
+        }
         if (maxLength != null && ("string".equals(pageType) || "number".equals(pageType))) {
             rules.add("{ type: '" + pageType + "', max: " + maxLength + " }");
         }
-        field.setRules(rules);
+        field.setRules(rules.isEmpty() ? null : rules);
     }
 
     private static void handleComment(FieldConfig field, String comment) {
+        //分组字段
+        if("groupId".equals(field.getName())){
+            field.setPageType("select");
+            field.setTableMapping(new MappingConfig("cms_group","id", "name") );
+            return;
+        }
         String commentConfig = RegUtils.findAny(comment, "\\(.*\\)");
         if (commentConfig == null) {
             return;
         }
-        List<String> selectCodeMap = RegUtils.findAll(commentConfig, "[\\u4E00-\\u9FA5A-Za-z0-9_]+:[\\u4E00-\\u9FA5A-Za-z0-9_]+");
+        List<String> selectCodeMap = RegUtils.findAll(commentConfig, "[\\u4E00-\\u9FA5A-Za-z0-9_-]+:[\\u4E00-\\u9FA5A-Za-z0-9_-]+");
         if (selectCodeMap.isEmpty()) {
             return;
         }

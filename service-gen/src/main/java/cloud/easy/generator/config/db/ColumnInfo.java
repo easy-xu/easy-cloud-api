@@ -12,6 +12,8 @@ import lombok.Data;
 public class ColumnInfo {
     private String name;
     private Integer order;
+    private String initial;
+    private String key;
     private String nullable;
     private String dataType;
     private Integer maxLength;

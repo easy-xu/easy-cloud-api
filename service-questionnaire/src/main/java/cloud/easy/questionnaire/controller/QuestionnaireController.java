@@ -1,6 +1,5 @@
 package cloud.easy.questionnaire.controller;
 
-import cloud.easy.base.controller.BaseController;
 import cloud.easy.base.dto.PageQueryDto;
 import cloud.easy.constant.Messages;
 import cloud.easy.entity.ApiResponse;

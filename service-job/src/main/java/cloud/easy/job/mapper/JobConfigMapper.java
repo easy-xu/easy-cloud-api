@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * 任务查询类
  *
  * @author xu honglin
- * @since 2021-12-06
+ * @since 2021-12-08
  */
 @Mapper
 public interface JobConfigMapper extends BaseMapper<JobConfig> {

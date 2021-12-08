@@ -31,6 +31,6 @@ public interface TableInfoMapper {
      * @param tableName 表名
      * @return TableInfo
      */
-    @Select("SELECT t.COLUMN_NAME `name`, t.ORDINAL_POSITION `order`, t.IS_NULLABLE nullable, t.DATA_TYPE dataType, t.CHARACTER_MAXIMUM_LENGTH maxLength, t.COLUMN_COMMENT `comment`  FROM information_schema.columns t WHERE t.table_name = #{tableName}")
+    @Select("SELECT t.COLUMN_NAME `name`, t.COLUMN_DEFAULT `initial`, t.COLUMN_KEY `key`, t.ORDINAL_POSITION `order`, t.IS_NULLABLE nullable, t.DATA_TYPE dataType, t.CHARACTER_MAXIMUM_LENGTH maxLength, t.COLUMN_COMMENT `comment`  FROM information_schema.columns t WHERE t.table_name = #{tableName}")
     List<ColumnInfo> getColumnInfo(@Param("tableName") String tableName);
 }

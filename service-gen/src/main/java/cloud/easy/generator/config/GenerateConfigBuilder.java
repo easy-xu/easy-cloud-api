@@ -1,8 +1,8 @@
 package cloud.easy.generator.config;
 
 import cloud.easy.base.entity.AuthDataEntity;
-import cloud.easy.generator.config.db.FieldConfig;
 import cloud.easy.generator.config.db.TableInfo;
+import cloud.easy.generator.config.field.FieldConfig;
 import cloud.easy.generator.config.java.*;
 import cloud.easy.generator.config.react.PageConfig;
 import cloud.easy.generator.utils.TableUtils;
@@ -28,6 +28,7 @@ public class GenerateConfigBuilder {
     protected String code;
     protected String comment;
     private List<FieldConfig> fields;
+    private List<FieldConfig> superFields;
     private boolean authData = false;
 
     private GenerateConfigBuilder() {
@@ -38,10 +39,12 @@ public class GenerateConfigBuilder {
         builder.configs = new ArrayList<>();
         builder.tableInfo = tableInfo;
         builder.global = globalConfig;
-        builder.fields = TableUtils.entityFields(tableInfo, globalConfig, custFieldConfig);
+        builder.fields = new ArrayList<>();
+        builder.superFields = new ArrayList<>();
+        TableUtils.entityFields(builder.fields, tableInfo, globalConfig, custFieldConfig);
         String tableName = tableInfo.getName();
         builder.model = TableUtils.getModel(tableName);
-        builder.entity = TableUtils.table2entity(tableName);
+        builder.entity = TableUtils.getEntity(tableName);
         builder.code = TableUtils.getCode(tableName);
         builder.comment = TableUtils.getComment(tableInfo.getComment());
         return builder;
@@ -60,6 +63,7 @@ public class GenerateConfigBuilder {
         configs.add(config);
         return config;
     }
+
     public GenerateConfig buildController(){
         ControllerConfig config = new ControllerConfig(global.getBasePackage(), model, entity);
         config.superClass(global.getControllerSuperClass());

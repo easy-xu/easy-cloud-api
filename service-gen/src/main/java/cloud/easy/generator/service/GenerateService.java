@@ -1,10 +1,13 @@
 package cloud.easy.generator.service;
 
+import cloud.easy.exception.SystemErrorException;
 import cloud.easy.generator.config.GenerateConfig;
 import cloud.easy.generator.config.GenerateConfigBuilder;
 import cloud.easy.generator.config.GlobalConfig;
-import cloud.easy.generator.config.db.FieldConfig;
+import cloud.easy.generator.config.field.FieldConfig;
 import cloud.easy.generator.config.db.TableInfo;
+import cloud.easy.generator.config.java.JavaFileConfig;
+import cloud.easy.generator.config.react.PageConfig;
 import cloud.easy.utils.FileUtils;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -59,6 +62,7 @@ public class GenerateService {
         root.put("mapper", configBuilder.buildMapper());
         root.put("page", configBuilder.buildPage());
         root.put("fields", configBuilder.getFields());
+        root.put("superFields", configBuilder.getSuperFields());
         root.put("code", configBuilder.getCode());
         root.put("comment", configBuilder.getComment());
         root.put("model", configBuilder.getModel());
@@ -73,7 +77,17 @@ public class GenerateService {
 
     private void process(GlobalConfig global, GenerateConfig config, Map<String, Object> root) throws IOException, TemplateException {
         Template temp = cfg.getTemplate(config.template());
-        String outPath = Paths.get(global.getWorkplace(), config.outPath()).toString();
+        String workplace = null;
+        if (config instanceof PageConfig && global.getReactPlace() != null){
+            workplace = global.getReactPlace();
+        }
+        if (config instanceof JavaFileConfig && global.getJavaPlace() != null){
+            workplace = global.getJavaPlace();
+        }
+        if (workplace == null){
+            throw new SystemErrorException("未指定生成目录");
+        }
+        String outPath = Paths.get(workplace, config.outPath()).toString();
         File file = new File(outPath);
         FileUtils.makeDirs(file.getParentFile());
         Writer out = new OutputStreamWriter(new FileOutputStream(file));

@@ -1,0 +1,9 @@
+dependencies {
+    implementation project(':base-core')
+    implementation project(':module-web')
+    implementation project(':module-datasource')
+    implementation project(':module-id-generator')
+    implementation project(':service-cms')
+    implementation project(':service-job')
+
+}

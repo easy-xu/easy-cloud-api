@@ -1,16 +1,16 @@
 package cloud.easy.sys.controller;
 
-import cloud.easy.entity.ApiResponse;
+import cloud.easy.annotation.OptionLog;
 import cloud.easy.base.controller.BaseController;
 import cloud.easy.base.dto.PageQueryDto;
-import cloud.easy.annotation.OptionLog;
+import cloud.easy.entity.ApiResponse;
+import cloud.easy.sys.entity.SysOptionLog;
+import cloud.easy.sys.service.ISysOptionLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import cloud.easy.sys.entity.SysOptionLog;
-import cloud.easy.sys.service.ISysOptionLogService;
 
 /**
  * <p>

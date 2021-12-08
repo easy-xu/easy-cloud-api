@@ -49,6 +49,6 @@ public abstract class JavaFileConfig implements GenerateConfig {
     @Override
     public String outPath() {
         String[] split = pkg.split("\\.");
-        return Paths.get("java", "src", "main", "java", String.join(File.separator, split), name + ".java").toString();
+        return Paths.get("src", "main", "java", String.join(File.separator, split), name + ".java").toString();
     }
 }

@@ -1,6 +1,6 @@
 package cloud.easy.base.dto;
 
-import cloud.easy.base.entity.BaseEntity;
+import cloud.easy.base.entity.IEntity;
 import lombok.Data;
 
 import java.util.List;
@@ -14,8 +14,8 @@ import java.util.List;
  * @version 1.0
  */
 @Data
-public class PageQueryDto<T extends BaseEntity> {
-    private T query;
+public class PageQueryDto<E extends IEntity> implements IDto {
+    private E query;
     private PageDto page = new PageDto();
-    private List<T> records;
+    private List<E> records;
 }

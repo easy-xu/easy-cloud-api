@@ -1,10 +1,11 @@
 package cloud.easy.base.controller;
 
-import cloud.easy.base.dto.BaseEntityDto;
+import cloud.easy.base.dto.BatchKeyDto;
 import cloud.easy.base.dto.PageDto;
 import cloud.easy.base.dto.PageQueryDto;
-import cloud.easy.base.entity.BaseEntity;
+import cloud.easy.base.dto.PrimaryKeyDto;
 import cloud.easy.base.entity.AuthDataEntity;
+import cloud.easy.base.entity.BaseEntity;
 import cloud.easy.base.enums.DeletedEnum;
 import cloud.easy.constant.Messages;
 import cloud.easy.entity.ApiResponse;
@@ -28,15 +29,23 @@ import static cloud.easy.base.utils.BaseUtil.*;
  */
 public class BaseController<T extends BaseEntity, S extends IService<T>> {
 
-    private S service;
+    private final S service;
 
     public BaseController(S service) {
         this.service = service;
     }
 
     public ApiResponse queryEntity(@RequestBody T entity) {
-        Long id = requireId(entity);
-        entity = service.getById(id);
+        entity = service.getOne(Wrappers.query(notNull(entity)));
+        if (entity == null) {
+            return HttpResponse.error(Messages.NOT_FOUND);
+        }
+        return HttpResponse.ok(entity);
+    }
+
+    public ApiResponse getEntity(@RequestBody PrimaryKeyDto primaryKey) {
+        Long id = requireId(primaryKey);
+        T entity = service.getById(id);
         if (entity == null) {
             return HttpResponse.error(Messages.NOT_FOUND);
         }
@@ -50,6 +59,13 @@ public class BaseController<T extends BaseEntity, S extends IService<T>> {
         return HttpResponse.ok(entity.getId());
     }
 
+    public ApiResponse deleteEntityById(@RequestBody PrimaryKeyDto primaryKey) {
+        if (!service.removeById(requireId(primaryKey))) {
+            return HttpResponse.error(Messages.DB_DELETE_ERROR);
+        }
+        return HttpResponse.ok();
+    }
+
     public ApiResponse deleteEntity(@RequestBody T entity) {
         if (!service.removeById(requireId(entity))) {
             return HttpResponse.error(Messages.DB_DELETE_ERROR);
@@ -57,8 +73,8 @@ public class BaseController<T extends BaseEntity, S extends IService<T>> {
         return HttpResponse.ok();
     }
 
-    public ApiResponse deleteAllEntity(@RequestBody BaseEntityDto entity) {
-        List<Long> ids = notNull(entity).getIds();
+    public ApiResponse deleteAllByIds(@RequestBody BatchKeyDto batchKey) {
+        List<Long> ids = notNull(batchKey).getIds();
         if (ids == null) {
             return HttpResponse.reject(Messages.ID_EMPTY);
         }

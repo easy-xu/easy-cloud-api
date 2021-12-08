@@ -8,37 +8,26 @@ const ${page.name}: FC = (props: any) => {
 <#list fields as field>
 <#if field.tableMapping??>
   const [${field.name}s, set${field.name?cap_first}s] = useState<any>([]);
-  const ${field.name}sRequest = useRequest(
-    () => baseList('${field.tableMapping.model}', '${field.tableMapping.code}', {}),
-    {
+  const ${field.name}sRequest = useRequest(() => baseList('${field.tableMapping.model}', '${field.tableMapping.code}', {}), {
       onSuccess: (data) => {
         let ${field.name}s = data.map((item: any) => {
           return { code: item.${field.tableMapping.codeField}, name: item.${field.tableMapping.nameField} };
         });
         set${field.name?cap_first}s(${field.name}s);
-      },
-    },
-  );
+      }});
 </#if>
 </#list>
 
   const fields: IFields = [
-    {
-      name: '主键',
-      code: 'id',
-      type: 'number',
-      style: {
-        search: { display: false },
-        table: { display: false },
-        add: { hidden: true },
-        edit: { hidden: true },
-      },
-    },
     <#list fields as field>
     {
+      subPage: '${field.subPage}',
       name: '${field.comment}',
       code: '${field.name}',
       type: '${field.pageType}',
+      <#if field.initial??>
+      initial: ${field.initial},
+      </#if>
       <#if field.pageType == "select">
         <#if field.tableMapping??>
       select: ${field.name}s,
@@ -51,14 +40,16 @@ const ${page.name}: FC = (props: any) => {
       ],
         </#if>
       </#if>
-      style: {
-        search: { display: ${field.search?string('true', 'false')} },
-      },
+      <#if field.style??>
+      style: ${field.style},
+      </#if>
+      <#if field.rules??>
       rules: [
         <#list field.rules as rule>
         ${rule},
         </#list>
       ]
+      </#if>
     },
     </#list>
   ];
@@ -69,6 +60,7 @@ const ${page.name}: FC = (props: any) => {
         entity="${code}"
         pageTitle="${comment!}页面"
         fields={fields}
+        option={[${global.add?string('"add",', '')} ${global.edit?string('"edit",', '')} ${global.delete?string('"delete",', '')}]}
         isAuthData={${isAuthData?c}} />
   );
 };

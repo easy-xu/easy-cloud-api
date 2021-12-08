@@ -1,7 +1,8 @@
 package cloud.easy.base.utils;
 
-import cloud.easy.base.entity.BaseEntity;
+import cloud.easy.base.dto.PrimaryKeyDto;
 import cloud.easy.base.entity.AuthDataEntity;
+import cloud.easy.base.entity.BaseEntity;
 import cloud.easy.constant.Messages;
 import cloud.easy.device.ApiHeaderHelper;
 import cloud.easy.entity.ApiHeader;
@@ -46,6 +47,13 @@ public class BaseUtil {
 
     public static <T extends BaseEntity> Long requireId(T entity) {
         Long id = notNull(entity).getId();
+        if (id == null) {
+            throw new RequestException(Messages.ID_EMPTY);
+        }
+        return id;
+    }
+    public static  Long requireId(PrimaryKeyDto primaryKey) {
+        Long id = notNull(primaryKey).getId();
         if (id == null) {
             throw new RequestException(Messages.ID_EMPTY);
         }
