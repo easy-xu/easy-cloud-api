@@ -1,22 +1,22 @@
 package cloud.easy.cms.controller;
 
-import cloud.easy.cms.dto.AuthDto;
-import cloud.easy.cms.service.AuthService;
-import cloud.easy.device.ApiHeaderHelper;
-import cloud.easy.entity.ApiResponse;
-import cloud.easy.base.dto.PrimaryKeyDto;
-import cloud.easy.base.dto.PageQueryDto;
 import cloud.easy.annotation.OptionLog;
-import cloud.easy.entity.HttpResponse;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import io.swagger.annotations.Api;
-import cloud.easy.cms.entity.CmsAuth;
-import cloud.easy.cms.service.ICmsAuthService;
 import cloud.easy.base.controller.BaseController;
+import cloud.easy.base.dto.PageQueryDto;
+import cloud.easy.base.dto.PrimaryKeyDto;
+import cloud.easy.cms.entity.CmsAuth;
+import cloud.easy.cms.service.AuthService;
+import cloud.easy.cms.service.ICmsAuthService;
+import cloud.easy.entity.ApiResponse;
+import cloud.easy.entity.HttpResponse;
+import io.swagger.annotations.Api;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 import static cloud.easy.base.utils.BaseUtil.notNull;
 import static cloud.easy.base.utils.BaseUtil.requireId;
@@ -76,12 +76,5 @@ public class CmsAuthController extends BaseController<CmsAuth, ICmsAuthService> 
     }
 
 
-    @PostMapping("/user-menu-option")
-    public ApiResponse userMenuOptions(@RequestBody AuthDto authDto) {
-        String menuCode = notNull(notNull(authDto).getMenuCode());
-        String userNo = ApiHeaderHelper.get().getUserNo();
-        List<String> options = authService.userMenuOptions(menuCode, userNo);
-        return HttpResponse.ok(options);
-    }
 }
 

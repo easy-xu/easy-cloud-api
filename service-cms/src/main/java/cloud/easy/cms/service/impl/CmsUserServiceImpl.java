@@ -3,18 +3,17 @@ package cloud.easy.cms.service.impl;
 import cloud.easy.cms.entity.CmsUser;
 import cloud.easy.cms.mapper.CmsUserMapper;
 import cloud.easy.cms.service.ICmsUserService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 /**
- * <p>
- * 用户信息主表 服务实现类
- * </p>
+ * 用户业务实现类
  *
- * @author Mybatis Plus
- * @since 2021-11-29
+ * @author generator
+ * @since 2021-12-09
  */
 @Service
 public class CmsUserServiceImpl extends ServiceImpl<CmsUserMapper, CmsUser> implements ICmsUserService {
 
 }
+

@@ -1,18 +1,19 @@
 package cloud.easy.cms.entity;
 
-import cloud.easy.base.entity.BaseEntity;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import cloud.easy.base.entity.BaseEntity;
 
 /**
- * <p>
- * 用户和角色关联表
- * </p>
+ * 用户和角色关联实体类
  *
- * @author Generator
- * @since 2021-10-19
+ * @author generator
+ * @since 2021-12-09
  */
 @Data
+@TableName("cms_user_role")
 @EqualsAndHashCode(callSuper = true)
 public class CmsUserRole extends BaseEntity {
 
@@ -22,11 +23,9 @@ public class CmsUserRole extends BaseEntity {
      * 用户ID
      */
     private Long userId;
-
     /**
      * 角色ID
      */
     private Long roleId;
-
 
 }

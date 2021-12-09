@@ -1,12 +1,10 @@
 package cloud.easy.cms.service.impl;
 
-import cloud.easy.cms.dto.RoleDto;
 import cloud.easy.cms.entity.CmsRole;
 import cloud.easy.cms.entity.CmsRoleAuth;
 import cloud.easy.cms.service.ICmsRoleAuthService;
 import cloud.easy.cms.service.ICmsRoleService;
 import cloud.easy.cms.service.RoleService;
-import cloud.easy.utils.BeanUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,9 +31,7 @@ public class RoleServiceImpl implements RoleService {
     private ICmsRoleAuthService cmsRoleAuthService;
 
     @Override
-    public void save(RoleDto roleDto) {
-        CmsRole cmsRole = new CmsRole();
-        BeanUtils.copy(roleDto, cmsRole);
+    public void save(CmsRole cmsRole) {
         cmsRoleService.saveOrUpdate(cmsRole);
         Long roleId = cmsRole.getId();
         //删除关联历史
@@ -43,7 +39,7 @@ public class RoleServiceImpl implements RoleService {
         cmsRoleAuth.setRoleId(roleId);
         cmsRoleAuthService.remove(Wrappers.query(cmsRoleAuth));
         //新增关联
-        List<Long> authIds = roleDto.getAuthIds();
+        List<Long> authIds = cmsRole.getAuthIds();
         List<CmsRoleAuth> cmsRoleAuths = authIds.stream().map(authId -> {
             CmsRoleAuth roleAuth = new CmsRoleAuth();
             roleAuth.setAuthId(authId);
@@ -54,16 +50,23 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public RoleDto getDetail(Long id) {
-        RoleDto roleDto = new RoleDto();
+    public CmsRole getDetail(Long id) {
         CmsRole cmsRole = cmsRoleService.getById(id);
-        BeanUtils.copy(cmsRole, roleDto);
         //查询关联
         CmsRoleAuth cmsRoleAuth = new CmsRoleAuth();
         cmsRoleAuth.setRoleId(id);
         List<CmsRoleAuth> roleAuths = cmsRoleAuthService.list(Wrappers.query(cmsRoleAuth));
         List<Long> authIds = roleAuths.stream().map(CmsRoleAuth::getAuthId).collect(Collectors.toList());
-        roleDto.setAuthIds(authIds);
-        return roleDto;
+        cmsRole.setAuthIds(authIds);
+        return cmsRole;
+    }
+
+    @Override
+    public void deleteDetail(Long id) {
+        //删除关联
+        CmsRoleAuth cmsRoleAuth = new CmsRoleAuth();
+        cmsRoleAuth.setRoleId(id);
+        cmsRoleAuthService.remove(Wrappers.query(cmsRoleAuth));
+        cmsRoleService.removeById(id);
     }
 }

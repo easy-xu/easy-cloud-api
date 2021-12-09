@@ -1,18 +1,19 @@
 package cloud.easy.cms.entity;
 
-import cloud.easy.base.entity.BaseEntity;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import cloud.easy.base.entity.BaseEntity;
 
 /**
- * <p>
- * 用户和分组关联表
- * </p>
+ * 用户和分组关联实体类
  *
- * @author Generator
- * @since 2021-10-19
+ * @author generator
+ * @since 2021-12-09
  */
 @Data
+@TableName("cms_user_group")
 @EqualsAndHashCode(callSuper = true)
 public class CmsUserGroup extends BaseEntity {
 
@@ -22,11 +23,9 @@ public class CmsUserGroup extends BaseEntity {
      * 用户ID
      */
     private Long userId;
-
     /**
      * 分组ID
      */
     private Long groupId;
-
 
 }

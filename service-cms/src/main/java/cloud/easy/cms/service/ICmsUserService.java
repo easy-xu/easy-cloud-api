@@ -4,13 +4,12 @@ import cloud.easy.cms.entity.CmsUser;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
- * <p>
- * 用户信息主表 服务类
- * </p>
+ * 用户业务接口
  *
- * @author Mybatis Plus
- * @since 2021-11-29
+ * @author generator
+ * @since 2021-12-09
  */
 public interface ICmsUserService extends IService<CmsUser> {
 
 }
+

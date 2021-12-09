@@ -1,96 +1,3 @@
-
--- ----------------------------
--- 用户主表
--- ----------------------------
-drop table if exists cms_user;
-create table cms_user
-(
-    id           bigint(20)  not null auto_increment comment '用户ID',
-    username     varchar(60) not null comment '用户账号',
-    user_no      varchar(60) comment '用户编号',
-    device_no    varchar(60) comment '设备编号',
-    password     varchar(100) comment '密码',
-    nickname     varchar(30) comment '用户昵称',
-    type         varchar(2) default '00' comment '用户类型(00访客)',
-    token        varchar(300) comment '认证',
-    email        varchar(50) comment '用户邮箱',
-    phone_number varchar(11) comment '手机号码',
-    sex          char(1)    default '2' comment '用户性别(0男 1女 2未知)',
-    avatar       varchar(100) comment '头像地址',
-    default_group_id     bigint(20) comment '用户默认分组',
-    deleted      char(1)    default '0' comment '逻辑删除(0:正常, 1:停用)',
-    group_id     bigint(20) comment '数据分组',
-    own_mode     char(1)    default 'w' comment '所有者权限(-:不可读写, r:可读, w:可读可写)',
-    group_mode   char(1)    default 'r' comment '同分组权限(-:不可读写, r:可读, w:可读可写)',
-    other_mode   char(1)    default '-' comment '其他分组权限(-:不可读写, r:可读, w:可读可写)',
-    create_by    varchar(60) comment '创建者',
-    create_time  datetime comment '创建时间',
-    update_by    varchar(60) comment '更新者',
-    update_time  datetime comment '更新时间',
-    primary key (id)
-) engine = innodb
-  auto_increment = 1 comment = '用户信息主表';
-ALTER TABLE `cms_user`
-    ADD INDEX `index_username` (`username`) USING BTREE;
-ALTER TABLE `cms_user`
-    ADD INDEX `index_user_no` (`user_no`) USING BTREE;
-
--- ----------------------------
--- 分组表
--- ----------------------------
-drop table if exists cms_group;
-create table cms_group
-(
-    id          bigint(20)   not null auto_increment comment '分组ID',
-    name        varchar(30)  not null comment '分组名称',
-    code        varchar(100) not null comment '分组字符串',
-    deleted     char(1)      default '0' comment '逻辑删除(0:正常, 1:停用)',
-    group_id     bigint(20) comment '数据分组',
-    own_mode     char(1)    default 'w' comment '所有者权限(-:不可读写, r:可读, w:可读可写)',
-    group_mode   char(1)    default 'r' comment '同分组权限(-:不可读写, r:可读, w:可读可写)',
-    other_mode   char(1)    default 'r' comment '其他分组权限(-:不可读写, r:可读, w:可读可写)',
-    create_by   varchar(60) comment '创建者',
-    create_time datetime comment '创建时间',
-    update_by   varchar(60) comment '更新者',
-    update_time datetime comment '更新时间',
-    remark      varchar(500) default null comment '备注',
-    primary key (id)
-) engine = innodb
-  auto_increment = 1 comment = '分组表';
-
--- ----------------------------
--- Records of cms_group
--- ----------------------------
-INSERT INTO `cloud`.`cms_group`(`id`, `name`, `code`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (1, '系统分组', 'system', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-15 21:29:31', 'U20211018000201', '2021-10-18 13:37:48', NULL);
-INSERT INTO `cloud`.`cms_group`(`id`, `name`, `code`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (2, '默认分组', 'default', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-16 21:48:15', 'U20211018000201', '2021-10-18 13:38:02', NULL);
-INSERT INTO `cloud`.`cms_group`(`id`, `name`, `code`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (3, '开发分组', 'dev', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-16 21:48:28', 'U20211018000201', '2021-10-18 13:38:16', NULL);
-INSERT INTO `cloud`.`cms_group`(`id`, `name`, `code`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (4, '运维分组', 'ops', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-18 13:18:19', 'U20211018000201', '2021-10-18 13:38:31', NULL);
-INSERT INTO `cloud`.`cms_group`(`id`, `name`, `code`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (5, '演示分组', 'demo', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-11-29 17:06:04', 'U20211018000202', '2021-11-29 17:06:04', NULL);
-
-
--- ----------------------------
--- 角色主表
--- ----------------------------
-drop table if exists cms_role;
-create table cms_role
-(
-    id          bigint(20)   not null auto_increment comment '角色ID',
-    name        varchar(30)  not null comment '角色名称',
-    code        varchar(100) not null comment '角色权限字符串',
-    deleted     char(1)      default '0' comment '逻辑删除(0:正常, 1:停用)',
-    group_id     bigint(20) comment '数据分组',
-    own_mode     char(1)    default 'w' comment '所有者权限(-:不可读写, r:可读, w:可读可写)',
-    group_mode   char(1)    default 'r' comment '同分组权限(-:不可读写, r:可读, w:可读可写)',
-    other_mode   char(1)    default 'r' comment '其他分组权限(-:不可读写, r:可读, w:可读可写)',
-    create_by   varchar(60) comment '创建者',
-    create_time datetime comment '创建时间',
-    update_by   varchar(60) comment '更新者',
-    update_time datetime comment '更新时间',
-    remark      varchar(500) default null comment '备注',
-    primary key (id)
-) engine = innodb
-  auto_increment = 1 comment = '角色信息表';
-
 -- ----------------------------
 -- 菜单表
 -- ----------------------------
@@ -196,6 +103,15 @@ create table cms_auth
 ) engine = innodb
   auto_increment = 1 comment = '权限表';
 
+
+-- ----------------------------
+-- Records of cms_auth
+-- ----------------------------
+INSERT INTO `cloud`.`cms_auth`(`id`, `name`, `code`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (1, '所有权限', 'All', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-15 20:59:40', 'U20211018000106', '2021-12-04 10:25:40', NULL);
+INSERT INTO `cloud`.`cms_auth`(`id`, `name`, `code`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (2, '所有只读权限', 'AllRead', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-16 21:49:34', 'U20211018000106', '2021-10-25 09:42:07', NULL);
+INSERT INTO `cloud`.`cms_auth`(`id`, `name`, `code`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (3, '所有可写权限', 'AllWritable', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-16 21:50:33', 'U20211018000106', '2021-10-25 09:42:14', NULL);
+
+
 -- ----------------------------
 -- 权限和操作关联表  权限1-N操作
 -- ----------------------------
@@ -224,7 +140,6 @@ INSERT INTO `cloud`.`cms_auth_option`(`id`, `auth_id`, `option_id`, `create_by`,
 INSERT INTO `cloud`.`cms_auth_option`(`id`, `auth_id`, `option_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (38, 1, 2, 'U20211018000106', '2021-12-04 10:25:40', 'U20211018000106', '2021-12-04 10:25:40');
 INSERT INTO `cloud`.`cms_auth_option`(`id`, `auth_id`, `option_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (39, 1, 3, 'U20211018000106', '2021-12-04 10:25:40', 'U20211018000106', '2021-12-04 10:25:40');
 INSERT INTO `cloud`.`cms_auth_option`(`id`, `auth_id`, `option_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (40, 1, 4, 'U20211018000106', '2021-12-04 10:25:40', 'U20211018000106', '2021-12-04 10:25:40');
-
 
 -- ----------------------------
 -- 权限和菜单关联表  权限1-N菜单
@@ -286,6 +201,34 @@ INSERT INTO `cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `cr
 INSERT INTO `cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (125, 1, 17, 'U20211018000106', '2021-12-04 10:25:40', 'U20211018000106', '2021-12-04 10:25:40');
 INSERT INTO `cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (126, 1, 18, 'U20211018000106', '2021-12-04 10:25:40', 'U20211018000106', '2021-12-04 10:25:40');
 
+-- ----------------------------
+-- 角色表
+-- ----------------------------
+drop table if exists cms_role;
+create table cms_role
+(
+    id          bigint(20)   not null auto_increment comment '角色ID',
+    name        varchar(30)  not null comment '角色名称',
+    code        varchar(100) not null comment '角色字符串',
+    deleted     char(1)      default '0' comment '逻辑删除(0:正常, 1:停用)',
+    group_id     bigint(20) comment '数据分组',
+    own_mode     char(1)    default 'w' comment '所有者权限(-:不可读写, r:可读, w:可读可写)',
+    group_mode   char(1)    default 'r' comment '同分组权限(-:不可读写, r:可读, w:可读可写)',
+    other_mode   char(1)    default 'r' comment '其他分组权限(-:不可读写, r:可读, w:可读可写)',
+    create_by   varchar(60) comment '创建者',
+    create_time datetime comment '创建时间',
+    update_by   varchar(60) comment '更新者',
+    update_time datetime comment '更新时间',
+    remark      varchar(500) default null comment '备注',
+    primary key (id)
+) engine = innodb
+  auto_increment = 1 comment = '角色表';
+-- ----------------------------
+-- Records of cms_role
+-- ----------------------------
+INSERT INTO `cloud`.`cms_role`(`id`, `name`, `code`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (1, '系统管理员', 'Admin', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-12 21:55:40', 'U20211013000001', '2021-10-16 21:51:26', NULL);
+INSERT INTO `cloud`.`cms_role`(`id`, `name`, `code`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (2, '只读角色', 'ReadRole', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-12 21:56:22', 'U20211013000001', '2021-10-16 21:51:40', NULL);
+INSERT INTO `cloud`.`cms_role`(`id`, `name`, `code`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (3, '可写用户', 'WriteRole', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-12 21:56:50', 'U20211013000001', '2021-10-16 21:51:53', NULL);
 
 -- ----------------------------
 -- 角色和权限关联表  角色1-N权限
@@ -304,9 +247,90 @@ create table cms_role_auth
 ) engine = innodb
   auto_increment = 1 comment = '角色和权限关联表';
 
+-- ----------------------------
+-- Records of cms_role_auth
+-- ----------------------------
+INSERT INTO `cloud`.`cms_role_auth`(`id`, `role_id`, `auth_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (4, 1, 1, 'U20211013000001', '2021-10-16 21:51:26', 'U20211013000001', '2021-10-16 21:51:26');
+INSERT INTO `cloud`.`cms_role_auth`(`id`, `role_id`, `auth_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (5, 2, 2, 'U20211013000001', '2021-10-16 21:51:40', 'U20211013000001', '2021-10-16 21:51:40');
+INSERT INTO `cloud`.`cms_role_auth`(`id`, `role_id`, `auth_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (6, 3, 3, 'U20211013000001', '2021-10-16 21:51:53', 'U20211013000001', '2021-10-16 21:51:53');
+
 
 -- ----------------------------
--- 用户和角色关联表  用户N-1角色
+-- 分组表
+-- ----------------------------
+drop table if exists cms_group;
+create table cms_group
+(
+    id          bigint(20)   not null auto_increment comment '分组ID',
+    name        varchar(30)  not null comment '分组名称',
+    code        varchar(100) not null comment '分组字符串',
+    deleted     char(1)      default '0' comment '逻辑删除(0:正常, 1:停用)',
+    group_id     bigint(20) comment '数据分组',
+    own_mode     char(1)    default 'w' comment '所有者权限(-:不可读写, r:可读, w:可读可写)',
+    group_mode   char(1)    default 'r' comment '同分组权限(-:不可读写, r:可读, w:可读可写)',
+    other_mode   char(1)    default 'r' comment '其他分组权限(-:不可读写, r:可读, w:可读可写)',
+    create_by   varchar(60) comment '创建者',
+    create_time datetime comment '创建时间',
+    update_by   varchar(60) comment '更新者',
+    update_time datetime comment '更新时间',
+    remark      varchar(500) default null comment '备注',
+    primary key (id)
+) engine = innodb
+  auto_increment = 1 comment = '分组表';
+
+-- ----------------------------
+-- Records of cms_group
+-- ----------------------------
+INSERT INTO `cloud`.`cms_group`(`id`, `name`, `code`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (1, '系统分组', 'system', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-15 21:29:31', 'U20211018000201', '2021-10-18 13:37:48', NULL);
+INSERT INTO `cloud`.`cms_group`(`id`, `name`, `code`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (2, '默认分组', 'default', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-16 21:48:15', 'U20211018000201', '2021-10-18 13:38:02', NULL);
+INSERT INTO `cloud`.`cms_group`(`id`, `name`, `code`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (3, '开发分组', 'dev', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-16 21:48:28', 'U20211018000201', '2021-10-18 13:38:16', NULL);
+INSERT INTO `cloud`.`cms_group`(`id`, `name`, `code`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (4, '运维分组', 'ops', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-18 13:18:19', 'U20211018000201', '2021-10-18 13:38:31', NULL);
+INSERT INTO `cloud`.`cms_group`(`id`, `name`, `code`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (5, '演示分组', 'demo', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-11-29 17:06:04', 'U20211018000202', '2021-11-29 17:06:04', NULL);
+
+
+-- ----------------------------
+-- 用户表
+-- ----------------------------
+drop table if exists cms_user;
+create table cms_user
+(
+    id           bigint(20)  not null auto_increment comment '用户ID',
+    username     varchar(60) not null comment '用户名',
+    user_no      varchar(60) comment '用户编号',
+    device_no    varchar(60) comment '设备编号',
+    password     varchar(100) comment '密码',
+    nickname     varchar(30) comment '用户昵称',
+    token        varchar(300) comment '认证',
+    email        varchar(50) comment '用户邮箱',
+    phone_number varchar(11) comment '手机号码',
+    sex          char(1)    default 'N' comment '用户性别(M:男, F:女, N:未知)',
+    avatar       varchar(100) comment '头像地址',
+    default_group_id     bigint(20) comment '当前分组',
+    deleted      char(1)    default '0' comment '逻辑删除(0:正常, 1:停用)',
+    group_id     bigint(20) comment '数据分组',
+    own_mode     char(1)    default 'w' comment '所有者权限(-:不可读写, r:可读, w:可读可写)',
+    group_mode   char(1)    default 'r' comment '同分组权限(-:不可读写, r:可读, w:可读可写)',
+    other_mode   char(1)    default '-' comment '其他分组权限(-:不可读写, r:可读, w:可读可写)',
+    create_by    varchar(60) comment '创建者',
+    create_time  datetime comment '创建时间',
+    update_by    varchar(60) comment '更新者',
+    update_time  datetime comment '更新时间',
+    primary key (id)
+) engine = innodb
+  auto_increment = 1 comment = '用户表';
+ALTER TABLE `cms_user`
+    ADD INDEX `index_username` (`username`) USING BTREE;
+ALTER TABLE `cms_user`
+    ADD INDEX `index_user_no` (`user_no`) USING BTREE;
+
+INSERT INTO `cloud`.`cms_user`(`id`, `username`, `user_no`, `device_no`, `password`, `nickname`, `token`, `email`, `phone_number`, `sex`, `avatar`, `default_group_id`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (1, 'admin', 'U20211018000106', 'D20211129000200', 'J3KCwEKaFHA3gvmGqUjfT1A32MRzuyC5EPuZy3RWmVte', '系统管理员', '', NULL, NULL, 'N', NULL, 1, '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-13 20:35:41', 'U20211018000201', '2021-10-18 13:39:44');
+INSERT INTO `cloud`.`cms_user`(`id`, `username`, `user_no`, `device_no`, `password`, `nickname`, `token`, `email`, `phone_number`, `sex`, `avatar`, `default_group_id`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (2, 'dev', 'U20211018000202', 'D20211129000100', '8iLQLpiZZntVnMhZ8VX9YnhTvNREHK7kUrpCYXkgH5vC', '开发人员', '', NULL, NULL, 'N', NULL, 3, '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-16 21:59:42', 'U20211018000201', '2021-10-18 13:39:55');
+INSERT INTO `cloud`.`cms_user`(`id`, `username`, `user_no`, `device_no`, `password`, `nickname`, `token`, `email`, `phone_number`, `sex`, `avatar`, `default_group_id`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (3, 'ops', 'U20211018000201', 'D20211129000200', '7pvk763joCo25grKGoJfDVi9hHMkZoxJu8FLFoDDvyNU', '运维人员', '', NULL, NULL, 'N', NULL, 4, '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-16 22:00:00', 'U20211018000201', '2021-10-18 13:40:04');
+INSERT INTO `cloud`.`cms_user`(`id`, `username`, `user_no`, `device_no`, `password`, `nickname`, `token`, `email`, `phone_number`, `sex`, `avatar`, `default_group_id`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (4, 'demo', 'U20211129000000', 'D20211129000200', 'GR9UQsVXPsD3K7mxivrmcVrwaoFMFAyoJbh3S4iBrWd7', '演示用户', '', NULL, NULL, 'N', NULL, 5, '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-11-29 17:07:36', 'U20211018000202', '2021-11-29 17:07:36');
+
+
+-- ----------------------------
+-- 用户角色关联表  用户N-N角色
 -- ----------------------------
 drop table if exists cms_user_role;
 create table cms_user_role
@@ -320,10 +344,19 @@ create table cms_user_role
     update_time datetime comment '更新时间',
     primary key (id)
 ) engine = innodb
-  auto_increment = 1 comment = '用户和角色关联表';
+  auto_increment = 1 comment = '用户角色关联表';
 
 -- ----------------------------
--- 用户和分组关联表  用户N-1分组
+-- Records of cms_user_role
+-- ----------------------------
+INSERT INTO `cloud`.`cms_user_role`(`id`, `user_id`, `role_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (49, 1, 1, 'U20211018000201', '2021-10-18 13:39:44', 'U20211018000201', '2021-10-18 13:39:44');
+INSERT INTO `cloud`.`cms_user_role`(`id`, `user_id`, `role_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (50, 2, 3, 'U20211018000201', '2021-10-18 13:39:55', 'U20211018000201', '2021-10-18 13:39:55');
+INSERT INTO `cloud`.`cms_user_role`(`id`, `user_id`, `role_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (51, 3, 3, 'U20211018000201', '2021-10-18 13:40:04', 'U20211018000201', '2021-10-18 13:40:04');
+INSERT INTO `cloud`.`cms_user_role`(`id`, `user_id`, `role_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (52, 4, 1, 'U20211018000202', '2021-11-29 17:07:36', 'U20211018000202', '2021-11-29 17:07:36');
+
+
+-- ----------------------------
+-- 用户分组关联表  用户N-N分组
 -- ----------------------------
 drop table if exists cms_user_group;
 create table cms_user_group
@@ -337,7 +370,15 @@ create table cms_user_group
     update_time datetime comment '更新时间',
     primary key (id)
 ) engine = innodb
-  auto_increment = 1 comment = '用户和分组关联表';
+  auto_increment = 1 comment = '用户分组关联表';
+-- ----------------------------
+-- Records of cms_user_group
+-- ----------------------------
+INSERT INTO `cloud`.`cms_user_group`(`id`, `user_id`, `group_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (28, 1, 1, 'U20211018000201', '2021-10-18 13:39:44', 'U20211018000201', '2021-10-18 13:39:44');
+INSERT INTO `cloud`.`cms_user_group`(`id`, `user_id`, `group_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (29, 2, 3, 'U20211018000201', '2021-10-18 13:39:55', 'U20211018000201', '2021-10-18 13:39:55');
+INSERT INTO `cloud`.`cms_user_group`(`id`, `user_id`, `group_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (30, 3, 4, 'U20211018000201', '2021-10-18 13:40:04', 'U20211018000201', '2021-10-18 13:40:04');
+INSERT INTO `cloud`.`cms_user_group`(`id`, `user_id`, `group_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (31, 4, 5, 'U20211018000202', '2021-11-29 17:07:37', 'U20211018000202', '2021-11-29 17:07:37');
+
 
 -- ----------------------------
 -- 接口日志表字段
@@ -458,45 +499,10 @@ create table file_content
 -- 数据备份
 
 -- ----------------------------
--- Records of cms_auth
--- ----------------------------
-INSERT INTO `cms_auth` VALUES (1, '所有权限', 'All', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-15 20:59:40', 'U20211013000001', '2021-10-15 21:28:19', NULL);
-INSERT INTO `cms_auth` VALUES (2, '所有只读权限', 'AllRead', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-16 21:49:34', 'U20211013000001', '2021-10-17 16:05:31', NULL);
-INSERT INTO `cms_auth` VALUES (3, '所有可写权限', 'AllWritable', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-16 21:50:33', 'U20211013000001', '2021-10-17 16:05:43', NULL);
-
-
--- ----------------------------
--- Records of cms_role
--- ----------------------------
-INSERT INTO `cms_role` VALUES (1, '系统管理员', 'Admin', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-12 21:55:40', 'U20211013000001', '2021-10-16 21:51:26', NULL);
-INSERT INTO `cms_role` VALUES (2, '只读角色', 'ReadRole', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-12 21:56:22', 'U20211013000001', '2021-10-16 21:51:40', NULL);
-INSERT INTO `cms_role` VALUES (3, '可写用户', 'WriteRole', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-12 21:56:50', 'U20211013000001', '2021-10-16 21:51:53', NULL);
-
--- ----------------------------
--- Records of cms_role_auth
--- ----------------------------
-INSERT INTO `cms_role_auth` VALUES (4, 1, 1, 'U20211013000001', '2021-10-16 21:51:26', 'U20211013000001', '2021-10-16 21:51:26');
-INSERT INTO `cms_role_auth` VALUES (5, 2, 2, 'U20211013000001', '2021-10-16 21:51:40', 'U20211013000001', '2021-10-16 21:51:40');
-INSERT INTO `cms_role_auth` VALUES (6, 3, 3, 'U20211013000001', '2021-10-16 21:51:53', 'U20211013000001', '2021-10-16 21:51:53');
-
--- ----------------------------
 -- Records of cms_user
 -- ----------------------------
 INSERT INTO `cloud`.`cms_user`(`id`, `username`, `user_no`, `password`, `nickname`, `type`, `token`, `email`, `phone_number`, `sex`, `avatar`, `default_group_id`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (1, 'admin', 'U20211018000106', '9ZPsmFqGpMkaSNg8Fxv8XR7wMsnpdV4eb4rUNntp184V', '系统管理员', '01', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiVTIwMjExMDE4MDAwMTA2IiwiaWF0IjoxNjM4MTAzOTI5fQ.gVwF6I27L6wwrELyibwGnFV1yMndxKV8MAyeP750618', NULL, NULL, '2', NULL, 1, '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-13 20:35:41', 'U20211018000201', '2021-10-18 13:39:44');
 INSERT INTO `cloud`.`cms_user`(`id`, `username`, `user_no`, `password`, `nickname`, `type`, `token`, `email`, `phone_number`, `sex`, `avatar`, `default_group_id`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (2, 'dev', 'U20211018000202', '8iLQLpiZZntVnMhZ8VX9YnhTvNREHK7kUrpCYXkgH5vC', '开发人员', '00', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiVTIwMjExMDE4MDAwMjAyIiwiaWF0IjoxNjM1MTI2MjM1fQ.hmeH5GJtMYAic6FRp7Ji1UKum7s5xT8YCRMzGxWeLo8', NULL, NULL, '2', NULL, 3, '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-16 21:59:42', 'U20211018000201', '2021-10-18 13:39:55');
 INSERT INTO `cloud`.`cms_user`(`id`, `username`, `user_no`, `password`, `nickname`, `type`, `token`, `email`, `phone_number`, `sex`, `avatar`, `default_group_id`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (3, 'ops', 'U20211018000201', '7pvk763joCo25grKGoJfDVi9hHMkZoxJu8FLFoDDvyNU', '运维人员', '00', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiVTIwMjExMDE4MDAwMjAxIiwiaWF0IjoxNjM0NTM1NDMxfQ.lQtFBPyqirUzEr3KAai03GaCgHeYDjrr3kJT_D2XUYA', NULL, NULL, '2', NULL, 4, '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-16 22:00:00', 'U20211018000201', '2021-10-18 13:40:04');
 
--- ----------------------------
--- Records of cms_user_group
--- ----------------------------
-INSERT INTO `cms_user_group` VALUES (28, 1, 1, 'U20211018000201', '2021-10-18 13:39:44', 'U20211018000201', '2021-10-18 13:39:44');
-INSERT INTO `cms_user_group` VALUES (29, 2, 3, 'U20211018000201', '2021-10-18 13:39:55', 'U20211018000201', '2021-10-18 13:39:55');
-INSERT INTO `cms_user_group` VALUES (30, 3, 4, 'U20211018000201', '2021-10-18 13:40:04', 'U20211018000201', '2021-10-18 13:40:04');
-
--- ----------------------------
--- Records of cms_user_role
--- ----------------------------
-INSERT INTO `cms_user_role` VALUES (49, 1, 1, 'U20211018000201', '2021-10-18 13:39:44', 'U20211018000201', '2021-10-18 13:39:44');
-INSERT INTO `cms_user_role` VALUES (50, 2, 3, 'U20211018000201', '2021-10-18 13:39:55', 'U20211018000201', '2021-10-18 13:39:55');
-INSERT INTO `cms_user_role` VALUES (51, 3, 3, 'U20211018000201', '2021-10-18 13:40:04', 'U20211018000201', '2021-10-18 13:40:04');
 

@@ -4,13 +4,12 @@ import cloud.easy.cms.entity.CmsRole;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
- * <p>
- * 角色信息表 服务类
- * </p>
+ * 角色业务接口
  *
- * @author Mybatis Plus
- * @since 2021-11-29
+ * @author generator
+ * @since 2021-12-09
  */
 public interface ICmsRoleService extends IService<CmsRole> {
 
 }
+

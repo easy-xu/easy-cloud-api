@@ -1,6 +1,6 @@
 package cloud.easy.cms.service;
 
-import cloud.easy.cms.dto.RoleDto;
+import cloud.easy.cms.entity.CmsRole;
 
 /**
  * Title: RoleService
@@ -13,9 +13,9 @@ public interface RoleService {
     /**
      * 保存角色及权限
      *
-     * @param roleDto 角色及权限
+     * @param cmsRole 角色及权限
      */
-    void save(RoleDto roleDto);
+    void save(CmsRole cmsRole);
 
     /**
      * 查询角色详情
@@ -23,5 +23,12 @@ public interface RoleService {
      * @param id 角色Id
      * @return RoleDto
      */
-    RoleDto getDetail(Long id);
+    CmsRole getDetail(Long id);
+
+    /**
+     * 删除角色详情
+     *
+     * @param id 角色Id
+     */
+    void deleteDetail(Long id);
 }

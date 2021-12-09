@@ -1,6 +1,7 @@
 package cloud.easy.cms.service;
 
 import cloud.easy.cms.dto.UserDto;
+import cloud.easy.cms.entity.CmsUser;
 
 /**
  * Title: UserService
@@ -42,9 +43,9 @@ public interface UserService {
     /**
      * 保存用户
      *
-     * @param userDto 用户信息
+     * @param cmsUser 用户信息
      */
-    void save(UserDto userDto);
+    void save(CmsUser cmsUser);
 
     /**
      * 查询用户详情
@@ -55,10 +56,18 @@ public interface UserService {
     UserDto getDetail(Long id);
 
     /**
+     * 删除用户详情
+     *
+     * @param id 用户id
+     */
+    void deleteDetail(Long id);
+
+    /**
      * 重置密码
      *
      * @param userDto 用户信息
      */
     void resetPassword(UserDto userDto);
+
 
 }

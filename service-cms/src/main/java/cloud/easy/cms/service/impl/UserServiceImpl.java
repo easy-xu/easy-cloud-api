@@ -1,11 +1,9 @@
 package cloud.easy.cms.service.impl;
 
-import cloud.easy.sys.entity.SysOptionLog;
 import cloud.easy.cms.dto.UserDto;
 import cloud.easy.cms.entity.CmsUser;
 import cloud.easy.cms.entity.CmsUserGroup;
 import cloud.easy.cms.entity.CmsUserRole;
-import cloud.easy.cms.enums.UserTypeEnum;
 import cloud.easy.cms.service.ICmsUserGroupService;
 import cloud.easy.cms.service.ICmsUserRoleService;
 import cloud.easy.cms.service.ICmsUserService;
@@ -16,6 +14,7 @@ import cloud.easy.entity.ApiHeader;
 import cloud.easy.exception.RequestException;
 import cloud.easy.exception.SystemErrorException;
 import cloud.easy.idgenerator.IDGeneratorInstance;
+import cloud.easy.sys.entity.SysOptionLog;
 import cloud.easy.utils.BeanUtils;
 import cloud.easy.utils.PasswordUtils;
 import cloud.easy.utils.UserTokenUtils;
@@ -60,7 +59,6 @@ public class UserServiceImpl implements UserService {
         //生成用户编号
         String userNo = IDGeneratorInstance.USER_NO.generate();
         cmsUser.setUserNo(userNo);
-        cmsUser.setType(UserTypeEnum.USER);
         //密码加密
         cmsUser.setPassword(PasswordUtils.encrypt(cmsUser.getPassword()));
         cmsUserService.saveOrUpdate(cmsUser);
@@ -136,9 +134,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void save(UserDto userDto) {
-        CmsUser cmsUser = new CmsUser();
-        BeanUtils.copy(userDto, cmsUser);
+    public void save(CmsUser cmsUser) {
         String userNo = cmsUser.getUserNo();
         //新增用户
         if (userNo == null) {
@@ -149,7 +145,6 @@ public class UserServiceImpl implements UserService {
         if (password != null) {
             cmsUser.setPassword(PasswordUtils.encrypt(password));
         }
-        cmsUser.setType(UserTypeEnum.USER);
         cmsUserService.saveOrUpdate(cmsUser);
         Long userId = cmsUser.getId();
         //删除关联历史
@@ -157,7 +152,7 @@ public class UserServiceImpl implements UserService {
         cmsUserRole.setUserId(userId);
         cmsUserRoleService.remove(Wrappers.query(cmsUserRole));
         //新增关联
-        List<Long> roleIds = userDto.getRoleIds();
+        List<Long> roleIds = cmsUser.getRoleIds();
         List<CmsUserRole> cmsUserRoles = roleIds.stream().map(roleId -> {
             CmsUserRole userRole = new CmsUserRole();
             userRole.setUserId(userId);
@@ -171,7 +166,7 @@ public class UserServiceImpl implements UserService {
         cmsUserGroup.setUserId(userId);
         cmsUserGroupService.remove(Wrappers.query(cmsUserGroup));
         //新增关联
-        List<Long> groupIds = userDto.getGroupIds();
+        List<Long> groupIds = cmsUser.getGroupIds();
         List<CmsUserGroup> cmsUserGroups = groupIds.stream().map(groupId -> {
             CmsUserGroup userGroup = new CmsUserGroup();
             userGroup.setUserId(userId);
@@ -199,6 +194,15 @@ public class UserServiceImpl implements UserService {
         List<Long> groupIds = userGroups.stream().map(CmsUserGroup::getGroupId).collect(Collectors.toList());
         userDto.setGroupIds(groupIds);
         return userDto;
+    }
+
+    @Override
+    public void deleteDetail(Long id) {
+        //删除关联角色
+        CmsUserRole cmsUserRole = new CmsUserRole();
+        cmsUserRole.setUserId(id);
+        cmsUserRoleService.remove(Wrappers.query(cmsUserRole));
+        cmsUserService.removeById(id);
     }
 
     @Override

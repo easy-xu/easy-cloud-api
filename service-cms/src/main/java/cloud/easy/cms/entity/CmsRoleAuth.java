@@ -1,20 +1,20 @@
 package cloud.easy.cms.entity;
 
 import cloud.easy.base.entity.BaseEntity;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * <p>
- * 角色和菜单关联表
- * </p>
+ * 角色和权限关联实体类
  *
- * @author Generator
- * @since 2021-10-13
+ * @author generator
+ * @since 2021-12-09
  */
 @Data
+@TableName("cms_role_auth")
 @EqualsAndHashCode(callSuper = true)
-public class CmsRoleMenu extends BaseEntity {
+public class CmsRoleAuth extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -22,11 +22,9 @@ public class CmsRoleMenu extends BaseEntity {
      * 角色ID
      */
     private Long roleId;
-
     /**
-     * 菜单ID
+     * 权限ID
      */
-    private Long menuId;
-
+    private Long authId;
 
 }
