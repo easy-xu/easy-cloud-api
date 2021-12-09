@@ -10,7 +10,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
  * 菜单业务实现类
  *
  * @author generator
- * @since 2021-12-08
+ * @since 2021-12-09
  */
 @Service
 public class CmsMenuServiceImpl extends ServiceImpl<CmsMenuMapper, CmsMenu> implements ICmsMenuService {

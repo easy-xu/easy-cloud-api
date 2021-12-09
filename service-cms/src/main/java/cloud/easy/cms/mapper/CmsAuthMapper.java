@@ -1,16 +1,16 @@
 package cloud.easy.cms.mapper;
 
 import cloud.easy.cms.entity.CmsAuth;
+import org.apache.ibatis.annotations.Mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
- * <p>
- * 权限表 Mapper 接口
- * </p>
+ * 权限查询类
  *
- * @author Mybatis Plus
- * @since 2021-11-29
+ * @author generator
+ * @since 2021-12-09
  */
+@Mapper
 public interface CmsAuthMapper extends BaseMapper<CmsAuth> {
 
 }

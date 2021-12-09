@@ -1,6 +1,5 @@
 package cloud.easy.cms.service.impl;
 
-import cloud.easy.cms.dto.AuthDto;
 import cloud.easy.cms.entity.CmsAuth;
 import cloud.easy.cms.entity.CmsAuthMenu;
 import cloud.easy.cms.entity.CmsAuthOption;
@@ -9,7 +8,6 @@ import cloud.easy.cms.service.AuthService;
 import cloud.easy.cms.service.ICmsAuthMenuService;
 import cloud.easy.cms.service.ICmsAuthOptionService;
 import cloud.easy.cms.service.ICmsAuthService;
-import cloud.easy.utils.BeanUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,9 +40,7 @@ public class AuthServiceImpl implements AuthService {
     private CmsMapperCust cmsMapperCust;
 
     @Override
-    public void save(AuthDto authDto) {
-        CmsAuth cmsAuth = new CmsAuth();
-        BeanUtils.copy(authDto, cmsAuth);
+    public void save(CmsAuth cmsAuth) {
         cmsAuthService.saveOrUpdate(cmsAuth);
         Long authId = cmsAuth.getId();
         //删除关联历史
@@ -55,7 +51,7 @@ public class AuthServiceImpl implements AuthService {
         cmsAuthOption.setAuthId(authId);
         cmsAuthOptionService.remove(Wrappers.query(cmsAuthOption));
         //新增关联
-        List<Long> menuIds = authDto.getMenuIds();
+        List<Long> menuIds = cmsAuth.getMenuIds();
         List<CmsAuthMenu> cmsAuthMenus = menuIds.stream().map(menuId -> {
             CmsAuthMenu authMenu = new CmsAuthMenu();
             authMenu.setMenuId(menuId);
@@ -63,7 +59,7 @@ public class AuthServiceImpl implements AuthService {
             return authMenu;
         }).collect(Collectors.toList());
         cmsAuthMenuService.saveBatch(cmsAuthMenus);
-        List<Long> optionIds = authDto.getOptionIds();
+        List<Long> optionIds = cmsAuth.getOptionIds();
         List<CmsAuthOption> authOptions = optionIds.stream().map(optionId -> {
             CmsAuthOption authOption = new CmsAuthOption();
             authOption.setOptionId(optionId);
@@ -74,22 +70,31 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public AuthDto getDetail(Long id) {
-        AuthDto authDto = new AuthDto();
+    public CmsAuth getDetail(Long id) {
         CmsAuth cmsAuth = cmsAuthService.getById(id);
-        BeanUtils.copy(cmsAuth, authDto);
         //查询关联
         CmsAuthMenu cmsAuthMenu = new CmsAuthMenu();
         cmsAuthMenu.setAuthId(id);
         List<CmsAuthMenu> authMenus = cmsAuthMenuService.list(Wrappers.query(cmsAuthMenu));
         List<Long> menuIds = authMenus.stream().map(CmsAuthMenu::getMenuId).collect(Collectors.toList());
-        authDto.setMenuIds(menuIds);
+        cmsAuth.setMenuIds(menuIds);
         CmsAuthOption cmsAuthOption = new CmsAuthOption();
         cmsAuthOption.setAuthId(id);
         List<CmsAuthOption> authOptions = cmsAuthOptionService.list(Wrappers.query(cmsAuthOption));
         List<Long> optionIds = authOptions.stream().map(CmsAuthOption::getOptionId).collect(Collectors.toList());
-        authDto.setOptionIds(optionIds);
-        return authDto;
+        cmsAuth.setOptionIds(optionIds);
+        return cmsAuth;
+    }
+
+    @Override
+    public void deleteDetail(Long id) {
+        CmsAuthMenu cmsAuthMenu = new CmsAuthMenu();
+        cmsAuthMenu.setAuthId(id);
+        cmsAuthMenuService.remove(Wrappers.query(cmsAuthMenu));
+        CmsAuthOption cmsAuthOption = new CmsAuthOption();
+        cmsAuthOption.setAuthId(id);
+        cmsAuthOptionService.remove(Wrappers.query(cmsAuthOption));
+        cmsAuthService.removeById(id);
     }
 
     @Override
@@ -97,4 +102,5 @@ public class AuthServiceImpl implements AuthService {
         //查询菜单是否有权限
         return cmsMapperCust.userMenuOptions(menuCode, userNo);
     }
+
 }

@@ -1,20 +1,19 @@
 package cloud.easy.cms.controller;
 
-import cloud.easy.annotation.OptionLog;
-import cloud.easy.base.controller.BaseController;
-import cloud.easy.base.dto.PageQueryDto;
 import cloud.easy.cms.dto.AuthDto;
-import cloud.easy.cms.entity.CmsAuth;
 import cloud.easy.cms.service.AuthService;
-import cloud.easy.cms.service.ICmsAuthService;
 import cloud.easy.device.ApiHeaderHelper;
 import cloud.easy.entity.ApiResponse;
+import cloud.easy.base.dto.PrimaryKeyDto;
+import cloud.easy.base.dto.PageQueryDto;
+import cloud.easy.annotation.OptionLog;
 import cloud.easy.entity.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import io.swagger.annotations.Api;
+import cloud.easy.cms.entity.CmsAuth;
+import cloud.easy.cms.service.ICmsAuthService;
+import cloud.easy.base.controller.BaseController;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -23,42 +22,45 @@ import static cloud.easy.base.utils.BaseUtil.notNull;
 import static cloud.easy.base.utils.BaseUtil.requireId;
 
 /**
- * Title: AuthController
- * Description:
+ * 权限控制器
  *
- * @author Xu Honglin
- * @version 1.0
+ * @author generator
+ * @since 2021-12-09
  */
 @RestController
 @RequestMapping("/api/cms/auth")
-public class AuthController extends BaseController<CmsAuth, ICmsAuthService> {
+@Api(tags = "权限接口")
+public class CmsAuthController extends BaseController<CmsAuth, ICmsAuthService> {
 
     @Resource
     private AuthService authService;
 
     @Autowired
-    public AuthController(ICmsAuthService service) {
+    public CmsAuthController(ICmsAuthService service) {
         super(service);
     }
 
-    @PostMapping("/query")
-    public ApiResponse queryEntity(@RequestBody AuthDto authDto) {
-        authDto = authService.getDetail(requireId(authDto));
-        return HttpResponse.ok(authDto);
+    @Override
+    @PostMapping("/get")
+    public ApiResponse getEntity(@RequestBody PrimaryKeyDto primaryKey) {
+        CmsAuth cmsAuth = authService.getDetail(requireId(primaryKey));
+        return HttpResponse.ok(cmsAuth);
     }
 
+    @Override
     @OptionLog("权限保存")
     @PostMapping("/save")
-    public ApiResponse saveEntity(@RequestBody AuthDto authDto) {
-        authService.save(notNull(authDto));
+    public ApiResponse saveEntity(@RequestBody CmsAuth cmsAuth) {
+        authService.save(notNull(cmsAuth));
         return HttpResponse.ok();
     }
 
     @Override
     @OptionLog("权限删除")
     @PostMapping("/delete")
-    public ApiResponse deleteEntity(@RequestBody CmsAuth entity) {
-        return super.deleteEntity(entity);
+    public ApiResponse deleteEntityById(@RequestBody PrimaryKeyDto primaryKey) {
+        authService.deleteDetail(requireId(primaryKey));
+        return HttpResponse.ok();
     }
 
     @Override
@@ -82,3 +84,4 @@ public class AuthController extends BaseController<CmsAuth, ICmsAuthService> {
         return HttpResponse.ok(options);
     }
 }
+

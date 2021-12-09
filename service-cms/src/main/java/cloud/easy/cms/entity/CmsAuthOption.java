@@ -1,18 +1,19 @@
 package cloud.easy.cms.entity;
 
-import cloud.easy.base.entity.BaseEntity;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import cloud.easy.base.entity.BaseEntity;
 
 /**
- * <p>
- * 操作和权限关联表
- * </p>
+ * 权限操作关联实体类
  *
- * @author Generator
- * @since 2021-10-19
+ * @author generator
+ * @since 2021-12-09
  */
 @Data
+@TableName("cms_auth_option")
 @EqualsAndHashCode(callSuper = true)
 public class CmsAuthOption extends BaseEntity {
 
@@ -22,11 +23,9 @@ public class CmsAuthOption extends BaseEntity {
      * 权限ID
      */
     private Long authId;
-
     /**
      * 操作ID
      */
     private Long optionId;
-
 
 }

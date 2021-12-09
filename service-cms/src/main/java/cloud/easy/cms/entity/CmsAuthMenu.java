@@ -1,18 +1,19 @@
 package cloud.easy.cms.entity;
 
-import cloud.easy.base.entity.BaseEntity;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import cloud.easy.base.entity.BaseEntity;
 
 /**
- * <p>
- * 用户和角色关联表
- * </p>
+ * 权限菜单关联实体类
  *
- * @author Generator
- * @since 2021-10-19
+ * @author generator
+ * @since 2021-12-09
  */
 @Data
+@TableName("cms_auth_menu")
 @EqualsAndHashCode(callSuper = true)
 public class CmsAuthMenu extends BaseEntity {
 
@@ -22,11 +23,9 @@ public class CmsAuthMenu extends BaseEntity {
      * 权限ID
      */
     private Long authId;
-
     /**
      * 菜单ID
      */
     private Long menuId;
-
 
 }

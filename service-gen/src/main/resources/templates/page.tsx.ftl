@@ -4,19 +4,24 @@ import CurdPage, { IFields } from '@/components/CurdPage';
 import ${entity.superClassName}Page from '@/components/${entity.superClassName}Page';
 </#if>
 import { useRequest } from 'umi';
-import { baseList } from '@/services/base';
+import { baseList, baseTree } from '@/services/base';
+import { toTreeData, toListData } from '@/utils/baseUtil';
 
 const ${page.name}: FC = (props: any) => {
 
 <#list fields as field>
-<#if field.tableMapping??>
-  const [${field.name}s, set${field.name?cap_first}s] = useState<any>([]);
-  const ${field.name}sRequest = useRequest(() => baseList('${field.tableMapping.model}', '${field.tableMapping.code}', {}), {
+<#if field.tableMapping?? && field.pageType !='tree'>
+  const [${field.name}, set${field.name?cap_first}] = useState<any>([]);
+  const ${field.name}Request = useRequest(() => baseList('${field.tableMapping.model}', '${field.tableMapping.code}', {}), {
       onSuccess: (data) => {
-        let ${field.name}s = data.map((item: any) => {
-          return { code: item.${field.tableMapping.codeField}, name: item.${field.tableMapping.nameField} };
-        });
-        set${field.name?cap_first}s(${field.name}s);
+          set${field.name?cap_first}(toListData(data, '${field.tableMapping.codeField}', '${field.tableMapping.nameField}'));
+      }});
+</#if>
+<#if field.tableMapping?? && field.pageType =='tree'>
+  const [${field.name}, set${field.name?cap_first}] = useState<any>([]);
+  const ${field.name}Request = useRequest(() => baseTree('${field.tableMapping.model}', '${field.tableMapping.code}', {}), {
+      onSuccess: (data) => {
+          set${field.name?cap_first}(toTreeData(data, '${field.tableMapping.codeField}', '${field.tableMapping.nameField}', 'children'));
       }});
 </#if>
 </#list>
@@ -24,19 +29,21 @@ const ${page.name}: FC = (props: any) => {
   const fields: IFields = [
     <#list fields as field>
     {
+      <#if field.subPage??>
       subPage: '${field.subPage}',
+      </#if>
       name: '${field.comment}',
       code: '${field.name}',
       type: '${field.pageType}',
       <#if field.initial??>
       initial: ${field.initial},
       </#if>
-      <#if field.pageType == "select">
+      <#if field.pageType == "select" || field.pageType == "tree" || field.pageType == "checks">
         <#if field.tableMapping??>
-      select: ${field.name}s,
+      ${field.pageType}: ${field.name},
         </#if>
         <#if field.codeMapping??>
-      select: [
+      ${field.pageType}: [
         <#list field.codeMapping?keys as key>
         { code: '${key}', name: '${field.codeMapping["${key}"]}' },
         </#list>

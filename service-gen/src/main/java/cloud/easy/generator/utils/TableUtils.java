@@ -58,7 +58,7 @@ public class TableUtils {
         return String.join("", splits);
     }
 
-    public static void entityFields(List<FieldConfig> fields, TableInfo tableInfo, GlobalConfig globalConfig, Map<String, FieldConfig> custFieldConfig) {
+    public static void entityFields(List<FieldConfig> fields, TableInfo tableInfo, GlobalConfig globalConfig, Map<String, FieldConfig> custFieldMap) {
         Class<?> superClass = globalConfig.getEntitySuperClass();
         //获取父类字段名
         List<String> superFieldNames = new ArrayList<>();
@@ -71,13 +71,23 @@ public class TableUtils {
         List<ColumnInfo> columns = tableInfo.getColumns();
         for (ColumnInfo column : columns) {
             String columnName = column.getName();
-            FieldConfig custField = custFieldConfig == null ? null : custFieldConfig.get(columnName);
+            FieldConfig custField = null;
+            if (custFieldMap != null) {
+                custField = custFieldMap.get(columnName);
+            }
             FieldConfig fieldConfig = getFieldConfig(globalConfig, column, custField);
             String fieldName = fieldConfig.getName();
             //父类字段已经在页面中固定设置
             if (!superFieldNames.contains(fieldName)) {
-                fieldConfig.setSubPage("base");
                 fields.add(fieldConfig);
+            }
+        }
+        //增加额外字段
+        if (custFieldMap != null) {
+            for (FieldConfig fieldConfig : custFieldMap.values()) {
+                if (fieldConfig.isExtend()) {
+                    fields.add(fieldConfig);
+                }
             }
         }
     }

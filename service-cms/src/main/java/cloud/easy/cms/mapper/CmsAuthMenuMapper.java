@@ -1,16 +1,16 @@
 package cloud.easy.cms.mapper;
 
 import cloud.easy.cms.entity.CmsAuthMenu;
+import org.apache.ibatis.annotations.Mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
- * <p>
- * 用户和角色关联表 Mapper 接口
- * </p>
+ * 权限菜单关联查询类
  *
- * @author Generator
- * @since 2021-10-19
+ * @author generator
+ * @since 2021-12-09
  */
+@Mapper
 public interface CmsAuthMenuMapper extends BaseMapper<CmsAuthMenu> {
 
 }

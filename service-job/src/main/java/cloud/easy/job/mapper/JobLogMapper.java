@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * 任务日志查询类
  *
  * @author generator
- * @since 2021-12-08
+ * @since 2021-12-09
  */
 @Mapper
 public interface JobLogMapper extends BaseMapper<JobLog> {

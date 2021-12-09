@@ -1,5 +1,6 @@
 package ${entity.pkg};
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 <#if global.swagger>
 import io.swagger.annotations.ApiModel;
@@ -39,6 +40,9 @@ public class ${entity.name} {
      */
     <#if global.swagger >
     @ApiModelProperty("${field.comment}")
+    </#if>
+    <#if field.extend >
+    @TableField(exist = false)
     </#if>
     private ${field.type} ${field.name};
 </#list>

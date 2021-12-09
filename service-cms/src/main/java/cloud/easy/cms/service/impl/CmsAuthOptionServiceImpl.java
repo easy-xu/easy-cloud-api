@@ -3,18 +3,17 @@ package cloud.easy.cms.service.impl;
 import cloud.easy.cms.entity.CmsAuthOption;
 import cloud.easy.cms.mapper.CmsAuthOptionMapper;
 import cloud.easy.cms.service.ICmsAuthOptionService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 /**
- * <p>
- * 操作和权限关联表 服务实现类
- * </p>
+ * 权限操作关联业务实现类
  *
- * @author Generator
- * @since 2021-10-19
+ * @author generator
+ * @since 2021-12-09
  */
 @Service
 public class CmsAuthOptionServiceImpl extends ServiceImpl<CmsAuthOptionMapper, CmsAuthOption> implements ICmsAuthOptionService {
 
 }
+

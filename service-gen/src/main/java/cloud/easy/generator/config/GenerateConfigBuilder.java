@@ -55,37 +55,49 @@ public class GenerateConfigBuilder {
         for (FieldConfig field: fields){
             config.addImportPackage(field.getPkg());
         }
-        configs.add(config);
+        if (global.isEntity()){
+            configs.add(config);
+        }
         return config;
     }
 
     public GenerateConfig buildController(){
         ControllerConfig config = new ControllerConfig(global.getBasePackage(), model, entity);
         config.superClass(global.getControllerSuperClass());
-        configs.add(config);
+        if (global.isController()){
+            configs.add(config);
+        }
         return config;
     }
     public GenerateConfig buildService(){
         ServiceConfig config = new ServiceConfig(global.getBasePackage(), model, entity);
         config.superClass(global.getServiceSuperClass());
-        configs.add(config);
+        if (global.isService()){
+            configs.add(config);
+        }
         return config;
     }
     public GenerateConfig buildServiceImpl(){
         ServiceImplConfig config = new ServiceImplConfig(global.getBasePackage(), model, entity);
         config.superClass(global.getServiceImplSuperClass());
-        configs.add(config);
+        if (global.isServiceImpl()){
+            configs.add(config);
+        }
         return config;
     }
     public GenerateConfig buildMapper(){
         MapperConfig config = new MapperConfig(global.getBasePackage(), model, entity);
         config.superClass(global.getMapperSuperClass());
-        configs.add(config);
+        if (global.isMapper()){
+            configs.add(config);
+        }
         return config;
     }
     public GenerateConfig buildPage(){
         PageConfig config = new PageConfig(model,code, entity, getGlobal().getMenuParent(), getGlobal().getMenuCode());
-        configs.add(config);
+        if (global.isPage()){
+            configs.add(config);
+        }
         return config;
     }
 }

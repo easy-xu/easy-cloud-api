@@ -15,7 +15,7 @@ import cloud.easy.base.controller.BaseController;
  * 菜单控制器
  *
  * @author generator
- * @since 2021-12-08
+ * @since 2021-12-09
  */
 @RestController
 @RequestMapping("/api/cms/menu")

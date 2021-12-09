@@ -1,6 +1,6 @@
 package cloud.easy.cms.service;
 
-import cloud.easy.cms.dto.AuthDto;
+import cloud.easy.cms.entity.CmsAuth;
 
 import java.util.List;
 
@@ -14,10 +14,8 @@ import java.util.List;
 public interface AuthService {
     /**
      * 保存权限及关联
-     *
-     * @param authDto 权限及关联
      */
-    void save(AuthDto authDto);
+    void save(CmsAuth cmsAuth);
 
     /**
      * 查询权限详情
@@ -25,7 +23,13 @@ public interface AuthService {
      * @param id 权限Id
      * @return AuthDto
      */
-    AuthDto getDetail(Long id);
+    CmsAuth getDetail(Long id);
+
+    /**
+     * 删除权限及关联
+     * @param id 权限Id
+     */
+    void deleteDetail(Long id);
 
     /**
      * 查询用户当前菜单的操作
@@ -35,4 +39,6 @@ public interface AuthService {
      * @return List<String>
      */
     List<String> userMenuOptions(String menuCode, String userNo);
+
+
 }

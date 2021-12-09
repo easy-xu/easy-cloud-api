@@ -1,5 +1,6 @@
 package cloud.easy.sys.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -11,7 +12,7 @@ import cloud.easy.base.entity.BaseEntity;
  * 操作记录实体类
  *
  * @author generator
- * @since 2021-12-08
+ * @since 2021-12-09
  */
 @Data
 @TableName("sys_option_log")

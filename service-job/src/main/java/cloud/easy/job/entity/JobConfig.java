@@ -1,5 +1,6 @@
 package cloud.easy.job.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
  * 任务实体类
  *
  * @author generator
- * @since 2021-12-08
+ * @since 2021-12-09
  */
 @Data
 @TableName("job_config")

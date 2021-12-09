@@ -211,7 +211,20 @@ create table cms_auth_option
     update_time datetime comment '更新时间',
     primary key (id)
 ) engine = innodb
-  auto_increment = 1 comment = '操作和权限关联表';
+  auto_increment = 1 comment = '权限操作关联表';
+
+-- ----------------------------
+-- Records of cms_auth_option
+-- ----------------------------
+INSERT INTO `cloud`.`cms_auth_option`(`id`, `auth_id`, `option_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (25, 2, 1, 'U20211018000106', '2021-10-25 09:42:07', 'U20211018000106', '2021-10-25 09:42:07');
+INSERT INTO `cloud`.`cms_auth_option`(`id`, `auth_id`, `option_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (26, 3, 1, 'U20211018000106', '2021-10-25 09:42:14', 'U20211018000106', '2021-10-25 09:42:14');
+INSERT INTO `cloud`.`cms_auth_option`(`id`, `auth_id`, `option_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (27, 3, 2, 'U20211018000106', '2021-10-25 09:42:14', 'U20211018000106', '2021-10-25 09:42:14');
+INSERT INTO `cloud`.`cms_auth_option`(`id`, `auth_id`, `option_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (28, 3, 3, 'U20211018000106', '2021-10-25 09:42:14', 'U20211018000106', '2021-10-25 09:42:14');
+INSERT INTO `cloud`.`cms_auth_option`(`id`, `auth_id`, `option_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (37, 1, 1, 'U20211018000106', '2021-12-04 10:25:40', 'U20211018000106', '2021-12-04 10:25:40');
+INSERT INTO `cloud`.`cms_auth_option`(`id`, `auth_id`, `option_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (38, 1, 2, 'U20211018000106', '2021-12-04 10:25:40', 'U20211018000106', '2021-12-04 10:25:40');
+INSERT INTO `cloud`.`cms_auth_option`(`id`, `auth_id`, `option_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (39, 1, 3, 'U20211018000106', '2021-12-04 10:25:40', 'U20211018000106', '2021-12-04 10:25:40');
+INSERT INTO `cloud`.`cms_auth_option`(`id`, `auth_id`, `option_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (40, 1, 4, 'U20211018000106', '2021-12-04 10:25:40', 'U20211018000106', '2021-12-04 10:25:40');
+
 
 -- ----------------------------
 -- 权限和菜单关联表  权限1-N菜单
@@ -228,7 +241,51 @@ create table cms_auth_menu
     update_time datetime comment '更新时间',
     primary key (id)
 ) engine = innodb
-  auto_increment = 1 comment = '用户和角色关联表';
+  auto_increment = 1 comment = '权限菜单关联表';
+
+-- ----------------------------
+-- Records of cms_auth_menu
+-- ----------------------------
+INSERT INTO `cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (60, 2, 1, 'U20211018000106', '2021-10-25 09:42:07', 'U20211018000106', '2021-10-25 09:42:07');
+INSERT INTO `cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (61, 2, 5, 'U20211018000106', '2021-10-25 09:42:07', 'U20211018000106', '2021-10-25 09:42:07');
+INSERT INTO `cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (62, 2, 7, 'U20211018000106', '2021-10-25 09:42:07', 'U20211018000106', '2021-10-25 09:42:07');
+INSERT INTO `cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (63, 2, 2, 'U20211018000106', '2021-10-25 09:42:07', 'U20211018000106', '2021-10-25 09:42:07');
+INSERT INTO `cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (64, 2, 8, 'U20211018000106', '2021-10-25 09:42:07', 'U20211018000106', '2021-10-25 09:42:07');
+INSERT INTO `cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (65, 2, 3, 'U20211018000106', '2021-10-25 09:42:07', 'U20211018000106', '2021-10-25 09:42:07');
+INSERT INTO `cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (66, 2, 9, 'U20211018000106', '2021-10-25 09:42:07', 'U20211018000106', '2021-10-25 09:42:07');
+INSERT INTO `cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (67, 2, 4, 'U20211018000106', '2021-10-25 09:42:07', 'U20211018000106', '2021-10-25 09:42:07');
+INSERT INTO `cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (68, 2, 6, 'U20211018000106', '2021-10-25 09:42:07', 'U20211018000106', '2021-10-25 09:42:07');
+INSERT INTO `cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (69, 2, 10, 'U20211018000106', '2021-10-25 09:42:07', 'U20211018000106', '2021-10-25 09:42:07');
+INSERT INTO `cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (70, 2, 11, 'U20211018000106', '2021-10-25 09:42:07', 'U20211018000106', '2021-10-25 09:42:07');
+INSERT INTO `cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (71, 3, 1, 'U20211018000106', '2021-10-25 09:42:14', 'U20211018000106', '2021-10-25 09:42:14');
+INSERT INTO `cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (72, 3, 5, 'U20211018000106', '2021-10-25 09:42:14', 'U20211018000106', '2021-10-25 09:42:14');
+INSERT INTO `cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (73, 3, 7, 'U20211018000106', '2021-10-25 09:42:14', 'U20211018000106', '2021-10-25 09:42:14');
+INSERT INTO `cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (74, 3, 2, 'U20211018000106', '2021-10-25 09:42:14', 'U20211018000106', '2021-10-25 09:42:14');
+INSERT INTO `cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (75, 3, 8, 'U20211018000106', '2021-10-25 09:42:14', 'U20211018000106', '2021-10-25 09:42:14');
+INSERT INTO `cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (76, 3, 3, 'U20211018000106', '2021-10-25 09:42:14', 'U20211018000106', '2021-10-25 09:42:14');
+INSERT INTO `cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (77, 3, 9, 'U20211018000106', '2021-10-25 09:42:14', 'U20211018000106', '2021-10-25 09:42:14');
+INSERT INTO `cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (78, 3, 4, 'U20211018000106', '2021-10-25 09:42:14', 'U20211018000106', '2021-10-25 09:42:14');
+INSERT INTO `cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (79, 3, 6, 'U20211018000106', '2021-10-25 09:42:14', 'U20211018000106', '2021-10-25 09:42:14');
+INSERT INTO `cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (80, 3, 10, 'U20211018000106', '2021-10-25 09:42:14', 'U20211018000106', '2021-10-25 09:42:14');
+INSERT INTO `cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (81, 3, 11, 'U20211018000106', '2021-10-25 09:42:14', 'U20211018000106', '2021-10-25 09:42:14');
+INSERT INTO `cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (110, 1, 5, 'U20211018000106', '2021-12-04 10:25:40', 'U20211018000106', '2021-12-04 10:25:40');
+INSERT INTO `cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (111, 1, 6, 'U20211018000106', '2021-12-04 10:25:40', 'U20211018000106', '2021-12-04 10:25:40');
+INSERT INTO `cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (112, 1, 1, 'U20211018000106', '2021-12-04 10:25:40', 'U20211018000106', '2021-12-04 10:25:40');
+INSERT INTO `cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (113, 1, 7, 'U20211018000106', '2021-12-04 10:25:40', 'U20211018000106', '2021-12-04 10:25:40');
+INSERT INTO `cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (114, 1, 2, 'U20211018000106', '2021-12-04 10:25:40', 'U20211018000106', '2021-12-04 10:25:40');
+INSERT INTO `cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (115, 1, 8, 'U20211018000106', '2021-12-04 10:25:40', 'U20211018000106', '2021-12-04 10:25:40');
+INSERT INTO `cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (116, 1, 3, 'U20211018000106', '2021-12-04 10:25:40', 'U20211018000106', '2021-12-04 10:25:40');
+INSERT INTO `cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (117, 1, 9, 'U20211018000106', '2021-12-04 10:25:40', 'U20211018000106', '2021-12-04 10:25:40');
+INSERT INTO `cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (118, 1, 4, 'U20211018000106', '2021-12-04 10:25:40', 'U20211018000106', '2021-12-04 10:25:40');
+INSERT INTO `cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (119, 1, 10, 'U20211018000106', '2021-12-04 10:25:40', 'U20211018000106', '2021-12-04 10:25:40');
+INSERT INTO `cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (120, 1, 11, 'U20211018000106', '2021-12-04 10:25:40', 'U20211018000106', '2021-12-04 10:25:40');
+INSERT INTO `cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (121, 1, 13, 'U20211018000106', '2021-12-04 10:25:40', 'U20211018000106', '2021-12-04 10:25:40');
+INSERT INTO `cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (122, 1, 14, 'U20211018000106', '2021-12-04 10:25:40', 'U20211018000106', '2021-12-04 10:25:40');
+INSERT INTO `cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (123, 1, 15, 'U20211018000106', '2021-12-04 10:25:40', 'U20211018000106', '2021-12-04 10:25:40');
+INSERT INTO `cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (124, 1, 16, 'U20211018000106', '2021-12-04 10:25:40', 'U20211018000106', '2021-12-04 10:25:40');
+INSERT INTO `cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (125, 1, 17, 'U20211018000106', '2021-12-04 10:25:40', 'U20211018000106', '2021-12-04 10:25:40');
+INSERT INTO `cloud`.`cms_auth_menu`(`id`, `auth_id`, `menu_id`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (126, 1, 18, 'U20211018000106', '2021-12-04 10:25:40', 'U20211018000106', '2021-12-04 10:25:40');
+
 
 -- ----------------------------
 -- 角色和权限关联表  角色1-N权限
@@ -406,49 +463,6 @@ create table file_content
 INSERT INTO `cms_auth` VALUES (1, '所有权限', 'All', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-15 20:59:40', 'U20211013000001', '2021-10-15 21:28:19', NULL);
 INSERT INTO `cms_auth` VALUES (2, '所有只读权限', 'AllRead', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-16 21:49:34', 'U20211013000001', '2021-10-17 16:05:31', NULL);
 INSERT INTO `cms_auth` VALUES (3, '所有可写权限', 'AllWritable', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-16 21:50:33', 'U20211013000001', '2021-10-17 16:05:43', NULL);
-
--- ----------------------------
--- Records of cms_auth_menu
--- ----------------------------
-INSERT INTO `cms_auth_menu` VALUES (18, 1, 5, 'U20211013000001', '2021-10-15 21:28:19', 'U20211013000001', '2021-10-15 21:28:19');
-INSERT INTO `cms_auth_menu` VALUES (19, 1, 6, 'U20211013000001', '2021-10-15 21:28:19', 'U20211013000001', '2021-10-15 21:28:19');
-INSERT INTO `cms_auth_menu` VALUES (20, 1, 1, 'U20211013000001', '2021-10-15 21:28:19', 'U20211013000001', '2021-10-15 21:28:19');
-INSERT INTO `cms_auth_menu` VALUES (21, 1, 7, 'U20211013000001', '2021-10-15 21:28:19', 'U20211013000001', '2021-10-15 21:28:19');
-INSERT INTO `cms_auth_menu` VALUES (22, 1, 2, 'U20211013000001', '2021-10-15 21:28:19', 'U20211013000001', '2021-10-15 21:28:19');
-INSERT INTO `cms_auth_menu` VALUES (23, 1, 8, 'U20211013000001', '2021-10-15 21:28:19', 'U20211013000001', '2021-10-15 21:28:19');
-INSERT INTO `cms_auth_menu` VALUES (24, 1, 3, 'U20211013000001', '2021-10-15 21:28:19', 'U20211013000001', '2021-10-15 21:28:19');
-INSERT INTO `cms_auth_menu` VALUES (25, 1, 9, 'U20211013000001', '2021-10-15 21:28:19', 'U20211013000001', '2021-10-15 21:28:19');
-INSERT INTO `cms_auth_menu` VALUES (26, 1, 4, 'U20211013000001', '2021-10-15 21:28:19', 'U20211013000001', '2021-10-15 21:28:19');
-INSERT INTO `cms_auth_menu` VALUES (31, 2, 1, 'U20211013000001', '2021-10-17 16:05:31', 'U20211013000001', '2021-10-17 16:05:31');
-INSERT INTO `cms_auth_menu` VALUES (32, 2, 5, 'U20211013000001', '2021-10-17 16:05:31', 'U20211013000001', '2021-10-17 16:05:31');
-INSERT INTO `cms_auth_menu` VALUES (33, 2, 7, 'U20211013000001', '2021-10-17 16:05:31', 'U20211013000001', '2021-10-17 16:05:31');
-INSERT INTO `cms_auth_menu` VALUES (34, 2, 2, 'U20211013000001', '2021-10-17 16:05:31', 'U20211013000001', '2021-10-17 16:05:31');
-INSERT INTO `cms_auth_menu` VALUES (35, 2, 8, 'U20211013000001', '2021-10-17 16:05:31', 'U20211013000001', '2021-10-17 16:05:31');
-INSERT INTO `cms_auth_menu` VALUES (36, 2, 3, 'U20211013000001', '2021-10-17 16:05:31', 'U20211013000001', '2021-10-17 16:05:31');
-INSERT INTO `cms_auth_menu` VALUES (37, 2, 9, 'U20211013000001', '2021-10-17 16:05:31', 'U20211013000001', '2021-10-17 16:05:31');
-INSERT INTO `cms_auth_menu` VALUES (38, 2, 4, 'U20211013000001', '2021-10-17 16:05:31', 'U20211013000001', '2021-10-17 16:05:31');
-INSERT INTO `cms_auth_menu` VALUES (39, 2, 6, 'U20211013000001', '2021-10-17 16:05:31', 'U20211013000001', '2021-10-17 16:05:31');
-INSERT INTO `cms_auth_menu` VALUES (40, 3, 1, 'U20211013000001', '2021-10-17 16:05:43', 'U20211013000001', '2021-10-17 16:05:43');
-INSERT INTO `cms_auth_menu` VALUES (41, 3, 5, 'U20211013000001', '2021-10-17 16:05:43', 'U20211013000001', '2021-10-17 16:05:43');
-INSERT INTO `cms_auth_menu` VALUES (42, 3, 7, 'U20211013000001', '2021-10-17 16:05:43', 'U20211013000001', '2021-10-17 16:05:43');
-INSERT INTO `cms_auth_menu` VALUES (43, 3, 2, 'U20211013000001', '2021-10-17 16:05:43', 'U20211013000001', '2021-10-17 16:05:43');
-INSERT INTO `cms_auth_menu` VALUES (44, 3, 8, 'U20211013000001', '2021-10-17 16:05:43', 'U20211013000001', '2021-10-17 16:05:43');
-INSERT INTO `cms_auth_menu` VALUES (45, 3, 3, 'U20211013000001', '2021-10-17 16:05:43', 'U20211013000001', '2021-10-17 16:05:43');
-INSERT INTO `cms_auth_menu` VALUES (46, 3, 9, 'U20211013000001', '2021-10-17 16:05:43', 'U20211013000001', '2021-10-17 16:05:43');
-INSERT INTO `cms_auth_menu` VALUES (47, 3, 4, 'U20211013000001', '2021-10-17 16:05:43', 'U20211013000001', '2021-10-17 16:05:43');
-INSERT INTO `cms_auth_menu` VALUES (48, 3, 6, 'U20211013000001', '2021-10-17 16:05:43', 'U20211013000001', '2021-10-17 16:05:43');
-
--- ----------------------------
--- Records of cms_auth_option
--- ----------------------------
-INSERT INTO `cms_auth_option` VALUES (9, 1, 1, 'U20211013000001', '2021-10-15 21:28:19', 'U20211013000001', '2021-10-15 21:28:19');
-INSERT INTO `cms_auth_option` VALUES (10, 1, 2, 'U20211013000001', '2021-10-15 21:28:19', 'U20211013000001', '2021-10-15 21:28:19');
-INSERT INTO `cms_auth_option` VALUES (11, 1, 3, 'U20211013000001', '2021-10-15 21:28:19', 'U20211013000001', '2021-10-15 21:28:19');
-INSERT INTO `cms_auth_option` VALUES (12, 1, 4, 'U20211013000001', '2021-10-15 21:28:19', 'U20211013000001', '2021-10-15 21:28:19');
-INSERT INTO `cms_auth_option` VALUES (17, 2, 1, 'U20211013000001', '2021-10-17 16:05:31', 'U20211013000001', '2021-10-17 16:05:31');
-INSERT INTO `cms_auth_option` VALUES (18, 3, 1, 'U20211013000001', '2021-10-17 16:05:43', 'U20211013000001', '2021-10-17 16:05:43');
-INSERT INTO `cms_auth_option` VALUES (19, 3, 2, 'U20211013000001', '2021-10-17 16:05:43', 'U20211013000001', '2021-10-17 16:05:43');
-INSERT INTO `cms_auth_option` VALUES (20, 3, 3, 'U20211013000001', '2021-10-17 16:05:43', 'U20211013000001', '2021-10-17 16:05:43');
 
 
 -- ----------------------------

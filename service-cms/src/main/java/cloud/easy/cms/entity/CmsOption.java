@@ -1,5 +1,6 @@
 package cloud.easy.cms.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -11,7 +12,7 @@ import cloud.easy.base.entity.AuthEntity;
  * 操作类型实体类
  *
  * @author generator
- * @since 2021-12-08
+ * @since 2021-12-09
  */
 @Data
 @TableName("cms_option")

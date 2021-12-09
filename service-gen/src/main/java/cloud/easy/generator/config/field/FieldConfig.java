@@ -23,6 +23,7 @@ public class FieldConfig {
     private String pkg;
     private List<String> rules;
     private String style;
+    private boolean extend;
 
     /**
      * 固定映射

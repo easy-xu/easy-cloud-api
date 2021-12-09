@@ -4,13 +4,12 @@ import cloud.easy.cms.entity.CmsAuthMenu;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
- * <p>
- * 用户和角色关联表 服务类
- * </p>
+ * 权限菜单关联业务接口
  *
- * @author Generator
- * @since 2021-10-19
+ * @author generator
+ * @since 2021-12-09
  */
 public interface ICmsAuthMenuService extends IService<CmsAuthMenu> {
 
 }
+

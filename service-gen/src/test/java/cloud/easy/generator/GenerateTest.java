@@ -31,27 +31,81 @@ class GenerateTest {
 
     @Test
     void all() throws IOException, TemplateException {
-        cms();
+
+
         job();
         sys();
+        cms_menu();
+        cms_option();
+        cms_group();
+        cms_auth();
+        cms_auth_option();
+        cms_auth_menu();
+
+    }
+    @Test
+    void cms_auth_option() throws IOException, TemplateException {
+        HashMap<String, FieldConfig> custFiled = new HashMap<>();
+        GlobalConfig globalConfig = GlobalConfig.defaultConfig();
+        globalConfig.setJavaPlace(javaProject + "\\service-cms");
+        globalConfig.setSwagger(false);
+        globalConfig.setPage(false);
+        globalConfig.setController(false);
+        service.generate(globalConfig, "cms_auth_option", custFiled);
+    }
+    void cms_auth_menu() throws IOException, TemplateException {
+        HashMap<String, FieldConfig> custFiled = new HashMap<>();
+        GlobalConfig globalConfig = GlobalConfig.defaultConfig();
+        globalConfig.setJavaPlace(javaProject + "\\service-cms");
+        globalConfig.setSwagger(false);
+        globalConfig.setPage(false);
+        globalConfig.setController(false);
+        service.generate(globalConfig, "cms_auth_menu", custFiled);
     }
 
     @Test
-    void cms() throws IOException, TemplateException {
+    void cms_option() throws IOException, TemplateException {
         HashMap<String, FieldConfig> custFiled = new HashMap<>();
         GlobalConfig globalConfig = GlobalConfig.defaultConfig();
         globalConfig.setJavaPlace(javaProject + "\\service-cms");
         globalConfig.setReactPlace(reactProject);
         globalConfig.setMenuParent("manage");
         globalConfig.setEntitySuperClass(AuthEntity.class);
-
+        //备注字段列表不显示
         FieldConfig remark = new FieldConfig();
         remark.setStyle(FieldStyleConfig.detailOnlyConfig());
         custFiled.put("remark", remark);
-
         service.generate(globalConfig, "cms_option", custFiled);
-        service.generate(globalConfig, "cms_group", custFiled);
+    }
 
+    @Test
+    void cms_group() throws IOException, TemplateException {
+        HashMap<String, FieldConfig> custFiled = new HashMap<>();
+        GlobalConfig globalConfig = GlobalConfig.defaultConfig();
+        globalConfig.setJavaPlace(javaProject + "\\service-cms");
+        globalConfig.setReactPlace(reactProject);
+        globalConfig.setMenuParent("manage");
+        globalConfig.setEntitySuperClass(AuthEntity.class);
+        //备注字段列表不显示
+        FieldConfig remark = new FieldConfig();
+        remark.setStyle(FieldStyleConfig.detailOnlyConfig());
+        custFiled.put("remark", remark);
+        service.generate(globalConfig, "cms_group", custFiled);
+    }
+
+    @Test
+    void cms_menu() throws IOException, TemplateException {
+        HashMap<String, FieldConfig> custFiled = new HashMap<>();
+        GlobalConfig globalConfig = GlobalConfig.defaultConfig();
+        globalConfig.setJavaPlace(javaProject + "\\service-cms");
+        globalConfig.setReactPlace(reactProject);
+        globalConfig.setMenuParent("manage");
+        globalConfig.setEntitySuperClass(AuthEntity.class);
+        //备注字段列表不显示
+        FieldConfig remark = new FieldConfig();
+        remark.setStyle(FieldStyleConfig.detailOnlyConfig());
+        custFiled.put("remark", remark);
+        //父菜单,表映射，下拉菜单
         FieldConfig parentFolder = new FieldConfig();
         parentFolder.setTableMapping(new MappingConfig("cms_menu", "id", "name"));
         parentFolder.setComment("父菜单");
@@ -61,12 +115,49 @@ class GenerateTest {
         menuType.setType("MenuTypeEnum");
         menuType.setPkg("cloud.easy.cms.enums.MenuTypeEnum");
         custFiled.put("type", menuType);
+        //页面手动修改，增加图标
+        globalConfig.setPage(false);
         service.generate(globalConfig, "cms_menu", custFiled);
-        custFiled.remove("type");
-        custFiled.remove("parent_id");
-
     }
 
+    @Test
+    void cms_auth() throws IOException, TemplateException {
+        HashMap<String, FieldConfig> custFiled = new HashMap<>();
+        GlobalConfig globalConfig = GlobalConfig.defaultConfig();
+        globalConfig.setJavaPlace(javaProject + "\\service-cms");
+        globalConfig.setReactPlace(reactProject);
+        globalConfig.setMenuParent("manage");
+        globalConfig.setEntitySuperClass(AuthEntity.class);
+        //备注字段列表不显示
+        FieldConfig remark = new FieldConfig();
+        remark.setStyle(FieldStyleConfig.detailOnlyConfig());
+        custFiled.put("remark", remark);
+        //权限菜单，表映射，菜单树
+        FieldConfig menuTree = new FieldConfig();
+        menuTree.setName("menuIds");
+        menuTree.setComment("权限菜单");
+        menuTree.setPkg("java.util.List");
+        menuTree.setType("List<Long>");
+        menuTree.setPageType("tree");
+        menuTree.setStyle(FieldStyleConfig.detailOnlyConfig());
+        menuTree.setTableMapping(new MappingConfig("cms_menu", "id", "name"));
+        menuTree.setExtend(true);
+        custFiled.put("menuIds", menuTree);
+        //权限操作，表映射，多选框
+        FieldConfig optionCheck = new FieldConfig();
+        optionCheck.setName("optionIds");
+        optionCheck.setComment("权限操作");
+        menuTree.setPkg("java.util.List");
+        optionCheck.setType("List<Long>");
+        optionCheck.setPageType("checks");
+        optionCheck.setStyle(FieldStyleConfig.detailOnlyConfig());
+        optionCheck.setTableMapping(new MappingConfig("cms_option", "id", "name"));
+        optionCheck.setExtend(true);
+        custFiled.put("optionIds", optionCheck);
+        //后端多表保存手动修改
+        globalConfig.setController(false);
+        service.generate(globalConfig, "cms_auth", custFiled);
+    }
 
     @Test
     void sys() throws IOException, TemplateException {

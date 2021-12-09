@@ -10,7 +10,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
  * 任务业务实现类
  *
  * @author generator
- * @since 2021-12-08
+ * @since 2021-12-09
  */
 @Service
 public class JobConfigServiceImpl extends ServiceImpl<JobConfigMapper, JobConfig> implements IJobConfigService {
