@@ -27,6 +27,11 @@ create table cms_menu
 ) engine = innodb
   auto_increment = 1 comment = '菜单表';
 
+ALTER TABLE `cms_menu`
+  ADD UNIQUE INDEX `unique_code`(`code`) USING BTREE;
+ALTER TABLE `cms_menu`
+  ADD INDEX `index_parent_id`(`parent_id`) USING BTREE;
+
 -- ----------------------------
 -- Records of cms_menu
 -- ----------------------------

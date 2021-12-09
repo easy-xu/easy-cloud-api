@@ -177,23 +177,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto getDetail(Long id) {
-        UserDto userDto = new UserDto();
+    public CmsUser getDetail(Long id) {
         CmsUser cmsUser = cmsUserService.getById(id);
-        BeanUtils.copy(cmsUser, userDto);
         //查询关联角色
         CmsUserRole cmsUserRole = new CmsUserRole();
         cmsUserRole.setUserId(id);
         List<CmsUserRole> userRoles = cmsUserRoleService.list(Wrappers.query(cmsUserRole));
         List<Long> roleIds = userRoles.stream().map(CmsUserRole::getRoleId).collect(Collectors.toList());
-        userDto.setRoleIds(roleIds);
+        cmsUser.setRoleIds(roleIds);
         //查询关联分组
         CmsUserGroup cmsUserGroup = new CmsUserGroup();
         cmsUserGroup.setUserId(id);
         List<CmsUserGroup> userGroups = cmsUserGroupService.list(Wrappers.query(cmsUserGroup));
         List<Long> groupIds = userGroups.stream().map(CmsUserGroup::getGroupId).collect(Collectors.toList());
-        userDto.setGroupIds(groupIds);
-        return userDto;
+        cmsUser.setGroupIds(groupIds);
+        return cmsUser;
     }
 
     @Override

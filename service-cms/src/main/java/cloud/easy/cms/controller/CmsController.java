@@ -1,7 +1,7 @@
 package cloud.easy.cms.controller;
 
 import cloud.easy.annotation.OptionLog;
-import cloud.easy.cms.dto.AuthDto;
+import cloud.easy.cms.dto.CodeDto;
 import cloud.easy.cms.dto.MenuDto;
 import cloud.easy.cms.dto.UserDto;
 import cloud.easy.cms.entity.CmsUser;
@@ -11,6 +11,7 @@ import cloud.easy.cms.service.UserService;
 import cloud.easy.device.ApiHeaderHelper;
 import cloud.easy.entity.ApiResponse;
 import cloud.easy.entity.HttpResponse;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +32,7 @@ import static cloud.easy.base.utils.BaseUtil.requireId;
  */
 @RestController
 @RequestMapping("/api/cms")
+@Api(tags = "后台管理其他接口")
 public class CmsController {
     @Resource
     private MenuService menuService;
@@ -45,9 +47,9 @@ public class CmsController {
         return HttpResponse.ok(tree);
     }
 
-    @PostMapping("/auth/user-menu-option")
-    public ApiResponse userMenuOptions(@RequestBody AuthDto authDto) {
-        String menuCode = notNull(notNull(authDto).getMenuCode());
+    @PostMapping("/user/menu-option")
+    public ApiResponse userMenuOptions(@RequestBody CodeDto codeDto) {
+        String menuCode = notNull(notNull(codeDto).getCode());
         String userNo = ApiHeaderHelper.get().getUserNo();
         List<String> options = authService.userMenuOptions(menuCode, userNo);
         return HttpResponse.ok(options);

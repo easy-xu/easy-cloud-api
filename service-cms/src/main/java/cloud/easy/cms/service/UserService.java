@@ -51,9 +51,9 @@ public interface UserService {
      * 查询用户详情
      *
      * @param id 用户id
-     * @return UserDto
+     * @return CmsUser
      */
-    UserDto getDetail(Long id);
+    CmsUser getDetail(Long id);
 
     /**
      * 删除用户详情

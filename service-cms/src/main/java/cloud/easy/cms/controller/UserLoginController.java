@@ -1,16 +1,15 @@
 package cloud.easy.cms.controller;
 
+import cloud.easy.annotation.NonStandardRequest;
 import cloud.easy.annotation.OptionLog;
 import cloud.easy.cms.dto.UserDto;
 import cloud.easy.cms.service.UserService;
 import cloud.easy.constant.Messages;
 import cloud.easy.entity.ApiResponse;
 import cloud.easy.entity.HttpResponse;
+import io.swagger.annotations.Api;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -23,6 +22,7 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/api/cms/user")
+@Api(tags = "用户登录接口")
 public class UserLoginController {
 
     @Resource
@@ -55,5 +55,13 @@ public class UserLoginController {
         return HttpResponse.ok();
     }
 
+
+    @OptionLog("初始化")
+    @GetMapping("/device")
+    @NonStandardRequest
+    public ApiResponse getDevice() {
+        UserDto userDto = userService.initDevice();
+        return HttpResponse.ok(userDto);
+    }
 }
 
