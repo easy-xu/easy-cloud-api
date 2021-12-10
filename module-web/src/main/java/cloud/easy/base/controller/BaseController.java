@@ -105,4 +105,14 @@ public class BaseController<T extends BaseEntity, S extends IService<T>> {
         return HttpResponse.ok(list);
     }
 
+    public ApiResponse countEntity(T entity) {
+        //查询条件
+        if (entity instanceof AuthEntity) {
+            ((AuthEntity) entity).setDeleted(DeletedEnum.NOT_DELETED);
+        }
+        QueryWrapper<T> queryWrapper = Wrappers.query(notNull(entity));
+        long count = service.count(queryWrapper);
+        return HttpResponse.ok(count);
+    }
+
 }

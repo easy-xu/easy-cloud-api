@@ -114,7 +114,9 @@ public class TableUtils {
         field.setInitial(initial);
         field.setKey(column.getKey());
         field.setType(javaType.getType());
-        field.getImportPkg().add(javaType.getPkg());
+        if (javaType.getPkg()!= null){
+            field.getImportPkg().add(javaType.getPkg());
+        }
         field.setPageType(jsType);
         //解析comment中的字典映射
         handleComment(field, column.getComment());
@@ -164,7 +166,7 @@ public class TableUtils {
         }
         if (maxLength != null && ("string".equals(pageType) || "number".equals(pageType))) {
             pageRules.add("{ type: '" + pageType + "', max: " + maxLength + " }");
-            entityRules.add("@Max(value = "+maxLength+", message = \""+field.getComment()+"长度不能超过60\")\n");
+            entityRules.add("@Max(value = " + maxLength + ", message = \"" + field.getComment() + "长度不能超过" + maxLength + "\")");
             field.getImportPkg().add(Max.class.getCanonicalName());
         }
         field.setPageRules(pageRules.isEmpty() ? null : pageRules);

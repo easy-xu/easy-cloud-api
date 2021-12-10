@@ -32,8 +32,6 @@ class GenerateTest {
 
     @Test
     void all() throws IOException, TemplateException {
-
-
         job();
         sys();
         cms_menu();
@@ -133,7 +131,6 @@ class GenerateTest {
         authCheck.setTableMapping(new MappingConfig("cms_auth", "id", "name"));
         authCheck.setExtend(true);
         custFiled.put("authIds", authCheck);
-        globalConfig.setPage(true);
         service.generate(globalConfig, "cms_role", custFiled);
     }
 
@@ -163,7 +160,6 @@ class GenerateTest {
         FieldConfig remark = new FieldConfig();
         remark.setStyle(FieldStyleConfig.detailOnlyConfig());
         custFiled.put("remark", remark);
-        globalConfig.setPage(true);
         service.generate(globalConfig, "cms_option", custFiled);
     }
 
@@ -179,8 +175,6 @@ class GenerateTest {
         FieldConfig remark = new FieldConfig();
         remark.setStyle(FieldStyleConfig.detailOnlyConfig());
         custFiled.put("remark", remark);
-        //globalConfig.setPage(true);
-        //globalConfig.setController(true);
         service.generate(globalConfig, "cms_group", custFiled);
     }
 
@@ -243,8 +237,6 @@ class GenerateTest {
         optionCheck.setTableMapping(new MappingConfig("cms_option", "id", "name"));
         optionCheck.setExtend(true);
         custFiled.put("optionIds", optionCheck);
-        //后端多表保存手动修改
-        globalConfig.setPage(true);
         service.generate(globalConfig, "cms_auth", custFiled);
     }
 
@@ -255,12 +247,11 @@ class GenerateTest {
         globalConfig.setJavaPlace(javaProject + "\\service-cms");
         globalConfig.setReactPlace(reactProject);
         globalConfig.setMenuParent("system");
-        globalConfig.setController(true);
-        globalConfig.setPage(true);
         globalConfig.setAdd(false);
         globalConfig.setEdit(false);
         globalConfig.setDelete(false);
         globalConfig.setList(false);
+        globalConfig.setCount(false);
         FieldConfig requestId = new FieldConfig();
         requestId.setStyle(FieldStyleConfig.searchConfig());
         custFiled.put("request_id", requestId);
@@ -282,8 +273,6 @@ class GenerateTest {
         GlobalConfig globalConfig = GlobalConfig.defaultConfig();
         globalConfig.setJavaPlace(javaProject + "\\service-job");
         globalConfig.setReactPlace(reactProject);
-        globalConfig.setController(true);
-        globalConfig.setPage(true);
         //任务配置表
         globalConfig.setEntitySuperClass(AuthEntity.class);
         //cron不作为查询条件

@@ -5,6 +5,7 @@ import cloud.easy.base.dto.PrimaryKeyDto;
 import cloud.easy.base.dto.PageQueryDto;
 import cloud.easy.annotation.OptionLog;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 <#if global.swagger >
 import io.swagger.annotations.Api;
@@ -53,7 +54,7 @@ public class ${controller.name} extends ${controller.superClassName}<${entity.na
     @Override
     @OptionLog("${comment!}保存")
     @PostMapping("/save")
-    public ApiResponse saveEntity(@RequestBody ${entity.name} entity) {
+    public ApiResponse saveEntity(@Validated @RequestBody ${entity.name} entity) {
         return super.saveEntity(entity);
     }
 
@@ -80,6 +81,14 @@ public class ${controller.name} extends ${controller.superClassName}<${entity.na
     @PostMapping("/list")
     public ApiResponse listEntity(@RequestBody ${entity.name} entity) {
         return super.listEntity(entity);
+    }
+
+</#if>
+<#if global.count >
+    @Override
+    @PostMapping("/count")
+    public ApiResponse countEntity(@RequestBody ${entity.name} entity) {
+        return super.countEntity(entity);
     }
 
 </#if>

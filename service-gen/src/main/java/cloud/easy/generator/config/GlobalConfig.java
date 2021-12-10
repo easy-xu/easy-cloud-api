@@ -35,7 +35,7 @@ public class GlobalConfig {
     private Class<?> serviceImplSuperClass;
     private Class<?> mapperSuperClass;
 
-    private boolean controller = false;
+    private boolean controller = true;
     private boolean entity = true;
     private boolean service = true;
     private boolean serviceImpl = true;
@@ -50,6 +50,7 @@ public class GlobalConfig {
     private boolean delete = true;
     private boolean pageList = true;
     private boolean list = true;
+    private boolean count = true;
 
     private String menuParent;
     private String menuCode;
