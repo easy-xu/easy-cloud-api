@@ -11,7 +11,7 @@ import io.swagger.annotations.Api;
 </#if>
 import ${entity.pkg}.${entity.name};
 import ${service.pkg}.${service.name};
-<#list controller.importPackages as pkg>
+<#list controller.importPkg as pkg>
 import ${pkg};
 </#list>
 

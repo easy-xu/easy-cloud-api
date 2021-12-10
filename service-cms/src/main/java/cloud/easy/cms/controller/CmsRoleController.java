@@ -16,6 +16,7 @@ import cloud.easy.base.controller.BaseController;
 import javax.annotation.Resource;
 
 import static cloud.easy.base.utils.BaseUtil.requireId;
+import static cloud.easy.base.utils.BaseUtil.uniqueValue;
 
 /**
  * 角色控制器
@@ -47,6 +48,7 @@ public class CmsRoleController extends BaseController<CmsRole, ICmsRoleService> 
     @OptionLog("角色保存")
     @PostMapping("/save")
     public ApiResponse saveEntity(@RequestBody CmsRole entity) {
+        uniqueValue("code", entity.getCode(), service);
         roleService.save(entity);
         return HttpResponse.ok();
     }

@@ -2,8 +2,10 @@ package cloud.easy.generator.config.field;
 
 import lombok.Data;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * FieldInfo
@@ -20,8 +22,9 @@ public class FieldConfig {
     private String pageType;
     private String subPage;
     private String comment;
-    private String pkg;
-    private List<String> rules;
+    private Set<String> importPkg = new HashSet<>();
+    private List<String> pageRules;
+    private List<String> entityRules;
     private String style;
     private boolean extend;
 
@@ -34,6 +37,5 @@ public class FieldConfig {
      * 其他表映射
      */
     private MappingConfig tableMapping;
-
 
 }

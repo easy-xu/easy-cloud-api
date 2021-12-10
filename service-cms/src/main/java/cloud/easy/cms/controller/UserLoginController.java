@@ -9,6 +9,7 @@ import cloud.easy.entity.ApiResponse;
 import cloud.easy.entity.HttpResponse;
 import io.swagger.annotations.Api;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -30,10 +31,7 @@ public class UserLoginController {
 
     @OptionLog("用户登录")
     @PostMapping("/login")
-    public ApiResponse login(@RequestBody UserDto userDto) {
-        if (userDto == null || !StringUtils.hasLength(userDto.getUsername())) {
-            return HttpResponse.reject(Messages.USERNAME_EMPTY);
-        }
+    public ApiResponse login(@Validated @RequestBody UserDto userDto) {
         userDto = userService.login(userDto);
         return HttpResponse.ok(userDto);
     }

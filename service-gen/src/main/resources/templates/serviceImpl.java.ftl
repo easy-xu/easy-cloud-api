@@ -4,7 +4,7 @@ import ${entity.pkg}.${entity.name};
 import ${mapper.pkg}.${mapper.name};
 import ${service.pkg}.${service.name};
 import org.springframework.stereotype.Service;
-<#list serviceImpl.importPackages as pkg>
+<#list serviceImpl.importPkg as pkg>
 import ${pkg};
 </#list>
 

@@ -83,7 +83,7 @@ public class AccessAspect {
                 apiLog.setRequestId(requestId);
                 long count = logService.count(Wrappers.query(apiLog));
                 if (count > 0) {
-                    throw new RequestException("交易流水号重复：" + requestId);
+                    throw new RequestException("交易流水号重复");
                 }
                 //校验Token
                 String token = header.getToken();

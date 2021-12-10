@@ -1,6 +1,5 @@
 package ${entity.pkg};
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 <#if global.swagger>
 import io.swagger.annotations.ApiModel;
@@ -10,7 +9,7 @@ import lombok.Data;
 <#if entity.superClassName?? >
 import lombok.EqualsAndHashCode;
 </#if>
-<#list entity.importPackages as pkg>
+<#list entity.importPkg as pkg>
 import ${pkg};
 </#list>
 
@@ -39,6 +38,11 @@ public class ${entity.name} {
      * ${field.comment}
      */
     <#if global.swagger >
+    <#if field.entityRules??>
+    <#list field.entityRules as rule>
+    ${rule}
+    </#list>
+    </#if>
     @ApiModelProperty("${field.comment}")
     </#if>
     <#if field.extend >

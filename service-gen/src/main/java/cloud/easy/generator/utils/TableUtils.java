@@ -9,7 +9,10 @@ import cloud.easy.generator.convert.ColumnType;
 import cloud.easy.generator.convert.DataTypeConvertor;
 import cloud.easy.utils.BeanUtils;
 import cloud.easy.utils.RegUtils;
+import com.baomidou.mybatisplus.annotation.TableField;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -86,6 +89,7 @@ public class TableUtils {
         if (custFieldMap != null) {
             for (FieldConfig fieldConfig : custFieldMap.values()) {
                 if (fieldConfig.isExtend()) {
+                    fieldConfig.getImportPkg().add(TableField.class.getCanonicalName());
                     fields.add(fieldConfig);
                 }
             }
@@ -110,7 +114,7 @@ public class TableUtils {
         field.setInitial(initial);
         field.setKey(column.getKey());
         field.setType(javaType.getType());
-        field.setPkg(javaType.getPkg());
+        field.getImportPkg().add(javaType.getPkg());
         field.setPageType(jsType);
         //解析comment中的字典映射
         handleComment(field, column.getComment());
@@ -146,9 +150,12 @@ public class TableUtils {
         if ("PRI".equals(column.getKey())) {
             return;
         }
-        List<String> rules = new ArrayList<>();
+        List<String> pageRules = new ArrayList<>();
+        List<String> entityRules = new ArrayList<>();
         if ("NO".equals(column.getNullable())) {
-            rules.add("{ required: true }");
+            pageRules.add("{ required: true }");
+            entityRules.add("@NotNull(message = \"" + field.getComment() + "不能为空\")");
+            field.getImportPkg().add(NotNull.class.getCanonicalName());
         }
         Integer maxLength = column.getMaxLength();
         String pageType = field.getPageType();
@@ -156,9 +163,12 @@ public class TableUtils {
             pageType = custField.getPageType();
         }
         if (maxLength != null && ("string".equals(pageType) || "number".equals(pageType))) {
-            rules.add("{ type: '" + pageType + "', max: " + maxLength + " }");
+            pageRules.add("{ type: '" + pageType + "', max: " + maxLength + " }");
+            entityRules.add("@Max(value = "+maxLength+", message = \""+field.getComment()+"长度不能超过60\")\n");
+            field.getImportPkg().add(Max.class.getCanonicalName());
         }
-        field.setRules(rules.isEmpty() ? null : rules);
+        field.setPageRules(pageRules.isEmpty() ? null : pageRules);
+        field.setEntityRules(entityRules);
     }
 
     private static void handleComment(FieldConfig field, String comment) {

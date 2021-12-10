@@ -21,7 +21,6 @@ import javax.annotation.Resource;
 import java.util.List;
 
 import static cloud.easy.base.utils.BaseUtil.notNull;
-import static cloud.easy.base.utils.BaseUtil.requireId;
 
 /**
  * Title: MenuController
@@ -58,7 +57,7 @@ public class CmsController {
     @OptionLog("重置密码")
     @PostMapping("/user/reset-password")
     public ApiResponse resetPassword(@RequestBody UserDto userDto) {
-        requireId(userDto);
+        notNull(userDto.getId());
         userService.resetPassword(userDto);
         return HttpResponse.ok();
     }

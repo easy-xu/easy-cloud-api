@@ -11,6 +11,8 @@ import cloud.easy.cms.entity.CmsMenu;
 import cloud.easy.cms.service.ICmsMenuService;
 import cloud.easy.base.controller.BaseController;
 
+import static cloud.easy.base.utils.BaseUtil.uniqueValue;
+
 /**
  * 菜单控制器
  *
@@ -37,6 +39,7 @@ public class CmsMenuController extends BaseController<CmsMenu, ICmsMenuService> 
     @OptionLog("菜单保存")
     @PostMapping("/save")
     public ApiResponse saveEntity(@RequestBody CmsMenu entity) {
+        uniqueValue("code", entity.getCode(), service);
         return super.saveEntity(entity);
     }
 

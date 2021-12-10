@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * ApplicationTest
@@ -53,8 +54,6 @@ class GenerateTest {
         GlobalConfig globalConfig = GlobalConfig.defaultConfig();
         globalConfig.setJavaPlace(javaProject + "\\service-cms");
         globalConfig.setSwagger(false);
-        globalConfig.setPage(false);
-        globalConfig.setController(false);
         service.generate(globalConfig, "cms_user_role");
     }
 
@@ -63,8 +62,6 @@ class GenerateTest {
         GlobalConfig globalConfig = GlobalConfig.defaultConfig();
         globalConfig.setJavaPlace(javaProject + "\\service-cms");
         globalConfig.setSwagger(false);
-        globalConfig.setPage(false);
-        globalConfig.setController(false);
         service.generate(globalConfig, "cms_user_group");
     }
 
@@ -84,7 +81,7 @@ class GenerateTest {
         FieldConfig roleIds = new FieldConfig();
         roleIds.setName("roleIds");
         roleIds.setComment("角色");
-        roleIds.setPkg("java.util.List");
+        roleIds.getImportPkg().add(List.class.getCanonicalName());
         roleIds.setType("List<Long>");
         roleIds.setPageType("checks");
         roleIds.setStyle(FieldStyleConfig.detailOnlyConfig());
@@ -95,17 +92,13 @@ class GenerateTest {
         FieldConfig groupIds = new FieldConfig();
         groupIds.setName("groupIds");
         groupIds.setComment("分组");
-        groupIds.setPkg("java.util.List");
+        groupIds.getImportPkg().add(List.class.getCanonicalName());
         groupIds.setType("List<Long>");
         groupIds.setPageType("select");
         groupIds.setStyle(FieldStyleConfig.detailOnlyConfig());
         groupIds.setTableMapping(new MappingConfig("cms_group", "id", "name"));
         groupIds.setExtend(true);
         custFiled.put("groupIds", groupIds);
-        //后端多表保存手动修改
-        globalConfig.setController(false);
-        //前端新增字段手动修改
-        globalConfig.setPage(true);
         service.generate(globalConfig, "cms_user", custFiled);
     }
 
@@ -114,8 +107,6 @@ class GenerateTest {
         GlobalConfig globalConfig = GlobalConfig.defaultConfig();
         globalConfig.setJavaPlace(javaProject + "\\service-cms");
         globalConfig.setSwagger(false);
-        globalConfig.setPage(false);
-        globalConfig.setController(false);
         service.generate(globalConfig, "cms_role_auth");
     }
 
@@ -135,15 +126,14 @@ class GenerateTest {
         FieldConfig authCheck = new FieldConfig();
         authCheck.setName("authIds");
         authCheck.setComment("权限");
-        authCheck.setPkg("java.util.List");
+        authCheck.getImportPkg().add(List.class.getCanonicalName());
         authCheck.setType("List<Long>");
         authCheck.setPageType("checks");
         authCheck.setStyle(FieldStyleConfig.detailOnlyConfig());
         authCheck.setTableMapping(new MappingConfig("cms_auth", "id", "name"));
         authCheck.setExtend(true);
         custFiled.put("authIds", authCheck);
-        //后端多表保存手动修改
-        globalConfig.setController(false);
+        globalConfig.setPage(true);
         service.generate(globalConfig, "cms_role", custFiled);
     }
 
@@ -152,16 +142,12 @@ class GenerateTest {
         GlobalConfig globalConfig = GlobalConfig.defaultConfig();
         globalConfig.setJavaPlace(javaProject + "\\service-cms");
         globalConfig.setSwagger(false);
-        globalConfig.setPage(false);
-        globalConfig.setController(false);
         service.generate(globalConfig, "cms_auth_option");
     }
     void cms_auth_menu() throws IOException, TemplateException {
         GlobalConfig globalConfig = GlobalConfig.defaultConfig();
         globalConfig.setJavaPlace(javaProject + "\\service-cms");
         globalConfig.setSwagger(false);
-        globalConfig.setPage(false);
-        globalConfig.setController(false);
         service.generate(globalConfig, "cms_auth_menu");
     }
 
@@ -177,6 +163,7 @@ class GenerateTest {
         FieldConfig remark = new FieldConfig();
         remark.setStyle(FieldStyleConfig.detailOnlyConfig());
         custFiled.put("remark", remark);
+        globalConfig.setPage(true);
         service.generate(globalConfig, "cms_option", custFiled);
     }
 
@@ -192,6 +179,8 @@ class GenerateTest {
         FieldConfig remark = new FieldConfig();
         remark.setStyle(FieldStyleConfig.detailOnlyConfig());
         custFiled.put("remark", remark);
+        //globalConfig.setPage(true);
+        //globalConfig.setController(true);
         service.generate(globalConfig, "cms_group", custFiled);
     }
 
@@ -215,10 +204,8 @@ class GenerateTest {
         custFiled.put("parent_id", parentFolder);
         FieldConfig menuType = new FieldConfig();
         menuType.setType("MenuTypeEnum");
-        menuType.setPkg("cloud.easy.cms.enums.MenuTypeEnum");
+        menuType.getImportPkg().add("cloud.easy.cms.enums.MenuTypeEnum");
         custFiled.put("type", menuType);
-        //页面手动修改，增加图标
-        globalConfig.setPage(false);
         service.generate(globalConfig, "cms_menu", custFiled);
     }
 
@@ -238,7 +225,7 @@ class GenerateTest {
         FieldConfig menuTree = new FieldConfig();
         menuTree.setName("menuIds");
         menuTree.setComment("权限菜单");
-        menuTree.setPkg("java.util.List");
+        menuTree.getImportPkg().add(List.class.getCanonicalName());
         menuTree.setType("List<Long>");
         menuTree.setPageType("tree");
         menuTree.setStyle(FieldStyleConfig.detailOnlyConfig());
@@ -249,7 +236,7 @@ class GenerateTest {
         FieldConfig optionCheck = new FieldConfig();
         optionCheck.setName("optionIds");
         optionCheck.setComment("权限操作");
-        menuTree.setPkg("java.util.List");
+        menuTree.getImportPkg().add(List.class.getCanonicalName());
         optionCheck.setType("List<Long>");
         optionCheck.setPageType("checks");
         optionCheck.setStyle(FieldStyleConfig.detailOnlyConfig());
@@ -257,7 +244,7 @@ class GenerateTest {
         optionCheck.setExtend(true);
         custFiled.put("optionIds", optionCheck);
         //后端多表保存手动修改
-        globalConfig.setController(false);
+        globalConfig.setPage(true);
         service.generate(globalConfig, "cms_auth", custFiled);
     }
 
@@ -268,6 +255,8 @@ class GenerateTest {
         globalConfig.setJavaPlace(javaProject + "\\service-cms");
         globalConfig.setReactPlace(reactProject);
         globalConfig.setMenuParent("system");
+        globalConfig.setController(true);
+        globalConfig.setPage(true);
         globalConfig.setAdd(false);
         globalConfig.setEdit(false);
         globalConfig.setDelete(false);
@@ -293,6 +282,8 @@ class GenerateTest {
         GlobalConfig globalConfig = GlobalConfig.defaultConfig();
         globalConfig.setJavaPlace(javaProject + "\\service-job");
         globalConfig.setReactPlace(reactProject);
+        globalConfig.setController(true);
+        globalConfig.setPage(true);
         //任务配置表
         globalConfig.setEntitySuperClass(AuthEntity.class);
         //cron不作为查询条件

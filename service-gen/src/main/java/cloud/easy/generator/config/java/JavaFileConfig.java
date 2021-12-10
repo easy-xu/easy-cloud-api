@@ -3,7 +3,6 @@ package cloud.easy.generator.config.java;
 import cloud.easy.generator.config.GenerateConfig;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.util.StringUtils;
 
 import java.io.File;
 import java.nio.file.Paths;
@@ -27,7 +26,7 @@ public abstract class JavaFileConfig implements GenerateConfig {
 
     protected String pkg;
     protected String name;
-    protected Set<String> importPackages = new HashSet<>();
+    protected Set<String> importPkg = new HashSet<>();
 
     public JavaFileConfig(String basePackage, String model, String entityName) {
         this.basePackage = basePackage;
@@ -37,13 +36,7 @@ public abstract class JavaFileConfig implements GenerateConfig {
 
     public void superClass(Class<?> superClass) {
         this.superClassName = superClass.getSimpleName();
-        this.importPackages.add(superClass.getCanonicalName());
-    }
-
-    public void addImportPackage(String importPackage) {
-        if (StringUtils.hasLength(importPackage)) {
-            importPackages.add(importPackage);
-        }
+        this.importPkg.add(superClass.getCanonicalName());
     }
 
     @Override

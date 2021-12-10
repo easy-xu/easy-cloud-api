@@ -1,5 +1,6 @@
 package cloud.easy.knowledge.controller;
 
+import cloud.easy.base.controller.BaseController;
 import cloud.easy.base.dto.PageQueryDto;
 import cloud.easy.entity.ApiResponse;
 import cloud.easy.entity.HttpResponse;

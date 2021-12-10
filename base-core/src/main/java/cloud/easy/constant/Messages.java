@@ -20,7 +20,7 @@ public enum Messages {
     USERNAME_EMPTY(400, "用户名不能为空"),
     USERNAME_EXIST(400, "用户名已注册"),
     LOGIN_ERROR(400, "用户名或密码错误"),
-    ID_EMPTY(400, "ID不能为空"),
+    ID_EMPTY(400, "主键不能为空"),
     REQUEST_EMPTY(400, "参数不能为空"),
 
 
@@ -32,6 +32,7 @@ public enum Messages {
     ALREADY_DONE(400, "请勿重复操作"),
     NOT_FOUND(400, "数据不存在"),
     NOT_READABLE(400, "数据已停用"),
+    INDEX_ERROR(400, "数据保存失败，违反唯一约束"),
 
     /**
      * 服务端错误

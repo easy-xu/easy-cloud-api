@@ -2,7 +2,7 @@ package ${mapper.pkg};
 
 import ${entity.pkg}.${entity.name};
 import org.apache.ibatis.annotations.Mapper;
-<#list mapper.importPackages as pkg>
+<#list mapper.importPkg as pkg>
 import ${pkg};
 </#list>
 

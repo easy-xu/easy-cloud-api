@@ -1,15 +1,20 @@
 package cloud.easy.cms.controller;
 
-import cloud.easy.entity.ApiResponse;
-import cloud.easy.base.dto.PrimaryKeyDto;
-import cloud.easy.base.dto.PageQueryDto;
 import cloud.easy.annotation.OptionLog;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import io.swagger.annotations.Api;
+import cloud.easy.base.controller.BaseController;
+import cloud.easy.base.dto.PageQueryDto;
+import cloud.easy.base.dto.PrimaryKeyDto;
 import cloud.easy.cms.entity.CmsGroup;
 import cloud.easy.cms.service.ICmsGroupService;
-import cloud.easy.base.controller.BaseController;
+import cloud.easy.entity.ApiResponse;
+import io.swagger.annotations.Api;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import static cloud.easy.base.utils.BaseUtil.uniqueValue;
 
 /**
  * 分组控制器
@@ -37,6 +42,7 @@ public class CmsGroupController extends BaseController<CmsGroup, ICmsGroupServic
     @OptionLog("分组保存")
     @PostMapping("/save")
     public ApiResponse saveEntity(@RequestBody CmsGroup entity) {
+        uniqueValue("code", entity.getCode(), service);
         return super.saveEntity(entity);
     }
 

@@ -53,9 +53,9 @@ const ${page.name}: FC = (props: any) => {
       <#if field.style??>
       style: ${field.style},
       </#if>
-      <#if field.rules??>
+      <#if field.pageRules??>
       rules: [
-        <#list field.rules as rule>
+        <#list field.pageRules as rule>
         ${rule},
         </#list>
       ]

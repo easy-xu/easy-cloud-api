@@ -53,7 +53,7 @@ public class GenerateConfigBuilder {
         Class<?> entitySuperClass = global.getEntitySuperClass();
         config.superClass(entitySuperClass);
         for (FieldConfig field: fields){
-            config.addImportPackage(field.getPkg());
+            config.getImportPkg().addAll(field.getImportPkg());
         }
         if (global.isEntity()){
             configs.add(config);

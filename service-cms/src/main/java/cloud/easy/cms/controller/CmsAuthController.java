@@ -18,8 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
-import static cloud.easy.base.utils.BaseUtil.notNull;
-import static cloud.easy.base.utils.BaseUtil.requireId;
+import static cloud.easy.base.utils.BaseUtil.*;
 
 /**
  * 权限控制器
@@ -50,8 +49,9 @@ public class CmsAuthController extends BaseController<CmsAuth, ICmsAuthService> 
     @Override
     @OptionLog("权限保存")
     @PostMapping("/save")
-    public ApiResponse saveEntity(@RequestBody CmsAuth cmsAuth) {
-        authService.save(notNull(cmsAuth));
+    public ApiResponse saveEntity(@RequestBody CmsAuth entity) {
+        uniqueValue("code", entity.getCode(), service);
+        authService.save(entity);
         return HttpResponse.ok();
     }
 

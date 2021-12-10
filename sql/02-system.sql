@@ -76,6 +76,8 @@ create table cms_option
     primary key (id)
 ) engine = innodb
   auto_increment = 1 comment = '操作类型表';
+ALTER TABLE `cms_option`
+  ADD UNIQUE INDEX `unique_code`(`code`) USING BTREE;
 
 -- ----------------------------
 -- Records of cms_option
@@ -107,7 +109,8 @@ create table cms_auth
     primary key (id)
 ) engine = innodb
   auto_increment = 1 comment = '权限表';
-
+ALTER TABLE `cms_auth`
+  ADD UNIQUE INDEX `unique_code`(`code`) USING BTREE;
 
 -- ----------------------------
 -- Records of cms_auth
@@ -228,6 +231,9 @@ create table cms_role
     primary key (id)
 ) engine = innodb
   auto_increment = 1 comment = '角色表';
+ALTER TABLE `cms_role`
+  ADD UNIQUE INDEX `unique_code`(`code`) USING BTREE;
+
 -- ----------------------------
 -- Records of cms_role
 -- ----------------------------
@@ -282,6 +288,8 @@ create table cms_group
     primary key (id)
 ) engine = innodb
   auto_increment = 1 comment = '分组表';
+ALTER TABLE `cms_group`
+  ADD UNIQUE INDEX `unique_code`(`code`) USING BTREE;
 
 -- ----------------------------
 -- Records of cms_group
@@ -324,9 +332,9 @@ create table cms_user
 ) engine = innodb
   auto_increment = 1 comment = '用户表';
 ALTER TABLE `cms_user`
-    ADD INDEX `index_username` (`username`) USING BTREE;
+    ADD UNIQUE INDEX `index_username` (`username`) USING BTREE;
 ALTER TABLE `cms_user`
-    ADD INDEX `index_user_no` (`user_no`) USING BTREE;
+    ADD UNIQUE INDEX `index_user_no` (`user_no`) USING BTREE;
 
 INSERT INTO `cloud`.`cms_user`(`id`, `username`, `user_no`, `device_no`, `password`, `nickname`, `token`, `email`, `phone_number`, `sex`, `avatar`, `default_group_id`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (1, 'admin', 'U20211018000106', 'D20211129000200', 'J3KCwEKaFHA3gvmGqUjfT1A32MRzuyC5EPuZy3RWmVte', '系统管理员', '', NULL, NULL, 'N', NULL, 1, '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-13 20:35:41', 'U20211018000201', '2021-10-18 13:39:44');
 INSERT INTO `cloud`.`cms_user`(`id`, `username`, `user_no`, `device_no`, `password`, `nickname`, `token`, `email`, `phone_number`, `sex`, `avatar`, `default_group_id`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (2, 'dev', 'U20211018000202', 'D20211129000100', '8iLQLpiZZntVnMhZ8VX9YnhTvNREHK7kUrpCYXkgH5vC', '开发人员', '', NULL, NULL, 'N', NULL, 3, '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-16 21:59:42', 'U20211018000201', '2021-10-18 13:39:55');
@@ -499,15 +507,5 @@ create table file_content
     primary key (id)
 ) engine = innodb
   auto_increment = 1 comment = '文件内容表';
-
-
--- 数据备份
-
--- ----------------------------
--- Records of cms_user
--- ----------------------------
-INSERT INTO `cloud`.`cms_user`(`id`, `username`, `user_no`, `password`, `nickname`, `type`, `token`, `email`, `phone_number`, `sex`, `avatar`, `default_group_id`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (1, 'admin', 'U20211018000106', '9ZPsmFqGpMkaSNg8Fxv8XR7wMsnpdV4eb4rUNntp184V', '系统管理员', '01', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiVTIwMjExMDE4MDAwMTA2IiwiaWF0IjoxNjM4MTAzOTI5fQ.gVwF6I27L6wwrELyibwGnFV1yMndxKV8MAyeP750618', NULL, NULL, '2', NULL, 1, '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-13 20:35:41', 'U20211018000201', '2021-10-18 13:39:44');
-INSERT INTO `cloud`.`cms_user`(`id`, `username`, `user_no`, `password`, `nickname`, `type`, `token`, `email`, `phone_number`, `sex`, `avatar`, `default_group_id`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (2, 'dev', 'U20211018000202', '8iLQLpiZZntVnMhZ8VX9YnhTvNREHK7kUrpCYXkgH5vC', '开发人员', '00', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiVTIwMjExMDE4MDAwMjAyIiwiaWF0IjoxNjM1MTI2MjM1fQ.hmeH5GJtMYAic6FRp7Ji1UKum7s5xT8YCRMzGxWeLo8', NULL, NULL, '2', NULL, 3, '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-16 21:59:42', 'U20211018000201', '2021-10-18 13:39:55');
-INSERT INTO `cloud`.`cms_user`(`id`, `username`, `user_no`, `password`, `nickname`, `type`, `token`, `email`, `phone_number`, `sex`, `avatar`, `default_group_id`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (3, 'ops', 'U20211018000201', '7pvk763joCo25grKGoJfDVi9hHMkZoxJu8FLFoDDvyNU', '运维人员', '00', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiVTIwMjExMDE4MDAwMjAxIiwiaWF0IjoxNjM0NTM1NDMxfQ.lQtFBPyqirUzEr3KAai03GaCgHeYDjrr3kJT_D2XUYA', NULL, NULL, '2', NULL, 4, '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-16 22:00:00', 'U20211018000201', '2021-10-18 13:40:04');
 
 

@@ -1,7 +1,7 @@
 package ${service.pkg};
 
 import ${entity.pkg}.${entity.name};
-<#list service.importPackages as pkg>
+<#list service.importPkg as pkg>
 import ${pkg};
 </#list>
 

@@ -11,6 +11,8 @@ import cloud.easy.cms.entity.CmsOption;
 import cloud.easy.cms.service.ICmsOptionService;
 import cloud.easy.base.controller.BaseController;
 
+import static cloud.easy.base.utils.BaseUtil.uniqueValue;
+
 /**
  * 操作类型控制器
  *
@@ -37,6 +39,7 @@ public class CmsOptionController extends BaseController<CmsOption, ICmsOptionSer
     @OptionLog("操作类型保存")
     @PostMapping("/save")
     public ApiResponse saveEntity(@RequestBody CmsOption entity) {
+        uniqueValue("code", entity.getCode(), service);
         return super.saveEntity(entity);
     }
 

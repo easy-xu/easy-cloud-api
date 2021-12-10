@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 
 import static cloud.easy.base.utils.BaseUtil.requireId;
+import static cloud.easy.base.utils.BaseUtil.uniqueValue;
 
 /**
  * 用户控制器
@@ -50,6 +51,7 @@ public class CmsUserController extends BaseController<CmsUser, ICmsUserService> 
     @OptionLog("用户保存")
     @PostMapping("/save")
     public ApiResponse saveEntity(@RequestBody CmsUser entity) {
+        uniqueValue("username", entity.getUsername(), service);
         userService.save(entity);
         return HttpResponse.ok();
     }

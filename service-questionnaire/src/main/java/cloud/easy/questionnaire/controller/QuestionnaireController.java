@@ -1,13 +1,14 @@
 package cloud.easy.questionnaire.controller;
 
+import cloud.easy.base.controller.BaseController;
 import cloud.easy.base.dto.PageQueryDto;
 import cloud.easy.constant.Messages;
 import cloud.easy.entity.ApiResponse;
 import cloud.easy.entity.HttpResponse;
 import cloud.easy.questionnaire.dto.QuestionnaireDto;
+import cloud.easy.questionnaire.service.QuestionnaireService;
 import cloud.easy.quna.entity.QunaConfigQuestionnaire;
 import cloud.easy.quna.service.IQunaConfigQuestionnaireService;
-import cloud.easy.questionnaire.service.QuestionnaireService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
