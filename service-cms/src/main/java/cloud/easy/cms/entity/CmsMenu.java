@@ -1,13 +1,15 @@
 package cloud.easy.cms.entity;
 
+import cloud.easy.base.entity.AuthEntity;
+import cloud.easy.cms.enums.MenuTypeEnum;
+import cloud.easy.validation.UniqueColumn;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import cloud.easy.base.entity.AuthEntity;
-import cloud.easy.cms.enums.MenuTypeEnum;
-import javax.validation.constraints.Max;
+import org.hibernate.validator.constraints.Length;
+
 import javax.validation.constraints.NotNull;
 
 /**
@@ -28,20 +30,21 @@ public class CmsMenu extends AuthEntity {
      * 菜单名称
      */
     @NotNull(message = "菜单名称不能为空")
-    @Max(value = 50, message = "菜单名称长度不能超过50")
+    @Length(max = 50, message = "菜单名称长度不能超过50")
     @ApiModelProperty("菜单名称")
     private String name;
     /**
      * 路径字符
      */
     @NotNull(message = "路径字符不能为空")
-    @Max(value = 200, message = "路径字符长度不能超过200")
+    @Length(max = 200, message = "路径字符长度不能超过200")
+    @UniqueColumn(table = "cms_menu", column = "code", message = "路径字符已存在")
     @ApiModelProperty("路径字符")
     private String code;
     /**
      * 父菜单
      */
-    @NotNull(message = "父菜单ID不能为空")
+    @NotNull(message = "父菜单不能为空")
     @ApiModelProperty("父菜单")
     private Long parentId;
     /**
@@ -52,7 +55,7 @@ public class CmsMenu extends AuthEntity {
     /**
      * 组件路径
      */
-    @Max(value = 255, message = "组件路径长度不能超过255")
+    @Length(max = 255, message = "组件路径长度不能超过255")
     @ApiModelProperty("组件路径")
     private String component;
     /**
@@ -69,13 +72,13 @@ public class CmsMenu extends AuthEntity {
     /**
      * 菜单图标
      */
-    @Max(value = 100, message = "菜单图标长度不能超过100")
+    @Length(max = 100, message = "菜单图标长度不能超过100")
     @ApiModelProperty("菜单图标")
     private String icon;
     /**
      * 备注
      */
-    @Max(value = 500, message = "备注长度不能超过500")
+    @Length(max = 500, message = "备注长度不能超过500")
     @ApiModelProperty("备注")
     private String remark;
 

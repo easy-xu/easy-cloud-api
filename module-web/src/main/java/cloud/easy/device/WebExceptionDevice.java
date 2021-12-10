@@ -27,7 +27,7 @@ public class WebExceptionDevice {
         if (!CollectionUtils.isEmpty(errors)) {
             StringBuilder builder = new StringBuilder();
             errors.forEach(e -> builder.append(e.getDefaultMessage()).append(","));
-            String message = builder.deleteCharAt(builder.length()).toString();
+            String message = builder.deleteCharAt(builder.length()-1).toString();
             log.error("参数校验异常:{}", message);
             return HttpResponse.reject(message);
         }

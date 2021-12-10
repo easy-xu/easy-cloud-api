@@ -9,9 +9,10 @@ import cloud.easy.generator.convert.ColumnType;
 import cloud.easy.generator.convert.DataTypeConvertor;
 import cloud.easy.utils.BeanUtils;
 import cloud.easy.utils.RegUtils;
+import cloud.easy.validation.UniqueColumn;
 import com.baomidou.mybatisplus.annotation.TableField;
+import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -78,7 +79,7 @@ public class TableUtils {
             if (custFieldMap != null) {
                 custField = custFieldMap.get(columnName);
             }
-            FieldConfig fieldConfig = getFieldConfig(globalConfig, column, custField);
+            FieldConfig fieldConfig = getFieldConfig(globalConfig, tableInfo, column, custField);
             String fieldName = fieldConfig.getName();
             //父类字段已经在页面中固定设置
             if (!superFieldNames.contains(fieldName)) {
@@ -96,7 +97,7 @@ public class TableUtils {
         }
     }
 
-    private static FieldConfig getFieldConfig(GlobalConfig globalConfig, ColumnInfo column, FieldConfig custField) {
+    private static FieldConfig getFieldConfig(GlobalConfig globalConfig, TableInfo tableInfo, ColumnInfo column, FieldConfig custField) {
         DataTypeConvertor convertor = globalConfig.getTypeConvertor();
         String dbType = column.getDataType();
         //名称转换
@@ -114,14 +115,14 @@ public class TableUtils {
         field.setInitial(initial);
         field.setKey(column.getKey());
         field.setType(javaType.getType());
-        if (javaType.getPkg()!= null){
+        if (javaType.getPkg() != null) {
             field.getImportPkg().add(javaType.getPkg());
         }
         field.setPageType(jsType);
         //解析comment中的字典映射
         handleComment(field, column.getComment());
         //解析规则, 规则为空则设置默认规则
-        handleRules(field, column, custField);
+        handleRules(field, tableInfo, column, custField);
         //添加默认样式
         handleStyle(field, column, custField);
         //覆盖自定义设置
@@ -147,16 +148,22 @@ public class TableUtils {
     }
 
 
-    private static void handleRules(FieldConfig field, ColumnInfo column, FieldConfig custField) {
+    private static void handleRules(FieldConfig field, TableInfo tableInfo, ColumnInfo column, FieldConfig custField) {
         //主键默认自动生成，不添加规则
         if ("PRI".equals(column.getKey())) {
             return;
         }
         List<String> pageRules = new ArrayList<>();
         List<String> entityRules = new ArrayList<>();
+        String comment = field.getComment();
+        if (custField != null && custField.getComment() != null) {
+            comment = custField.getComment();
+        }
+
+        //不能为空
         if ("NO".equals(column.getNullable())) {
             pageRules.add("{ required: true }");
-            entityRules.add("@NotNull(message = \"" + field.getComment() + "不能为空\")");
+            entityRules.add("@NotNull(message = \"" + comment + "不能为空\")");
             field.getImportPkg().add(NotNull.class.getCanonicalName());
         }
         Integer maxLength = column.getMaxLength();
@@ -164,10 +171,16 @@ public class TableUtils {
         if (custField != null && custField.getPageType() != null) {
             pageType = custField.getPageType();
         }
+        //长度限制
         if (maxLength != null && ("string".equals(pageType) || "number".equals(pageType))) {
             pageRules.add("{ type: '" + pageType + "', max: " + maxLength + " }");
-            entityRules.add("@Max(value = " + maxLength + ", message = \"" + field.getComment() + "长度不能超过" + maxLength + "\")");
-            field.getImportPkg().add(Max.class.getCanonicalName());
+            entityRules.add("@Length(max = " + maxLength + ", message = \"" + comment + "长度不能超过" + maxLength + "\")");
+            field.getImportPkg().add(Length.class.getCanonicalName());
+        }
+        //唯一约束
+        if ("UNI".equals(column.getKey())) {
+            entityRules.add("@UniqueColumn(table = \"" + tableInfo.getName() + "\", column = \"" + column.getName() + "\", message = \"" + field.getComment() + "已存在\")");
+            field.getImportPkg().add(UniqueColumn.class.getCanonicalName());
         }
         field.setPageRules(pageRules.isEmpty() ? null : pageRules);
         field.setEntityRules(entityRules);

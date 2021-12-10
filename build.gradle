@@ -40,7 +40,6 @@ allprojects {
         implementation 'org.projectlombok:lombok:1.18.22'
         annotationProcessor 'org.projectlombok:lombok:1.18.22'
         implementation 'com.alibaba:fastjson:1.2.78'
-        implementation 'org.hibernate.validator:hibernate-validator:7.0.1.Final'
 
         //持久层依赖
         implementation 'mysql:mysql-connector-java:8.0.25'
@@ -48,6 +47,8 @@ allprojects {
         //服务层依赖
         implementation 'org.springframework.boot:spring-boot-starter-test:2.6.1'
         implementation 'org.springframework.boot:spring-boot-starter-aop:2.6.1'
+        implementation 'org.springframework.boot:spring-boot-starter-validation:2.6.1'
+
         //配置文件加密
         implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.4'
         //接口文档

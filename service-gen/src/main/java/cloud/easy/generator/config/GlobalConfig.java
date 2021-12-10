@@ -35,11 +35,11 @@ public class GlobalConfig {
     private Class<?> serviceImplSuperClass;
     private Class<?> mapperSuperClass;
 
-    private boolean controller = true;
+    private boolean controller = false;
     private boolean entity = true;
-    private boolean service = true;
-    private boolean serviceImpl = true;
-    private boolean mapper = true;
+    private boolean service = false;
+    private boolean serviceImpl = false;
+    private boolean mapper = false;
     private boolean page = false;
 
     private boolean swagger = true;

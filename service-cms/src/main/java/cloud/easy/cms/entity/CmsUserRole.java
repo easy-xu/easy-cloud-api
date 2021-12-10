@@ -1,9 +1,10 @@
 package cloud.easy.cms.entity;
 
-import cloud.easy.base.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import cloud.easy.base.entity.BaseEntity;
+import javax.validation.constraints.NotNull;
 
 /**
  * 用户角色关联实体类

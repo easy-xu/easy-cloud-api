@@ -1,13 +1,15 @@
 package cloud.easy.job.entity;
 
+import cloud.easy.base.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import cloud.easy.base.entity.BaseEntity;
-import javax.validation.constraints.Max;
 
 /**
  * 任务日志实体类
@@ -26,7 +28,7 @@ public class JobLog extends BaseEntity {
     /**
      * 任务
      */
-    @NotNull(message = "任务Id不能为空")
+    @NotNull(message = "任务不能为空")
     @ApiModelProperty("任务")
     private String jobId;
     /**
@@ -47,7 +49,7 @@ public class JobLog extends BaseEntity {
     /**
      * 执行结果描述
      */
-    @Max(value = 65535, message = "执行结果描述长度不能超过65535")
+    @Length(max = 65535, message = "执行结果描述长度不能超过65535")
     @ApiModelProperty("执行结果描述")
     private String execContent;
 
