@@ -5,10 +5,10 @@ import org.apache.ibatis.annotations.Mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
- * 用户和角色关联查询类
+ * 用户角色关联查询类
  *
  * @author generator
- * @since 2021-12-09
+ * @since 2021-12-10
  */
 @Mapper
 public interface CmsUserRoleMapper extends BaseMapper<CmsUserRole> {

@@ -1,18 +1,19 @@
 package cloud.easy.cms.entity;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import cloud.easy.base.entity.AuthEntity;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
 
 /**
  * 操作类型实体类
  *
  * @author generator
- * @since 2021-12-09
+ * @since 2021-12-10
  */
 @Data
 @TableName("cms_option")
@@ -25,16 +26,21 @@ public class CmsOption extends AuthEntity {
     /**
      * 操作名称
      */
+    @NotNull(message = "操作名称不能为空")
+    @Max(value = 50, message = "操作名称长度不能超过50")
     @ApiModelProperty("操作名称")
     private String name;
     /**
      * 操作字符串
      */
+    @NotNull(message = "操作字符串不能为空")
+    @Max(value = 100, message = "操作字符串长度不能超过100")
     @ApiModelProperty("操作字符串")
     private String code;
     /**
      * 备注
      */
+    @Max(value = 500, message = "备注长度不能超过500")
     @ApiModelProperty("备注")
     private String remark;
 

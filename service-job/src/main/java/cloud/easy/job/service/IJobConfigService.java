@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * 任务业务接口
  *
  * @author generator
- * @since 2021-12-09
+ * @since 2021-12-10
  */
 public interface IJobConfigService extends IService<JobConfig> {
 

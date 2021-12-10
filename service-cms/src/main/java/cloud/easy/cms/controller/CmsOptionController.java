@@ -1,15 +1,19 @@
 package cloud.easy.cms.controller;
 
-import cloud.easy.entity.ApiResponse;
-import cloud.easy.base.dto.PrimaryKeyDto;
-import cloud.easy.base.dto.PageQueryDto;
 import cloud.easy.annotation.OptionLog;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import io.swagger.annotations.Api;
+import cloud.easy.base.controller.BaseController;
+import cloud.easy.base.dto.PageQueryDto;
+import cloud.easy.base.dto.PrimaryKeyDto;
 import cloud.easy.cms.entity.CmsOption;
 import cloud.easy.cms.service.ICmsOptionService;
-import cloud.easy.base.controller.BaseController;
+import cloud.easy.entity.ApiResponse;
+import io.swagger.annotations.Api;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import static cloud.easy.base.utils.BaseUtil.uniqueValue;
 
@@ -17,7 +21,7 @@ import static cloud.easy.base.utils.BaseUtil.uniqueValue;
  * 操作类型控制器
  *
  * @author generator
- * @since 2021-12-09
+ * @since 2021-12-10
  */
 @RestController
 @RequestMapping("/api/cms/option")
@@ -38,7 +42,7 @@ public class CmsOptionController extends BaseController<CmsOption, ICmsOptionSer
     @Override
     @OptionLog("操作类型保存")
     @PostMapping("/save")
-    public ApiResponse saveEntity(@RequestBody CmsOption entity) {
+    public ApiResponse saveEntity(@Validated @RequestBody CmsOption entity) {
         uniqueValue("code", entity.getCode(), service);
         return super.saveEntity(entity);
     }
@@ -60,6 +64,12 @@ public class CmsOptionController extends BaseController<CmsOption, ICmsOptionSer
     @PostMapping("/list")
     public ApiResponse listEntity(@RequestBody CmsOption entity) {
         return super.listEntity(entity);
+    }
+
+    @Override
+    @PostMapping("/count")
+    public ApiResponse countEntity(@RequestBody CmsOption entity) {
+        return super.countEntity(entity);
     }
 
 }

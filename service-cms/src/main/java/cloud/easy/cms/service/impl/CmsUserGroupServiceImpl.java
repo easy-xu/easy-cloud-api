@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 /**
- * 用户和分组关联业务实现类
+ * 用户分组关联业务实现类
  *
  * @author generator
- * @since 2021-12-09
+ * @since 2021-12-10
  */
 @Service
 public class CmsUserGroupServiceImpl extends ServiceImpl<CmsUserGroupMapper, CmsUserGroup> implements ICmsUserGroupService {

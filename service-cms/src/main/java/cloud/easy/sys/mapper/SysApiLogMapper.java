@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * 接口日志查询类
  *
  * @author generator
- * @since 2021-12-09
+ * @since 2021-12-10
  */
 @Mapper
 public interface SysApiLogMapper extends BaseMapper<SysApiLog> {

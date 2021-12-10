@@ -4,10 +4,10 @@ import cloud.easy.cms.entity.CmsUserRole;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
- * 用户和角色关联业务接口
+ * 用户角色关联业务接口
  *
  * @author generator
- * @since 2021-12-09
+ * @since 2021-12-10
  */
 public interface ICmsUserRoleService extends IService<CmsUserRole> {
 

@@ -40,6 +40,8 @@ allprojects {
         implementation 'org.projectlombok:lombok:1.18.22'
         annotationProcessor 'org.projectlombok:lombok:1.18.22'
         implementation 'com.alibaba:fastjson:1.2.78'
+        implementation 'org.hibernate.validator:hibernate-validator:7.0.1.Final'
+
         //持久层依赖
         implementation 'mysql:mysql-connector-java:8.0.25'
         implementation 'com.baomidou:mybatis-plus-boot-starter:3.4.3.4'

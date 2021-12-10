@@ -5,6 +5,7 @@ import cloud.easy.base.dto.PrimaryKeyDto;
 import cloud.easy.base.dto.PageQueryDto;
 import cloud.easy.annotation.OptionLog;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.Api;
 import cloud.easy.sys.entity.SysApiLog;
@@ -15,7 +16,7 @@ import cloud.easy.base.controller.BaseController;
  * 接口日志控制器
  *
  * @author generator
- * @since 2021-12-09
+ * @since 2021-12-10
  */
 @RestController
 @RequestMapping("/api/sys/apilog")

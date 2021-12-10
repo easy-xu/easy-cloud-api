@@ -1,17 +1,21 @@
 package cloud.easy.cms.controller;
 
-import cloud.easy.cms.service.RoleService;
-import cloud.easy.entity.ApiResponse;
-import cloud.easy.base.dto.PrimaryKeyDto;
-import cloud.easy.base.dto.PageQueryDto;
 import cloud.easy.annotation.OptionLog;
-import cloud.easy.entity.HttpResponse;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import io.swagger.annotations.Api;
+import cloud.easy.base.controller.BaseController;
+import cloud.easy.base.dto.PageQueryDto;
+import cloud.easy.base.dto.PrimaryKeyDto;
 import cloud.easy.cms.entity.CmsRole;
 import cloud.easy.cms.service.ICmsRoleService;
-import cloud.easy.base.controller.BaseController;
+import cloud.easy.cms.service.RoleService;
+import cloud.easy.entity.ApiResponse;
+import cloud.easy.entity.HttpResponse;
+import io.swagger.annotations.Api;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
@@ -22,7 +26,7 @@ import static cloud.easy.base.utils.BaseUtil.uniqueValue;
  * 角色控制器
  *
  * @author generator
- * @since 2021-12-09
+ * @since 2021-12-10
  */
 @RestController
 @RequestMapping("/api/cms/role")
@@ -47,7 +51,7 @@ public class CmsRoleController extends BaseController<CmsRole, ICmsRoleService> 
     @Override
     @OptionLog("角色保存")
     @PostMapping("/save")
-    public ApiResponse saveEntity(@RequestBody CmsRole entity) {
+    public ApiResponse saveEntity(@Validated @RequestBody CmsRole entity) {
         uniqueValue("code", entity.getCode(), service);
         roleService.save(entity);
         return HttpResponse.ok();
@@ -71,6 +75,12 @@ public class CmsRoleController extends BaseController<CmsRole, ICmsRoleService> 
     @PostMapping("/list")
     public ApiResponse listEntity(@RequestBody CmsRole entity) {
         return super.listEntity(entity);
+    }
+
+    @Override
+    @PostMapping("/count")
+    public ApiResponse countEntity(@RequestBody CmsRole entity) {
+        return super.countEntity(entity);
     }
 
 }

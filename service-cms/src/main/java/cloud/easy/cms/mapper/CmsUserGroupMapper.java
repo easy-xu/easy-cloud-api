@@ -5,10 +5,10 @@ import org.apache.ibatis.annotations.Mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
- * 用户和分组关联查询类
+ * 用户分组关联查询类
  *
  * @author generator
- * @since 2021-12-09
+ * @since 2021-12-10
  */
 @Mapper
 public interface CmsUserGroupMapper extends BaseMapper<CmsUserGroup> {

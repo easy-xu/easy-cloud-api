@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * 权限菜单关联业务接口
  *
  * @author generator
- * @since 2021-12-09
+ * @since 2021-12-10
  */
 public interface ICmsAuthMenuService extends IService<CmsAuthMenu> {
 

@@ -5,6 +5,7 @@ import cloud.easy.base.dto.PrimaryKeyDto;
 import cloud.easy.base.dto.PageQueryDto;
 import cloud.easy.annotation.OptionLog;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.Api;
 import cloud.easy.job.entity.JobConfig;
@@ -15,7 +16,7 @@ import cloud.easy.base.controller.BaseController;
  * 任务控制器
  *
  * @author generator
- * @since 2021-12-09
+ * @since 2021-12-10
  */
 @RestController
 @RequestMapping("/api/job/config")
@@ -36,7 +37,7 @@ public class JobConfigController extends BaseController<JobConfig, IJobConfigSer
     @Override
     @OptionLog("任务保存")
     @PostMapping("/save")
-    public ApiResponse saveEntity(@RequestBody JobConfig entity) {
+    public ApiResponse saveEntity(@Validated @RequestBody JobConfig entity) {
         return super.saveEntity(entity);
     }
 
@@ -57,6 +58,12 @@ public class JobConfigController extends BaseController<JobConfig, IJobConfigSer
     @PostMapping("/list")
     public ApiResponse listEntity(@RequestBody JobConfig entity) {
         return super.listEntity(entity);
+    }
+
+    @Override
+    @PostMapping("/count")
+    public ApiResponse countEntity(@RequestBody JobConfig entity) {
+        return super.countEntity(entity);
     }
 
 }

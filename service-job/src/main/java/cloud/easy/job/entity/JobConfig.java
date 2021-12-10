@@ -1,6 +1,5 @@
 package cloud.easy.job.entity;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -8,12 +7,14 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import cloud.easy.base.entity.AuthEntity;
 import java.time.LocalDateTime;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
 
 /**
  * 任务实体类
  *
  * @author generator
- * @since 2021-12-09
+ * @since 2021-12-10
  */
 @Data
 @TableName("job_config")
@@ -26,26 +27,33 @@ public class JobConfig extends AuthEntity {
     /**
      * 任务名称
      */
+    @NotNull(message = "任务名称不能为空")
+    @Max(value = 60, message = "任务名称长度不能超过60")
     @ApiModelProperty("任务名称")
     private String name;
     /**
      * 周期表达式
      */
+    @NotNull(message = "周期表达式不能为空")
+    @Max(value = 60, message = "周期表达式长度不能超过60")
     @ApiModelProperty("周期表达式")
     private String cron;
     /**
      * 任务类名
      */
+    @Max(value = 60, message = "任务类名长度不能超过60")
     @ApiModelProperty("任务类名")
     private String beanName;
     /**
      * 任务方法名
      */
+    @Max(value = 60, message = "任务方法名长度不能超过60")
     @ApiModelProperty("任务方法名")
     private String methodName;
     /**
      * 任务参数
      */
+    @Max(value = 500, message = "任务参数长度不能超过500")
     @ApiModelProperty("任务参数")
     private String params;
     /**

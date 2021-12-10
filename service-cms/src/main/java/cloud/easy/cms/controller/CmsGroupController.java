@@ -9,6 +9,7 @@ import cloud.easy.cms.service.ICmsGroupService;
 import cloud.easy.entity.ApiResponse;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +21,7 @@ import static cloud.easy.base.utils.BaseUtil.uniqueValue;
  * 分组控制器
  *
  * @author generator
- * @since 2021-12-09
+ * @since 2021-12-10
  */
 @RestController
 @RequestMapping("/api/cms/group")
@@ -41,7 +42,7 @@ public class CmsGroupController extends BaseController<CmsGroup, ICmsGroupServic
     @Override
     @OptionLog("分组保存")
     @PostMapping("/save")
-    public ApiResponse saveEntity(@RequestBody CmsGroup entity) {
+    public ApiResponse saveEntity(@Validated @RequestBody CmsGroup entity) {
         uniqueValue("code", entity.getCode(), service);
         return super.saveEntity(entity);
     }
@@ -63,6 +64,12 @@ public class CmsGroupController extends BaseController<CmsGroup, ICmsGroupServic
     @PostMapping("/list")
     public ApiResponse listEntity(@RequestBody CmsGroup entity) {
         return super.listEntity(entity);
+    }
+
+    @Override
+    @PostMapping("/count")
+    public ApiResponse countEntity(@RequestBody CmsGroup entity) {
+        return super.countEntity(entity);
     }
 
 }

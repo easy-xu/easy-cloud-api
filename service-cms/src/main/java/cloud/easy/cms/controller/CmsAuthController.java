@@ -11,6 +11,7 @@ import cloud.easy.entity.ApiResponse;
 import cloud.easy.entity.HttpResponse;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,13 +19,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
-import static cloud.easy.base.utils.BaseUtil.*;
+import static cloud.easy.base.utils.BaseUtil.requireId;
+import static cloud.easy.base.utils.BaseUtil.uniqueValue;
 
 /**
  * 权限控制器
  *
  * @author generator
- * @since 2021-12-09
+ * @since 2021-12-10
  */
 @RestController
 @RequestMapping("/api/cms/auth")
@@ -49,7 +51,7 @@ public class CmsAuthController extends BaseController<CmsAuth, ICmsAuthService> 
     @Override
     @OptionLog("权限保存")
     @PostMapping("/save")
-    public ApiResponse saveEntity(@RequestBody CmsAuth entity) {
+    public ApiResponse saveEntity(@Validated @RequestBody CmsAuth entity) {
         uniqueValue("code", entity.getCode(), service);
         authService.save(entity);
         return HttpResponse.ok();
@@ -75,6 +77,11 @@ public class CmsAuthController extends BaseController<CmsAuth, ICmsAuthService> 
         return super.listEntity(entity);
     }
 
+    @Override
+    @PostMapping("/count")
+    public ApiResponse countEntity(@RequestBody CmsAuth entity) {
+        return super.countEntity(entity);
+    }
 
 }
 

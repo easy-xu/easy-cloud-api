@@ -5,6 +5,7 @@ import cloud.easy.base.dto.PrimaryKeyDto;
 import cloud.easy.base.dto.PageQueryDto;
 import cloud.easy.annotation.OptionLog;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.Api;
 import cloud.easy.job.entity.JobLog;
@@ -15,7 +16,7 @@ import cloud.easy.base.controller.BaseController;
  * 任务日志控制器
  *
  * @author generator
- * @since 2021-12-09
+ * @since 2021-12-10
  */
 @RestController
 @RequestMapping("/api/job/log")
@@ -43,6 +44,12 @@ public class JobLogController extends BaseController<JobLog, IJobLogService> {
     @PostMapping("/list")
     public ApiResponse listEntity(@RequestBody JobLog entity) {
         return super.listEntity(entity);
+    }
+
+    @Override
+    @PostMapping("/count")
+    public ApiResponse countEntity(@RequestBody JobLog entity) {
+        return super.countEntity(entity);
     }
 
 }

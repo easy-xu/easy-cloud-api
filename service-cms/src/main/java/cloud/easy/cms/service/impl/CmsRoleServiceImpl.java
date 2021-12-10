@@ -10,7 +10,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
  * 角色业务实现类
  *
  * @author generator
- * @since 2021-12-09
+ * @since 2021-12-10
  */
 @Service
 public class CmsRoleServiceImpl extends ServiceImpl<CmsRoleMapper, CmsRole> implements ICmsRoleService {

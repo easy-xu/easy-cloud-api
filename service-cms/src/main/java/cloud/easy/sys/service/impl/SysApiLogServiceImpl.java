@@ -10,7 +10,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
  * 接口日志业务实现类
  *
  * @author generator
- * @since 2021-12-09
+ * @since 2021-12-10
  */
 @Service
 public class SysApiLogServiceImpl extends ServiceImpl<SysApiLogMapper, SysApiLog> implements ISysApiLogService {
