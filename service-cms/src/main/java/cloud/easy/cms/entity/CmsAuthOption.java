@@ -22,10 +22,12 @@ public class CmsAuthOption extends BaseEntity {
     /**
      * 权限ID
      */
+    @NotNull(message = "权限ID不能为空")
     private Long authId;
     /**
      * 操作ID
      */
+    @NotNull(message = "操作ID不能为空")
     private Long optionId;
 
 }

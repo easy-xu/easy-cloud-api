@@ -6,8 +6,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import cloud.easy.base.entity.AuthEntity;
-import cloud.easy.validation.UniqueColumn;
 import javax.validation.constraints.NotNull;
+import cloud.easy.validation.UniqueField;
 import org.hibernate.validator.constraints.Length;
 
 /**
@@ -19,6 +19,7 @@ import org.hibernate.validator.constraints.Length;
 @Data
 @TableName("cms_option")
 @ApiModel(value = "CmsOption", description = "操作类型实体类")
+@UniqueField(field = "code", message = "操作字符串已存在")
 @EqualsAndHashCode(callSuper = true)
 public class CmsOption extends AuthEntity {
 
@@ -36,7 +37,6 @@ public class CmsOption extends AuthEntity {
      */
     @NotNull(message = "操作字符串不能为空")
     @Length(max = 100, message = "操作字符串长度不能超过100")
-    @UniqueColumn(table = "cms_option", column = "code", message = "操作字符串已存在")
     @ApiModelProperty("操作字符串")
     private String code;
     /**

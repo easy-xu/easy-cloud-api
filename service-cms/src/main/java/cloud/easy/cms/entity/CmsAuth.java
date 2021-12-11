@@ -7,8 +7,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import java.util.List;
 import cloud.easy.base.entity.AuthEntity;
-import cloud.easy.validation.UniqueColumn;
 import javax.validation.constraints.NotNull;
+import cloud.easy.validation.UniqueField;
 import com.baomidou.mybatisplus.annotation.TableField;
 import org.hibernate.validator.constraints.Length;
 
@@ -21,6 +21,7 @@ import org.hibernate.validator.constraints.Length;
 @Data
 @TableName("cms_auth")
 @ApiModel(value = "CmsAuth", description = "权限实体类")
+@UniqueField(field = "code", message = "权限字符串已存在")
 @EqualsAndHashCode(callSuper = true)
 public class CmsAuth extends AuthEntity {
 
@@ -38,7 +39,6 @@ public class CmsAuth extends AuthEntity {
      */
     @NotNull(message = "权限字符串不能为空")
     @Length(max = 100, message = "权限字符串长度不能超过100")
-    @UniqueColumn(table = "cms_auth", column = "code", message = "权限字符串已存在")
     @ApiModelProperty("权限字符串")
     private String code;
     /**

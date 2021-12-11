@@ -6,9 +6,9 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import cloud.easy.base.entity.AuthEntity;
-import cloud.easy.validation.UniqueColumn;
 import cloud.easy.cms.enums.MenuTypeEnum;
 import javax.validation.constraints.NotNull;
+import cloud.easy.validation.UniqueField;
 import org.hibernate.validator.constraints.Length;
 
 /**
@@ -20,6 +20,7 @@ import org.hibernate.validator.constraints.Length;
 @Data
 @TableName("cms_menu")
 @ApiModel(value = "CmsMenu", description = "菜单实体类")
+@UniqueField(field = "code", message = "路径字符已存在")
 @EqualsAndHashCode(callSuper = true)
 public class CmsMenu extends AuthEntity {
 
@@ -37,7 +38,6 @@ public class CmsMenu extends AuthEntity {
      */
     @NotNull(message = "路径字符不能为空")
     @Length(max = 200, message = "路径字符长度不能超过200")
-    @UniqueColumn(table = "cms_menu", column = "code", message = "路径字符已存在")
     @ApiModelProperty("路径字符")
     private String code;
     /**

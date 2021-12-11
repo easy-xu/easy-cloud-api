@@ -26,14 +26,14 @@ import java.util.List;
 
 /**
  * Title: OptionAspect
- * Description: 操作注解切面，第二优先级
+ * Description: 操作注解切面，第三优先级
  *
  * @author Xu Honglin
  * @version 1.0
  * @date 2021/7/21 13:33 首次创建
  * @date 2021/7/21 13:33 最后修改
  */
-@Order(1)
+@Order(2)
 @Aspect
 @Component
 public class OptionAspect {

@@ -22,10 +22,12 @@ public class CmsAuthMenu extends BaseEntity {
     /**
      * 权限ID
      */
+    @NotNull(message = "权限ID不能为空")
     private Long authId;
     /**
      * 菜单ID
      */
+    @NotNull(message = "菜单ID不能为空")
     private Long menuId;
 
 }

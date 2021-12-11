@@ -6,8 +6,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import cloud.easy.base.entity.AuthEntity;
-import cloud.easy.validation.UniqueColumn;
 import javax.validation.constraints.NotNull;
+import cloud.easy.validation.UniqueField;
 import org.hibernate.validator.constraints.Length;
 
 /**
@@ -19,6 +19,7 @@ import org.hibernate.validator.constraints.Length;
 @Data
 @TableName("cms_group")
 @ApiModel(value = "CmsGroup", description = "分组实体类")
+@UniqueField(field = "code", message = "分组字符串已存在")
 @EqualsAndHashCode(callSuper = true)
 public class CmsGroup extends AuthEntity {
 
@@ -36,7 +37,6 @@ public class CmsGroup extends AuthEntity {
      */
     @NotNull(message = "分组字符串不能为空")
     @Length(max = 100, message = "分组字符串长度不能超过100")
-    @UniqueColumn(table = "cms_group", column = "code", message = "分组字符串已存在")
     @ApiModelProperty("分组字符串")
     private String code;
     /**

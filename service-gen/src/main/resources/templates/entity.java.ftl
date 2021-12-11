@@ -24,6 +24,15 @@ import ${pkg};
 <#if global.swagger >
 @ApiModel(value = "${entity.name}", description = "${comment!}实体类")
 </#if>
+<#list fields as field>
+  <#if field.entityRules??>
+    <#list field.entityRules as rule>
+      <#if rule?starts_with("@UniqueField") >
+${rule}
+      </#if>
+    </#list>
+  </#if>
+</#list>
 <#if entity.superClassName?? >
 @EqualsAndHashCode(callSuper = true)
 public class ${entity.name} extends ${entity.superClassName} {
@@ -37,12 +46,14 @@ public class ${entity.name} {
     /**
      * ${field.comment}
      */
-    <#if global.swagger >
     <#if field.entityRules??>
-    <#list field.entityRules as rule>
+      <#list field.entityRules as rule>
+        <#if !rule?starts_with("@UniqueField") >
     ${rule}
-    </#list>
+      </#if>
+        </#list>
     </#if>
+    <#if global.swagger >
     @ApiModelProperty("${field.comment}")
     </#if>
     <#if field.extend >

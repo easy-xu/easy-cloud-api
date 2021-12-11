@@ -9,7 +9,7 @@ import cloud.easy.generator.convert.ColumnType;
 import cloud.easy.generator.convert.DataTypeConvertor;
 import cloud.easy.utils.BeanUtils;
 import cloud.easy.utils.RegUtils;
-import cloud.easy.validation.UniqueColumn;
+import cloud.easy.validation.UniqueField;
 import com.baomidou.mybatisplus.annotation.TableField;
 import org.hibernate.validator.constraints.Length;
 
@@ -159,7 +159,6 @@ public class TableUtils {
         if (custField != null && custField.getComment() != null) {
             comment = custField.getComment();
         }
-
         //不能为空
         if ("NO".equals(column.getNullable())) {
             pageRules.add("{ required: true }");
@@ -177,10 +176,10 @@ public class TableUtils {
             entityRules.add("@Length(max = " + maxLength + ", message = \"" + comment + "长度不能超过" + maxLength + "\")");
             field.getImportPkg().add(Length.class.getCanonicalName());
         }
-        //唯一约束
+        //唯一约束, 查询出的只有单一列唯一索引
         if ("UNI".equals(column.getKey())) {
-            entityRules.add("@UniqueColumn(table = \"" + tableInfo.getName() + "\", column = \"" + column.getName() + "\", message = \"" + field.getComment() + "已存在\")");
-            field.getImportPkg().add(UniqueColumn.class.getCanonicalName());
+            entityRules.add("@UniqueField(field = \"" + field.getName() + "\", message = \"" + field.getComment() + "已存在\")");
+            field.getImportPkg().add(UniqueField.class.getCanonicalName());
         }
         field.setPageRules(pageRules.isEmpty() ? null : pageRules);
         field.setEntityRules(entityRules);

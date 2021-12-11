@@ -1,16 +1,17 @@
 package cloud.easy.cms.entity;
 
+import cloud.easy.base.entity.AuthEntity;
+import cloud.easy.validation.UniqueField;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import java.util.List;
-import cloud.easy.base.entity.AuthEntity;
-import cloud.easy.validation.UniqueColumn;
-import javax.validation.constraints.NotNull;
-import com.baomidou.mybatisplus.annotation.TableField;
 import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * 用户实体类
@@ -21,6 +22,7 @@ import org.hibernate.validator.constraints.Length;
 @Data
 @TableName("cms_user")
 @ApiModel(value = "CmsUser", description = "用户实体类")
+@UniqueField(field = "username", message = "用户名已存在")
 @EqualsAndHashCode(callSuper = true)
 public class CmsUser extends AuthEntity {
 
@@ -31,14 +33,12 @@ public class CmsUser extends AuthEntity {
      */
     @NotNull(message = "用户名不能为空")
     @Length(max = 60, message = "用户名长度不能超过60")
-    @UniqueColumn(table = "cms_user", column = "username", message = "用户名已存在")
     @ApiModelProperty("用户名")
     private String username;
     /**
      * 用户编号
      */
     @Length(max = 60, message = "用户编号长度不能超过60")
-    @UniqueColumn(table = "cms_user", column = "user_no", message = "用户编号已存在")
     @ApiModelProperty("用户编号")
     private String userNo;
     /**

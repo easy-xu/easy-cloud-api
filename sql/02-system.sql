@@ -334,7 +334,7 @@ create table cms_user
 ALTER TABLE `cms_user`
     ADD UNIQUE INDEX `index_username` (`username`) USING BTREE;
 ALTER TABLE `cms_user`
-    ADD UNIQUE INDEX `index_user_no` (`user_no`) USING BTREE;
+    ADD INDEX `index_user_no` (`user_no`) USING BTREE;
 
 INSERT INTO `cloud`.`cms_user`(`id`, `username`, `user_no`, `device_no`, `password`, `nickname`, `token`, `email`, `phone_number`, `sex`, `avatar`, `default_group_id`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (1, 'admin', 'U20211018000106', 'D20211129000200', 'J3KCwEKaFHA3gvmGqUjfT1A32MRzuyC5EPuZy3RWmVte', '系统管理员', '', NULL, NULL, 'N', NULL, 1, '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-13 20:35:41', 'U20211018000201', '2021-10-18 13:39:44');
 INSERT INTO `cloud`.`cms_user`(`id`, `username`, `user_no`, `device_no`, `password`, `nickname`, `token`, `email`, `phone_number`, `sex`, `avatar`, `default_group_id`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (2, 'dev', 'U20211018000202', 'D20211129000100', '8iLQLpiZZntVnMhZ8VX9YnhTvNREHK7kUrpCYXkgH5vC', '开发人员', '', NULL, NULL, 'N', NULL, 3, '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-16 21:59:42', 'U20211018000201', '2021-10-18 13:39:55');

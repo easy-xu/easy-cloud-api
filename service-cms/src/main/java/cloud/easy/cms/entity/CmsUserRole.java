@@ -22,10 +22,12 @@ public class CmsUserRole extends BaseEntity {
     /**
      * 用户ID
      */
+    @NotNull(message = "用户ID不能为空")
     private Long userId;
     /**
      * 角色ID
      */
+    @NotNull(message = "角色ID不能为空")
     private Long roleId;
 
 }

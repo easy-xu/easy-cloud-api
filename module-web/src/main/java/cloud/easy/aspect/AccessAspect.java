@@ -41,7 +41,7 @@ import static cloud.easy.constant.ApiHeaderTag.*;
  * @date 2021/7/21 13:33 首次创建
  * @date 2021/7/21 13:33 最后修改
  */
-@Order(0)
+@Order(1)
 @Aspect
 @Component
 public class AccessAspect {

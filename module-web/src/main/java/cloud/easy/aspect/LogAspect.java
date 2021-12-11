@@ -19,18 +19,18 @@ import org.springframework.util.StringUtils;
 import java.lang.reflect.Method;
 
 /**
- * Title: LogAspect
- * Description: 日志环绕切面
+ * Title: AroundLogAspect
+ * Description: 日志环绕切面, 第二优先级
  *
  * @author Xu Honglin
  * @version 1.0
  * @date 2021/7/21 13:33 首次创建
  * @date 2021/7/21 13:33 最后修改
  */
-@Order(101)
+@Order(0)
 @Aspect
 @Component
-public class AroundLogAspect {
+public class LogAspect {
 
     @Around("@annotation(cloud.easy.annotation.AroundLog) || execution(* cloud.easy..*.controller.*.*(..))")
     public Object controllerAround(ProceedingJoinPoint joinPoint) throws Throwable {
@@ -47,7 +47,6 @@ public class AroundLogAspect {
         if (!StringUtils.hasLength(apiName)) {
             apiName = joinPoint.getSignature().getName();
         }
-        log.info("[{}] 开始...", apiName);
         Object[] args = joinPoint.getArgs();
         for (Object arg : args) {
             String argString = JsonUtils.toString(arg);
