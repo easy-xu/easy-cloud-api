@@ -7,7 +7,7 @@ spring:
     name: service-all
   profiles:
     # 环境配置
-    active: local
+    active: all
 
 
 

@@ -32,14 +32,14 @@ public class SysOptionLogController extends BaseController<SysOptionLog, ISysOpt
     }
 
     @Override
-    @Option(value = "操作记录详情", menuCode = "apilog", optionCode = "query", optionLog = false)
+    @Option(value = "操作记录详情", menuCode = "optionlog", optionCode = "query", optionLog = false)
     @PostMapping("/get")
     public ApiResponse getEntity(@Validated @RequestBody PrimaryKeyDto primaryKey) {
         return super.getEntity(primaryKey);
     }
 
     @Override
-    @Option(value = "操作记录分页查询", menuCode = "apilog", optionCode = "query", optionLog = false)
+    @Option(value = "操作记录分页查询", menuCode = "optionlog", optionCode = "query", optionLog = false)
     @PostMapping("/page-list")
     public ApiResponse pageList(@RequestBody PageQueryDto<SysOptionLog> pageQueryDto) {
         return super.pageList(pageQueryDto);

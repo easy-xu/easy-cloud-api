@@ -24,7 +24,7 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("/api/cms/user")
 @Api(tags = "用户登录接口")
-public class UserLoginController {
+public class UserController {
 
     @Resource
     private UserService userService;

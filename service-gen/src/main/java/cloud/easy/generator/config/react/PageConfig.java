@@ -25,8 +25,8 @@ public class PageConfig implements GenerateConfig {
         this.model = model;
         this.name = name;
         this.code = code;
-        this.menuParent = menuParent == null ? model : menuParent;
-        this.menuCode = menuCode == null ? code : menuCode;
+        this.menuParent = menuParent;
+        this.menuCode = menuCode;
     }
 
     @Override

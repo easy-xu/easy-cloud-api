@@ -49,14 +49,18 @@ public class GenerateConfigBuilder {
         return builder;
     }
 
-    public GlobalConfig buildGlobal(){
-        if (global.getMenuParent() == null){
-            global.setMenuParent(model);
+    public String menuParent(){
+        if (global.getMenuParent() != null){
+            return global.getMenuParent();
         }
-        if (global.getMenuCode() == null){
-            global.setMenuCode(code);
+        return model;
+    }
+
+    public String menuCode(){
+        if (global.getMenuCode() != null){
+            return global.getMenuCode();
         }
-        return this.global;
+        return code;
     }
 
     public GenerateConfig buildEntity(){
@@ -105,7 +109,7 @@ public class GenerateConfigBuilder {
         return config;
     }
     public GenerateConfig buildPage(){
-        PageConfig config = new PageConfig(model,code, entity, getGlobal().getMenuParent(), getGlobal().getMenuCode());
+        PageConfig config = new PageConfig(model,code, entity, menuParent(), menuCode());
         if (global.isPage()){
             configs.add(config);
         }

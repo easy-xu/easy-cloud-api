@@ -5,7 +5,7 @@ import cloud.easy.cms.entity.CmsMenu;
 import cloud.easy.cms.enums.MenuTypeEnum;
 import cloud.easy.cms.mapper.CmsMapperCust;
 import cloud.easy.cms.service.ICmsMenuService;
-import cloud.easy.cms.service.MenuService;
+import cloud.easy.cms.service.CmsService;
 import cloud.easy.utils.BeanUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -26,7 +26,7 @@ import static cloud.easy.base.utils.BaseUtil.groupModeAuthQuery;
  * @version 1.0
  */
 @Service
-public class MenuServiceImpl implements MenuService {
+public class CmsServiceImpl implements CmsService {
 
     @Resource
     private ICmsMenuService cmsMenuService;
@@ -66,6 +66,13 @@ public class MenuServiceImpl implements MenuService {
             }
             return menuDto;
         }).collect(Collectors.toList());
+    }
+
+
+    @Override
+    public List<String> userMenuOptions(String menuCode, String userNo) {
+        //查询菜单是否有权限
+        return cmsMapperCust.userMenuOptions(menuCode, userNo);
     }
 
 }

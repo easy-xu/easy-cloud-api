@@ -25,18 +25,18 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 /**
- * Title: LogAspect
- * Description: 日志环绕切面
+ * Title: OptionAspect
+ * Description: 操作注解切面，第二优先级
  *
  * @author Xu Honglin
  * @version 1.0
  * @date 2021/7/21 13:33 首次创建
  * @date 2021/7/21 13:33 最后修改
  */
-@Order(99)
+@Order(1)
 @Aspect
 @Component
-public class OptionLogAspect {
+public class OptionAspect {
 
     @Resource
     private ISysOptionLogService optionLogService;

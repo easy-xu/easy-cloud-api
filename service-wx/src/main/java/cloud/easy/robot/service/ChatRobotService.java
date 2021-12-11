@@ -1,7 +1,7 @@
 package cloud.easy.robot.service;
 
 import cloud.easy.robot.dto.QykResponse;
-import com.alibaba.fastjson.JSON;
+import cloud.easy.utils.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +35,7 @@ public class ChatRobotService {
         QykResponse qykResponse = null;
         try {
             String response = entity.getBody();
-            qykResponse = JSON.parseObject(response, QykResponse.class);
+            qykResponse = JsonUtils.toObject(response, QykResponse.class);
         } catch (Exception e) {
             log.error("青云客接口异常", e);
         }

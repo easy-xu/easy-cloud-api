@@ -34,14 +34,14 @@ import static cloud.easy.constant.ApiHeaderTag.*;
 
 /**
  * Title: TransLogAspect
- * Description: 交易日志切面
+ * Description: 交易切面, 第一优先级，继续初始化ApiHeader，做一些基本校验
  *
  * @author Xu Honglin
  * @version 1.0
  * @date 2021/7/21 13:33 首次创建
  * @date 2021/7/21 13:33 最后修改
  */
-@Order(100)
+@Order(0)
 @Aspect
 @Component
 public class AccessAspect {

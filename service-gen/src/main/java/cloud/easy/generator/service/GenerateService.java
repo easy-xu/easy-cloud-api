@@ -56,7 +56,7 @@ public class GenerateService {
     }
 
     public void generate(GenerateConfigBuilder configBuilder) throws IOException, TemplateException {
-        GlobalConfig global = configBuilder.buildGlobal();
+        GlobalConfig global = configBuilder.getGlobal();
         Map<String, Object> root = new HashMap<>();
         root.put("global", global);
         root.put("table", configBuilder.getTableInfo());
@@ -70,7 +70,7 @@ public class GenerateService {
         root.put("code", configBuilder.getCode());
         root.put("comment", configBuilder.getComment());
         root.put("model", configBuilder.getModel());
-        root.put("menuCode", global.getMenuCode());
+        root.put("menuCode", configBuilder.menuCode());
 
         //逐一生成文件
         List<GenerateConfig> configs = configBuilder.getConfigs();

@@ -1,6 +1,6 @@
 package cloud.easy.generator.config.field;
 
-import com.alibaba.fastjson.JSON;
+import cloud.easy.utils.JsonUtils;
 import lombok.Data;
 
 /**
@@ -67,7 +67,7 @@ public class FieldStyleConfig {
 
     @Override
     public String toString(){
-        return JSON.toJSONString(this).replace("\"", "");
+        return JsonUtils.toString(this).replace("\"", "");
     }
 
 }

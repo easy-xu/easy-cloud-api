@@ -1,7 +1,7 @@
 package cloud.easy.message.utils;
 
 import cloud.easy.entity.HttpResponse;
-import com.alibaba.fastjson.JSON;
+import cloud.easy.utils.JsonUtils;
 
 import javax.servlet.AsyncContext;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +22,6 @@ public class AsyncRequestUtils {
         response.setHeader("Cache-Control", "no-cache,no-store");
         response.setContentType("application/json;charset=utf-8");
         response.setStatus(HttpServletResponse.SC_OK);
-        response.getWriter().write(JSON.toJSONString(res));
+        response.getWriter().write(JsonUtils.toString(res));
     }
 }

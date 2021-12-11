@@ -2,6 +2,7 @@ package cloud.easy.aspect;
 
 
 import cloud.easy.annotation.AroundLog;
+import cloud.easy.utils.JsonUtils;
 import cloud.easy.utils.Timer;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -49,12 +50,14 @@ public class AroundLogAspect {
         log.info("[{}] 开始...", apiName);
         Object[] args = joinPoint.getArgs();
         for (Object arg : args) {
-            log.info("[{}] 入参: {}", apiName, arg);
+            String argString = JsonUtils.toString(arg);
+            log.info("[{}] 入参: {}", apiName, argString);
         }
         Object response = null;
         try {
             response = joinPoint.proceed(args);
-            log.info("[{}] 出参: {}", apiName, response);
+            String resString = JsonUtils.toString(response);
+            log.info("[{}] 出参: {}", apiName, resString);
 
         } finally {
             long useTime = timer.end();

@@ -4,8 +4,7 @@ import cloud.easy.annotation.Option;
 import cloud.easy.cms.dto.CodeDto;
 import cloud.easy.cms.dto.MenuDto;
 import cloud.easy.cms.dto.UserDto;
-import cloud.easy.cms.service.AuthService;
-import cloud.easy.cms.service.MenuService;
+import cloud.easy.cms.service.CmsService;
 import cloud.easy.cms.service.UserService;
 import cloud.easy.device.ApiHeaderHelper;
 import cloud.easy.entity.ApiHeader;
@@ -32,17 +31,16 @@ import static cloud.easy.base.utils.BaseUtil.notNull;
 @Api(tags = "后台管理其他接口")
 public class CmsController {
     @Resource
-    private MenuService menuService;
-    @Resource
-    private AuthService authService;
+    private CmsService cmsService;
+
     @Resource
     private UserService userService;
 
-    @GetMapping("/menu/tree")
+    @PostMapping("/menu/tree")
     public ApiResponse tree() {
         ApiHeader header = ApiHeaderHelper.get();
         String userNo = header.getUserNo();
-        List<MenuDto> tree = menuService.tree(userNo);
+        List<MenuDto> tree = cmsService.tree(userNo);
         return HttpResponse.ok(tree);
     }
 
@@ -50,7 +48,7 @@ public class CmsController {
     public ApiResponse userMenuOptions(@Validated @RequestBody CodeDto codeDto) {
         String menuCode = notNull(notNull(codeDto).getCode());
         String userNo = ApiHeaderHelper.get().getUserNo();
-        List<String> options = authService.userMenuOptions(menuCode, userNo);
+        List<String> options = cmsService.userMenuOptions(menuCode, userNo);
         return HttpResponse.ok(options);
     }
 
