@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import cloud.easy.base.entity.AuthEntity;
 import cloud.easy.cms.enums.MenuTypeEnum;
+import cloud.easy.validation.LimitedValue;
 import javax.validation.constraints.NotNull;
 import cloud.easy.validation.UniqueField;
 import org.hibernate.validator.constraints.Length;
@@ -61,11 +62,13 @@ public class CmsMenu extends AuthEntity {
      * 菜单类型
      */
     @NotNull(message = "菜单类型不能为空")
+    @LimitedValue(values = {"F", "M"}, message = "菜单类型取值不正确")
     @ApiModelProperty("菜单类型")
     private MenuTypeEnum type;
     /**
      * 菜单状态
      */
+    @LimitedValue(values = {"0", "1"}, message = "菜单状态取值不正确")
     @ApiModelProperty("菜单状态")
     private String visible;
     /**

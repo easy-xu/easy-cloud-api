@@ -1,13 +1,16 @@
 package cloud.easy.job.entity;
 
+import cloud.easy.base.entity.BaseEntity;
+import cloud.easy.validation.LimitedValue;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import java.time.LocalDateTime;
-import cloud.easy.base.entity.BaseEntity;
 import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 /**
  * 任务日志实体类
@@ -32,6 +35,7 @@ public class JobLog extends BaseEntity {
     /**
      * 日志分类
      */
+    @LimitedValue(values = {"S", "U"}, message = "日志分类取值不正确")
     @ApiModelProperty("日志分类")
     private String type;
     /**
@@ -42,6 +46,7 @@ public class JobLog extends BaseEntity {
     /**
      * 执行结果
      */
+    @LimitedValue(values = {"0", "1"}, message = "执行结果取值不正确")
     @ApiModelProperty("执行结果")
     private String execCode;
     /**

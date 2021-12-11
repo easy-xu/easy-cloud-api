@@ -9,11 +9,13 @@ import cloud.easy.generator.convert.ColumnType;
 import cloud.easy.generator.convert.DataTypeConvertor;
 import cloud.easy.utils.BeanUtils;
 import cloud.easy.utils.RegUtils;
+import cloud.easy.validation.LimitedValue;
 import cloud.easy.validation.UniqueField;
 import com.baomidou.mybatisplus.annotation.TableField;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -180,6 +182,18 @@ public class TableUtils {
         if ("UNI".equals(column.getKey())) {
             entityRules.add("@UniqueField(field = \"" + field.getName() + "\", message = \"" + field.getComment() + "已存在\")");
             field.getImportPkg().add(UniqueField.class.getCanonicalName());
+        }
+        //固定映射限制
+        Map<String, String> codeMapping = field.getCodeMapping();
+        if (codeMapping != null && !codeMapping.isEmpty()) {
+            entityRules.add("@LimitedValue(values = {\"" + String.join("\", \"", codeMapping.keySet()) + "\"}, message = \"" + field.getComment() + "取值不正确\")");
+            field.getImportPkg().add(LimitedValue.class.getCanonicalName());
+        }
+        //自定义正则
+        if (custField != null && custField.getRegexp() != null) {
+            pageRules.add("{ pattern: '" + custField.getRegexp() + "', message: '" + field.getComment() + "格式不正确' }");
+            entityRules.add("@Pattern(regexp = \"" + custField.getRegexp() + "\", message = \"" + field.getComment() + "格式不正确\")");
+            field.getImportPkg().add(Pattern.class.getCanonicalName());
         }
         field.setPageRules(pageRules.isEmpty() ? null : pageRules);
         field.setEntityRules(entityRules);

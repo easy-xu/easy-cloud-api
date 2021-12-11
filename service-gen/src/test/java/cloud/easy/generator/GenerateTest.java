@@ -100,6 +100,14 @@ class GenerateTest {
         groupIds.setTableMapping(new MappingConfig("cms_group", "id", "name"));
         groupIds.setExtend(true);
         custFiled.put("groupIds", groupIds);
+        //手机号自定义格式
+        FieldConfig phone = new FieldConfig();
+        phone.setRegexp("^(13[0-9]|14[5|7]|15[0-9]|18[0-9])\\\\d{8}$");
+        custFiled.put("phone", phone);
+        //邮箱自定义格式
+        FieldConfig email = new FieldConfig();
+        email.setRegexp("^(13[0-9]|14[5|7]|15[0-9]|18[0-9])\\\\d{8}$");
+        custFiled.put("email", email);
         service.generate(globalConfig, "cms_user", custFiled);
     }
 

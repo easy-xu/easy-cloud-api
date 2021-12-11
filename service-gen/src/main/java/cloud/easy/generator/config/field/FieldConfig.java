@@ -26,6 +26,7 @@ public class FieldConfig {
     private List<String> pageRules;
     private List<String> entityRules;
     private String style;
+    private String regexp;
     private boolean extend;
 
     /**
