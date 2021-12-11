@@ -11,6 +11,7 @@ import lombok.EqualsAndHashCode;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 /**
@@ -68,12 +69,14 @@ public class CmsUser extends AuthEntity {
     /**
      * 用户邮箱
      */
+    @Pattern(regexp = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$", message = "用户邮箱格式不正确")
     @Length(max = 50, message = "用户邮箱长度不能超过50")
     @ApiModelProperty("用户邮箱")
     private String email;
     /**
      * 手机号码
      */
+    @Pattern(regexp = "^(13[0-9]|14[5|7]|15[0-9]|18[0-9])\\d{8}$", message = "手机号码格式不正确")
     @Length(max = 11, message = "手机号码长度不能超过11")
     @ApiModelProperty("手机号码")
     private String phoneNumber;
