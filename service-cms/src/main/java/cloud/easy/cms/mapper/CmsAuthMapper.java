@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * 权限查询类
  *
  * @author generator
- * @since 2021-12-10
+ * @since 2021-12-11
  */
 @Mapper
 public interface CmsAuthMapper extends BaseMapper<CmsAuth> {

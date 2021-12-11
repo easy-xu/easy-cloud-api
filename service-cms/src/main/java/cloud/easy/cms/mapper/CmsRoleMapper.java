@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * 角色查询类
  *
  * @author generator
- * @since 2021-12-10
+ * @since 2021-12-11
  */
 @Mapper
 public interface CmsRoleMapper extends BaseMapper<CmsRole> {

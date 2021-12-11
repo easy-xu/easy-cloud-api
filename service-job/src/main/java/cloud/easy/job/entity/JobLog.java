@@ -1,21 +1,19 @@
 package cloud.easy.job.entity;
 
-import cloud.easy.base.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.hibernate.validator.constraints.Length;
-
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import cloud.easy.base.entity.BaseEntity;
+import org.hibernate.validator.constraints.Length;
 
 /**
  * 任务日志实体类
  *
  * @author generator
- * @since 2021-12-10
+ * @since 2021-12-11
  */
 @Data
 @TableName("job_log")

@@ -12,7 +12,7 @@ import org.hibernate.validator.constraints.Length;
  * 接口日志实体类
  *
  * @author generator
- * @since 2021-12-10
+ * @since 2021-12-11
  */
 @Data
 @TableName("sys_api_log")

@@ -1,23 +1,22 @@
 package cloud.easy.cms.entity;
 
-import cloud.easy.base.entity.AuthEntity;
-import cloud.easy.validation.UniqueColumn;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.hibernate.validator.constraints.Length;
-
-import javax.validation.constraints.NotNull;
 import java.util.List;
+import cloud.easy.base.entity.AuthEntity;
+import cloud.easy.validation.UniqueColumn;
+import javax.validation.constraints.NotNull;
+import com.baomidou.mybatisplus.annotation.TableField;
+import org.hibernate.validator.constraints.Length;
 
 /**
  * 用户实体类
  *
  * @author generator
- * @since 2021-12-10
+ * @since 2021-12-11
  */
 @Data
 @TableName("cms_user")

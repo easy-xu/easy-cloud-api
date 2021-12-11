@@ -71,7 +71,7 @@ class GenerateTest {
         GlobalConfig globalConfig = GlobalConfig.defaultConfig();
         globalConfig.setJavaPlace(javaProject + "\\service-cms");
         globalConfig.setReactPlace(reactProject);
-        globalConfig.setController(false);
+        globalConfig.setServiceImpl(false);
         globalConfig.setMenuParent("manage");
         globalConfig.setEntitySuperClass(AuthEntity.class);
         //备注字段列表不显示
@@ -118,7 +118,7 @@ class GenerateTest {
         GlobalConfig globalConfig = GlobalConfig.defaultConfig();
         globalConfig.setJavaPlace(javaProject + "\\service-cms");
         globalConfig.setReactPlace(reactProject);
-        globalConfig.setController(false);
+        globalConfig.setServiceImpl(false);
         globalConfig.setMenuParent("manage");
         globalConfig.setEntitySuperClass(AuthEntity.class);
         //备注字段列表不显示
@@ -176,7 +176,7 @@ class GenerateTest {
         GlobalConfig globalConfig = GlobalConfig.defaultConfig();
         globalConfig.setJavaPlace(javaProject + "\\service-cms");
         globalConfig.setReactPlace(reactProject);
-        globalConfig.setController(false);
+        globalConfig.setServiceImpl(false);
         globalConfig.setMenuParent("manage");
         globalConfig.setEntitySuperClass(AuthEntity.class);
         //备注字段列表不显示
@@ -217,7 +217,7 @@ class GenerateTest {
         GlobalConfig globalConfig = GlobalConfig.defaultConfig();
         globalConfig.setJavaPlace(javaProject + "\\service-cms");
         globalConfig.setReactPlace(reactProject);
-        globalConfig.setController(false);
+        globalConfig.setServiceImpl(false);
         globalConfig.setMenuParent("manage");
         globalConfig.setEntitySuperClass(AuthEntity.class);
         //备注字段列表不显示
@@ -275,6 +275,7 @@ class GenerateTest {
         //sys_option_log
         service.generate( globalConfig,"sys_option_log", custFiled);
     }
+
 
     @Test
     void job() throws IOException, TemplateException {

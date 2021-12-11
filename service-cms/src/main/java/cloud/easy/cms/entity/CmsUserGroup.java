@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
  * 用户分组关联实体类
  *
  * @author generator
- * @since 2021-12-10
+ * @since 2021-12-11
  */
 @Data
 @TableName("cms_user_group")
