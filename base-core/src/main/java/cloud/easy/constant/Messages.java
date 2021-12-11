@@ -28,6 +28,8 @@ public enum Messages {
     TOKEN_EXPIRED(400, "认证过期"),
     TOKEN_ERROR(400, "认证错误"),
     AUTH_ERROR(400, "权限不足"),
+    AUTH_OPTION_ERROR(400, "操作权限不足"),
+    AUTH_DATA_ERROR(400, "数据权限不足"),
 
     ALREADY_DONE(400, "请勿重复操作"),
     NOT_FOUND(400, "数据不存在"),

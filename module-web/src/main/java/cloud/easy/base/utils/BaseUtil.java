@@ -47,6 +47,10 @@ public class BaseUtil {
                 .or(q -> q.in("other_mode", READ, READ_WRITE)));
     }
 
+    public static <T extends BaseEntity> void notRequireId(T entity) {
+        notNull(entity);
+        entity.setId(null);
+    }
 
     public static <T extends BaseEntity> Long requireId(T entity) {
         Long id = notNull(entity).getId();

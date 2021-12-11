@@ -37,7 +37,7 @@ public class GroupModeAuthCheckAspect {
     @AfterReturning(value = "execution( * cloud.easy.*.mapper.*Mapper.selectById(..))", returning = "res")
     public Object afterSelect(Object res) {
         if (needCheck() && !hasReadAuth(res)) {
-            throw new RequestException(Messages.AUTH_ERROR);
+            throw new RequestException(Messages.AUTH_DATA_ERROR);
         }
         return res;
     }
@@ -65,7 +65,7 @@ public class GroupModeAuthCheckAspect {
         if (needCheck() && entityId != null) {
             Object entity = mapper.selectById(entityId);
             if (!hasWriteAuth(entity)) {
-                throw new RequestException(Messages.AUTH_ERROR);
+                throw new RequestException(Messages.AUTH_DATA_ERROR);
             }
         }
     }

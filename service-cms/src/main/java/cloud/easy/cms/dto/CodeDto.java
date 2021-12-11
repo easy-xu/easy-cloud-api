@@ -1,6 +1,9 @@
 package cloud.easy.cms.dto;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * Title: AuthDto
@@ -12,5 +15,7 @@ import lombok.Data;
 @Data
 public class CodeDto {
 
+    @NotNull(message = "编码不能为空")
+    @ApiModelProperty("编码")
     private String code;
 }

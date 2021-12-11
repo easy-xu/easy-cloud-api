@@ -14,6 +14,7 @@ import java.util.List;
 public interface AuthService {
     /**
      * 保存权限及关联
+     * @param cmsAuth 权限详情
      */
     void save(CmsAuth cmsAuth);
 

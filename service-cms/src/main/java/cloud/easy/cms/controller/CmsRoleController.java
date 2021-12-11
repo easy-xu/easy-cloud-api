@@ -1,6 +1,6 @@
 package cloud.easy.cms.controller;
 
-import cloud.easy.annotation.OptionLog;
+import cloud.easy.annotation.Option;
 import cloud.easy.base.controller.BaseController;
 import cloud.easy.base.dto.PageQueryDto;
 import cloud.easy.base.dto.PrimaryKeyDto;
@@ -18,9 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-
-import static cloud.easy.base.utils.BaseUtil.requireId;
-import static cloud.easy.base.utils.BaseUtil.uniqueValue;
 
 /**
  * 角色控制器
@@ -43,25 +40,24 @@ public class CmsRoleController extends BaseController<CmsRole, ICmsRoleService> 
 
     @Override
     @PostMapping("/get")
-    public ApiResponse getEntity(@RequestBody PrimaryKeyDto primaryKey) {
-        CmsRole cmsRole = roleService.getDetail(requireId(primaryKey));
+    public ApiResponse getEntity(@Validated @RequestBody PrimaryKeyDto primaryKey) {
+        CmsRole cmsRole = roleService.getDetail(primaryKey.getId());
         return HttpResponse.ok(cmsRole);
     }
 
     @Override
-    @OptionLog("角色保存")
+    @Option("角色保存")
     @PostMapping("/save")
     public ApiResponse saveEntity(@Validated @RequestBody CmsRole entity) {
-        uniqueValue("code", entity.getCode(), service);
         roleService.save(entity);
         return HttpResponse.ok();
     }
 
     @Override
-    @OptionLog("角色删除")
+    @Option("角色删除")
     @PostMapping("/delete")
-    public ApiResponse deleteEntityById(@RequestBody PrimaryKeyDto primaryKey) {
-        roleService.deleteDetail(requireId(primaryKey));
+    public ApiResponse deleteEntityById(@Validated @RequestBody PrimaryKeyDto primaryKey) {
+        roleService.deleteDetail(primaryKey.getId());
         return HttpResponse.ok();
     }
 

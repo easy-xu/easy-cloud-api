@@ -1,6 +1,6 @@
 package cloud.easy.cms.controller;
 
-import cloud.easy.annotation.OptionLog;
+import cloud.easy.annotation.Option;
 import cloud.easy.base.controller.BaseController;
 import cloud.easy.base.dto.PageQueryDto;
 import cloud.easy.base.dto.PrimaryKeyDto;
@@ -19,14 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
-import static cloud.easy.base.utils.BaseUtil.requireId;
-import static cloud.easy.base.utils.BaseUtil.uniqueValue;
-
 /**
  * 权限控制器
  *
  * @author generator
- * @since 2021-12-10
+ * @since 2021-12-11
  */
 @RestController
 @RequestMapping("/api/cms/auth")
@@ -43,25 +40,24 @@ public class CmsAuthController extends BaseController<CmsAuth, ICmsAuthService> 
 
     @Override
     @PostMapping("/get")
-    public ApiResponse getEntity(@RequestBody PrimaryKeyDto primaryKey) {
-        CmsAuth cmsAuth = authService.getDetail(requireId(primaryKey));
+    public ApiResponse getEntity(@Validated @RequestBody PrimaryKeyDto primaryKey) {
+        CmsAuth cmsAuth = authService.getDetail(primaryKey.getId());
         return HttpResponse.ok(cmsAuth);
     }
 
     @Override
-    @OptionLog("权限保存")
+    @Option("权限保存")
     @PostMapping("/save")
     public ApiResponse saveEntity(@Validated @RequestBody CmsAuth entity) {
-        uniqueValue("code", entity.getCode(), service);
         authService.save(entity);
         return HttpResponse.ok();
     }
 
     @Override
-    @OptionLog("权限删除")
+    @Option("权限删除")
     @PostMapping("/delete")
-    public ApiResponse deleteEntityById(@RequestBody PrimaryKeyDto primaryKey) {
-        authService.deleteDetail(requireId(primaryKey));
+    public ApiResponse deleteEntityById(@Validated @RequestBody PrimaryKeyDto primaryKey) {
+        authService.deleteDetail(primaryKey.getId());
         return HttpResponse.ok();
     }
 

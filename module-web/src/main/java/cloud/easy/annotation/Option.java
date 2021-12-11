@@ -13,6 +13,13 @@ import java.lang.annotation.Target;
  */
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface OptionLog {
+public @interface Option {
+    //描述
     String value();
+    //菜单编号
+    String menuCode() default "";
+    //操作编号
+    String optionCode() default "";
+    //是否记录日志
+    boolean optionLog() default true;
 }

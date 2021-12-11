@@ -45,7 +45,18 @@ public class GenerateConfigBuilder {
         builder.entity = TableUtils.getEntity(tableName);
         builder.code = TableUtils.getCode(tableName);
         builder.comment = TableUtils.getComment(tableInfo.getComment());
+
         return builder;
+    }
+
+    public GlobalConfig buildGlobal(){
+        if (global.getMenuParent() == null){
+            global.setMenuParent(model);
+        }
+        if (global.getMenuCode() == null){
+            global.setMenuCode(code);
+        }
+        return this.global;
     }
 
     public GenerateConfig buildEntity(){

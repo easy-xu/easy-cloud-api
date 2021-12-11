@@ -52,6 +52,7 @@ class GenerateTest {
         GlobalConfig globalConfig = GlobalConfig.defaultConfig();
         globalConfig.setJavaPlace(javaProject + "\\service-cms");
         globalConfig.setSwagger(false);
+        globalConfig.setController(false);
         service.generate(globalConfig, "cms_user_role");
     }
 
@@ -60,6 +61,7 @@ class GenerateTest {
         GlobalConfig globalConfig = GlobalConfig.defaultConfig();
         globalConfig.setJavaPlace(javaProject + "\\service-cms");
         globalConfig.setSwagger(false);
+        globalConfig.setController(false);
         service.generate(globalConfig, "cms_user_group");
     }
 
@@ -69,6 +71,7 @@ class GenerateTest {
         GlobalConfig globalConfig = GlobalConfig.defaultConfig();
         globalConfig.setJavaPlace(javaProject + "\\service-cms");
         globalConfig.setReactPlace(reactProject);
+        globalConfig.setController(false);
         globalConfig.setMenuParent("manage");
         globalConfig.setEntitySuperClass(AuthEntity.class);
         //备注字段列表不显示
@@ -105,6 +108,7 @@ class GenerateTest {
         GlobalConfig globalConfig = GlobalConfig.defaultConfig();
         globalConfig.setJavaPlace(javaProject + "\\service-cms");
         globalConfig.setSwagger(false);
+        globalConfig.setController(false);
         service.generate(globalConfig, "cms_role_auth");
     }
 
@@ -114,6 +118,7 @@ class GenerateTest {
         GlobalConfig globalConfig = GlobalConfig.defaultConfig();
         globalConfig.setJavaPlace(javaProject + "\\service-cms");
         globalConfig.setReactPlace(reactProject);
+        globalConfig.setController(false);
         globalConfig.setMenuParent("manage");
         globalConfig.setEntitySuperClass(AuthEntity.class);
         //备注字段列表不显示
@@ -139,12 +144,14 @@ class GenerateTest {
         GlobalConfig globalConfig = GlobalConfig.defaultConfig();
         globalConfig.setJavaPlace(javaProject + "\\service-cms");
         globalConfig.setSwagger(false);
+        globalConfig.setController(false);
         service.generate(globalConfig, "cms_auth_option");
     }
     void cms_auth_menu() throws IOException, TemplateException {
         GlobalConfig globalConfig = GlobalConfig.defaultConfig();
         globalConfig.setJavaPlace(javaProject + "\\service-cms");
         globalConfig.setSwagger(false);
+        globalConfig.setController(false);
         service.generate(globalConfig, "cms_auth_menu");
     }
 
@@ -169,6 +176,7 @@ class GenerateTest {
         GlobalConfig globalConfig = GlobalConfig.defaultConfig();
         globalConfig.setJavaPlace(javaProject + "\\service-cms");
         globalConfig.setReactPlace(reactProject);
+        globalConfig.setController(false);
         globalConfig.setMenuParent("manage");
         globalConfig.setEntitySuperClass(AuthEntity.class);
         //备注字段列表不显示
@@ -209,6 +217,7 @@ class GenerateTest {
         GlobalConfig globalConfig = GlobalConfig.defaultConfig();
         globalConfig.setJavaPlace(javaProject + "\\service-cms");
         globalConfig.setReactPlace(reactProject);
+        globalConfig.setController(false);
         globalConfig.setMenuParent("manage");
         globalConfig.setEntitySuperClass(AuthEntity.class);
         //备注字段列表不显示
