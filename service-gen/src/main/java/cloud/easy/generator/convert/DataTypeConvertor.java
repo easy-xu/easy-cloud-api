@@ -1,5 +1,7 @@
 package cloud.easy.generator.convert;
 
+import cloud.easy.generator.config.db.ColumnInfo;
+
 /**
  * DataTypeConvertor
  *
@@ -23,4 +25,11 @@ public interface DataTypeConvertor {
      * @return Js类型
      */
     String columnTypeToJsType(String columnType);
+    /**
+     * 根据字段信息推断Js类型
+     *
+     * @param column 字段信息
+     * @return Js类型
+     */
+    String columnTypeToJsType(ColumnInfo column);
 }

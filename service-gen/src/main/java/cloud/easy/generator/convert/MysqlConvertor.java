@@ -1,5 +1,7 @@
 package cloud.easy.generator.convert;
 
+import cloud.easy.generator.config.db.ColumnInfo;
+
 /**
  * MysqlConvertor
  *
@@ -49,6 +51,14 @@ public class MysqlConvertor implements DataTypeConvertor {
             default:
                 return "string";
         }
+    }
+
+    @Override
+    public String columnTypeToJsType(ColumnInfo column) {
+        if (column.getMaxLength()>300){
+            return "textarea";
+        }
+        return columnTypeToJsType(column.getDataType());
     }
 
 }

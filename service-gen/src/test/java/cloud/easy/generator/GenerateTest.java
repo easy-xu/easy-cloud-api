@@ -45,6 +45,17 @@ class GenerateTest {
         cms_user();
         cms_user_role();
         cms_user_group();
+        sys_code_map();
+
+    }
+    @Test
+    void sys_code_map() throws IOException, TemplateException {
+        GlobalConfig globalConfig = GlobalConfig.defaultConfig();
+        globalConfig.setJavaPlace(javaProject + "\\service-cms");
+        globalConfig.setReactPlace(reactProject);
+        globalConfig.setMenuParent("data");
+        globalConfig.setEntitySuperClass(AuthEntity.class);
+        service.generate(globalConfig, "sys_code_map");
     }
 
     @Test
@@ -263,7 +274,7 @@ class GenerateTest {
         GlobalConfig globalConfig = GlobalConfig.defaultConfig();
         globalConfig.setJavaPlace(javaProject + "\\service-cms");
         globalConfig.setReactPlace(reactProject);
-        globalConfig.setMenuParent("system");
+        globalConfig.setMenuParent("query");
         globalConfig.setAdd(false);
         globalConfig.setEdit(false);
         globalConfig.setDelete(false);

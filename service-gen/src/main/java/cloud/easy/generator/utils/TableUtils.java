@@ -106,7 +106,7 @@ public class TableUtils {
         String fieldName = TableUtils.column2field(column.getName());
         //类型转换
         ColumnType javaType = convertor.columnTypeToJavaType(dbType);
-        String jsType = convertor.columnTypeToJsType(dbType);
+        String jsType = convertor.columnTypeToJsType(column);
         String initial = column.getInitial();
         if ("NULL".equals(initial)) {
             initial = null;

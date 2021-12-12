@@ -1,6 +1,7 @@
 package cloud.easy.cms.entity;
 
 import cloud.easy.base.entity.AuthEntity;
+import cloud.easy.validation.LimitedValue;
 import cloud.easy.validation.UniqueField;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -69,20 +70,21 @@ public class CmsUser extends AuthEntity {
     /**
      * 用户邮箱
      */
-    @Pattern(regexp = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$", message = "用户邮箱格式不正确")
     @Length(max = 50, message = "用户邮箱长度不能超过50")
+    @Pattern(regexp = "^(13[0-9]|14[5|7]|15[0-9]|18[0-9])\\d{8}$", message = "用户邮箱格式不正确")
     @ApiModelProperty("用户邮箱")
     private String email;
     /**
      * 手机号码
      */
-    @Pattern(regexp = "^(13[0-9]|14[5|7]|15[0-9]|18[0-9])\\d{8}$", message = "手机号码格式不正确")
     @Length(max = 11, message = "手机号码长度不能超过11")
+    @Pattern(regexp = "^(13[0-9]|14[5|7]|15[0-9]|18[0-9])\\d{8}$", message = "手机号码格式不正确")
     @ApiModelProperty("手机号码")
-    private String phoneNumber;
+    private String phone;
     /**
      * 用户性别
      */
+    @LimitedValue(values = {"F", "M", "N"}, message = "用户性别取值不正确")
     @ApiModelProperty("用户性别")
     private String sex;
     /**

@@ -10,7 +10,7 @@ import java.lang.annotation.*;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD})
-@Constraint(validatedBy = {UniqueFieldValidator.class})
+@Constraint(validatedBy = {LimitedValueValidator.class})
 public @interface LimitedValue {
 	
 	// 校验未通过时的返回信息

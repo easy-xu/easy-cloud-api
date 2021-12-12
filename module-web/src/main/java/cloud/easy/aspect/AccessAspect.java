@@ -2,8 +2,6 @@ package cloud.easy.aspect;
 
 
 import cloud.easy.annotation.NonStandardRequest;
-import cloud.easy.sys.entity.SysApiLog;
-import cloud.easy.sys.service.ISysApiLogService;
 import cloud.easy.base.mapper.BaseMapperCust;
 import cloud.easy.device.ApiHeaderHelper;
 import cloud.easy.entity.ApiHeader;
@@ -11,6 +9,8 @@ import cloud.easy.entity.HttpResponse;
 import cloud.easy.exception.BaseException;
 import cloud.easy.exception.RequestException;
 import cloud.easy.idgenerator.IDGeneratorInstance;
+import cloud.easy.sys.entity.SysApiLog;
+import cloud.easy.sys.service.ISysApiLogService;
 import cloud.easy.utils.BeanUtils;
 import cloud.easy.utils.Timer;
 import cloud.easy.utils.UserTokenUtils;
@@ -23,6 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.core.annotation.Order;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -122,6 +123,10 @@ public class AccessAspect {
         if (ex instanceof BaseException) {
             log.error(ex.getMessage());
             return HttpResponse.error(((BaseException) ex).getCode(), ex.getMessage());
+        }
+        if (ex instanceof DataAccessException) {
+            log.error(ex.getMessage(), ex);
+            return HttpResponse.error(500, "数据库访问异常");
         }
         log.error(ex.getMessage(), ex);
         return HttpResponse.error(500, ex.getMessage());

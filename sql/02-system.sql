@@ -46,7 +46,7 @@ INSERT INTO `cloud`.`cms_menu`(`id`, `name`, `code`, `parent_id`, `order_num`, `
 INSERT INTO `cloud`.`cms_menu`(`id`, `name`, `code`, `parent_id`, `order_num`, `component`, `type`, `visible`, `icon`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (9, '分组管理', 'group', 1, 4, NULL, 'M', '0', '', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-15 21:20:10', 'U20211013000001', '2021-10-15 21:20:46', NULL);
 INSERT INTO `cloud`.`cms_menu`(`id`, `name`, `code`, `parent_id`, `order_num`, `component`, `type`, `visible`, `icon`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (10, '知识图谱', 'knowledge', 0, 10, NULL, 'F', '0', 'DashboardOutlined', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-24 16:35:40', 'U20211018000106', '2021-12-04 10:22:16', NULL);
 INSERT INTO `cloud`.`cms_menu`(`id`, `name`, `code`, `parent_id`, `order_num`, `component`, `type`, `visible`, `icon`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (11, '节点管理', 'node', 10, 1, NULL, 'M', '0', '', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-10-24 16:36:20', 'U20211018000106', '2021-10-25 09:43:51', NULL);
-INSERT INTO `cloud`.`cms_menu`(`id`, `name`, `code`, `parent_id`, `order_num`, `component`, `type`, `visible`, `icon`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (13, '系统查询', 'system', 0, 3, NULL, 'F', '0', 'DatabaseOutlined', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-11-30 17:09:26', 'U20211018000106', '2021-12-04 10:22:45', NULL);
+INSERT INTO `cloud`.`cms_menu`(`id`, `name`, `code`, `parent_id`, `order_num`, `component`, `type`, `visible`, `icon`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (13, '系统查询', 'query', 0, 3, NULL, 'F', '0', 'DatabaseOutlined', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-11-30 17:09:26', 'U20211018000106', '2021-12-04 10:22:45', NULL);
 INSERT INTO `cloud`.`cms_menu`(`id`, `name`, `code`, `parent_id`, `order_num`, `component`, `type`, `visible`, `icon`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (14, '接口查询', 'apilog', 13, 0, NULL, 'M', '0', '', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-11-30 17:10:22', 'U20211018000106', '2021-11-30 17:27:07', NULL);
 INSERT INTO `cloud`.`cms_menu`(`id`, `name`, `code`, `parent_id`, `order_num`, `component`, `type`, `visible`, `icon`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (15, '操作查询', 'optionlog', 13, 1, NULL, 'M', '0', '', '0', 1, 'w', 'r', 'r', 'U20211018000106', '2021-11-30 17:10:52', 'U20211018000106', '2021-11-30 17:10:52', NULL);
 INSERT INTO `cloud`.`cms_menu`(`id`, `name`, `code`, `parent_id`, `order_num`, `component`, `type`, `visible`, `icon`, `deleted`, `group_id`, `own_mode`, `group_mode`, `other_mode`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (16, '批处理管理', 'job', 0, 2, NULL, 'F', '0', 'CalendarOutlined', '0', NULL, 'w', 'r', '-', 'U20211018000106', '2021-12-04 10:23:50', 'U20211018000106', '2021-12-04 10:27:21', NULL);
@@ -442,6 +442,33 @@ ALTER TABLE `sys_option_log`
     ADD INDEX `index_device_no` (`device_no`) USING BTREE;
 ALTER TABLE `sys_option_log`
     ADD INDEX `index_user_no` (`user_no`) USING BTREE;
+
+-- ----------------------------
+-- 字典表
+-- ----------------------------
+drop table if exists sys_code_map;
+create table sys_code_map
+(
+    id          bigint(20)   not null auto_increment comment '码表ID',
+    code_name   varchar(100)  not null comment '字典名称',
+    code_value  varchar(100) not null comment '字典取值',
+    code_type   varchar(30) not null comment '字典分类',
+    order_num   int(4)       default 0 comment '显示顺序',
+    deleted     char(1)      default '0' comment '逻辑删除(0:正常, 1:停用)',
+    group_id     bigint(20) comment '数据分组',
+    own_mode     char(1)    default 'w' comment '所有者权限(-:不可读写, r:可读, w:可读可写)',
+    group_mode   char(1)    default 'r' comment '同分组权限(-:不可读写, r:可读, w:可读可写)',
+    other_mode   char(1)    default 'r' comment '其他分组权限(-:不可读写, r:可读, w:可读可写)',
+    create_by   varchar(60) comment '创建者',
+    create_time datetime comment '创建时间',
+    update_by   varchar(60) comment '更新者',
+    update_time datetime comment '更新时间',
+    remark      varchar(500) default null comment '备注',
+    primary key (id)
+) engine = innodb
+  auto_increment = 1 comment = '字典表';
+ALTER TABLE `sys_code_map`
+  ADD UNIQUE INDEX `unique_code`(`code_type`,`code_value`) USING BTREE;
 
 -- ----------------------------
 -- 自增序列配置表

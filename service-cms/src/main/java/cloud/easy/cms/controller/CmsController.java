@@ -7,12 +7,14 @@ import cloud.easy.cms.dto.UserDto;
 import cloud.easy.cms.service.CmsService;
 import cloud.easy.cms.service.UserService;
 import cloud.easy.device.ApiHeaderHelper;
-import cloud.easy.entity.ApiHeader;
 import cloud.easy.entity.ApiResponse;
 import cloud.easy.entity.HttpResponse;
 import io.swagger.annotations.Api;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -37,9 +39,9 @@ public class CmsController {
     private UserService userService;
 
     @PostMapping("/menu/tree")
-    public ApiResponse tree() {
-        ApiHeader header = ApiHeaderHelper.get();
-        String userNo = header.getUserNo();
+    public ApiResponse tree(@RequestBody UserDto userDto) {
+        //指定UserNO查询已配置菜单，配置界面不指定UserNo, 显示全部
+        String userNo = userDto.getUserNo();
         List<MenuDto> tree = cmsService.tree(userNo);
         return HttpResponse.ok(tree);
     }

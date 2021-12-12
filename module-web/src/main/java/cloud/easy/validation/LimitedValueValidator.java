@@ -25,6 +25,11 @@ public class LimitedValueValidator implements ConstraintValidator<LimitedValue, 
     @SneakyThrows
     @Override
     public boolean isValid(Object value, ConstraintValidatorContext context) {
+        //枚举类型不用校验
+        if (value instanceof Enum) {
+            return true;
+        }
+        //校验字符串类型
         List<String> list = Arrays.asList(values);
         return list.contains(String.valueOf(value));
     }
