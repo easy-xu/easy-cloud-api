@@ -3,4 +3,5 @@ dependencies {
     implementation project(':module-web')
     implementation project(':module-datasource')
     implementation project(':module-id-generator')
+    implementation project(':module-job')
 }

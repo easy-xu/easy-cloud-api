@@ -14,4 +14,5 @@ include 'cloud-gateway'
 include 'service-message'
 include 'service-job'
 include 'service-all'
+include 'module-job'
 
