@@ -1,8 +1,8 @@
 package cloud.easy.job.invoker;
 
-import cloud.easy.job.IJob;
+import cloud.easy.job.data.SpringJobData;
+import cloud.easy.job.service.IJobService;
 import cloud.easy.utils.SpringUtils;
-import org.springframework.stereotype.Component;
 
 /**
  * SpringJobTarget
@@ -10,12 +10,15 @@ import org.springframework.stereotype.Component;
  * @author xu honglin
  * @date 2021/12/12 20:28
  */
-@Component
-public class SpringJobInvoker implements JobInvoker{
+public class SpringJobInvoker extends JobInvoker<SpringJobData> {
+
+    public SpringJobInvoker(SpringJobData jobData) {
+        super(jobData);
+    }
 
     @Override
-    public void invoke(String name, String... args) {
-        IJob job = SpringUtils.getBean(name, IJob.class);
-        job.run(args);
+    public void invoke() {
+        IJobService job = SpringUtils.getBean(jobData.getBeanName(), IJobService.class);
+        job.run(jobData.getArgs());
     }
 }

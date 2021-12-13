@@ -1,4 +1,4 @@
-package cloud.easy.job;
+package cloud.easy.job.service;
 
 /**
  * IJob
@@ -6,7 +6,7 @@ package cloud.easy.job;
  * @author xu honglin
  * @date 2021/12/12 21:55
  */
-public interface IJob {
+public interface IJobService {
     /**
      * 执行任务
      * @param args 参数

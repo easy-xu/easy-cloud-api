@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
  * @version 1.0
  * @date 2018/8/17 16:30 首次创建
  * @date 2018/8/17 16:30 最后修改
- * @copyright 中科软科技股份有限公司
  */
 @Component
 public class SpringUtils implements ApplicationContextAware {
