@@ -98,7 +98,7 @@ configure(serviceProjects + gatewayProjects) { service ->
     //拷贝配置文件
     def resourcesPath = projectDir.getPath() + '/build/resources/main'
     classes.doLast {
-        println 'copy config file'
+        println '> Task :' + service.name + ':copy config file'
         copy {
             from configPath
             into resourcesPath

@@ -1,6 +1,6 @@
 package cloud.easy.job.jobservice;
 
-import cloud.easy.job.service.IJobService;
+import cloud.easy.job.invoker.SpringJobInvoker;
 import cloud.easy.job.service.JobService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @JobService("test")
-public class TestJobService implements IJobService {
+public class TestJobService implements SpringJobInvoker.Job {
 
     @Override
     public void run(String... args) {

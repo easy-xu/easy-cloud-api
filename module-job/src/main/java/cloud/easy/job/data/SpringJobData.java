@@ -20,6 +20,6 @@ public class SpringJobData extends JobData {
     /**
      * 执行参数
      */
-    private String[] args;
+    private String argStr;
 
 }

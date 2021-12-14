@@ -8,10 +8,9 @@ create table job_config
     id           bigint(20)  not null auto_increment comment '主键',
     name         varchar(60) not null comment '任务名称',
     cron         varchar(60) not null comment '周期表达式',
+    invoker      char(1)     not null comment '处理器',
     bean_name    varchar(60) comment '任务类名',
-    method_name  varchar(60) comment '任务方法名',
-    params       varchar(500) comment '任务参数',
-    last_trigger datetime comment '最后触发时间',
+    params       varchar(500)comment '任务参数',
     deleted      char(1)    default '0' comment '逻辑删除(0:正常, 1:停用)',
     group_id     bigint(20) comment '数据分组',
     own_mode     char(1)    default 'w' comment '所有者权限(-:不可读写, r:可读, w:可读可写)',
@@ -23,7 +22,7 @@ create table job_config
     update_time  datetime comment '更新时间',
     primary key (id)
 ) engine = innodb
-  auto_increment = 1 comment = '任务表';
+  auto_increment = 1 comment = '任务配置表';
 
   -- ----------------------------
   -- 任务日志表

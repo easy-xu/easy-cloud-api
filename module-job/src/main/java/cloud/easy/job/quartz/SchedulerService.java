@@ -1,8 +1,9 @@
 package cloud.easy.job.quartz;
 
 import cloud.easy.job.constant.JobConstant;
-import cloud.easy.job.exception.JobException;
 import cloud.easy.job.data.JobData;
+import cloud.easy.job.data.TriggerDto;
+import cloud.easy.job.exception.JobException;
 import cloud.easy.job.invoker.JobInvoker;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.*;
@@ -22,7 +23,7 @@ public class SchedulerService {
     @Resource
     Scheduler scheduler;
 
-    public void scheduleJob(JobInvoker jobInvoker) {
+    public void scheduleJob(JobInvoker<? extends JobData> jobInvoker) {
         JobData jobData = jobInvoker.getJobData();
         String identity = jobData.getIdentity();
         try {
@@ -65,6 +66,49 @@ public class SchedulerService {
             e.printStackTrace();
             log.error(e.getMessage(), e);
             throw new JobException(400, "开启任务异常:" + e.getMessage(), e);
+        }
+    }
+
+    public Trigger.TriggerState getJobTriggerState(String jobIdentity) {
+        try {
+            TriggerKey triggerKey = new TriggerKey(jobIdentity);
+            return scheduler.getTriggerState(triggerKey);
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+            log.error(e.getMessage(), e);
+            throw new JobException(400, "获取任务异常:" + e.getMessage(), e);
+        }
+    }
+
+    public Trigger getJobTrigger(String jobIdentity) {
+        try {
+            TriggerKey triggerKey = new TriggerKey(jobIdentity);
+            return scheduler.getTrigger(triggerKey);
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+            log.error(e.getMessage(), e);
+            throw new JobException(400, "获取任务异常:" + e.getMessage(), e);
+        }
+    }
+
+    public TriggerDto getJobTriggerDto(String jobIdentity) {
+        TriggerDto triggerDto = new TriggerDto();
+        try {
+            TriggerKey triggerKey = new TriggerKey(jobIdentity);
+            Trigger trigger = scheduler.getTrigger(triggerKey);
+            Trigger.TriggerState triggerState = scheduler.getTriggerState(triggerKey);
+            if (trigger != null) {
+                triggerDto.setStartTime(trigger.getStartTime());
+                triggerDto.setEndTime(trigger.getEndTime());
+                triggerDto.setPreviousFireTime(trigger.getPreviousFireTime());
+                triggerDto.setNextFireTime(trigger.getNextFireTime());
+            }
+            triggerDto.setState(triggerState.name());
+            return triggerDto;
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+            log.error(e.getMessage(), e);
+            throw new JobException(400, "获取任务异常:" + e.getMessage(), e);
         }
     }
 }

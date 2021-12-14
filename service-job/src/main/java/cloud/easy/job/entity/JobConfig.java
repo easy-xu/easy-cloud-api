@@ -1,14 +1,16 @@
 package cloud.easy.job.entity;
 
+import cloud.easy.base.entity.AuthEntity;
+import cloud.easy.job.data.TriggerDto;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import cloud.easy.base.entity.AuthEntity;
-import java.time.LocalDateTime;
-import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * 任务实体类
@@ -56,10 +58,10 @@ public class JobConfig extends AuthEntity {
     @Length(max = 500, message = "任务参数长度不能超过500")
     @ApiModelProperty("任务参数")
     private String params;
-    /**
-     * 最后触发时间
-     */
-    @ApiModelProperty("最后触发时间")
-    private LocalDateTime lastTrigger;
+
+
+    @ApiModelProperty(hidden = true)
+    @TableField(exist = false)
+    private TriggerDto trigger;
 
 }

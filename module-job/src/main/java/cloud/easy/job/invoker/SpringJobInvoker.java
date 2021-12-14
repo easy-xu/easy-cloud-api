@@ -1,7 +1,6 @@
 package cloud.easy.job.invoker;
 
 import cloud.easy.job.data.SpringJobData;
-import cloud.easy.job.service.IJobService;
 import cloud.easy.utils.SpringUtils;
 
 /**
@@ -18,7 +17,20 @@ public class SpringJobInvoker extends JobInvoker<SpringJobData> {
 
     @Override
     public void invoke() {
-        IJobService job = SpringUtils.getBean(jobData.getBeanName(), IJobService.class);
-        job.run(jobData.getArgs());
+        Job job = SpringUtils.getBean(jobData.getBeanName(), Job.class);
+        String argStr = jobData.getArgStr();
+        if (argStr != null) {
+            job.run(argStr.split(","));
+        } else {
+            job.run();
+        }
+    }
+
+    public interface Job {
+        /**
+         * 执行任务
+         * @param args 参数
+         */
+        void run(String...args);
     }
 }

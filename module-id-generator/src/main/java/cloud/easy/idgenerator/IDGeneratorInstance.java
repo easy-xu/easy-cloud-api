@@ -32,7 +32,8 @@ public enum IDGeneratorInstance implements IDGenerator {
     DEVICE_NO(new IDGeneratorBuilder().append(new ConstantStringGenerator("D"))
             .append(new DateTimeGenerator("yyyyMMdd"))
             .append(new FixedStringPlusGenerator(new SequenceNumPlusGenerator("device_no", new DateTimeGenerator("yyyyMMdd"), 100), 6, "0"))),
-    ;
+   ;
+
 
 
     private IDGenerator idGenerator;
