@@ -9,7 +9,7 @@ package cloud.easy.constant;
  */
 public class ApiHeaderTag {
     public static final String REQUEST_ID = "requestId";
-    public static final String REQUEST_PATH = "requestPath";
+    public static final String REQUEST_NAME = "requestName";
     public static final String REQUEST_IP = "requestIp";
     public static final String USER_NO = "userNo";
     public static final String DEVICE_NO = "deviceNo";

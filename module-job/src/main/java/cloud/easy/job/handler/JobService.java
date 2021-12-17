@@ -1,4 +1,4 @@
-package cloud.easy.job.service;
+package cloud.easy.job.handler;
 
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.stereotype.Component;

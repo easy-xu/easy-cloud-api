@@ -1,4 +1,4 @@
-package cloud.easy.job.data;
+package cloud.easy.job.dto;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -20,6 +20,6 @@ public class SpringJobData extends JobData {
     /**
      * 执行参数
      */
-    private String argStr;
+    private String params;
 
 }

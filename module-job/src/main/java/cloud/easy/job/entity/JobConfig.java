@@ -1,7 +1,8 @@
 package cloud.easy.job.entity;
 
 import cloud.easy.base.entity.AuthEntity;
-import cloud.easy.job.data.TriggerDto;
+import cloud.easy.job.dto.TriggerDto;
+import cloud.easy.validation.LimitedValue;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
@@ -13,14 +14,14 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotNull;
 
 /**
- * 任务实体类
+ * 任务配置实体类
  *
  * @author generator
  * @since 2021-12-11
  */
 @Data
 @TableName("job_config")
-@ApiModel(value = "JobConfig", description = "任务实体类")
+@ApiModel(value = "JobConfig", description = "任务配置实体类")
 @EqualsAndHashCode(callSuper = true)
 public class JobConfig extends AuthEntity {
 
@@ -41,17 +42,17 @@ public class JobConfig extends AuthEntity {
     @ApiModelProperty("周期表达式")
     private String cron;
     /**
+     * 处理器
+     */
+    @LimitedValue(values = {"SpringJobInvoker"}, message = "处理器取值不正确")
+    @ApiModelProperty("处理器")
+    private String invoker;
+    /**
      * 任务类名
      */
     @Length(max = 60, message = "任务类名长度不能超过60")
     @ApiModelProperty("任务类名")
     private String beanName;
-    /**
-     * 任务方法名
-     */
-    @Length(max = 60, message = "任务方法名长度不能超过60")
-    @ApiModelProperty("任务方法名")
-    private String methodName;
     /**
      * 任务参数
      */

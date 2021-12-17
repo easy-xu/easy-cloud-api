@@ -1,7 +1,7 @@
 package cloud.easy.job.jobservice;
 
-import cloud.easy.job.invoker.SpringJobInvoker;
-import cloud.easy.job.service.JobService;
+import cloud.easy.job.handler.SpringJobHandler;
+import cloud.easy.job.handler.JobService;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -12,12 +12,12 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @JobService("test")
-public class TestJobService implements SpringJobInvoker.Job {
+public class TestJobService implements SpringJobHandler.Job {
 
     @Override
-    public void run(String... args) {
-        for (String arg : args) {
-            log.info("{}", arg);
+    public void run(String... params) {
+        for (String param : params) {
+            log.info("{}", param);
         }
     }
 

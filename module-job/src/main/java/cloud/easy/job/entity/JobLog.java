@@ -1,13 +1,16 @@
 package cloud.easy.job.entity;
 
 import cloud.easy.base.entity.BaseEntity;
-import cloud.easy.validation.LimitedValue;
+import cloud.easy.job.enums.ExecCodeEnum;
+import cloud.easy.job.enums.LogTypeEnum;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -33,22 +36,28 @@ public class JobLog extends BaseEntity {
     @ApiModelProperty("任务")
     private String jobId;
     /**
+     * 任务
+     */
+    @NotNull(message = "任务流水号不能为空")
+    @ApiModelProperty("任务流水号")
+    private String requestId;
+    /**
      * 日志分类
      */
-    @LimitedValue(values = {"S", "U"}, message = "日志分类取值不正确")
     @ApiModelProperty("日志分类")
-    private String type;
+    private LogTypeEnum type;
     /**
      * 执行时间
      */
     @ApiModelProperty("执行时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime execTime;
     /**
      * 执行结果
      */
-    @LimitedValue(values = {"0", "1"}, message = "执行结果取值不正确")
     @ApiModelProperty("执行结果")
-    private String execCode;
+    private ExecCodeEnum execCode;
     /**
      * 执行结果描述
      */

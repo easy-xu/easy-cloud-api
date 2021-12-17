@@ -1,19 +1,19 @@
 package cloud.easy.job.controller;
 
-import cloud.easy.entity.ApiResponse;
-import cloud.easy.base.dto.PrimaryKeyDto;
-import cloud.easy.base.dto.PageQueryDto;
 import cloud.easy.annotation.Option;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
-import io.swagger.annotations.Api;
+import cloud.easy.base.controller.BaseController;
+import cloud.easy.base.dto.PageQueryDto;
+import cloud.easy.base.dto.PrimaryKeyDto;
+import cloud.easy.entity.ApiResponse;
 import cloud.easy.job.entity.JobLog;
 import cloud.easy.job.service.IJobLogService;
-import cloud.easy.base.controller.BaseController;
-
-import static cloud.easy.base.utils.BaseUtil.notRequireId;
-import static cloud.easy.base.utils.BaseUtil.requireId;
+import io.swagger.annotations.Api;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 任务日志控制器

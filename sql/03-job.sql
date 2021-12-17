@@ -8,7 +8,7 @@ create table job_config
     id           bigint(20)  not null auto_increment comment '主键',
     name         varchar(60) not null comment '任务名称',
     cron         varchar(60) not null comment '周期表达式',
-    invoker      char(1)     not null comment '处理器',
+    invoker      varchar(30) not null comment '处理器',
     bean_name    varchar(60) comment '任务类名',
     params       varchar(500)comment '任务参数',
     deleted      char(1)    default '0' comment '逻辑删除(0:正常, 1:停用)',
@@ -32,6 +32,7 @@ create table job_config
   (
       id           bigint(20)  not null auto_increment comment '主键',
       job_id       varchar(60) not null comment '任务Id',
+      request_id   varchar(60) not null comment '流水号',
       type         char(1)    default '' comment '日志分类(S:系统, U:用户)',
       exec_time    datetime comment '执行时间',
       exec_code    char(1)    default '0' comment '执行结果(0:正常, 1:异常)',
@@ -45,3 +46,5 @@ create table job_config
     auto_increment = 1 comment = '任务日志表';
 ALTER TABLE job_log
     ADD INDEX `index_job_id` (`job_id`) USING BTREE;
+ALTER TABLE job_log
+    ADD INDEX `index_request_id` (`request_id`) USING BTREE;

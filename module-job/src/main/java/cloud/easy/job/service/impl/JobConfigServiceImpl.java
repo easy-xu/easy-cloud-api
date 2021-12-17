@@ -1,6 +1,6 @@
 package cloud.easy.job.service.impl;
 
-import cloud.easy.job.data.TriggerDto;
+import cloud.easy.job.dto.TriggerDto;
 import cloud.easy.job.entity.JobConfig;
 import cloud.easy.job.mapper.JobConfigMapper;
 import cloud.easy.job.quartz.SchedulerService;

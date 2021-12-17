@@ -1,4 +1,7 @@
 dependencies {
     implementation project(':base-core')
+    implementation project(':module-web')
+    implementation project(':module-datasource')
+    implementation project(':module-id-generator')
     implementation 'org.springframework.boot:spring-boot-starter-quartz:2.6.1'
 }

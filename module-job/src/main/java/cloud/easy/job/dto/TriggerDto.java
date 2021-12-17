@@ -1,4 +1,4 @@
-package cloud.easy.job.data;
+package cloud.easy.job.dto;
 
 import lombok.Data;
 
