@@ -89,6 +89,7 @@ public class BaseController<T extends BaseEntity, S extends IService<T>> {
         Page<T> page = new Page<>(pageDto.getCurrent(), pageDto.getPageSize());
         //查询条件
         QueryWrapper<T> queryWrapper = Wrappers.query(pageQueryDto.getQuery());
+        queryWrapper.orderByDesc("id");
         service.page(page, groupModeAuthQuery(queryWrapper));
         pageDto.setTotal(page.getTotal());
         pageQueryDto.setRecords(page.getRecords());

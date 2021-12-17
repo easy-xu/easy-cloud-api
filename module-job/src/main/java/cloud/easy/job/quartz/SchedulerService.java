@@ -101,7 +101,9 @@ public class SchedulerService {
                 triggerDto.setStartTime(trigger.getStartTime());
                 triggerDto.setEndTime(trigger.getEndTime());
                 triggerDto.setPreviousFireTime(trigger.getPreviousFireTime());
-                triggerDto.setNextFireTime(trigger.getNextFireTime());
+                if (Trigger.TriggerState.NORMAL.equals(triggerState)){
+                    triggerDto.setNextFireTime(trigger.getNextFireTime());
+                }
             }
             triggerDto.setState(triggerState.name());
             return triggerDto;
