@@ -106,12 +106,12 @@ public class SchedulerService {
                 }
             }
             triggerDto.setState(triggerState.name());
-            return triggerDto;
         } catch (SchedulerException e) {
             e.printStackTrace();
             log.error(e.getMessage(), e);
-            throw new JobException(400, "获取任务异常:" + e.getMessage(), e);
+            //throw new JobException(400, "获取任务异常:" + e.getMessage(), e);
         }
+        return triggerDto;
     }
 
     private JobKey getJobKey(String jobIdentity) {
